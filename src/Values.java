@@ -21,6 +21,18 @@ public interface Values {
     int GAME_STATUS_BAR_LENGTH = 100;
     int GAME_STATUS_BAR_WIDTH = 700;
 
+    int PAUSE_BUTTON_X = 25;
+    int PAUSE_BUTTON_Y = 25;
+    int PAUSE_BUTTON_WIDTH = 50;
+    int PAUSE_BUTTON_LENGTH = 50;
+
+    int ENERGY_FIELD_X = 100;
+    int ENERGY_FIELD_Y = 27;
+    int ENERGY_FIELD_WIDTH = 150;
+    int ENERGY_FIELD_LENGTH = 50;
+
+    int ENERGY_LABEL_X = 130;
+    int ENERGY_LABEL_Y = 59;
 
 
 }
