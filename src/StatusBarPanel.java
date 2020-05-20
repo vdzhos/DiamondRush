@@ -8,10 +8,9 @@ import java.awt.geom.Rectangle2D;
 
 public class StatusBarPanel extends JPanel implements MouseListener {
 
-
     private AnimatableImage image = new AnimatableImage("statusBar/statusBar.jpg");
     private AnimatableImage pauseImage = new AnimatableImage("statusBar/pause.png");
-    private AnimatableImage energyLevelImage = new AnimatableImage("statusBar/energyLevel.png");
+    private AnimatableImage energyLevelImage = new AnimatableImage("statusBar/energyLevelEmpty.png");
     private AnimatableImage goldKeyImage = new AnimatableImage("statusBar/goldKey.png");
     private AnimatableImage silverKeyImage =new AnimatableImage( "statusBar/silverKey.png");
     private AnimatableImage redDiamondImage = new AnimatableImage("statusBar/redDiamond.png");
@@ -21,6 +20,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     private Font font = new Font("Times New Roman",Font.BOLD,26);
     private Font fontLevel = new Font("Times New Roman",Font.BOLD,32);
+
 
 
     private int currentEnergyLevel = 500;
@@ -40,6 +40,10 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     private int currentLevel = 1;
 
+    private double progressBarWidth;
+    private Rectangle2D.Double progressBar;
+
+
     public StatusBarPanel(){
         addMouseListener(this);
     }
@@ -48,11 +52,29 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     public void paint(Graphics g){
         drawBackground(g);
         drawPauseButton(g);
+        drawProgressBar(g);
         drawEnergyLevel(g);
         drawLevelLabel(g);
         drawCheckpoint(g);
         drawKeys(g);
         drawDiamonds(g);
+    }
+
+    private void drawProgressBar(Graphics g) {
+        if (currentEnergyLevel >= 400)
+            g.setColor(Color.green);
+        else if (currentEnergyLevel >= 300)
+            g.setColor(new Color(183,226,10));
+        else if (currentEnergyLevel >= 200)
+            g.setColor(new Color(255,157,0));
+        else if (currentEnergyLevel >= 100)
+            g.setColor(new Color(255,90,0));
+        else if (currentEnergyLevel < 100)
+            g.setColor(new Color(255,14,0));
+        progressBarWidth = ((Values.ENERGY_FIELD_WIDTH-5)/(double)(maxEnergyLevel))*currentEnergyLevel;
+        progressBar = new Rectangle2D.Double(Values.PROGRESS_BAR_X,Values.PROGRESS_BAR_Y,progressBarWidth,Values.PROGRESS_BAR_LENGTH);
+        Graphics2D graphics2D = (Graphics2D)g;
+        graphics2D.fill(progressBar);
     }
 
     private void drawLevelLabel(Graphics g) {
@@ -143,6 +165,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
+
     }
 
     public static void main(String[] args){
@@ -152,6 +175,13 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         StatusBarPanel statusBarPanel = new StatusBarPanel();
         f.add(statusBarPanel);
         f.setVisible(true);
+        Timer t = new Timer(1000, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                statusBarPanel.setCurrentEnergyLevel(statusBarPanel.getCurrentEnergyLevel()-5);
+            }
+        });
+        t.start();
     }
 
     public void animate(AnimatableImage image){

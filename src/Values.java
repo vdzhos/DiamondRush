@@ -31,6 +31,10 @@ public interface Values {
     int ENERGY_FIELD_WIDTH = 150;
     int ENERGY_FIELD_LENGTH = 50;
 
+    int PROGRESS_BAR_X = 103;
+    int PROGRESS_BAR_Y = 50;
+    int PROGRESS_BAR_LENGTH = 40;
+
     int ENERGY_X = 200;
     int ENERGY_Y = 50;
     int ENERGY_WIDTH = 45;
