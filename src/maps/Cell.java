@@ -4,6 +4,7 @@ import objects.blocks.Block;
 import objects.harmless.Harmless;
 import objects.traps.Trap;
 
+
 public class Cell {
 
     private Block block;
