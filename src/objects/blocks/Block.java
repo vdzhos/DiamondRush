@@ -1,10 +1,8 @@
 package objects.blocks;
 
-import java.io.File;
+import javax.swing.*;
 
 public interface Block {
-
-    File image();
-    Boolean passable();
-
+    boolean pass();
+    JLabel getLabel();
 }

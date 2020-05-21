@@ -16,4 +16,16 @@ public class Cell {
         this.harmlessObject = harmlessObject;
         this.trapObject = trapObject;
     }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public Harmless getHarmlessObject() {
+        return harmlessObject;
+    }
+
+    public Trap getTrapObject() {
+        return trapObject;
+    }
 }
