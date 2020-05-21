@@ -87,7 +87,12 @@ public interface Values {
     int RED_DIAMOND_LABEL_X = 655;
     int RED_DIAMOND_LABEL_Y = 90;
 
+    // pause menu
+    int PAUSE_MENU_WIDTH = 400;
+    int PAUSE_MENU_LENGTH = 600;
 
+    int PAUSE_MENU_SHIFT_X = 150;
+    int PAUSE_MENU_SHIFT_Y = 110;
 
 
 

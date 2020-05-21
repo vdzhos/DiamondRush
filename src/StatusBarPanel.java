@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
 
 public class StatusBarPanel extends JPanel implements MouseListener {
 
@@ -18,8 +20,10 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     private AnimatableImage checkpointImage = new AnimatableImage("statusBar/checkpoint.png");
     private AnimatableImage energyImage = new AnimatableImage("statusBar/energy.png");
 
-    private Font font = new Font("Times New Roman",Font.BOLD,26);
-    private Font fontLevel = new Font("Times New Roman",Font.BOLD,32);
+    private Font font;
+//    private Font font1 = new Font("Helvetica",Font.BOLD,26);
+    private Font fontLevel = new Font("SansSerif",Font.BOLD,32);
+
 
 
 
@@ -44,8 +48,10 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     private Rectangle2D.Double progressBar;
 
 
-    public StatusBarPanel(){
+    public StatusBarPanel() {
         addMouseListener(this);
+        font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
+        fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
     }
 
 
@@ -59,6 +65,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         drawKeys(g);
         drawDiamonds(g);
     }
+
+
 
     private void drawProgressBar(Graphics g) {
         if (currentEnergyLevel >= 400)
@@ -79,7 +87,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     private void drawLevelLabel(Graphics g) {
         g.setFont(fontLevel);
-        g.drawString("Рівень "+currentLevel,Values.LEVEL_LABEL_X,Values.LEVEL_LABEL_Y);
+        g.drawString("LEVEL  "+currentLevel,Values.LEVEL_LABEL_X,Values.LEVEL_LABEL_Y);
         g.setFont(font);
     }
 
@@ -168,36 +176,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     }
 
-    public static void main(String[] args){
-        JFrame f = new JFrame();
-        f.setSize(700,800);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        StatusBarPanel statusBarPanel = new StatusBarPanel();
-        f.add(statusBarPanel);
-        f.setVisible(true);
-        Timer t = new Timer(1000, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                statusBarPanel.setCurrentEnergyLevel(statusBarPanel.getCurrentEnergyLevel()-5);
-            }
-        });
-        t.start();
-    }
 
-    public void animate(AnimatableImage image){
-        image.image = new ImageIcon("statusBar/"+image.name+"Shade.png").getImage();
-        repaint();
-        Timer t = new Timer(150, null);
-        t.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                image.image = new ImageIcon("statusBar/"+image.name+".png").getImage();
-                StatusBarPanel.this.repaint();
-                t.stop();
-            }
-        });
-        t.start();
-    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -206,20 +185,20 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         Rectangle2D.Double energyLevel = new Rectangle2D.Double(Values.ENERGY_FIELD_X,Values.ENERGY_FIELD_Y,Values.ENERGY_FIELD_WIDTH, Values.ENERGY_FIELD_LENGTH);
         if (pause.contains(e.getX(),e.getY())){
             System.out.println("Pause button");
-            animate(pauseImage);
+            pauseImage.animate(this);
 //            OptionsPanel optionsPanel = new OptionsPanel();
         }
         if (checkpoint.contains(e.getX(),e.getY())){
-            animate(checkpointImage);
+           checkpointImage.animate(this);
             System.out.println("Checkpoint button");
 //            there should be the method that moves boy to the checkpoint
         }
         if (energyLevel.contains(e.getX(),e.getY())){
-            animate(energyLevelImage);
-            animate(energyImage);
+           energyLevelImage.animate(this);
+            energyImage.animate(this);
             System.out.println("Energy button");
 //             BackpackPanel backPanel = new BackPanel();
-       }
+        }
     }
 
     @Override
@@ -241,4 +220,25 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    public static void main(String[] args) {
+        JFrame f = new JFrame();
+        f.setSize(700,800);
+
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        f.setUndecorated(true);
+        StatusBarPanel statusBarPanel = new StatusBarPanel();
+        f.add(statusBarPanel);
+        f.setVisible(true);
+        Timer t = new Timer(1000, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                statusBarPanel.setCurrentEnergyLevel(statusBarPanel.getCurrentEnergyLevel()-5);
+                statusBarPanel.setCurrentNumberOfGoldKeys(statusBarPanel.getCurrentNumberOfGoldKeys()+1);
+            }
+        });
+        t.start();
+    }
+
+
 }
