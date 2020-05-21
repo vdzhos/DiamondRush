@@ -5,15 +5,7 @@ import java.awt.*;
 
 public class Wall implements Block {
 
-    private JLabel wall;
     private ImageIcon image = new ImageIcon("");
-
-    public Wall(){
-        wall = new JLabel();
-        wall.setBackground(Color.GRAY);
-        wall.setOpaque(true);
-        wall.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    }
 
     @Override
     public boolean pass() {
@@ -21,7 +13,8 @@ public class Wall implements Block {
     }
 
     @Override
-    public JLabel getLabel() {
-        return wall;
+    public void paintObject(Graphics2D g2, int x, int y) {
+        g2.setColor(Color.GRAY);
+        g2.fillRect(x,y,70,70);
     }
 }

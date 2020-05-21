@@ -5,15 +5,8 @@ import java.awt.*;
 
 public class SecretWall implements Block{
 
-    private JLabel secretWall;
     private ImageIcon image = new ImageIcon("");
 
-    public SecretWall(){
-        secretWall = new JLabel();
-        secretWall.setBackground(Color.MAGENTA);
-        secretWall.setOpaque(true);
-        secretWall.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    }
 
     @Override
     public boolean pass() {
@@ -21,7 +14,8 @@ public class SecretWall implements Block{
     }
 
     @Override
-    public JLabel getLabel() {
-        return secretWall;
+    public void paintObject(Graphics2D g2, int x, int y) {
+        g2.setColor(Color.MAGENTA);
+        g2.fillRect(x,y,70,70);
     }
 }

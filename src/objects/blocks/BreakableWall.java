@@ -5,24 +5,17 @@ import java.awt.*;
 
 public class BreakableWall implements Block{
 
-    private JLabel breakableWall;
     private ImageIcon[] images = {new ImageIcon(""), new ImageIcon("")};
-
-    public BreakableWall(){
-        breakableWall = new JLabel();
-        breakableWall.setBackground(Color.green);
-        breakableWall.setOpaque(true);
-        breakableWall.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    }
 
     @Override
     public boolean pass() {
-        breakableWall.setIcon(images[1]);
+//        breakableWall.setIcon(images[1]);
         return true;
     }
 
     @Override
-    public JLabel getLabel() {
-        return breakableWall;
+    public void paintObject(Graphics2D g2, int x, int y) {
+        g2.setColor(Color.GREEN);
+        g2.fillRect(x,y,70,70);
     }
 }

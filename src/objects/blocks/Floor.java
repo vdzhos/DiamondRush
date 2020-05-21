@@ -5,23 +5,16 @@ import java.awt.*;
 
 public class Floor implements Block{
 
-    private JLabel floor;
     private ImageIcon image = new ImageIcon("");
-
-    public Floor(){
-        floor = new JLabel();
-        floor.setBackground(Color.ORANGE);
-        floor.setOpaque(true);
-        floor.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    }
 
     @Override
     public boolean pass() {
-            return true;
+        return true;
     }
 
     @Override
-    public JLabel getLabel() {
-        return floor;
+    public void paintObject(Graphics2D g2, int x, int y) {
+        g2.setColor(Color.ORANGE);
+        g2.fillRect(x,y,70,70);
     }
 }
