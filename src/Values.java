@@ -94,6 +94,56 @@ public interface Values {
     int PAUSE_MENU_SHIFT_X = 150;
     int PAUSE_MENU_SHIFT_Y = 110;
 
+    int PAUSED_X = 100;
+    int PAUSED_Y = 10;
+
+    int PAUSED_WIDTH = 200;
+    int PAUSED_LENGTH = 80;
+
+    int RESUME_X = 75;
+    int RESUME_Y = 120;
+
+    int RESUME_WIDTH = 250;
+    int RESUME_LENGTH = 70;
+
+    int RESTART_X = 75;
+    int RESTART_Y = 210;
+
+    int RESTART_WIDTH = 250;
+    int RESTART_LENGTH = 70;
+
+    int GOTOMAP_X = 75;
+    int GOTOMAP_Y = 300;
+
+    int GOTOMAP_WIDTH = 250;
+    int GOTOMAP_LENGTH = 70;
+
+    int SOUND_X = 125;
+    int SOUND_Y = 400;
+
+    int SOUND_WIDTH = 50;
+    int SOUND_LENGTH = 50;
+
+    int MUSIC_X = 225;
+    int MUSIC_Y = 400;
+
+    int MUSIC_WIDTH = 50;
+    int MUSIC_LENGTH = 50;
+
+    int CHEST_X = 70;
+    int CHEST_Y = 360;
+
+    int CHEST_WIDTH = 280;
+    int CHEST_LENGTH = 250;
+
+    // time to wait for previous animation to end
+    int TIME_TO_WAIT = 300;
+
+    // delay for animating blinking buttons
+    int DELAY_FOR_BUTTONS = 150;
+
+
+
 
 
 
