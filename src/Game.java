@@ -1,17 +1,24 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class Game extends JFrame {
 
     public Game(){
-        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH - 20);
+        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Game game = new Game();
                 JPanel panel = new JPanel();
-                Boy boy = new Boy();
+                Timer t = new Timer(20, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        panel.repaint();
+                    }
+                });
+                Boy boy = new Boy(t);
                 game.addKeyListener(boy);
                 boy.start();
                 panel.add(boy);
@@ -19,6 +26,6 @@ public class Game extends JFrame {
                 game.setVisible(true);
             }
         });
-    }
+    }*/
 
 }

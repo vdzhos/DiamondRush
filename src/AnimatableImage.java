@@ -91,21 +91,25 @@ public class AnimatableImage {
         t.start();
     }
 
-    public void animate(JDialog component, String directory,Rectangle2D.Double areaToRepaint){
-        image = new ImageIcon(directory+"/"+name+"Shade.png").getImage();
-        component.repaint((int)areaToRepaint.x,(int)areaToRepaint.y,(int)areaToRepaint.width,(int)areaToRepaint.height);
+    public void animate(JDialog component, String directory,Rectangle2D.Double areaToRepaint) {
+        image = new ImageIcon(directory + "/" + name + "Shade.png").getImage();
+        component.repaint((int) areaToRepaint.x, (int) areaToRepaint.y, (int) areaToRepaint.width, (int) areaToRepaint.height);
         Timer t = new Timer(delay, null);
         t.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                image = new ImageIcon(directory+"/"+name+".png").getImage();
-                component.repaint((int)areaToRepaint.x,(int)areaToRepaint.y,(int)areaToRepaint.width,(int)areaToRepaint.height);
+                image = new ImageIcon(directory + "/" + name + ".png").getImage();
+                component.repaint((int) areaToRepaint.x, (int) areaToRepaint.y, (int) areaToRepaint.width, (int) areaToRepaint.height);
                 t.stop();
             }
         });
         t.start();
     }
 
-
+    public void setImage(String path){
+        File file = new File(path);
+        name = file.getName().split("\\.")[0];
+        this.image = new ImageIcon(path).getImage();
+    }
 
 }
