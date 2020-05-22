@@ -43,6 +43,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if (boy.whatMove == 6) boy.shoveLeftAndStand();
                 else if (boy.whatMove == 7) boy.shoveRightAndMove();
                 else if (boy.whatMove == 8) boy.shoveRightAndStand();
+                else if (boy.whatMove == 9) boy.findInChest();
+                else if (boy.whatMove == 10) boy.holdAStone();
+                else if (boy.whatMove == 11) boy.attackLeft();
+                else if (boy.whatMove == 12) boy.attackRight();
                 repaint();
                 if (boy.i == 7){
                     boy.i = 0;
