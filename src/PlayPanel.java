@@ -10,21 +10,33 @@ import java.awt.event.KeyListener;
 public class PlayPanel extends JPanel implements KeyListener {
 
     private Boy boy;
+    private JPanel panel;
+    private Maps maps;
 
     public PlayPanel(Boy boy) {
+        panel = this;
+        panel.setLayout(null);
         setPreferredSize(new Dimension(2800, 1540));
         this.boy = boy;
+        maps = new Maps();
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        Maps maps = new Maps();
         Cell[][] level1 = maps.getLevel1();
         for (int i = 0; i < level1.length; i++) {
             for (int j = 0; j < level1[i].length; j++) {
                 level1[i][j].getBlock().paintObject(g2,i*70,j*70);
+                if(level1[i][j].getTrapObject()!=null){
+                    JLabel label = level1[i][j].getTrapObject().getLabel();
+                    if(label.getParent()!=panel){
+                        Dimension size = label.getPreferredSize();
+                        label.setBounds(i*70,j*70,size.width,size.height);
+                        add(label);
+                    }
+                }
             }
         }
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);

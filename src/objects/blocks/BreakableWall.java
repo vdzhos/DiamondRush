@@ -15,7 +15,7 @@ public class BreakableWall implements Block{
 
     @Override
     public void paintObject(Graphics2D g2, int x, int y) {
-        g2.setColor(Color.GREEN);
+        g2.setColor(Color.BLUE);
         g2.fillRect(x,y,70,70);
     }
 }

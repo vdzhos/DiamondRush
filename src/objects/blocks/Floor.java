@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Floor implements Block{
 
-    private ImageIcon image = new ImageIcon("");
+    private Image image = new ImageIcon("mapImages/floor.png").getImage();
 
     @Override
     public boolean pass() {
@@ -15,6 +15,6 @@ public class Floor implements Block{
     @Override
     public void paintObject(Graphics2D g2, int x, int y) {
         g2.setColor(Color.ORANGE);
-        g2.fillRect(x,y,70,70);
+        g2.drawImage(image,x,y,70,70,null);
     }
 }

@@ -4,6 +4,7 @@ import objects.blocks.BreakableWall;
 import objects.blocks.Floor;
 import objects.blocks.SecretWall;
 import objects.blocks.Wall;
+import objects.traps.Snake;
 
 public class Maps {
 
@@ -22,6 +23,9 @@ public class Maps {
     }
 
     private void initLevel1(){
+
+        Snake snake1 = new Snake(140,70,true);
+
         //Floor + (Harmless/Trap)
         level1 = new Cell[40][22];
         level1[0][16] = new Cell(new Floor(),null,null);
@@ -66,7 +70,7 @@ public class Maps {
         level1[9][13] = new Cell(new Floor(),null,null);
         level1[9][14] = new Cell(new Floor(),null,null);
         level1[9][15] = new Cell(new Floor(),null,null);
-        level1[9][16] = new Cell(new Floor(),null,null);
+        level1[9][16] = new Cell(new Floor(),null,snake1);
         level1[9][17] = new Cell(new Floor(),null,null);
         level1[9][18] = new Cell(new Floor(),null,null);
         level1[9][19] = new Cell(new Floor(),null,null);
@@ -75,7 +79,7 @@ public class Maps {
         level1[10][13] = new Cell(new Floor(),null,null);
         level1[10][14] = new Cell(new Floor(),null,null);
         level1[10][15] = new Cell(new Floor(),null,null);
-        level1[10][16] = new Cell(new Floor(),null,null);
+        level1[10][16] = new Cell(new Floor(),null,snake1);
         level1[10][17] = new Cell(new Floor(),null,null);
         level1[10][18] = new Cell(new Floor(),null,null);
         level1[11][2] = new Cell(new Floor(),null,null);
