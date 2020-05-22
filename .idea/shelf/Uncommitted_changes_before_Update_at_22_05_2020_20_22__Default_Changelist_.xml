@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Update_at_22_05_2020_20_22_[Default_Changelist]" date="1590168161015" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_05_2020_20_22_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 22.05.2020 20:22 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/PlayPanel.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/PlayPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_05_2020_20_22_[Default_Changelist]/PlayPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/Boy.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/Boy.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_05_2020_20_22_[Default_Changelist]/Boy.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/PlayPanel$1.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/PlayPanel$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_05_2020_20_22_[Default_Changelist]/PlayPanel$1.class" />
+  </binary>
+</changelist>
