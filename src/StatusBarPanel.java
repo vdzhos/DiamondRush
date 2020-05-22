@@ -6,8 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.io.IOException;
 
 public class StatusBarPanel extends JPanel implements MouseListener {
 
@@ -64,7 +62,9 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         pauseMenuDialog = new PauseMenuDialog(frame);
     }
 
-    public void paint(Graphics g){
+    public void paint(Graphics gr){
+        Graphics2D g = (Graphics2D) gr;
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         drawBackground(g);
         drawPauseButton(g);
         drawProgressBar(g);
@@ -203,13 +203,13 @@ public class StatusBarPanel extends JPanel implements MouseListener {
             });
             System.out.println("Pause button");
         }
-        if (checkpoint.contains(point)){
-           checkpointImage.animate(this);
+        else if (checkpoint.contains(point)){
+            checkpointImage.animate(this);
             System.out.println("Checkpoint button");
 //            there should be the method that moves boy to the checkpoint
         }
-        if (energyLevel.contains(point)){
-           energyLevelImage.animate(this);
+        else if (energyLevel.contains(point)){
+            energyLevelImage.animate(this);
             energyImage.animate(this);
             System.out.println("Energy button");
 //             BackpackPanel backPanel = new BackPanel();
@@ -237,14 +237,25 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     }
 
     public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(700,820);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                JFrame f = new JFrame();
+                f.setSize(700,820);
 
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.setUndecorated(true);
-        StatusBarPanel statusBarPanel = new StatusBarPanel(f);
-        f.add(statusBarPanel);
-        f.setVisible(true);
+                f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                f.setUndecorated(true);
+                StatusBarPanel statusBarPanel = new StatusBarPanel(f);
+                f.add(statusBarPanel);
+                f.setVisible(true);
+            }
+        });
+
+
+
+
+
+
+
 //        Timer t = new Timer(1000, new AbstractAction() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {

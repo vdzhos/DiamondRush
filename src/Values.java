@@ -142,6 +142,30 @@ public interface Values {
     // delay for animating blinking buttons
     int DELAY_FOR_BUTTONS = 150;
 
+    //map panel
+    int LEVEL_POINT_SIZE = 90;
+
+    int LEVEL_1_X = 500;
+    int LEVEL_1_Y = 140;
+
+    int LEVEL_2_X = 270;
+    int LEVEL_2_Y = 170;
+
+    int LEVEL_3_X = 100;
+    int LEVEL_3_Y = 380;
+
+    int LEVEL_4_X = 260;
+    int LEVEL_4_Y = 540;
+
+    int LEVEL_5_X = 540;
+    int LEVEL_5_Y = 430;
+
+    int MENU_X = 25;
+    int MENU_Y = 720;
+
+    int MENU_SIZE = 90;
+
+
 
 
 

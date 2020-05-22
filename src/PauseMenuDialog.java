@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 public class PauseMenuDialog extends JDialog implements MouseListener {
 
     private JFrame f;
+    private MapPanel mapPanel;
 
 
     private Image backgroundImage = new ImageIcon("pauseMenu/pauseBackCut1.png").getImage();
@@ -39,9 +40,12 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
         setSize(Values.PAUSE_MENU_WIDTH,Values.PAUSE_MENU_LENGTH);
         setUndecorated(true);
         addMouseListener(this);
+        mapPanel = new MapPanel();
     }
 
-    public void paint(Graphics g){
+    public void paint(Graphics gr){
+        Graphics2D g = (Graphics2D) gr;
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         drawBackground(g);
         drawPaused(g);
         drawResume(g);
@@ -104,7 +108,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
             });
 //            pause window should be closed here
         }
-        if (restart.contains(point)){
+        else if (restart.contains(point)){
             restartImage.animate(this,"pauseMenu",restart);
 //            Util.wait(500, new AbstractAction() {
 //                @Override
@@ -113,16 +117,19 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 //                }
 //            });
         }
-        if (goToMap.contains(point)){
+        else if (goToMap.contains(point)){
             goToMapImage.animate(this,"pauseMenu",goToMap);
-//            Util.wait(300, new AbstractAction() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                                 player goes to map here
-//                }
-//            });
+            Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    PauseMenuDialog.this.setVisible(false);
+                    f.getContentPane().removeAll();
+                    f.getContentPane().add(mapPanel);
+                    f.revalidate();
+                }
+            });
         }
-        if (sound.contains(point)){
+        else if (sound.contains(point)){
             this.sound.animate(this,"pauseMenu",sound);
             if (soundOn){
                 soundOn = false;
@@ -135,7 +142,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
                 repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
             }
         }
-        if (music.contains(point)){
+        else if (music.contains(point)){
             this.music.animate(this,"pauseMenu",music);
             if (musicOn){
                 musicOn = false;
@@ -190,16 +197,16 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 
 
 
-    public static void main(String[] args){
-        JFrame f = new JFrame();
-        f.setSize(700,820);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        PauseMenuDialog p = new PauseMenuDialog(f);
-
-        f.setVisible(true);
-        p.setVisible(true);
-
-    }
+//    public static void main(String[] args){
+//        JFrame f = new JFrame();
+//        f.setSize(700,820);
+//        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        PauseMenuDialog p = new PauseMenuDialog(f);
+//
+//        f.setVisible(true);
+//        p.setVisible(true);
+//
+//    }
 }
 
 
