@@ -1,0 +1,312 @@
+Index: src/AnimatableImage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javax.swing.*;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.io.File;\r\n\r\npublic class AnimatableImage {\r\n\r\n    public Image image;\r\n    public String name;\r\n\r\n    public AnimatableImage(String path){\r\n        File file = new File(path);\r\n        name = file.getName().split(\"\\\\.\")[0];\r\n        this.image = new ImageIcon(path).getImage();\r\n    }\r\n\r\n    public void animate(JComponent component){\r\n        image = new ImageIcon(\"statusBar/\"+name+\"Shade.png\").getImage();\r\n        component.repaint();\r\n        Timer t = new Timer(150, null);\r\n        t.addActionListener(new AbstractAction() {\r\n            @Override\r\n            public void actionPerformed(ActionEvent e) {\r\n                image = new ImageIcon(\"statusBar/\"+name+\".png\").getImage();\r\n                component.repaint();\r\n                t.stop();\r\n            }\r\n        });\r\n        t.start();\r\n    }\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/AnimatableImage.java	(revision 034bb63c2fbe9f4f2d5da2dcf270b5e52565769e)
++++ src/AnimatableImage.java	(date 1590070178445)
+@@ -31,4 +31,87 @@
+ 
+ 
+ 
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++    public void setImage(String path){
++        File file = new File(path);
++        name = file.getName().split("\\.")[0];
++        this.image = new ImageIcon(path).getImage();
++    }
++
+ }
+Index: src/Boy.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javax.imageio.ImageIO;\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.KeyEvent;\r\nimport java.awt.event.KeyListener;\r\nimport java.awt.geom.Rectangle2D;\r\nimport java.io.File;\r\nimport java.io.IOException;\r\n\r\npublic class Boy extends JComponent implements KeyListener, ActionListener {\r\n\r\n    private Image turnRight;\r\n    private int x;\r\n    private int y;\r\n    private int width;\r\n    private int height;\r\n    private Rectangle rect;\r\n    private int cellSide = Values.CELL_SIZE;\r\n    private Timer timer;\r\n\r\n    public Boy(){\r\n        timer = new Timer(20, this);\r\n        this.x = Values.MAIN_WINDOW_WIDTH / 2;\r\n        this.y = Values.MAIN_WINDOW_LENGTH / 2;\r\n        this.width = x + 50;\r\n        this.height = y + 40;\r\n        String filename = \"boy/walk0.png\";\r\n        try {\r\n            turnRight = ImageIO.read(new File(filename));\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n        //setPreferredSize(new Dimension(500, 500));\r\n    }\r\n\r\n    @Override\r\n    public void actionPerformed(ActionEvent e) {\r\n        repaint();\r\n    }\r\n\r\n    @Override\r\n    public void keyTyped(KeyEvent e) { }\r\n\r\n    @Override\r\n    public void keyPressed(KeyEvent e) {\r\n\r\n        if(e.getKeyCode()==KeyEvent.VK_UP){\r\n            moveUp();\r\n        }\r\n        if(e.getKeyCode()==KeyEvent.VK_DOWN){\r\n            moveDown();\r\n        }\r\n        if(e.getKeyCode()==KeyEvent.VK_LEFT){\r\n            moveLeft();\r\n        }\r\n        if(e.getKeyCode()==KeyEvent.VK_RIGHT){\r\n            moveRight();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void keyReleased(KeyEvent e) { }\r\n\r\n    @Override\r\n    protected void paintComponent(Graphics g) {\r\n        Graphics2D g2d = (Graphics2D)g;\r\n        g2d.setColor(Color.blue);\r\n        //g2d.drawRect(x, y, width, height);\r\n        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);\r\n        g2d.scale(0.1, 0.1);\r\n        Rectangle2D re = new Rectangle2D.Double(x, y, width, height);\r\n        g2d.fill(re);\r\n    }\r\n\r\n    private void moveUp() {\r\n        //rect.setBounds(x, y -= cellSide, width, height);\r\n        System.out.println(\"Up\");\r\n        y -= cellSide;\r\n        repaint();\r\n    }\r\n\r\n    private void moveDown() {\r\n        //rect.setBounds(x, y += cellSide, width, height);\r\n        System.out.println(\"Down\");\r\n        y += cellSide;\r\n        repaint();\r\n    }\r\n\r\n    private void moveLeft() {\r\n        //rect.setBounds(x -= cellSide, y, width, height);\r\n        System.out.println(\"Left\");\r\n        x -= cellSide;\r\n        repaint();\r\n    }\r\n\r\n    private void moveRight() {\r\n        //rect.setBounds(x += cellSide, y, width, height);\r\n        System.out.println(\"Right\");\r\n        x += cellSide;\r\n        repaint();\r\n    }\r\n\r\n    public void start() {\r\n        timer.start();\r\n    }\r\n\r\n    public int getX() {\r\n        return x;\r\n    }\r\n\r\n    public void setX(int x) {\r\n        this.x = x;\r\n    }\r\n\r\n    public int getY() {\r\n        return y;\r\n    }\r\n\r\n    public void setY(int y) {\r\n        this.y = y;\r\n    }\r\n\r\n    public int getWidth() {\r\n        return width;\r\n    }\r\n\r\n    public void setWidth(int width) {\r\n        this.width = width;\r\n    }\r\n\r\n    public int getHeight() {\r\n        return height;\r\n    }\r\n\r\n    public void setHeight(int height) {\r\n        this.height = height;\r\n    }\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Boy.java	(revision 034bb63c2fbe9f4f2d5da2dcf270b5e52565769e)
++++ src/Boy.java	(date 1590069678661)
+@@ -1,17 +1,13 @@
+-import javax.imageio.ImageIO;
+ import javax.swing.*;
+ import java.awt.*;
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+ import java.awt.event.KeyEvent;
+ import java.awt.event.KeyListener;
+-import java.awt.geom.Rectangle2D;
+-import java.io.File;
+-import java.io.IOException;
+ 
+ public class Boy extends JComponent implements KeyListener, ActionListener {
+ 
+-    private Image turnRight;
++    private AnimatableImage walking = new AnimatableImage("boy/walkRight7.png");
+     private int x;
+     private int y;
+     private int width;
+@@ -19,19 +15,15 @@
+     private Rectangle rect;
+     private int cellSide = Values.CELL_SIZE;
+     private Timer timer;
++    private PlayPanel playPanel;
+ 
+-    public Boy(){
+-        timer = new Timer(20, this);
+-        this.x = Values.MAIN_WINDOW_WIDTH / 2;
+-        this.y = Values.MAIN_WINDOW_LENGTH / 2;
++    public Boy(PlayPanel playPanel, Timer t, int x, int y){
++        this.playPanel = playPanel;
++        timer = t;
++        this.x = x;
++        this.y = y;
+         this.width = x + 50;
+-        this.height = y + 40;
+-        String filename = "boy/walk0.png";
+-        try {
+-            turnRight = ImageIO.read(new File(filename));
+-        } catch (IOException e) {
+-            e.printStackTrace();
+-        }
++        this.height = y + 70;
+         //setPreferredSize(new Dimension(500, 500));
+     }
+ 
+@@ -66,40 +58,96 @@
+     @Override
+     protected void paintComponent(Graphics g) {
+         Graphics2D g2d = (Graphics2D)g;
+-        g2d.setColor(Color.blue);
+-        //g2d.drawRect(x, y, width, height);
+-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+-        g2d.scale(0.1, 0.1);
+-        Rectangle2D re = new Rectangle2D.Double(x, y, width, height);
+-        g2d.fill(re);
++        //g2d.setColor(Color.blue);
++        g2d.scale(0.5, 0.5);
++        //g.drawImage(walkRight.image,x,y,width,height,null);
++        g2d.drawImage(walking.image,x,y,width,height,null);
++        //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
++        //g2.scale(0.1, 0.1);
++        //Rectangle2D re = new Rectangle2D.Double(x, y, width, height);
++        //g2d.fill(re);
+     }
+ 
+     private void moveUp() {
+-        //rect.setBounds(x, y -= cellSide, width, height);
+         System.out.println("Up");
+-        y -= cellSide;
+-        repaint();
++        y -= cellSide / 2;
++        walking.setImage("boy/walkUp1.png");
++        playPanel.repaint();
++        Timer t = new Timer(200, null);
++        t.addActionListener(new AbstractAction() {
++            @Override
++            public void actionPerformed(ActionEvent e) {
++                y -= cellSide / 2;
++                walking.setImage("boy/walkUp0.png");
++                playPanel.repaint();
++                t.stop();
++            }
++        });
++        t.start();
+     }
+ 
+     private void moveDown() {
+-        //rect.setBounds(x, y += cellSide, width, height);
+         System.out.println("Down");
+-        y += cellSide;
+-        repaint();
++        y += cellSide / 2;
++        walking.setImage("boy/walkDown1.png");
++        playPanel.repaint();
++        Timer t = new Timer(200, null);
++        t.addActionListener(new AbstractAction() {
++            @Override
++            public void actionPerformed(ActionEvent e) {
++                y += cellSide / 2;
++                walking.setImage("boy/walkDown0.png");
++                playPanel.repaint();
++                t.stop();
++            }
++        });
++        t.start();
+     }
+ 
+     private void moveLeft() {
+-        //rect.setBounds(x -= cellSide, y, width, height);
+         System.out.println("Left");
+-        x -= cellSide;
+-        repaint();
++        x -= cellSide / 8;
++        walking.setImage("boy/walkLeft0.png");
++        System.out.println(0);
++        playPanel.repaint();
++        changeImage("boy/walkLeft1.png", false);
++        changeImage("boy/walkLeft2.png", false);
++        changeImage("boy/walkLeft3.png", false);
++        changeImage("boy/walkLeft4.png", false);
++        changeImage("boy/walkLeft5.png", false);
++        changeImage("boy/walkLeft6.png", false);
++        changeImage("boy/walkLeft7.png", false);
+     }
+ 
+     private void moveRight() {
+-        //rect.setBounds(x += cellSide, y, width, height);
+         System.out.println("Right");
+-        x += cellSide;
+-        repaint();
++        x += cellSide / 8;
++        walking.setImage("boy/walkRight0.png");
++        System.out.println(0);
++        playPanel.repaint();
++        changeImage("boy/walkRight1.png", true);
++        changeImage("boy/walkRight2.png", true);
++        changeImage("boy/walkRight3.png", true);
++        changeImage("boy/walkRight4.png", true);
++        changeImage("boy/walkRight5.png", true);
++        changeImage("boy/walkRight6.png", true);
++        changeImage("boy/walkRight7.png", true);
++    }
++
++    private void changeImage(String path, boolean right){
++        playPanel.repaint();
++        Timer t = new Timer(500, null);
++        t.addActionListener(new AbstractAction() {
++            @Override
++            public void actionPerformed(ActionEvent e) {
++                if (right) x += cellSide / 8;
++                else x -= cellSide / 8;
++                walking.setImage(path);
++                playPanel.repaint();
++                t.stop();
++            }
++        });
++        t.start();
+     }
+ 
+     public void start() {
+Index: src/Game.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javax.swing.*;\r\n\r\npublic class Game extends JFrame {\r\n\r\n    public Game(){\r\n        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH - 20);\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        SwingUtilities.invokeLater(new Runnable() {\r\n            public void run() {\r\n                Game game = new Game();\r\n                JPanel panel = new JPanel();\r\n                Boy boy = new Boy();\r\n                game.addKeyListener(boy);\r\n                boy.start();\r\n                panel.add(boy);\r\n                game.getContentPane().add(panel);\r\n                game.setVisible(true);\r\n            }\r\n        });\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Game.java	(revision 034bb63c2fbe9f4f2d5da2dcf270b5e52565769e)
++++ src/Game.java	(date 1590053735463)
+@@ -1,17 +1,24 @@
+ import javax.swing.*;
++import java.awt.event.ActionEvent;
+ 
+ public class Game extends JFrame {
+ 
+     public Game(){
+-        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH - 20);
++        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);
+     }
+ 
+-    public static void main(String[] args) {
++    /*public static void main(String[] args) {
+         SwingUtilities.invokeLater(new Runnable() {
+             public void run() {
+                 Game game = new Game();
+                 JPanel panel = new JPanel();
+-                Boy boy = new Boy();
++                Timer t = new Timer(20, new AbstractAction() {
++                    @Override
++                    public void actionPerformed(ActionEvent e) {
++                        panel.repaint();
++                    }
++                });
++                Boy boy = new Boy(t);
+                 game.addKeyListener(boy);
+                 boy.start();
+                 panel.add(boy);
+@@ -19,6 +26,6 @@
+                 game.setVisible(true);
+             }
+         });
+-    }
++    }*/
+ 
+ }
