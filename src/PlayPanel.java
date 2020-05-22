@@ -40,6 +40,7 @@ public class PlayPanel extends JPanel implements KeyListener {
             }
         }
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
+        //System.out.println(boy.isMoving);
     }
 
     private void moveBoy(){
@@ -57,8 +58,14 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if (boy.whatMove == 8) boy.shoveRightAndStand();
                 else if (boy.whatMove == 9) boy.findInChest();
                 else if (boy.whatMove == 10) boy.holdAStone();
-                else if (boy.whatMove == 11) boy.attackLeft();
-                else if (boy.whatMove == 12) boy.attackRight();
+                else if (boy.whatMove == 11) boy.attackUp();
+                else if (boy.whatMove == 12) boy.attackDown();
+                else if (boy.whatMove == 13) boy.attackLeft();
+                else if (boy.whatMove == 14) boy.attackRight();
+                else if (boy.whatMove == 15) boy.openWithGoldKeyLeft();
+                else if (boy.whatMove == 16) boy.openWithGoldKeyRight();
+                else if (boy.whatMove == 17) boy.openWithSilverKeyLeft();
+                else if (boy.whatMove == 18) boy.openWithSilverKeyRight();
                 repaint();
                 if (boy.i == 7){
                     boy.i = 0;
@@ -77,37 +84,39 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()==KeyEvent.VK_UP){
+        if((e.getKeyCode()==KeyEvent.VK_UP)&&(boy.isMoving == false)){
             boy.whatMove = 1;
-            if (boy.isMoving == false){
-                boy.isMoving = true;
-                moveBoy();
-            }
+            boy.isMoving = true;
+            moveBoy();
         }
-        if(e.getKeyCode()==KeyEvent.VK_DOWN){
+        if((e.getKeyCode()==KeyEvent.VK_DOWN)&&(boy.isMoving == false)){
             boy.whatMove = 2;
-            if (boy.isMoving == false){
-                boy.isMoving = true;
-                moveBoy();
-            }
+            boy.isMoving = true;
+            moveBoy();
         }
-        if(e.getKeyCode()==KeyEvent.VK_LEFT){
+        if((e.getKeyCode()==KeyEvent.VK_LEFT)&&(boy.isMoving == false)){
             boy.whatMove = 3;
             //if stone is left boy.whatMove = 5;
             //if wall is left boy.whatMove = 6;
-            if (boy.isMoving == false){
-                boy.isMoving = true;
-                moveBoy();
-            }
+            boy.isMoving = true;
+            moveBoy();
         }
-        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+        if((e.getKeyCode()==KeyEvent.VK_RIGHT)&&(boy.isMoving == false)){
             boy.whatMove = 4;
             //if stone is right boy.whatMove = 7;
             //if wall is right boy.whatMove = 8;
-            if (boy.isMoving == false){
-                boy.isMoving = true;
-                moveBoy();
-            }
+            boy.isMoving = true;
+            moveBoy();
+        }
+        if((e.getKeyCode()==KeyEvent.VK_SPACE)&&(boy.isMoving == false)){
+            if (boy.currentPicture == boy.walkUp2) boy.whatMove = 11;
+            else if (boy.currentPicture == boy.standClear) boy.whatMove = 12;
+            else if ((boy.currentPicture == boy.standLeft)
+                    ||(boy.currentPicture == boy.walkLeft6)) boy.whatMove = 13;
+            else if ((boy.currentPicture == boy.standRight)
+                    ||(boy.currentPicture == boy.walkRight6)) boy.whatMove = 14;
+            boy.isMoving = true;
+            moveBoy();
         }
     }
 

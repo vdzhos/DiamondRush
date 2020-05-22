@@ -10,9 +10,15 @@ public class Boy {
     int cellSide = Values.CELL_SIZE;
     int whatMove = 0; //Stand = 0; Up = 1; Down = 2; Left = 3; Right = 4;
     //shoveLeftAndMove = 5; shoveLeftAndStand = 6; shoveRightAndMove = 7; shoveRightAndStand = 8;
-    //findInChest = 9; holdAStone = 10; attackLeft = 11; attackRight = 12
+    //findInChest = 9; holdAStone = 10;
+    //attackLeft = 11; attackRight = 12; attackLeft = 13; attackRight = 14;
+    //openWithGoldKeyLeft = 15; openWithGoldKeyRight = 16; openWithSilverKeyLeft = 17; openWithSilverKeyRight = 18;
     boolean isMoving = false;
     int i = 0;
+
+    Image standLeft = new ImageIcon("boy/standLeft.png").getImage();
+    Image standRight = new ImageIcon("boy/standRight.png").getImage();
+    Image standClear = new ImageIcon("boy/standClear.png").getImage();
 
     Image walkUp0 = new ImageIcon("boy/walkUp0.png").getImage();
     Image walkUp1 = new ImageIcon("boy/walkUp1.png").getImage();
@@ -21,9 +27,8 @@ public class Boy {
             walkUp0, walkUp0, walkUp2};
 
     Image walkDown0 = new ImageIcon("boy/walkDown0.png").getImage();
-    Image standRight = new ImageIcon("boy/standRight.png").getImage();
     Image[] arrayDown = {walkDown0, walkDown0, standRight, standRight,
-            walkDown0, walkDown0, standRight};
+            walkDown0, walkDown0, standClear};
 
     Image walkLeft0 = new ImageIcon("boy/walkLeft0.png").getImage();
     Image walkLeft1 = new ImageIcon("boy/walkLeft1.png").getImage();
@@ -48,30 +53,50 @@ public class Boy {
     Image shoveLeft = new ImageIcon("boy/shoveLeft.png").getImage();
     Image shoveRight = new ImageIcon("boy/shoveRight.png").getImage();
     Image[] arrayShoveLeft = {shoveLeft, shoveLeft, shoveLeft, standRight, shoveLeft,
-            shoveLeft, standRight};
+            shoveLeft, standLeft};
     Image[] arrayShoveRight = {shoveRight, shoveRight, shoveRight, standRight,
             shoveRight, shoveRight, standRight};
 
     Image lookInChest = new ImageIcon("boy/lookInChest.png").getImage();
     Image cheer = new ImageIcon("boy/cheer.png").getImage();
-    Image[] arrayFindInChest = {lookInChest, lookInChest, lookInChest, cheer, cheer, cheer, standRight};
+    Image[] arrayFindInChest = {lookInChest, lookInChest, lookInChest, cheer, cheer, cheer, standClear};
 
     Image imHoldAStone = new ImageIcon("boy/holdAStone.png").getImage();
+
+    //images attack up
+    Image[] arrayAttackUp = {};
+    //images attack down
+    Image[] arrayAttackDown = {};
 
     Image attackLeft0 = new ImageIcon("boy/attackLeft0.png").getImage();
     Image attackLeft1 = new ImageIcon("boy/attackLeft1.png").getImage();
     Image attackLeft2 = new ImageIcon("boy/attackLeft2.png").getImage();
     Image[] arrayAttackLeft = {attackLeft0, attackLeft0, attackLeft1, attackLeft1,
-            attackLeft2, attackLeft2, standRight};
+            attackLeft2, attackLeft2, standLeft};
 
     Image attackRight0 = new ImageIcon("boy/attackRight0.png").getImage();
     Image attackRight1 = new ImageIcon("boy/attackRight1.png").getImage();
     Image attackRight2 = new ImageIcon("boy/attackRight2.png").getImage();
-    Image standLeft = new ImageIcon("boy/standLeft.png").getImage();
     Image[] arrayAttackRight = {attackRight0, attackRight0, attackRight1, attackRight1,
-            attackRight2, attackRight2, standLeft};
+            attackRight2, attackRight2, standRight};
 
-    Image currentPicture = walkRight6;
+    Image holdGoldKeyLeft = new ImageIcon("boy/holdGoldKeyLeft.png").getImage();
+    Image[] arrayOpenWithGoldKeyLeft = {holdGoldKeyLeft, holdGoldKeyLeft,
+            holdGoldKeyLeft, holdGoldKeyLeft, cheer, cheer, standLeft};
+
+    Image holdGoldKeyRight = new ImageIcon("boy/holdGoldKeyRight.png").getImage();
+    Image[] arrayOpenWithGoldKeyRight = {holdGoldKeyRight, holdGoldKeyRight,
+            holdGoldKeyRight, holdGoldKeyRight, cheer, cheer, standRight};
+
+    Image holdSilverKeyLeft = new ImageIcon("boy/holdSilverKeyLeft.png").getImage();
+    Image[] arrayOpenWithSilverKeyLeft = {holdSilverKeyLeft, holdSilverKeyLeft,
+            holdSilverKeyLeft, holdSilverKeyLeft, cheer, cheer, standLeft};
+
+    Image holdSilverKeyRight = new ImageIcon("boy/holdSilverKeyRight.png").getImage();
+    Image[] arrayOpenWithSilverKeyRight = {holdSilverKeyRight, holdSilverKeyRight,
+            holdSilverKeyRight, holdSilverKeyRight, cheer, cheer, standRight};
+
+    Image currentPicture = standClear;
 
     public Boy(int x, int y){
         this.x = x;
@@ -136,6 +161,16 @@ public class Boy {
         i++;
     }
 
+    public void attackUp(){
+        currentPicture = arrayAttackUp[i];
+        i++;
+    }
+
+    public void attackDown(){
+        currentPicture = arrayAttackDown[i];
+        i++;
+    }
+
     public void attackLeft(){
         currentPicture = arrayAttackLeft[i];
         i++;
@@ -145,4 +180,26 @@ public class Boy {
         currentPicture = arrayAttackRight[i];
         i++;
     }
+
+    public void openWithGoldKeyLeft(){
+        currentPicture = arrayOpenWithGoldKeyLeft[i];
+        i++;
+    }
+
+    public void openWithGoldKeyRight(){
+        currentPicture = arrayOpenWithGoldKeyRight[i];
+        i++;
+    }
+
+    public void openWithSilverKeyLeft(){
+        currentPicture = arrayOpenWithSilverKeyLeft[i];
+        i++;
+    }
+
+    public void openWithSilverKeyRight(){
+        currentPicture = arrayOpenWithSilverKeyRight[i];
+        i++;
+    }
+
+
 }
