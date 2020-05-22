@@ -4,11 +4,16 @@ import maps.Maps;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class PlayPanel extends JPanel {
+public class PlayPanel extends JPanel implements KeyListener {
 
-    public PlayPanel() {
+    private Boy boy;
+
+    public PlayPanel(Boy boy) {
         setPreferredSize(new Dimension(2800, 1540));
+        this.boy = boy;
     }
 
     @Override
@@ -22,27 +27,90 @@ public class PlayPanel extends JPanel {
                 level1[i][j].getBlock().paintObject(g2,i*70,j*70);
             }
         }
+        g.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
     }
 
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setSize(600, 600);
-
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        PlayPanel playPanel = new PlayPanel();
-        Timer t = new Timer(20, new AbstractAction() {
+    private void moveUpAndDown(){
+        Timer t = new Timer(200, null);
+        t.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playPanel.repaint();
+                if (boy.whatMove == 1){
+                    boy.moveUp();
+                    repaint();
+                    if (boy.iU == 4){
+                        boy.currentPicture = boy.walkUp2;
+                        repaint();
+                        boy.iU = 0;
+                        t.stop();
+                    }
+                }
+                else if (boy.whatMove == 2){
+                    boy.moveDown();
+                    repaint();
+                    if (boy.iD == 4){
+                        boy.iD = 0;
+                        t.stop();
+                    }
+                }
             }
         });
-        Boy boy = new Boy(playPanel, t, 200, 200);
-        f.addKeyListener(boy);
-        boy.start();
-        playPanel.add(boy);
-        f.getContentPane().add(playPanel);
-        f.setVisible(true);
         t.start();
-        ///
+    }
+
+    private void moveRightAndLeft(){
+        Timer t = new Timer(100, null);
+        t.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (boy.whatMove == 3){
+                    boy.moveLeft();
+                    repaint();
+                    if (boy.iL == 8){
+                        boy.iL = 0;
+                        t.stop();
+                    }
+                }
+                else if (boy.whatMove == 4){
+                    boy.moveRight();
+                    repaint();
+                    if (boy.iR == 8){
+                        boy.iR = 0;
+                        t.stop();
+                    }
+                }
+            }
+        });
+        t.start();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()==KeyEvent.VK_UP){
+            boy.whatMove = 1;
+            moveUpAndDown();
+        }
+        if(e.getKeyCode()==KeyEvent.VK_DOWN){
+            boy.whatMove = 2;
+            moveUpAndDown();
+        }
+        if(e.getKeyCode()==KeyEvent.VK_LEFT){
+            boy.whatMove = 3;
+            moveRightAndLeft();
+        }
+        if(e.getKeyCode()==KeyEvent.VK_RIGHT){
+            boy.whatMove = 4;
+            moveRightAndLeft();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

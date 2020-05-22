@@ -1,0 +1,58 @@
+Index: src/Game.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javax.swing.*;\r\nimport java.awt.event.ActionEvent;\r\n\r\npublic class Game extends JFrame {\r\n\r\n    public Game(){\r\n        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);\r\n    }\r\n\r\n    /*public static void main(String[] args) {\r\n        SwingUtilities.invokeLater(new Runnable() {\r\n            public void run() {\r\n                Game game = new Game();\r\n                JPanel panel = new JPanel();\r\n                Timer t = new Timer(20, new AbstractAction() {\r\n                    @Override\r\n                    public void actionPerformed(ActionEvent e) {\r\n                        panel.repaint();\r\n                    }\r\n                });\r\n                Boy boy = new Boy(t);\r\n                game.addKeyListener(boy);\r\n                boy.start();\r\n                panel.add(boy);\r\n                game.getContentPane().add(panel);\r\n                game.setVisible(true);\r\n            }\r\n        });\r\n    }*/\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Game.java	(revision dea57512aefc85c4aeb032b040bf4f91baaa0e39)
++++ src/Game.java	(date 1590082913877)
+@@ -1,31 +1,26 @@
+ import javax.swing.*;
++import java.awt.*;
+ import java.awt.event.ActionEvent;
+ 
+ public class Game extends JFrame {
+ 
+-    public Game(){
+-        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);
++    BoyNotGraphical boy;
++
++    public Game(BoyNotGraphical boy){
++        //setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);
++        this.boy = boy;
++        setSize(600, 600);
+     }
+ 
+-    /*public static void main(String[] args) {
+-        SwingUtilities.invokeLater(new Runnable() {
+-            public void run() {
+-                Game game = new Game();
+-                JPanel panel = new JPanel();
+-                Timer t = new Timer(20, new AbstractAction() {
+-                    @Override
+-                    public void actionPerformed(ActionEvent e) {
+-                        panel.repaint();
+-                    }
+-                });
+-                Boy boy = new Boy(t);
+-                game.addKeyListener(boy);
+-                boy.start();
+-                panel.add(boy);
+-                game.getContentPane().add(panel);
+-                game.setVisible(true);
+-            }
+-        });
+-    }*/
++    @Override
++    public void paint(Graphics g) {
++        g.drawImage(boy.walkUp0, boy.x, boy.y, boy.width, boy.height, null);
++    }
++
++    public static void main(String[] args) {
++        BoyNotGraphical boy = new BoyNotGraphical(200, 200);
++        Game game = new Game(boy);
++        game.setVisible(true);
++    }
+ 
+ }
