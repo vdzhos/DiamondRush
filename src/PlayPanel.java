@@ -30,38 +30,6 @@ public class PlayPanel extends JPanel implements KeyListener {
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
     }
 
-    private void moveUpAndDown(){
-        Timer t = new Timer(200, null);
-        t.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (boy.whatMove == 1){
-                    //boy.moveUp();
-                    //boy.shoveRightAndStand();
-                    repaint();
-                    if (boy.i == 4){
-                        boy.currentPicture = boy.walkUp2;
-                        repaint();
-                        boy.i = 0;
-                        boy.isMoving = false;
-                        t.stop();
-                    }
-                }
-                else if (boy.whatMove == 2){
-                    //boy.moveDown();
-                    //boy.shoveLeftAndStand();
-                    repaint();
-                    if (boy.i == 4){
-                        boy.i = 0;
-                        boy.isMoving = false;
-                        t.stop();
-                    }
-                }
-            }
-        });
-        t.start();
-    }
-
     private void moveBoy(){
         Timer t = new Timer(100, null);
         t.addActionListener(new AbstractAction() {
@@ -109,6 +77,8 @@ public class PlayPanel extends JPanel implements KeyListener {
         }
         if(e.getKeyCode()==KeyEvent.VK_LEFT){
             boy.whatMove = 3;
+            //if stone is left boy.whatMove = 5;
+            //if wall is left boy.whatMove = 6;
             if (boy.isMoving == false){
                 boy.isMoving = true;
                 moveBoy();
@@ -116,6 +86,8 @@ public class PlayPanel extends JPanel implements KeyListener {
         }
         if(e.getKeyCode()==KeyEvent.VK_RIGHT){
             boy.whatMove = 4;
+            //if stone is right boy.whatMove = 7;
+            //if wall is right boy.whatMove = 8;
             if (boy.isMoving == false){
                 boy.isMoving = true;
                 moveBoy();

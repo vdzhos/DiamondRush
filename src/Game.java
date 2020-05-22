@@ -26,7 +26,7 @@ public class Game extends JFrame {
         upper = new JPanel();
         upper.setPreferredSize(new Dimension(700,100));
 
-        Boy boy = new Boy(35, 70);
+        Boy boy = new Boy(0, 0);
         playPanel = new PlayPanel(boy);
         addKeyListener(playPanel);
 
