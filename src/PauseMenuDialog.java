@@ -8,9 +8,7 @@ import java.awt.geom.Rectangle2D;
 
 public class PauseMenuDialog extends JDialog implements MouseListener {
 
-    private JFrame f;
-    private MapPanel mapPanel;
-
+    private GameFrame gameFrame;
 
     private Image backgroundImage = new ImageIcon("pauseMenu/pauseBackCut1.png").getImage();
     private Image chestImage = new ImageIcon("pauseMenu/treasureChest.png").getImage();
@@ -33,14 +31,13 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
     private boolean musicOn = true;
 
 
-    public PauseMenuDialog(JFrame frame) {
-        super(frame, "", true);
-        f = frame;
-        setLocation(frame.getX()+Values.PAUSE_MENU_SHIFT_X, frame.getY()+Values.PAUSE_MENU_SHIFT_Y);
+    public PauseMenuDialog(GameFrame gameFrame) {
+        super(gameFrame, "", true);
+        this.gameFrame = gameFrame;
+        setLocation(gameFrame.getX()+Values.PAUSE_MENU_SHIFT_X, gameFrame.getY()+Values.PAUSE_MENU_SHIFT_Y);
         setSize(Values.PAUSE_MENU_WIDTH,Values.PAUSE_MENU_LENGTH);
         setUndecorated(true);
         addMouseListener(this);
-        mapPanel = new MapPanel();
     }
 
     public void paint(Graphics gr){
@@ -123,9 +120,8 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     PauseMenuDialog.this.setVisible(false);
-                    f.getContentPane().removeAll();
-                    f.getContentPane().add(mapPanel);
-                    f.revalidate();
+                    revalidate();
+                    gameFrame.showMap();
                 }
             });
         }

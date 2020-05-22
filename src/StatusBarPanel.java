@@ -22,7 +22,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     private Font font;
     private Font fontLevel;
     private PauseMenuDialog pauseMenuDialog;
-    private JFrame frame;
+    private GameFrame gameFrame;
 
 
 
@@ -48,19 +48,36 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     private Rectangle2D.Double progressBar;
 
 
-    public StatusBarPanel() {
+//    public StatusBarPanel() {
+//        addMouseListener(this);
+//        font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
+//        fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
+//    }
+
+
+    // do not use this constructor!!!
+    public StatusBarPanel(GameFrame gameFrame) {
+        this.gameFrame = gameFrame;
         addMouseListener(this);
         font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
         fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
+        pauseMenuDialog = new PauseMenuDialog(gameFrame);
     }
 
-    public StatusBarPanel(JFrame frame) {
-        this.frame = frame;
+    public StatusBarPanel(GameFrame gameFrame,int level, int maxEnergyLevel,int maxNumberOfGoldKeys,int maxNumberOfSilverKeys,int maxNumberOfPurpleDiamonds,int maxNumberOfRedDiamonds){
+        this.gameFrame = gameFrame;
+        currentLevel = level;
+        this.maxEnergyLevel = maxEnergyLevel;
+        this.maxNumberOfGoldKeys = maxNumberOfGoldKeys;
+        this.maxNumberOfSilverKeys = maxNumberOfSilverKeys;
+        this.maxNumberOfPurpleDiamonds = maxNumberOfPurpleDiamonds;
+        this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
         addMouseListener(this);
         font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
         fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
-        pauseMenuDialog = new PauseMenuDialog(frame);
+        pauseMenuDialog = new PauseMenuDialog(gameFrame);
     }
+
 
     public void paint(Graphics gr){
         Graphics2D g = (Graphics2D) gr;
@@ -236,19 +253,19 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame f = new JFrame();
-                f.setSize(700,820);
-
-                f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                f.setUndecorated(true);
-                StatusBarPanel statusBarPanel = new StatusBarPanel(f);
-                f.add(statusBarPanel);
-                f.setVisible(true);
-            }
-        });
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                JFrame f = new JFrame();
+//                f.setSize(700,820);
+//
+//                f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//                f.setUndecorated(true);
+//                StatusBarPanel statusBarPanel = new StatusBarPanel(f);
+//                f.add(statusBarPanel);
+//                f.setVisible(true);
+//            }
+//        });
 
 
 
@@ -264,7 +281,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 //            }
 //        });
 //        t.start();
-    }
+//    }
 
 
 }

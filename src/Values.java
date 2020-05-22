@@ -165,6 +165,28 @@ public interface Values {
 
     int MENU_SIZE = 90;
 
+    // main menu diamond
+
+    int PLAY_X = 225;
+    int PLAY_Y = 340;
+
+    int PLAY_WIDTH = 250;
+    int PLAY_LENGTH = 90;
+
+    int NEW_GAME_X = 225;
+    int NEW_GAME_Y = 540;
+
+    int NEW_GAME_WIDTH = 250;
+    int NEW_GAME_LENGTH = 90;
+
+    int EXIT_X = 225;
+    int EXIT_Y = 725;
+
+    int EXIT_WIDTH = 250;
+    int EXIT_LENGTH = 90;
+
+
+
 
 
 

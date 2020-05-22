@@ -10,6 +10,14 @@ public class MapPanel extends JPanel implements MouseListener {
 
 
     private Image mapImage = new ImageIcon("mapPictures/backEmpty.png").getImage();
+    private GameFrame gameFrame;
+
+    private Level firstLevel;
+    private Level secondLevel;
+    private Level thirdLevel;
+    private Level fourthLevel;
+    private Level fifthLevel;
+
 
     private AnimatableImage level1Image = new AnimatableImage("mapPictures/level1.png");
     private AnimatableImage level2Image = new AnimatableImage("mapPictures/level2.png");
@@ -53,9 +61,25 @@ public class MapPanel extends JPanel implements MouseListener {
     private int[] y5x = {  455,348};
 
 
-    public MapPanel(){
+//    public MapPanel(){
+//        setImages();
+//        addMouseListener(this);
+//
+//    }
+
+    private void initLevels() {
+        firstLevel = new Level(gameFrame);
+        secondLevel = new Level(gameFrame);
+        thirdLevel = new Level(gameFrame);
+        fourthLevel = new Level(gameFrame);
+        fifthLevel = new Level(gameFrame);
+    }
+
+    public MapPanel(GameFrame gameFrame){
         setImages();
         addMouseListener(this);
+        this.gameFrame = gameFrame;
+        initLevels();
     }
 
     public void paint(Graphics g){
@@ -185,25 +209,65 @@ public class MapPanel extends JPanel implements MouseListener {
         Rectangle2D.Double menu = new Rectangle2D.Double(Values.MENU_X,Values.MENU_Y,Values.MENU_SIZE,Values.MENU_SIZE);
         if (menu.contains(point)){
             backToMenuImage.animate(this,"mapPictures",menu);
+            Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    gameFrame.showMainMenu();
+                }
+            });
         }
         else if (level1.contains(point)){
             level1Image.animate(this,"mapPictures",level1);
+            Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    gameFrame.showLevel(firstLevel);
+                }
+            });
         }
         else if (level2.contains(point)){
-            if (level2Available)
-                level2Image.animate(this,"mapPictures",level2);
+            if (level2Available) {
+                level2Image.animate(this, "mapPictures", level2);
+                Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gameFrame.showLevel(secondLevel);
+                    }
+                });
+            }
         }
         else if (level3.contains(point)){
-            if (level3Available)
-                level3Image.animate(this,"mapPictures",level3);
+            if (level3Available) {
+                level3Image.animate(this, "mapPictures", level3);
+                Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gameFrame.showLevel(thirdLevel);
+                    }
+                });
+            }
         }
         else if (level4.contains(point)){
-            if (level4Available)
-                level4Image.animate(this,"mapPictures",level4);
+            if (level4Available) {
+                level4Image.animate(this, "mapPictures", level4);
+                Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gameFrame.showLevel(fourthLevel);
+                    }
+                });
+            }
         }
         else if (level5.contains(point)){
-            if (level5Available)
-                level5Image.animate(this,"mapPictures",level5);
+            if (level5Available) {
+                level5Image.animate(this, "mapPictures", level5);
+                Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gameFrame.showLevel(fifthLevel);
+                    }
+                });
+            }
         }
     }
 
