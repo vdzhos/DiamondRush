@@ -55,7 +55,7 @@ public class Boy {
         this.x = x;
         this.y = y;
         this.width = 70;
-        this.height = 80;
+        this.height = 70;
     }
 
     public void moveUp() {
