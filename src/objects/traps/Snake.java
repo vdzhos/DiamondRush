@@ -81,7 +81,7 @@ public class Snake extends JLabel implements Trap{
 
     }
 
-    @Override
+    //@Override
     public JLabel getLabel() {
         return this;
     }
