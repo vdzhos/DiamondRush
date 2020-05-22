@@ -1,11 +1,10 @@
 package objects.traps;
 
-import java.nio.file.Files;
-import java.util.ArrayList;
+import java.io.File;
 
 public interface Trap {
 
-    ArrayList<Files> images();
+    File[] images();
     void changeState();
 
 }

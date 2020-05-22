@@ -1,10 +1,9 @@
 package objects.blocks;
 
-import java.io.File;
+import javax.swing.*;
+import java.awt.*;
 
 public interface Block {
-
-    File image();
-    Boolean passable();
-
+    boolean pass();
+    void paintObject(Graphics2D g2, int x, int y);
 }
