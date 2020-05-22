@@ -9,20 +9,20 @@ public class Boy {
     int height;
     int cellSide = Values.CELL_SIZE;
     int whatMove = 0; //Stand = 0; Up = 1; Down = 2; Left = 3; Right = 4;
-
-    int iU = 0;
-    int iD = 0;
-    int iR = 0;
-    int iL = 0;
+    //shoveLeftAndMove = 5; shoveLeftAndStand = 6; shoveRightAndMove = 7; shoveRightAndStand = 8;
+    boolean isMoving = false;
+    int i = 0;
 
     Image walkUp0 = new ImageIcon("boy/walkUp0.png").getImage();
     Image walkUp1 = new ImageIcon("boy/walkUp1.png").getImage();
     Image walkUp2 = new ImageIcon("boy/walkUp2.png").getImage();
-    Image[] arrayUp = {walkUp0, walkUp1, walkUp0, walkUp1, walkUp2};
+    Image[] arrayUp = {walkUp0, walkUp0, walkUp1, walkUp1,
+            walkUp0, walkUp0, walkUp2};
 
     Image walkDown0 = new ImageIcon("boy/walkDown0.png").getImage();
     Image walkDown1 = new ImageIcon("boy/walkDown1.png").getImage();
-    Image[] arrayDown = {walkDown0, walkDown1, walkDown0, walkDown1};
+    Image[] arrayDown = {walkDown0, walkDown0, walkDown1, walkDown1,
+            walkDown0, walkDown0, walkDown1};
 
     Image walkLeft0 = new ImageIcon("boy/walkLeft0.png").getImage();
     Image walkLeft1 = new ImageIcon("boy/walkLeft1.png").getImage();
@@ -33,7 +33,7 @@ public class Boy {
     Image walkLeft6 = new ImageIcon("boy/walkLeft6.png").getImage();
     Image walkLeft7 = new ImageIcon("boy/walkLeft7.png").getImage();
     Image[] arrayLeft = {walkLeft0, walkLeft1, walkLeft2, walkLeft3,
-            walkLeft4, walkLeft5, walkLeft6, walkLeft7};
+            walkLeft4, walkLeft6, walkLeft7};
 
     Image walkRight0 = new ImageIcon("boy/walkRight0.png").getImage();
     Image walkRight1 = new ImageIcon("boy/walkRight1.png").getImage();
@@ -44,10 +44,12 @@ public class Boy {
     Image walkRight6 = new ImageIcon("boy/walkRight6.png").getImage();
     Image walkRight7 = new ImageIcon("boy/walkRight7.png").getImage();
     Image[] arrayRight = {walkRight0, walkRight1, walkRight2, walkRight3,
-            walkRight4, walkRight5, walkRight6, walkRight7};
+            walkRight4, walkRight6, walkRight7};
 
-    Image shoveRight = new ImageIcon("boy/shoveRight.png").getImage();
-    Image shoveLeft = new ImageIcon("boy/shoveLeft.png").getImage();
+    Image shoveR = new ImageIcon("boy/shoveRight.png").getImage();
+    Image shoveL = new ImageIcon("boy/shoveLeft.png").getImage();
+    Image[] arrayShoveR = {shoveR, shoveR, shoveR, walkDown1, shoveR, shoveR, walkDown1};
+    Image[] arrayShoveL = {shoveL, shoveL, shoveL, walkDown1, shoveL, shoveL, walkDown1};
 
     Image currentPicture = walkRight7;
 
@@ -59,26 +61,48 @@ public class Boy {
     }
 
     public void moveUp() {
-        y -= cellSide / 4;
-        currentPicture = arrayUp[iU];
-        iU++;
+        y -= cellSide / 7;
+        currentPicture = arrayUp[i];
+        i++;
     }
 
     public void moveDown() {
-        y += cellSide / 4;
-        currentPicture = arrayDown[iD];
-        iD++;
+        y += cellSide / 7;
+        currentPicture = arrayDown[i];
+        i++;
     }
 
     public void moveLeft() {
         x -= cellSide / 7;
-        currentPicture = arrayLeft[iL];
-        iL++;
+        currentPicture = arrayLeft[i];
+        i++;
     }
 
     public void moveRight() {
         x += cellSide / 7;
-        currentPicture = arrayRight[iR];
-        iR++;
+        currentPicture = arrayRight[i];
+        i++;
+    }
+
+    public void shoveLeftAndMove(){
+        x -= cellSide / 7;
+        currentPicture = arrayShoveL[i];
+        i++;
+    }
+
+    public void shoveLeftAndStand(){
+         currentPicture = arrayShoveL[i];
+         i++;
+    }
+
+    public void shoveRightAndMove(){
+        x += cellSide / 7;
+        currentPicture = arrayShoveR[i];
+        i++;
+    }
+
+    public void shoveRightAndStand(){
+        currentPicture = arrayShoveR[i];
+        i++;
     }
 }
