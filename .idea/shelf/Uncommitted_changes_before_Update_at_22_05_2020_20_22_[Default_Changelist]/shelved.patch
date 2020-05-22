@@ -1,0 +1,18 @@
+Index: src/objects/traps/Snake.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package objects.traps;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.ActionListener;\r\n\r\npublic class Snake extends JLabel implements Trap{\r\n\r\n    private Timer timer;\r\n    private int x = 0;\r\n    private int y = 0;\r\n    private JLabel snake;\r\n    private boolean movingRight = true;\r\n\r\n    public Snake(int width, int height, boolean horizontal){\r\n        snake = this;\r\n        setPreferredSize(new Dimension(width,height));\r\n        setBorder(BorderFactory.createLineBorder(Color.BLACK,1));\r\n        if(horizontal) {\r\n            timer = new Timer(10, new ActionListener() {\r\n                @Override\r\n                public void actionPerformed(ActionEvent e) {\r\n                    if (movingRight) {\r\n                        x += 1;\r\n                        if (x+70 >= width) {\r\n                            movingRight = false;\r\n                        }\r\n                    } else {\r\n                        x -= 1;\r\n                        if (x <= 0) {\r\n                            movingRight = true;\r\n                        }\r\n                    }\r\n                    snake.repaint();\r\n                }\r\n            });\r\n        }else{\r\n            timer = new Timer(10, new ActionListener() {\r\n                @Override\r\n                public void actionPerformed(ActionEvent e) {\r\n                    if (movingRight) {\r\n                        y += 1;\r\n                        if (y+70 >= height) {\r\n                            movingRight = false;\r\n                        }\r\n                    } else {\r\n                        y -= 1;\r\n                        if (y <= 0) {\r\n                            movingRight = true;\r\n                        }\r\n                    }\r\n                    snake.repaint();\r\n                }\r\n            });\r\n        }\r\n        revalidate();\r\n        timer.start();\r\n    }\r\n\r\n    @Override\r\n    public void paint(Graphics g) {\r\n        super.paintComponent(g);\r\n        Graphics2D g2 = (Graphics2D) g;\r\n        g2.setColor(Color.GREEN);\r\n        g2.fillRect(x,y,70,70);\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        JFrame frame = new JFrame();\r\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n        frame.setSize(500,500);\r\n        frame.setVisible(true);\r\n        Snake snake = new Snake(100,300,true);\r\n        frame.add(snake);\r\n        snake.timer.start();\r\n    }\r\n\r\n    @Override\r\n    public void changeState() {\r\n\r\n    }\r\n\r\n    @Override\r\n    public JLabel getLabel() {\r\n        return this;\r\n    }\r\n\r\n    public Timer getTimer() {\r\n        return timer;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/objects/traps/Snake.java	(revision 041e5302796178fe546201a3b48b8b93ecc59d5e)
++++ src/objects/traps/Snake.java	(date 1590164060760)
+@@ -81,7 +81,7 @@
+ 
+     }
+ 
+-    @Override
++    //@Override
+     public JLabel getLabel() {
+         return this;
+     }
