@@ -72,9 +72,11 @@ public interface Values {
 
 
     int PURPLE_DIAMOND_X = 510;
-    int PURPLE_DIAMOND_Y = 22;
-    int PURPLE_DIAMOND_WIDTH = 70;
-    int PURPLE_DIAMOND_LENGTH = 70;
+//    int PURPLE_DIAMOND_Y = 22;
+    int PURPLE_DIAMOND_Y = 27;
+//    int PURPLE_DIAMOND_WIDTH = 70;
+    int PURPLE_DIAMOND_WIDTH = 75;
+    int PURPLE_DIAMOND_LENGTH = 65;
 
     int PURPLE_DIAMOND_LABEL_X = 555;
     int PURPLE_DIAMOND_LABEL_Y = 90;
@@ -82,9 +84,11 @@ public interface Values {
 
 
     int RED_DIAMOND_X = 610 ;
-    int RED_DIAMOND_Y = 22;
-    int RED_DIAMOND_WIDTH = 70;
-    int RED_DIAMOND_LENGTH = 70;
+//    int RED_DIAMOND_Y = 22;
+    int RED_DIAMOND_Y = 27;
+//    int RED_DIAMOND_WIDTH = 70;
+    int RED_DIAMOND_WIDTH = 75;
+    int RED_DIAMOND_LENGTH = 65;
 
     int RED_DIAMOND_LABEL_X = 655;
     int RED_DIAMOND_LABEL_Y = 90;

@@ -15,8 +15,10 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     private AnimatableImage energyLevelImage = new AnimatableImage("statusBar/energyLevelEmpty.png");
     private AnimatableImage goldKeyImage = new AnimatableImage("statusBar/goldKey.png");
     private AnimatableImage silverKeyImage =new AnimatableImage( "statusBar/silverKey.png");
-    private AnimatableImage redDiamondImage = new AnimatableImage("statusBar/redDiamond.png");
-    private AnimatableImage purpleDiamondImage = new AnimatableImage("statusBar/purpleDiamond.png");
+//    private AnimatableImage redDiamondImage = new AnimatableImage("statusBar/redDiamond.png");
+//    private AnimatableImage purpleDiamondImage = new AnimatableImage("statusBar/purpleDiamond.png");
+    private AnimatableImage redDiamondImage = new AnimatableImage("statusBar/diamondHexRed.png");
+    private AnimatableImage purpleDiamondImage = new AnimatableImage("statusBar/diamondHexPurple.png");
     private AnimatableImage checkpointImage = new AnimatableImage("statusBar/checkpoint.png");
     private AnimatableImage energyImage = new AnimatableImage("statusBar/energy.png");
 
