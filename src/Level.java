@@ -13,7 +13,7 @@ public class Level {
 //        initStatusBar();
 //    }
 
-    //demonstrative constructor
+    //demonstrative constructor do not use this constructor!!!
     public Level(GameFrame gameFrame){
         this.gameFrame = gameFrame;
         initStatusBar();

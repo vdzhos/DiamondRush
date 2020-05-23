@@ -12,11 +12,7 @@ public class MapPanel extends JPanel implements MouseListener {
     private Image mapImage = new ImageIcon("mapPictures/backEmpty.png").getImage();
     private GameFrame gameFrame;
 
-    private Level firstLevel;
-    private Level secondLevel;
-    private Level thirdLevel;
-    private Level fourthLevel;
-    private Level fifthLevel;
+    private Level[] levels;
 
 
     private AnimatableImage level1Image = new AnimatableImage("mapPictures/level1.png");
@@ -40,8 +36,8 @@ public class MapPanel extends JPanel implements MouseListener {
     private AnimatableImage level5;
 
     private boolean level1Available = true;
-    private boolean level2Available = true;
-    private boolean level3Available = true;
+    private boolean level2Available = false;
+    private boolean level3Available = false;
     private boolean level4Available = false;
     private boolean level5Available = false;
 
@@ -67,19 +63,23 @@ public class MapPanel extends JPanel implements MouseListener {
 //
 //    }
 
-    private void initLevels() {
-        firstLevel = new Level(gameFrame);
-        secondLevel = new Level(gameFrame);
-        thirdLevel = new Level(gameFrame);
-        fourthLevel = new Level(gameFrame);
-        fifthLevel = new Level(gameFrame);
-    }
+
 
     public MapPanel(GameFrame gameFrame){
         setImages();
         addMouseListener(this);
         this.gameFrame = gameFrame;
         initLevels();
+    }
+
+    //demonstrative version do not use this constructors!!!
+    private void initLevels() {
+        levels = new Level[5];
+        levels[0] = new Level(gameFrame);
+        levels[1] = new Level(gameFrame);
+        levels[2] = new Level(gameFrame);
+        levels[3] = new Level(gameFrame);
+        levels[4] = new Level(gameFrame);
     }
 
     public void paint(Graphics g){
@@ -221,7 +221,7 @@ public class MapPanel extends JPanel implements MouseListener {
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    gameFrame.showLevel(firstLevel);
+                    gameFrame.showLevel(levels[0]);
                 }
             });
         }
@@ -231,7 +231,7 @@ public class MapPanel extends JPanel implements MouseListener {
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        gameFrame.showLevel(secondLevel);
+                        gameFrame.showLevel(levels[1]);
                     }
                 });
             }
@@ -242,7 +242,7 @@ public class MapPanel extends JPanel implements MouseListener {
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        gameFrame.showLevel(thirdLevel);
+                        gameFrame.showLevel(levels[2]);
                     }
                 });
             }
@@ -253,7 +253,7 @@ public class MapPanel extends JPanel implements MouseListener {
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        gameFrame.showLevel(fourthLevel);
+                        gameFrame.showLevel(levels[3]);
                     }
                 });
             }
@@ -264,7 +264,7 @@ public class MapPanel extends JPanel implements MouseListener {
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        gameFrame.showLevel(fifthLevel);
+                        gameFrame.showLevel(levels[4]);
                     }
                 });
             }
