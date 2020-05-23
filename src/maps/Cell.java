@@ -28,4 +28,8 @@ public class Cell {
     public Trap getTrapObject() {
         return trapObject;
     }
+
+    public void setTrapObject(Trap trapObject){
+        this.trapObject = trapObject;
+    }
 }
