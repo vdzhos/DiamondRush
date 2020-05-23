@@ -25,6 +25,10 @@ public class Cell {
         return harmlessObject;
     }
 
+    public void setHarmlessObject(Harmless harmlessObject){
+        this.harmlessObject = harmlessObject;
+    }
+
     public Trap getTrapObject() {
         return trapObject;
     }

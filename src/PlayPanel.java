@@ -1,6 +1,6 @@
 import maps.Cell;
 import maps.Maps;
-import objects.traps.Stone;
+import objects.traps.Rock;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,8 +36,8 @@ public class PlayPanel extends JPanel implements KeyListener {
         for (int i = 0; i < level1.length; i++) {
             for (int j = 0; j < level1[i].length; j++) {
                 if(level1[i][j].getTrapObject()!=null){
-                    if (level1[i][j].getTrapObject() instanceof Stone){
-                        if (!stonesAreInited) ((Stone)level1[i][j].getTrapObject()).initVars(this, maps, i, j);
+                    if (level1[i][j].getTrapObject() instanceof Rock){
+                        if (!stonesAreInited) ((Rock)level1[i][j].getTrapObject()).initVars(this, maps, i, j);
                         level1[i][j].getTrapObject().paintObject(g2);
                     }
                     else{
@@ -122,10 +122,10 @@ public class PlayPanel extends JPanel implements KeyListener {
             boy.isMoving = true;
             moveBoy();
             //For checking move of stones
-            Stone stone = (Stone)maps.getLevel1()[6][4].getTrapObject();
+            Rock stone = (Rock)maps.getLevel1()[6][4].getTrapObject();
             stone.whatMove = 1;
             stone.isMoving = true;
-            stone.moveStone();
+            stone.moveRock();
         }
         if((e.getKeyCode()==KeyEvent.VK_SPACE)&&(boy.isMoving == false)){
             if (boy.currentPicture == boy.walkUp2) boy.whatMove = 11;
