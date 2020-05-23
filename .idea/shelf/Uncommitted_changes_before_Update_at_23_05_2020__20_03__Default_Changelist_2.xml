@@ -1,0 +1,34 @@
+<changelist name="Uncommitted_changes_before_Update_at_23_05_2020,_20_03_[Default_Changelist]2" date="1590253431038" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_05_2020,_20_03_[Default_Changelist]2/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 23.05.2020, 20:03 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/maps/Maps.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/maps/Maps.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_05_2020,_20_03_[Default_Changelist]2/Maps.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/Game.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/Game.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_05_2020,_20_03_[Default_Changelist]2/Game.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/PlayPanel$1.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/PlayPanel$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_05_2020,_20_03_[Default_Changelist]2/PlayPanel$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/PlayPanel.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/PlayPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_05_2020,_20_03_[Default_Changelist]2/PlayPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/Boy.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/Boy.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_05_2020,_20_03_[Default_Changelist]2/Boy.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/MapPanel.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/MapPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_05_2020,_20_03_[Default_Changelist]2/MapPanel.class" />
+  </binary>
+</changelist>
