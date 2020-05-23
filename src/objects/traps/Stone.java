@@ -1,6 +1,8 @@
 package objects.traps;
 
+
 import maps.Maps;
+import source.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +20,7 @@ public class Stone implements Trap{
     public Image image = new ImageIcon("mapImages/stone.png").getImage();
     public int i = 0;
     public boolean isMoving = false;
-    public JPanel playPanel;
+    public PlayPanel playPanel;
     public Maps maps;
     public int xInArray;
     public int yInArray;
@@ -36,7 +38,7 @@ public class Stone implements Trap{
         else return new Cell[0][0];
     }*/
 
-    public void initVars(JPanel playPanel, Maps maps, int xInArray, int yInArray){
+    public void initVars(PlayPanel playPanel, Maps maps, int xInArray, int yInArray){
         this.playPanel = playPanel;
         this.maps = maps;
         this.xInArray = xInArray;
@@ -91,8 +93,8 @@ public class Stone implements Trap{
 
     public void beShovenLeft(){
         if (i == 3){
-            maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
-            maps.getCurrentLevel()[xInArray - 1][yInArray].setTrapObject(Stone.this);
+            playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+            playPanel.getCurrentLevel().getMatrix()[xInArray - 1][yInArray].setTrapObject(Stone.this);
             xInArray -= 1;
         }
         x -= cellSide / 7;
@@ -101,8 +103,8 @@ public class Stone implements Trap{
 
     public void beShovenRight(){
         if (i == 3){
-            maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
-            maps.getCurrentLevel()[xInArray + 1][yInArray].setTrapObject(Stone.this);
+            playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+            playPanel.getCurrentLevel().getMatrix()[xInArray + 1][yInArray].setTrapObject(Stone.this);
             xInArray ++;
         }
         x += cellSide / 7;
@@ -117,8 +119,8 @@ public class Stone implements Trap{
             x -= 1.5 * cellSide / 7;
             y += 0.5 * cellSide / 7;
             if (i == 2){
-                maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
-                maps.getCurrentLevel()[xInArray - 1][yInArray].setTrapObject(Stone.this);
+                playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+                playPanel.getCurrentLevel().getMatrix()[xInArray - 1][yInArray].setTrapObject(Stone.this);
                 xInArray -= 1;
             }
         }
@@ -130,8 +132,8 @@ public class Stone implements Trap{
             x -= 0.5 * cellSide / 7;
             y += 1.5 * cellSide / 7;
             if (i == 5){
-                maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
-                maps.getCurrentLevel()[xInArray][yInArray + 1].setTrapObject(Stone.this);
+                playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+                playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray + 1].setTrapObject(Stone.this);
                 yInArray++;
             }
         }
@@ -149,11 +151,11 @@ public class Stone implements Trap{
             x += 1.5 * cellSide / 7;
             y += 0.5 * cellSide / 7;
             if (i == 2){
-                System.out.println(maps.getCurrentLevel());
+                System.out.println(playPanel.getCurrentLevel().getMatrix());
                 System.out.println(xInArray);
                 System.out.println(yInArray);
-                maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
-                maps.getCurrentLevel()[xInArray + 1][yInArray].setTrapObject(Stone.this);
+                playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+                playPanel.getCurrentLevel().getMatrix()[xInArray + 1][yInArray].setTrapObject(Stone.this);
                 xInArray ++;
             }
         }
@@ -165,8 +167,8 @@ public class Stone implements Trap{
             x += 0.5 * cellSide / 7;
             y += 1.5 * cellSide / 7;
             if (i == 5){
-                maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
-                maps.getCurrentLevel()[xInArray][yInArray + 1].setTrapObject(Stone.this);
+                playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+                playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray + 1].setTrapObject(Stone.this);
                 yInArray++;
             }
         }
@@ -178,8 +180,8 @@ public class Stone implements Trap{
 
     public void fallDown(){
         if (i == 3){
-            maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
-            maps.getCurrentLevel()[xInArray][yInArray + 1].setTrapObject(Stone.this);
+            playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+            playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray + 1].setTrapObject(Stone.this);
             yInArray ++;
         }
         y += cellSide / 7;

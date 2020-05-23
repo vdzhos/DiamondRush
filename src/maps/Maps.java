@@ -5,22 +5,22 @@ import objects.blocks.Floor;
 import objects.blocks.SecretWall;
 import objects.blocks.Wall;
 import objects.traps.Snake;
-import objects.traps.Stone;
-
-import javax.swing.*;
 
 public class Maps {
 
-    private Cell[][] level1;
-    private Cell[][] level2;
-    private Cell[][] level3;
-    private Cell[][] level4;
-    private Cell[][] level5;
-    private Cell[][] currentLevel;
-    private JPanel playPanel;
+//    private Cell[][] level1;
+//    private Cell[][] level2;
+//    private Cell[][] level3;
+//    private Cell[][] level4;
+//    private Cell[][] level5;
 
-    public Maps(JPanel playPanel){
-        this.playPanel = playPanel;
+    private Level level1;
+    private Level level2;
+    private Level level3;
+    private Level level4;
+    private Level level5;
+
+    public Maps(){
         initLevel1();
         initLevel2();
         initLevel3();
@@ -31,9 +31,8 @@ public class Maps {
     private void initLevel1(){
 
         Snake snake1 = new Snake(140,70,true);
-
         //Floor + (Harmless/Trap)
-        level1 = new Cell[40][22];
+        Cell[][] level1 = new Cell[40][22];
         level1[0][16] = new Cell(new Floor(),null,null);
         level1[1][16] = new Cell(new Floor(),null,null);
         level1[2][16] = new Cell(new Floor(),null,null);
@@ -42,13 +41,13 @@ public class Maps {
         level1[3][19] = new Cell(new Floor(),null,null);
         level1[4][16] = new Cell(new Floor(),null,null);
         level1[4][18] = new Cell(new Floor(),null,null);
-        level1[4][19] = new Cell(new Floor(),null,new Stone());
+        level1[4][19] = new Cell(new Floor(),null,null);
         level1[5][16] = new Cell(new Floor(),null,null);
         level1[5][17] = new Cell(new Floor(),null,null);
         level1[5][18] = new Cell(new Floor(),null,null);
         level1[5][19] = new Cell(new Floor(),null,null);
         level1[5][20] = new Cell(new Floor(),null,null);
-        level1[6][4] = new Cell(new Floor(),null,new Stone());//only for test
+        level1[6][4] = new Cell(new Floor(),null,null);
         level1[6][10] = new Cell(new Floor(),null,null);
         level1[6][11] = new Cell(new Floor(),null,null);
         level1[6][12] = new Cell(new Floor(),null,null);
@@ -90,7 +89,7 @@ public class Maps {
         level1[10][18] = new Cell(new Floor(),null,null);
         level1[11][2] = new Cell(new Floor(),null,null);
         level1[11][3] = new Cell(new Floor(),null,null);
-        level1[11][15] = new Cell(new Floor(),null,new Stone());
+        level1[11][15] = new Cell(new Floor(),null,null);
         level1[11][17] = new Cell(new Floor(),null,null);
         level1[11][18] = new Cell(new Floor(),null,null);
         level1[12][2] = new Cell(new Floor(),null,null);
@@ -104,7 +103,7 @@ public class Maps {
         level1[12][17] = new Cell(new Floor(),null,null);
         level1[12][18] = new Cell(new Floor(),null,null);
         level1[12][19] = new Cell(new Floor(),null,null);
-        level1[13][1] = new Cell(new Floor(),null,new Stone());
+        level1[13][1] = new Cell(new Floor(),null,null);
         level1[13][2] = new Cell(new Floor(),null,null);
         level1[13][3] = new Cell(new Floor(),null,null);
         level1[13][4] = new Cell(new Floor(),null,null);
@@ -115,9 +114,9 @@ public class Maps {
         level1[13][18] = new Cell(new Floor(),null,null);
         level1[13][19] = new Cell(new Floor(),null,null);
         level1[14][1] = new Cell(new Floor(),null,null);
-        level1[14][2] = new Cell(new Floor(),null,new Stone());
+        level1[14][2] = new Cell(new Floor(),null,null);
         level1[14][3] = new Cell(new Floor(),null,null);
-        level1[14][4] = new Cell(new Floor(),null,new Stone());
+        level1[14][4] = new Cell(new Floor(),null,null);
         level1[14][7] = new Cell(new Floor(),null,null);
         level1[14][8] = new Cell(new Floor(),null,null);
         level1[14][11] = new Cell(new Floor(),null,null);
@@ -128,7 +127,7 @@ public class Maps {
         level1[15][2] = new Cell(new Floor(),null,null);
         level1[15][3] = new Cell(new Floor(),null,null);
         level1[15][4] = new Cell(new Floor(),null,null);
-        level1[15][11] = new Cell(new Floor(),null,new Stone());
+        level1[15][11] = new Cell(new Floor(),null,null);
         level1[15][12] = new Cell(new Floor(),null,null);
         level1[15][13] = new Cell(new Floor(),null,null);
         level1[15][14] = new Cell(new Floor(),null,null);
@@ -143,7 +142,7 @@ public class Maps {
         level1[16][18] = new Cell(new Floor(),null,null);
         level1[17][3] = new Cell(new Floor(),null,null);
         level1[17][4] = new Cell(new Floor(),null,null);
-        level1[17][11] = new Cell(new Floor(),null,new Stone());
+        level1[17][11] = new Cell(new Floor(),null,null);
         level1[17][12] = new Cell(new Floor(),null,null);
         level1[17][13] = new Cell(new Floor(),null,null);
         level1[17][14] = new Cell(new Floor(),null,null);
@@ -205,7 +204,7 @@ public class Maps {
         level1[26][15] = new Cell(new Floor(),null,null);
         level1[26][16] = new Cell(new Floor(),null,null);
         level1[26][17] = new Cell(new Floor(),null,null);
-        level1[27][5] = new Cell(new Floor(),null,new Stone());
+        level1[27][5] = new Cell(new Floor(),null,null);
         level1[27][15] = new Cell(new Floor(),null,null);
         level1[27][16] = new Cell(new Floor(),null,null);
         level1[27][17] = new Cell(new Floor(),null,null);
@@ -299,7 +298,8 @@ public class Maps {
                 }
             }
         }
-        currentLevel = level1;
+
+        this.level1 = new Level(level1,2,4,2,16);
     }
 
     private void initLevel2(){
@@ -318,27 +318,46 @@ public class Maps {
         //TODO Create a level 5 matrix
     }
 
-    public Cell[][] getLevel1() {
+    public Level getLevel1() {
         return level1;
     }
 
-    public Cell[][] getLevel2() {
+    public Level getLevel2() {
         return level2;
     }
 
-    public Cell[][] getLevel3() {
+    public Level getLevel3() {
         return level3;
     }
 
-    public Cell[][] getLevel4() {
+    public Level getLevel4() {
         return level4;
     }
 
-    public Cell[][] getLevel5() {
+    public Level getLevel5() {
         return level5;
     }
 
-    public Cell[][] getCurrentLevel() {
-        return currentLevel;
-    }
+
+    //    public Cell[][] getLevel1() {
+//        return level1;
+//    }
+//
+//    public Cell[][] getLevel2() {
+//        return level2;
+//    }
+//
+//    public Cell[][] getLevel3() {
+//        return level3;
+//    }
+//
+//    public Cell[][] getLevel4() {
+//        return level4;
+//    }
+//
+//    public Cell[][] getLevel5() {
+//        return level5;
+//    }
+
+
 }
