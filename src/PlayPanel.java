@@ -1,5 +1,6 @@
 import maps.Cell;
 import maps.Maps;
+import objects.traps.Stone;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     private Boy boy;
     private JPanel panel;
     private Maps maps;
+    private Stone stone = new Stone(0, 0);
 
     public PlayPanel(Boy boy) {
         panel = this;
@@ -40,6 +42,7 @@ public class PlayPanel extends JPanel implements KeyListener {
             }
         }
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
+        g2.drawImage(stone.image,stone.x,stone.y,stone.width,stone.height,null);
         //System.out.println(boy.isMoving);
     }
 
@@ -77,6 +80,28 @@ public class PlayPanel extends JPanel implements KeyListener {
         t.start();
     }
 
+    public void moveStone(){
+        Timer timer = new Timer(100, null);
+        timer.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (stone.whatMove == 1) stone.stagger();
+                else if (stone.whatMove == 2) stone.beShovenLeft();
+                else if (stone.whatMove == 3) stone.beShovenRight();
+                else if (stone.whatMove == 4) stone.fallLeft();
+                else if (stone.whatMove == 5) stone.fallRight();
+                else if (stone.whatMove == 6) stone.fallDown();
+                repaint();
+                if (stone.i == 7){
+                    stone.i = 0;
+                    stone.isMoving = false;
+                    timer.stop();
+                }
+            }
+        });
+        timer.start();
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -84,6 +109,36 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if((e.getKeyCode()==KeyEvent.VK_1)&&(stone.isMoving == false)){
+            stone.whatMove = 1;
+            stone.isMoving = true;
+            moveStone();
+        }
+        if((e.getKeyCode()==KeyEvent.VK_2)&&(stone.isMoving == false)){
+            stone.whatMove = 2;
+            stone.isMoving = true;
+            moveStone();
+        }
+        if((e.getKeyCode()==KeyEvent.VK_3)&&(stone.isMoving == false)){
+            stone.whatMove = 3;
+            stone.isMoving = true;
+            moveStone();
+        }
+        if((e.getKeyCode()==KeyEvent.VK_4)&&(stone.isMoving == false)){
+            stone.whatMove = 4;
+            stone.isMoving = true;
+            moveStone();
+        }
+        if((e.getKeyCode()==KeyEvent.VK_5)&&(stone.isMoving == false)){
+            stone.whatMove = 5;
+            stone.isMoving = true;
+            moveStone();
+        }
+        if((e.getKeyCode()==KeyEvent.VK_6)&&(stone.isMoving == false)){
+            stone.whatMove = 6;
+            stone.isMoving = true;
+            moveStone();
+        }
         if((e.getKeyCode()==KeyEvent.VK_UP)&&(boy.isMoving == false)){
             boy.whatMove = 1;
             boy.isMoving = true;
