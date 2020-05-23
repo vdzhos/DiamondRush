@@ -12,7 +12,7 @@ public class Boy {
     int cellSide = Values.CELL_SIZE;
     int whatMove = 0; //Stand = 0; Up = 1; Down = 2; Left = 3; Right = 4;
     //shoveLeftAndMove = 5; shoveLeftAndStand = 6; shoveRightAndMove = 7; shoveRightAndStand = 8;
-    //findInChest = 9; holdAStone = 10;
+    //findInChest = 9; holdARock = 10;
     //attackLeft = 11; attackRight = 12; attackLeft = 13; attackRight = 14;
     //openWithGoldKeyLeft = 15; openWithGoldKeyRight = 16; openWithSilverKeyLeft = 17; openWithSilverKeyRight = 18;
     boolean isMoving = false;
@@ -63,7 +63,7 @@ public class Boy {
     Image cheer = new ImageIcon("boy/cheer.png").getImage();
     Image[] arrayFindInChest = {lookInChest, lookInChest, lookInChest, cheer, cheer, cheer, standClear};
 
-    Image imHoldAStone = new ImageIcon("boy/holdAStone.png").getImage();
+    Image imHoldARock = new ImageIcon("boy/holdARock.png").getImage();
 
     //images attack up
     Image[] arrayAttackUp = {};
@@ -177,8 +177,8 @@ public class Boy {
         i++;
     }
 
-    public void holdAStone(){
-        currentPicture = imHoldAStone;
+    public void holdARock(){
+        currentPicture = imHoldARock;
         i++;
     }
 

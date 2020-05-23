@@ -3,6 +3,7 @@ package source;
 import maps.Cell;
 import maps.Level;
 import maps.Maps;
+import objects.traps.Rock;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     private Boy boy;
     private JPanel panel;
     private Maps maps;
+    private boolean stonesAreInited = false;
 
     private int mapX;
     private int mapY;
@@ -107,22 +109,32 @@ public class PlayPanel extends JPanel implements KeyListener {
         for (int i = 0; i < levelMatrix.length; i++) {
             for (int j = 0; j < levelMatrix[i].length; j++) {
                 levelMatrix[i][j].getBlock().paintObject(g2,mapX+ i*70,mapY+j*70);
-                if(levelMatrix[i][j].getTrapObject()!=null){
-                    JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
-                    if(label.getParent()!=panel){
-                        Dimension size = label.getPreferredSize();
-                        int n = mapX+i*70;
-                        int m = mapY+j*70;
-                        System.out.println(n+"   "+m);
-                        label.setBounds(mapX+i*70,mapY+j*70,size.width,size.height);
-                        System.out.println(size.width+"   "+size.height);
-                        add(label);
-                    }
-                    else {
-                        Dimension size = label.getPreferredSize();
-                        label.setBounds(mapX+i*70,mapY+j*70,size.width,size.height);
-                        //revalidate();
-                    }
+            }
+        }
+        for (int i = 0; i < levelMatrix.length; i++) {
+            for (int j = 0; j < levelMatrix[i].length; j++) {
+               if (levelMatrix[i][j].getTrapObject() != null) {
+                   if (levelMatrix[i][j].getTrapObject() instanceof Rock){
+                       if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, maps, i, j);
+                       levelMatrix[i][j].getTrapObject().paintObject(g2);
+                   }
+                   else{
+                       JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
+                       if (label.getParent() != panel) {
+                           Dimension size = label.getPreferredSize();
+                           int n = mapX + i * 70;
+                           int m = mapY + j * 70;
+                           System.out.println(n + "   " + m);
+                           label.setBounds(mapX + i * 70, mapY + j * 70, size.width, size.height);
+                           System.out.println(size.width + "   " + size.height);
+                           add(label);
+                       } else {
+                           Dimension size = label.getPreferredSize();
+                           label.setBounds(mapX + i * 70, mapY + j * 70, size.width, size.height);
+                           //revalidate();
+                       }
+                   }
+
                 }
             }
         }
@@ -224,7 +236,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if (boy.whatMove == 7) boy.shoveRightAndMove();
                 else if (boy.whatMove == 8) boy.shoveRightAndStand();
                 else if (boy.whatMove == 9) boy.findInChest();
-                else if (boy.whatMove == 10) boy.holdAStone();
+                else if (boy.whatMove == 10) boy.holdARock();
                 else if (boy.whatMove == 11) boy.attackUp();
                 else if (boy.whatMove == 12) boy.attackDown();
                 else if (boy.whatMove == 13) boy.attackLeft();

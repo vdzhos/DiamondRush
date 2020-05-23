@@ -2,6 +2,7 @@ package objects;
 
 import maps.Maps;
 import objects.traps.Rock;
+import source.PlayPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,12 +18,12 @@ public abstract class Stone {
     public Image image;
     public int i;
     public boolean isMoving;
-    public JPanel playPanel;
+    public PlayPanel playPanel;
     public Maps maps;
     public int xInArray;
     public int yInArray;
 
-    public void initVars(JPanel playPanel, Maps maps, int xInArray, int yInArray){
+    public void initVars(PlayPanel playPanel, Maps maps, int xInArray, int yInArray){
         this.playPanel = playPanel;
         this.maps = maps;
         this.xInArray = xInArray;

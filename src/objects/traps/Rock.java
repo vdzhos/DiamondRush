@@ -64,8 +64,8 @@ public class Rock extends Stone implements Trap{
 
     public void beShovenLeft(){
         if (i == 3){
-            maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
-            maps.getCurrentLevel()[xInArray - 1][yInArray].setTrapObject(Rock.this);
+            playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+            playPanel.getCurrentLevel().getMatrix()[xInArray - 1][yInArray].setTrapObject(Rock.this);
             xInArray -= 1;
         }
         x -= CELL_SIDE / 7;
@@ -74,8 +74,8 @@ public class Rock extends Stone implements Trap{
 
     public void beShovenRight(){
         if (i == 3){
-            maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
-            maps.getCurrentLevel()[xInArray + 1][yInArray].setTrapObject(Rock.this);
+            playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+            playPanel.getCurrentLevel().getMatrix()[xInArray + 1][yInArray].setTrapObject(Rock.this);
             xInArray ++;
         }
         x += CELL_SIDE / 7;
@@ -89,8 +89,8 @@ public class Rock extends Stone implements Trap{
 
     @Override
     protected void setStoneToNewPositionInArray(int xInArray, int yInArray){
-        maps.getCurrentLevel()[this.xInArray][this.yInArray].setTrapObject(this);
-        maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(this);
+        playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setTrapObject(this);
+        playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(this);
     }
 
     @Override
