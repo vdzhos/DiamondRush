@@ -13,14 +13,14 @@ public class PlayPanel extends JPanel implements KeyListener {
     private Boy boy;
     private JPanel panel;
     private Maps maps;
-    private Stone stone = new Stone(0, 0);
+    private boolean stonesAreInited = false;
 
     public PlayPanel(Boy boy) {
         panel = this;
         panel.setLayout(null);
         setPreferredSize(new Dimension(2800, 1540));
         this.boy = boy;
-        maps = new Maps();
+        maps = new Maps(this);
     }
 
     @Override
@@ -31,19 +31,28 @@ public class PlayPanel extends JPanel implements KeyListener {
         for (int i = 0; i < level1.length; i++) {
             for (int j = 0; j < level1[i].length; j++) {
                 level1[i][j].getBlock().paintObject(g2,i*70,j*70);
+            }
+        }
+        for (int i = 0; i < level1.length; i++) {
+            for (int j = 0; j < level1[i].length; j++) {
                 if(level1[i][j].getTrapObject()!=null){
-                    JLabel label = level1[i][j].getTrapObject().getLabel();
-                    if(label.getParent()!=panel){
-                        Dimension size = label.getPreferredSize();
-                        label.setBounds(i*70,j*70,size.width,size.height);
-                        add(label);
+                    if (level1[i][j].getTrapObject() instanceof Stone){
+                        if (!stonesAreInited) ((Stone)level1[i][j].getTrapObject()).initVars(this, maps, i, j);
+                        level1[i][j].getTrapObject().paintObject(g2);
+                    }
+                    else{
+                        JLabel label = level1[i][j].getTrapObject().getLabel();
+                        if(label.getParent()!=panel){
+                            Dimension size = label.getPreferredSize();
+                            label.setBounds(i*70,j*70,size.width,size.height);
+                            add(label);
+                        }
                     }
                 }
             }
         }
+        stonesAreInited = true;
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
-        g2.drawImage(stone.image,stone.x,stone.y,stone.width,stone.height,null);
-        //System.out.println(boy.isMoving);
     }
 
     private void moveBoy(){
@@ -80,27 +89,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         t.start();
     }
 
-    public void moveStone(){
-        Timer timer = new Timer(100, null);
-        timer.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (stone.whatMove == 1) stone.stagger();
-                else if (stone.whatMove == 2) stone.beShovenLeft();
-                else if (stone.whatMove == 3) stone.beShovenRight();
-                else if (stone.whatMove == 4) stone.fallLeft();
-                else if (stone.whatMove == 5) stone.fallRight();
-                else if (stone.whatMove == 6) stone.fallDown();
-                repaint();
-                if (stone.i == 7){
-                    stone.i = 0;
-                    stone.isMoving = false;
-                    timer.stop();
-                }
-            }
-        });
-        timer.start();
-    }
+
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -109,36 +98,6 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if((e.getKeyCode()==KeyEvent.VK_1)&&(stone.isMoving == false)){
-            stone.whatMove = 1;
-            stone.isMoving = true;
-            moveStone();
-        }
-        if((e.getKeyCode()==KeyEvent.VK_2)&&(stone.isMoving == false)){
-            stone.whatMove = 2;
-            stone.isMoving = true;
-            moveStone();
-        }
-        if((e.getKeyCode()==KeyEvent.VK_3)&&(stone.isMoving == false)){
-            stone.whatMove = 3;
-            stone.isMoving = true;
-            moveStone();
-        }
-        if((e.getKeyCode()==KeyEvent.VK_4)&&(stone.isMoving == false)){
-            stone.whatMove = 4;
-            stone.isMoving = true;
-            moveStone();
-        }
-        if((e.getKeyCode()==KeyEvent.VK_5)&&(stone.isMoving == false)){
-            stone.whatMove = 5;
-            stone.isMoving = true;
-            moveStone();
-        }
-        if((e.getKeyCode()==KeyEvent.VK_6)&&(stone.isMoving == false)){
-            stone.whatMove = 6;
-            stone.isMoving = true;
-            moveStone();
-        }
         if((e.getKeyCode()==KeyEvent.VK_UP)&&(boy.isMoving == false)){
             boy.whatMove = 1;
             boy.isMoving = true;
@@ -162,6 +121,11 @@ public class PlayPanel extends JPanel implements KeyListener {
             //if wall is right boy.whatMove = 8;
             boy.isMoving = true;
             moveBoy();
+            //For checking move of stones
+            Stone stone = (Stone)maps.getLevel1()[6][4].getTrapObject();
+            stone.whatMove = 1;
+            stone.isMoving = true;
+            stone.moveStone();
         }
         if((e.getKeyCode()==KeyEvent.VK_SPACE)&&(boy.isMoving == false)){
             if (boy.currentPicture == boy.walkUp2) boy.whatMove = 11;

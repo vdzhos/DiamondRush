@@ -1,9 +1,10 @@
 package objects.traps;
 
+import maps.Maps;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Stone implements Trap{
 
@@ -17,25 +18,93 @@ public class Stone implements Trap{
     public Image image = new ImageIcon("mapImages/stone.png").getImage();
     public int i = 0;
     public boolean isMoving = false;
+    public JPanel playPanel;
+    public Maps maps;
+    public int xInArray;
+    public int yInArray;
 
-    public Stone(int x, int y){
-        this.x = x;
-        this.y = y;
+    public Stone(){
+
+    }
+
+    /*private Cell[][] whatLevel(int level){
+        if (level == 1) return maps.getLevel1();
+        else if (level == 2) return maps.getLevel2();
+        else if (level == 3) return maps.getLevel3();
+        else if (level == 4) return maps.getLevel4();
+        else if (level == 5) return maps.getLevel5();
+        else return new Cell[0][0];
+    }*/
+
+    public void initVars(JPanel playPanel, Maps maps, int xInArray, int yInArray){
+        this.playPanel = playPanel;
+        this.maps = maps;
+        this.xInArray = xInArray;
+        this.yInArray = yInArray;
+        this.x = xInArray * 70;
+        this.y = yInArray * 70;
+    }
+
+    public void moveStone(){
+        Timer timer = new Timer(100, null);
+        timer.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (whatMove == 1) stagger();
+                else if (whatMove == 2) beShovenLeft();
+                else if (whatMove == 3) beShovenRight();
+                else if (whatMove == 4) fallLeft();
+                else if (whatMove == 5) fallRight();
+                else if (whatMove == 6) fallDown();
+                playPanel.repaint();
+                if (i == 7){
+                    i = 0;
+                    if (whatMove == 1) whatMove = 5;
+                    else if (whatMove == 5) whatMove = 6;
+                    else{
+                        isMoving = false;
+                        timer.stop();
+                    }
+                    /*if (whatMove == 1){
+                          if (left isClear()) whatMove = 4;
+                    *     else if (right isClear()) whatMove = 5;
+                    * }
+                    * else if (((whatMove == 4)||(whatMove == 5)||(whatMove == 6))&&(down isClear()){
+                    *     whatMove = 6;
+                    * }
+                    * else isMoving = false;
+                    * */
+                }
+            }
+        });
+        timer.start();
     }
 
     //хитатися
     public void stagger(){
-        if (i % 2 == 0) x += cellSide / 14;
-        else x -= cellSide / 14;
+        if (i != 0){
+            if (i % 2 == 0) x += cellSide / 14;
+            else x -= cellSide / 14;
+        }
         i++;
     }
 
     public void beShovenLeft(){
+        if (i == 3){
+            maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
+            maps.getCurrentLevel()[xInArray - 1][yInArray].setTrapObject(Stone.this);
+            xInArray -= 1;
+        }
         x -= cellSide / 7;
         i++;
     }
 
     public void beShovenRight(){
+        if (i == 3){
+            maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
+            maps.getCurrentLevel()[xInArray + 1][yInArray].setTrapObject(Stone.this);
+            xInArray ++;
+        }
         x += cellSide / 7;
         i++;
     }
@@ -47,6 +116,11 @@ public class Stone implements Trap{
         else if ((i == 1)||(i == 2)){
             x -= 1.5 * cellSide / 7;
             y += 0.5 * cellSide / 7;
+            if (i == 2){
+                maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
+                maps.getCurrentLevel()[xInArray - 1][yInArray].setTrapObject(Stone.this);
+                xInArray -= 1;
+            }
         }
         else if (i == 3){
             x -= cellSide / 7;
@@ -55,6 +129,11 @@ public class Stone implements Trap{
         else if ((i == 4)||(i == 5)){
             x -= 0.5 * cellSide / 7;
             y += 1.5 * cellSide / 7;
+            if (i == 5){
+                maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
+                maps.getCurrentLevel()[xInArray][yInArray + 1].setTrapObject(Stone.this);
+                yInArray++;
+            }
         }
         else if (i == 6){
             y += 2 * cellSide / 7;
@@ -69,6 +148,14 @@ public class Stone implements Trap{
         else if ((i == 1)||(i == 2)){
             x += 1.5 * cellSide / 7;
             y += 0.5 * cellSide / 7;
+            if (i == 2){
+                System.out.println(maps.getCurrentLevel());
+                System.out.println(xInArray);
+                System.out.println(yInArray);
+                maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
+                maps.getCurrentLevel()[xInArray + 1][yInArray].setTrapObject(Stone.this);
+                xInArray ++;
+            }
         }
         else if (i == 3){
             x += cellSide / 7;
@@ -77,6 +164,11 @@ public class Stone implements Trap{
         else if ((i == 4)||(i == 5)){
             x += 0.5 * cellSide / 7;
             y += 1.5 * cellSide / 7;
+            if (i == 5){
+                maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
+                maps.getCurrentLevel()[xInArray][yInArray + 1].setTrapObject(Stone.this);
+                yInArray++;
+            }
         }
         else if (i == 6){
             y += 2 * cellSide / 7;
@@ -85,8 +177,18 @@ public class Stone implements Trap{
     }
 
     public void fallDown(){
+        if (i == 3){
+            maps.getCurrentLevel()[xInArray][yInArray].setTrapObject(null);
+            maps.getCurrentLevel()[xInArray][yInArray + 1].setTrapObject(Stone.this);
+            yInArray ++;
+        }
         y += cellSide / 7;
         i++;
+    }
+
+    @Override
+    public void paintObject(Graphics2D g2) {
+        g2.drawImage(image, x, y, width, height,null);
     }
 
     @Override
