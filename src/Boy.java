@@ -110,9 +110,18 @@ public class Boy {
         currentPicture = arrayUp[i];
         i++;
     }
+    public void moveUpAnimation() {
+        currentPicture = arrayUp[i];
+        i++;
+    }
 
     public void moveDown() {
         y += cellSide / 7;
+        currentPicture = arrayDown[i];
+        i++;
+    }
+
+    public void moveDownAnimation() {
         currentPicture = arrayDown[i];
         i++;
     }
@@ -122,9 +131,19 @@ public class Boy {
         currentPicture = arrayLeft[i];
         i++;
     }
+    public void moveLeftAnimation() {
+        currentPicture = arrayLeft[i];
+        i++;
+    }
 
     public void moveRight() {
         x += cellSide / 7;
+        currentPicture = arrayRight[i];
+        i++;
+    }
+
+    public void moveRightAnimation() {
+//        x += cellSide / 7;
         currentPicture = arrayRight[i];
         i++;
     }
@@ -136,8 +155,8 @@ public class Boy {
     }
 
     public void shoveLeftAndStand(){
-         currentPicture = arrayShoveLeft[i];
-         i++;
+        currentPicture = arrayShoveLeft[i];
+        i++;
     }
 
     public void shoveRightAndMove(){

@@ -1,4 +1,4 @@
-public class Level {
+public class LevelUI {
 
     private StatusBarPanel statusBarPanel;
     private GameFrame gameFrame;
@@ -14,7 +14,7 @@ public class Level {
 //    }
 
     //demonstrative constructor do not use this constructor!!!
-    public Level(GameFrame gameFrame){
+    public LevelUI(GameFrame gameFrame){
         this.gameFrame = gameFrame;
         initStatusBar();
     }

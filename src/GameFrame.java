@@ -39,7 +39,7 @@ public class GameFrame extends JFrame {
         repaint();
     }
 
-    public void showLevel(Level level){
+    public void showLevel(LevelUI level){
         getContentPane().removeAll();
         getContentPane().add(level.getStatusBarPanel());
 //        add(level.getGamePanel());

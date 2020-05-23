@@ -12,7 +12,7 @@ public class MapPanel extends JPanel implements MouseListener {
     private Image mapImage = new ImageIcon("mapPictures/backEmpty.png").getImage();
     private GameFrame gameFrame;
 
-    private Level[] levels;
+    private LevelUI[] levels;
 
 
     private AnimatableImage level1Image = new AnimatableImage("mapPictures/level1.png");
@@ -74,12 +74,12 @@ public class MapPanel extends JPanel implements MouseListener {
 
     //demonstrative version do not use this constructors!!!
     private void initLevels() {
-        levels = new Level[5];
-        levels[0] = new Level(gameFrame);
-        levels[1] = new Level(gameFrame);
-        levels[2] = new Level(gameFrame);
-        levels[3] = new Level(gameFrame);
-        levels[4] = new Level(gameFrame);
+        levels = new LevelUI[5];
+        levels[0] = new LevelUI(gameFrame);
+        levels[1] = new LevelUI(gameFrame);
+        levels[2] = new LevelUI(gameFrame);
+        levels[3] = new LevelUI(gameFrame);
+        levels[4] = new LevelUI(gameFrame);
     }
 
     public void paint(Graphics g){

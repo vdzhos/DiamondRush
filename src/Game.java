@@ -18,7 +18,7 @@ public class Game extends JFrame {
 
         init();
         add(upper, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
+        add(playPanel, BorderLayout.CENTER);
         revalidate();
     }
 
@@ -27,7 +27,7 @@ public class Game extends JFrame {
         upper.setPreferredSize(new Dimension(700,100));
 
         Boy boy = new Boy(0, 0);
-        playPanel = new PlayPanel(boy);
+        playPanel = new PlayPanel(boy,1);
         addKeyListener(playPanel);
 
         scrollPane = new JScrollPane(playPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);

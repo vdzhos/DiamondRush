@@ -8,11 +8,17 @@ import objects.traps.Snake;
 
 public class Maps {
 
-    private Cell[][] level1;
-    private Cell[][] level2;
-    private Cell[][] level3;
-    private Cell[][] level4;
-    private Cell[][] level5;
+//    private Cell[][] level1;
+//    private Cell[][] level2;
+//    private Cell[][] level3;
+//    private Cell[][] level4;
+//    private Cell[][] level5;
+
+    private Level level1;
+    private Level level2;
+    private Level level3;
+    private Level level4;
+    private Level level5;
 
     public Maps(){
         initLevel1();
@@ -25,9 +31,8 @@ public class Maps {
     private void initLevel1(){
 
         Snake snake1 = new Snake(140,70,true);
-
         //Floor + (Harmless/Trap)
-        level1 = new Cell[40][22];
+        Cell[][] level1 = new Cell[40][22];
         level1[0][16] = new Cell(new Floor(),null,null);
         level1[1][16] = new Cell(new Floor(),null,null);
         level1[2][16] = new Cell(new Floor(),null,null);
@@ -293,6 +298,8 @@ public class Maps {
                 }
             }
         }
+
+        this.level1 = new Level(level1,2,4,2,16);
     }
 
     private void initLevel2(){
@@ -311,23 +318,46 @@ public class Maps {
         //TODO Create a level 5 matrix
     }
 
-    public Cell[][] getLevel1() {
+    public Level getLevel1() {
         return level1;
     }
 
-    public Cell[][] getLevel2() {
+    public Level getLevel2() {
         return level2;
     }
 
-    public Cell[][] getLevel3() {
+    public Level getLevel3() {
         return level3;
     }
 
-    public Cell[][] getLevel4() {
+    public Level getLevel4() {
         return level4;
     }
 
-    public Cell[][] getLevel5() {
+    public Level getLevel5() {
         return level5;
     }
+
+
+    //    public Cell[][] getLevel1() {
+//        return level1;
+//    }
+//
+//    public Cell[][] getLevel2() {
+//        return level2;
+//    }
+//
+//    public Cell[][] getLevel3() {
+//        return level3;
+//    }
+//
+//    public Cell[][] getLevel4() {
+//        return level4;
+//    }
+//
+//    public Cell[][] getLevel5() {
+//        return level5;
+//    }
+
+
 }
