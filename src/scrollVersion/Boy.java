@@ -83,8 +83,8 @@ public class Boy {
     Image[] arrayAttackLeft = {attackLeft0, attackLeft0, attackLeft1, attackLeft1,
             attackLeft2, attackLeft2, standLeft};
 
-    Image attackRight0 = new ImageIcon("boy/attackRight0.png").getImage();
-    Image attackRight1 = new ImageIcon("boy/attackRight1.png").getImage();
+    Image attackRight0 = new ImageIcon("boy/attackRight1.png").getImage();
+    Image attackRight1 = new ImageIcon("boy/attackRight0.png").getImage();
     Image attackRight2 = new ImageIcon("boy/attackRight2.png").getImage();
     Image[] arrayAttackRight = {attackRight0, attackRight0, attackRight1, attackRight1,
             attackRight2, attackRight2, standRight};

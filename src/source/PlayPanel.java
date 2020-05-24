@@ -124,11 +124,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                        JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
                        if (label.getParent() != panel) {
                            Dimension size = label.getPreferredSize();
-                           int n = mapX + i * 70;
-                           int m = mapY + j * 70;
-                           System.out.println(n + "   " + m);
                            label.setBounds(mapX + i * 70, mapY + j * 70, size.width, size.height);
-                           System.out.println(size.width + "   " + size.height);
                            add(label);
                        } else {
                            Dimension size = label.getPreferredSize();

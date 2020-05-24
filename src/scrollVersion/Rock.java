@@ -99,11 +99,6 @@ public class Rock extends Stone implements Trap {
     }
 
     @Override
-    public void changeState() {
-
-    }
-
-    @Override
     public JLabel getLabel() {
         return null;
     }
