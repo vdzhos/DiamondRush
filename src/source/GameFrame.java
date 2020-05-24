@@ -15,7 +15,7 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         init();
         setUndecorated(true);
-        setVisible(true);
+//        setVisible(true);
     }
 
     private void init() {
@@ -57,6 +57,7 @@ public class GameFrame extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 GameFrame gameFrame = new GameFrame();
+                gameFrame.setVisible(true);
                 gameFrame.start();
             }
         });
