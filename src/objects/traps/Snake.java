@@ -11,25 +11,24 @@ public class Snake extends JLabel implements Trap{
     private int x = 0;
     private int y = 0;
     private JLabel snake;
-    private boolean movingRight = true;
+    private boolean side = true; //right - true; left - false
 
     public Snake(int width, int height, boolean horizontal){
         snake = this;
         setPreferredSize(new Dimension(width,height));
-        setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
         if(horizontal) {
             timer = new Timer(10, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (movingRight) {
+                    if (side) {
                         x += 1;
                         if (x+70 >= width) {
-                            movingRight = false;
+                            side = false;
                         }
                     } else {
                         x -= 1;
                         if (x <= 0) {
-                            movingRight = true;
+                            side = true;
                         }
                     }
                     snake.repaint();
@@ -39,15 +38,15 @@ public class Snake extends JLabel implements Trap{
             timer = new Timer(10, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (movingRight) {
+                    if (side) {
                         y += 1;
                         if (y+70 >= height) {
-                            movingRight = false;
+                            side = false;
                         }
                     } else {
                         y -= 1;
                         if (y <= 0) {
-                            movingRight = true;
+                            side = true;
                         }
                     }
                     snake.repaint();
@@ -78,20 +77,13 @@ public class Snake extends JLabel implements Trap{
 
     @Override
     public void paintObject(Graphics2D g2, int mapX, int mapY) {
-    }
-
-
-    @Override
-    public void changeState() {
 
     }
+
 
     @Override
     public JLabel getLabel() {
         return this;
     }
 
-    public Timer getTimer() {
-        return timer;
-    }
 }

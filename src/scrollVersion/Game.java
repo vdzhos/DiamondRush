@@ -1,7 +1,7 @@
 package scrollVersion;
 
-import source.Boy;
-import source.PlayPanel;
+//import source.Boy;
+//import source.PlayPanel;
 import source.Values;
 
 import javax.swing.*;
@@ -30,7 +30,7 @@ public class Game extends JFrame {
         upper = new JPanel();
         upper.setPreferredSize(new Dimension(700,100));
 
-        source.Boy boy = new Boy(0, 0);
+        Boy boy = new Boy(0, 0);
         playPanel = new PlayPanel(boy,1);
         addKeyListener(playPanel);
 

@@ -94,10 +94,6 @@ public class Rock extends Stone implements Trap{
         playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(this);
     }
 
-    @Override
-    public void changeState() {
-
-    }
 
     @Override
     public JLabel getLabel() {
