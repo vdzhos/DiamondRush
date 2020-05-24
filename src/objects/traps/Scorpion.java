@@ -1,5 +1,7 @@
 package objects.traps;
 
+import objects.Direction;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,40 +15,57 @@ public class Scorpion extends JLabel implements Trap{
     private JLabel scorpion;
     private boolean hor; // true - horizontal; false - vertical
     private boolean side; //true - right(down); false - left(up)
+    private Direction direction;
+    private Image[] images;
+
+    private void initImages(){
+        Image imageRight = new ImageIcon("scorpion/right0.png").getImage();
+        Image imageDown = new ImageIcon("scorpion/down0.png").getImage();
+        Image imageLeft = new ImageIcon("scorpion/left0.png").getImage();
+        Image imageUp = new ImageIcon("scorpion/up0.png").getImage();
+        Image[] images = {imageRight, imageDown, imageLeft, imageUp};
+        this.images = images;
+    }
 
     public Scorpion(int width, int height, boolean clockwise){
+        initImages();
         scorpion = this;
         setPreferredSize(new Dimension(width,height));
         if(clockwise) {
+            direction = Direction.RIGHT;
             hor = true;
             side = true;
-            timer = new Timer(10, new ActionListener() {
+            timer = new Timer(12, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(side){
                         if(hor){
-                            x+=5;
+                            x+=2;
                             if(x+70>=width){
                                 hor = false;
+                                direction = Direction.DOWN;
                             }
                         }else{
-                            y+=5;
+                            y+=2;
                             if(y+70>=height){
                                 hor = true;
                                 side = false;
+                                direction = Direction.LEFT;
                             }
                         }
                     }else{
                         if(hor){
-                            x-=5;
+                            x-=2;
                             if(x<=0){
                                 hor = false;
+                                direction = Direction.UP;
                             }
                         }else{
-                            y-=5;
+                            y-=2;
                             if(y<=0){
                                 hor = true;
                                 side = true;
+                                direction = Direction.RIGHT;
                             }
                         }
                     }
@@ -54,35 +73,40 @@ public class Scorpion extends JLabel implements Trap{
                 }
             });
         }else{
+            direction = Direction.DOWN;
             hor = false;
             side = true;
-            timer = new Timer(10, new ActionListener() {
+            timer = new Timer(12, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if(side){
                         if(hor){
-                            x+=5;
+                            x+=2;
                             if(x+70>=width){
                                 hor = false;
                                 side = false;
+                                direction = Direction.UP;
                             }
                         }else{
-                            y+=5;
+                            y+=2;
                             if(y+70>=height){
                                 hor = true;
+                                direction = Direction.RIGHT;
                             }
                         }
                     }else{
                         if(hor){
-                            x-=5;
+                            x-=2;
                             if(x<=0){
                                 hor = false;
                                 side = true;
+                                direction = Direction.DOWN;
                             }
                         }else{
-                            y-=5;
+                            y-=2;
                             if(y<=0){
                                 hor = true;
+                                direction = Direction.LEFT;
                             }
                         }
                     }
@@ -98,8 +122,15 @@ public class Scorpion extends JLabel implements Trap{
     public void paint(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.BLACK);
-        g2.fillRect(x,y,70,70);
+        if(direction == Direction.RIGHT){
+            g2.drawImage(images[0],x,y,70,70,null);
+        }else if(direction == Direction.DOWN){
+            g2.drawImage(images[1],x,y,70,70,null);
+        }else if(direction == Direction.LEFT){
+            g2.drawImage(images[2],x,y,70,70,null);
+        }else {
+            g2.drawImage(images[3],x,y,70,70,null);
+        }
     }
 
     public static void main(String[] args) {
