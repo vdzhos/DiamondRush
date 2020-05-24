@@ -83,13 +83,14 @@ public class Rock extends Stone implements Trap{
     }
 
     @Override
-    public void paintObject(Graphics2D g2) {
-        g2.drawImage(image, x, y, WIDTH, HEIGHT,null);
+    public void paintObject(Graphics2D g2, int mapX, int mapY) {
+        g2.drawImage(image, mapX + x, mapY + y, WIDTH, HEIGHT,null);
+        System.out.println(mapX + x + ", " + mapY + y);
     }
 
     @Override
     protected void setStoneToNewPositionInArray(int xInArray, int yInArray){
-        playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setTrapObject(this);
+        playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setTrapObject(null);
         playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(this);
     }
 

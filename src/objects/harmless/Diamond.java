@@ -3,6 +3,7 @@ package objects.harmless;
 import objects.Stone;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Diamond extends Stone implements Harmless{
 
@@ -19,6 +20,11 @@ public class Diamond extends Stone implements Harmless{
         playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setHarmlessObject(this);
         playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setHarmlessObject(this);
     }
+
+    public void paintObject(Graphics2D g2, int mapX, int mapY) {
+        g2.drawImage(image, mapX + x, mapY + y, WIDTH, HEIGHT,null);
+    }
+
 
     @Override
     public void changeState() {

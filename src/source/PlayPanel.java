@@ -116,7 +116,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                if (levelMatrix[i][j].getTrapObject() != null) {
                    if (levelMatrix[i][j].getTrapObject() instanceof Rock){
                        if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, maps, i, j);
-                       levelMatrix[i][j].getTrapObject().paintObject(g2);
+                       levelMatrix[i][j].getTrapObject().paintObject(g2, mapX , mapY);
                    }
                    else{
                        JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
@@ -344,6 +344,10 @@ public class PlayPanel extends JPanel implements KeyListener {
             //if wall is right boy.whatMove = 8;
             boy.isMoving = true;
             moveBoy();
+            Rock rock = (Rock)levelMatrix[4][19].getTrapObject();
+            rock.whatMove = 1;
+            rock.isMoving = true;
+            rock.moveRock();
         }
         if ((e.getKeyCode() == KeyEvent.VK_SPACE) && (boy.isMoving == false)) {
             if (boy.currentPicture == boy.walkUp2) boy.whatMove = 11;
@@ -361,7 +365,6 @@ public class PlayPanel extends JPanel implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
     }
-
 
     public Level getCurrentLevel() {
         return currentLevel;
