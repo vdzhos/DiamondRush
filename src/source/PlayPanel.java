@@ -3,6 +3,7 @@ package source;
 import maps.Cell;
 import maps.Level;
 import maps.Maps;
+import objects.harmless.Diamond;
 import objects.traps.Rock;
 
 import javax.swing.*;
@@ -105,29 +106,46 @@ public class PlayPanel extends JPanel implements KeyListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        panel.removeAll();
         Graphics2D g2 = (Graphics2D) g;
         for (int i = 0; i < levelMatrix.length; i++) {
             for (int j = 0; j < levelMatrix[i].length; j++) {
                 levelMatrix[i][j].getBlock().paintObject(g2,mapX+ i*70,mapY+j*70);
-                if (levelMatrix[i][j].getTrapObject() != null) {
-                    if (levelMatrix[i][j].getTrapObject() instanceof Rock){
-                        if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, maps, i, j);
-                        levelMatrix[i][j].getTrapObject().paintObject(g2, mapX , mapY);
-                    }
-                    else{
-                        JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
-                        if (label.getParent() != panel) {
-                            Dimension size = label.getPreferredSize();
-                            label.setBounds(mapX + i * 70, mapY + j * 70, size.width, size.height);
-                            add(label);
-                        }
-                    }
-
-                }
             }
         }
+        for (int i = 0; i < levelMatrix.length; i++) {
+            for (int j = 0; j < levelMatrix[i].length; j++) {
+               if (levelMatrix[i][j].getTrapObject() != null) {
+                   if (levelMatrix[i][j].getTrapObject() instanceof Rock){
+                       if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
+                       if (mapIsMoving()) levelMatrix[i][j].getTrapObject().paintObject(g2, mapX, mapY);
+                       else levelMatrix[i][j].getTrapObject().paintObject(g2);
+                   }
+                   else{
+                       JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
+                       if (label.getParent() != panel) {
+                           Dimension size = label.getPreferredSize();
+                           label.setBounds(mapX + i * 70, mapY + j * 70, size.width, size.height);
+                           add(label);
+                       } else {
+                           Dimension size = label.getPreferredSize();
+                           label.setBounds(mapX + i * 70, mapY + j * 70, size.width, size.height);
+                           //revalidate();
+                       }
+                   }
+               }
+               else if (levelMatrix[i][j].getHarmlessObject() != null) {
+                    if (levelMatrix[i][j].getHarmlessObject() instanceof Diamond) {
+                        if (!stonesAreInited)
+                            ((Diamond) levelMatrix[i][j].getHarmlessObject()).initVars(this, i, j, mapX, mapY);
+                        if (mapIsMoving()) levelMatrix[i][j].getHarmlessObject().paintObject(g2, mapX, mapY);
+                        else levelMatrix[i][j].getHarmlessObject().paintObject(g2);
+                    }
+               }
+            }
+        }
+        stonesAreInited = true;
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
+        //System.out.println(boy.isMoving);
     }
 
 
@@ -261,7 +279,9 @@ public class PlayPanel extends JPanel implements KeyListener {
         return boy.x != 0;
     }
 
-
+    private boolean mapIsMoving(){
+        return (mapMovesUp || mapMovesDown || mapMovesToLeft || mapMovesToRight);
+    }
 
 
 //    private void moveBoy(){
@@ -333,9 +353,12 @@ public class PlayPanel extends JPanel implements KeyListener {
             boy.isMoving = true;
             moveBoy();
             Rock rock = (Rock)levelMatrix[4][19].getTrapObject();
-            rock.whatMove = 1;
-            rock.isMoving = true;
-            rock.moveRock();
+            if (rock != null){
+                rock.whatMove = 1;
+                rock.isMoving = true;
+                rock.moveRock();
+            }
+
         }
         if ((e.getKeyCode() == KeyEvent.VK_SPACE) && (boy.isMoving == false)) {
             if (boy.currentPicture == boy.walkUp2) boy.whatMove = 11;
@@ -357,4 +380,5 @@ public class PlayPanel extends JPanel implements KeyListener {
     public Level getCurrentLevel() {
         return currentLevel;
     }
+
 }

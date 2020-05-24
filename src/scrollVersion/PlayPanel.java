@@ -27,7 +27,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     private int positionOnMapX;
     private int positionOnMapY;
 
-
+    private boolean stonesAreInited = false;
 
 
     // map parameters
@@ -134,22 +134,34 @@ public class PlayPanel extends JPanel implements KeyListener {
         Graphics2D g2 = (Graphics2D) g;
         for (int i = 0; i < levelMatrix.length; i++) {
             for (int j = 0; j < levelMatrix[i].length; j++) {
-                levelMatrix[i][j].getBlock().paintObject(g2, i*70,j*70);
-                if(levelMatrix[i][j].getTrapObject()!=null){
-                    JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
-                    if(label.getParent()!=panel){
-                        Dimension size = label.getPreferredSize();
-                        label.setBounds(i*70,j*70,size.width,size.height);
-                        add(label);
+                levelMatrix[i][j].getBlock().paintObject(g2,i*70,j*70);
+            }
+        }
+        for (int i = 0; i < levelMatrix.length; i++) {
+            for (int j = 0; j < levelMatrix[i].length; j++) {
+                if (levelMatrix[i][j].getTrapObject() != null) {
+                    if (levelMatrix[i][j].getTrapObject() instanceof Rock){
+                        if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, maps, i, j);
+                        levelMatrix[i][j].getTrapObject().paintObject(g2, mapX, mapY);
                     }
-                    else {
-                        Dimension size = label.getPreferredSize();
-                        label.setBounds((i-1)*70,j*70,size.width,size.height);
+                    else{
+                        JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
+                        if ((label != null) && (label.getParent() != panel)) {
+                            Dimension size = label.getPreferredSize();
+                            label.setBounds(i*70,j*70, size.width, size.height);
+                            add(label);
+                        } else if (label != null){
+                            Dimension size = label.getPreferredSize();
+                            label.setBounds((i-1)*70,j*70, size.width, size.height);
+                            //revalidate();
+                        }
                     }
                 }
             }
         }
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
+        stonesAreInited = true;
+        //System.out.println(boy.isMoving);
     }
 
 

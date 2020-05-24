@@ -1,7 +1,5 @@
 package scrollVersion;
 
-//import source.Boy;
-//import source.PlayPanel;
 import source.Values;
 
 import javax.swing.*;

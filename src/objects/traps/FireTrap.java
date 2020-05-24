@@ -87,6 +87,11 @@ public class FireTrap extends JLabel implements Trap{
 
     }
 
+    @Override
+    public void paintObject(Graphics2D g2) {
+
+    }
+
 
     @Override
     public JLabel getLabel() {

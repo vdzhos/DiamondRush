@@ -65,10 +65,12 @@ public class Boy {
 
     Image imHoldARock = new ImageIcon("boy/holdARock.png").getImage();
 
-    //images attack up
-    Image[] arrayAttackUp = {};
-    //images attack down
-    Image[] arrayAttackDown = {};
+    Image attackUp = new ImageIcon("boy/attackUp.png").getImage();
+    Image[] arrayAttackUp = {walkUp2, attackUp, attackUp, attackUp, attackUp, attackUp, walkUp2};
+
+    Image attackRight1 = new ImageIcon("boy/attackRight1.png").getImage();
+    Image attackDown = new ImageIcon("boy/attackDown.png").getImage();
+    Image[] arrayAttackDown = {attackRight1, attackRight1, attackDown, attackDown, attackDown, attackRight1, standClear};
 
     Image attackLeft0 = new ImageIcon("boy/attackLeft0.png").getImage();
     Image attackLeft1 = new ImageIcon("boy/attackLeft1.png").getImage();
@@ -77,7 +79,6 @@ public class Boy {
             attackLeft2, attackLeft2, standLeft};
 
     Image attackRight0 = new ImageIcon("boy/attackRight0.png").getImage();
-    Image attackRight1 = new ImageIcon("boy/attackRight1.png").getImage();
     Image attackRight2 = new ImageIcon("boy/attackRight2.png").getImage();
     Image[] arrayAttackRight = {attackRight0, attackRight0, attackRight1, attackRight1,
             attackRight2, attackRight2, standRight};
