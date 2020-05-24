@@ -106,46 +106,38 @@ public class PlayPanel extends JPanel implements KeyListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        panel.removeAll();
         Graphics2D g2 = (Graphics2D) g;
         for (int i = 0; i < levelMatrix.length; i++) {
             for (int j = 0; j < levelMatrix[i].length; j++) {
                 levelMatrix[i][j].getBlock().paintObject(g2,mapX+ i*70,mapY+j*70);
-            }
-        }
-        for (int i = 0; i < levelMatrix.length; i++) {
-            for (int j = 0; j < levelMatrix[i].length; j++) {
-               if (levelMatrix[i][j].getTrapObject() != null) {
-                   if (levelMatrix[i][j].getTrapObject() instanceof Rock){
-                       if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
-                       if (mapIsMoving()) levelMatrix[i][j].getTrapObject().paintObject(g2, mapX, mapY);
-                       else levelMatrix[i][j].getTrapObject().paintObject(g2);
-                   }
-                   else{
-                       JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
-                       if (label.getParent() != panel) {
-                           Dimension size = label.getPreferredSize();
-                           label.setBounds(mapX + i * 70, mapY + j * 70, size.width, size.height);
-                           add(label);
-                       } else {
-                           Dimension size = label.getPreferredSize();
-                           label.setBounds(mapX + i * 70, mapY + j * 70, size.width, size.height);
-                           //revalidate();
-                       }
-                   }
-               }
-               else if (levelMatrix[i][j].getHarmlessObject() != null) {
+
+                if (levelMatrix[i][j].getTrapObject() != null) {
+                    if (levelMatrix[i][j].getTrapObject() instanceof Rock){
+                        if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
+                        if (mapIsMoving()) levelMatrix[i][j].getTrapObject().paintObject(g2, mapX, mapY);
+                        else levelMatrix[i][j].getTrapObject().paintObject(g2);
+                    }else{
+                        JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
+                        if (label.getParent() != panel) {
+                            Dimension size = label.getPreferredSize();
+                            label.setBounds(mapX + i * 70, mapY + j * 70, size.width, size.height);
+                            add(label);
+                        }
+                    }
+                }else if(levelMatrix[i][j].getHarmlessObject() != null) {
                     if (levelMatrix[i][j].getHarmlessObject() instanceof Diamond) {
                         if (!stonesAreInited)
                             ((Diamond) levelMatrix[i][j].getHarmlessObject()).initVars(this, i, j, mapX, mapY);
                         if (mapIsMoving()) levelMatrix[i][j].getHarmlessObject().paintObject(g2, mapX, mapY);
                         else levelMatrix[i][j].getHarmlessObject().paintObject(g2);
                     }
-               }
+                }
+
             }
         }
         stonesAreInited = true;
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
-        //System.out.println(boy.isMoving);
     }
 
 
