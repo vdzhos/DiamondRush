@@ -1,10 +1,7 @@
-package objects;
+package scrollVersion;
 
 import maps.Maps;
-import objects.traps.Rock;
-import source.PlayPanel;
 
-import javax.swing.*;
 import java.awt.*;
 
 public abstract class Stone {
@@ -19,19 +16,17 @@ public abstract class Stone {
     public int i;
     public boolean isMoving;
     public PlayPanel playPanel;
+    public Maps maps;
     public int xInArray;
     public int yInArray;
-    public int mapX;
-    public int mapY;
 
-    public void initVars(PlayPanel playPanel, int xInArray, int yInArray, int mapX, int mapY){
+    public void initVars(PlayPanel playPanel, Maps maps, int xInArray, int yInArray){
         this.playPanel = playPanel;
+        this.maps = maps;
         this.xInArray = xInArray;
         this.yInArray = yInArray;
-        this.mapX = mapX;
-        this.mapY = mapY;
-        this.x = xInArray * 70 + mapX;
-        this.y = yInArray * 70 + mapY;
+        this.x = xInArray * 70;
+        this.y = yInArray * 70;
     }
 
     //хитатися
@@ -113,13 +108,6 @@ public abstract class Stone {
         y += CELL_SIDE / 7;
         System.out.println("fallDown ");
         i++;
-    }
-
-    protected void updateXAndY(int newMapX, int newMapY){
-        x = x - mapX + newMapX;
-        y = y - mapY + newMapY;
-        mapX = newMapX;
-        mapY = newMapY;
     }
 
     public abstract void interactWithBoy();

@@ -1,6 +1,7 @@
 package objects.harmless;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Tumbleweed implements Harmless {
 
@@ -18,6 +19,16 @@ public class Tumbleweed implements Harmless {
     @Override
     public void changeState() {
         tumbleweed.setIcon(images[1]);
+    }
+
+    @Override
+    public void paintObject(Graphics2D g2, int mapX, int mapY) {
+
+    }
+
+    @Override
+    public void paintObject(Graphics2D g2) {
+
     }
 
     @Override

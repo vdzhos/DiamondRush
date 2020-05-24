@@ -3,6 +3,7 @@ package source;
 import maps.Cell;
 import maps.Level;
 import maps.Maps;
+import objects.harmless.Diamond;
 import objects.traps.Rock;
 
 import javax.swing.*;
@@ -115,8 +116,9 @@ public class PlayPanel extends JPanel implements KeyListener {
             for (int j = 0; j < levelMatrix[i].length; j++) {
                if (levelMatrix[i][j].getTrapObject() != null) {
                    if (levelMatrix[i][j].getTrapObject() instanceof Rock){
-                       if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, maps, i, j);
-                       levelMatrix[i][j].getTrapObject().paintObject(g2, mapX , mapY);
+                       if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
+                       if (mapIsMoving()) levelMatrix[i][j].getTrapObject().paintObject(g2, mapX, mapY);
+                       else levelMatrix[i][j].getTrapObject().paintObject(g2);
                    }
                    else{
                        JLabel label = levelMatrix[i][j].getTrapObject().getLabel();
@@ -134,10 +136,18 @@ public class PlayPanel extends JPanel implements KeyListener {
                            //revalidate();
                        }
                    }
-
-                }
+               }
+               else if (levelMatrix[i][j].getHarmlessObject() != null) {
+                    if (levelMatrix[i][j].getHarmlessObject() instanceof Diamond) {
+                        if (!stonesAreInited)
+                            ((Diamond) levelMatrix[i][j].getHarmlessObject()).initVars(this, i, j, mapX, mapY);
+                        if (mapIsMoving()) levelMatrix[i][j].getHarmlessObject().paintObject(g2, mapX, mapY);
+                        else levelMatrix[i][j].getHarmlessObject().paintObject(g2);
+                    }
+               }
             }
         }
+        stonesAreInited = true;
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
         //System.out.println(boy.isMoving);
     }
@@ -273,7 +283,9 @@ public class PlayPanel extends JPanel implements KeyListener {
         return boy.x != 0;
     }
 
-
+    private boolean mapIsMoving(){
+        return (mapMovesUp || mapMovesDown || mapMovesToLeft || mapMovesToRight);
+    }
 
 
 //    private void moveBoy(){
@@ -345,9 +357,12 @@ public class PlayPanel extends JPanel implements KeyListener {
             boy.isMoving = true;
             moveBoy();
             Rock rock = (Rock)levelMatrix[4][19].getTrapObject();
-            rock.whatMove = 1;
-            rock.isMoving = true;
-            rock.moveRock();
+            if (rock != null){
+                rock.whatMove = 1;
+                rock.isMoving = true;
+                rock.moveRock();
+            }
+
         }
         if ((e.getKeyCode() == KeyEvent.VK_SPACE) && (boy.isMoving == false)) {
             if (boy.currentPicture == boy.walkUp2) boy.whatMove = 11;
@@ -369,4 +384,5 @@ public class PlayPanel extends JPanel implements KeyListener {
     public Level getCurrentLevel() {
         return currentLevel;
     }
+
 }

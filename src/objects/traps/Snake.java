@@ -80,6 +80,11 @@ public class Snake extends JLabel implements Trap{
     public void paintObject(Graphics2D g2, int mapX, int mapY) {
     }
 
+    @Override
+    public void paintObject(Graphics2D g2) {
+
+    }
+
 
     @Override
     public void changeState() {

@@ -1,13 +1,12 @@
-package objects.traps;
+package scrollVersion;
 
-import maps.Maps;
-import objects.Stone;
+import objects.traps.Trap;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class Rock extends Stone implements Trap{
+public class Rock extends Stone implements Trap {
 
     public Rock(){
         whatMove = 0;//Stay calm = 0; stagger = 1;
@@ -17,6 +16,15 @@ public class Rock extends Stone implements Trap{
         i = 0;
         isMoving = false;
     }
+
+    /*private Cell[][] whatLevel(int level){
+        if (level == 1) return maps.getLevel1();
+        else if (level == 2) return maps.getLevel2();
+        else if (level == 3) return maps.getLevel3();
+        else if (level == 4) return maps.getLevel4();
+        else if (level == 5) return maps.getLevel5();
+        else return new Cell[0][0];
+    }*/
 
     public void moveRock(){
         Timer timer = new Timer(100, null);
@@ -55,7 +63,8 @@ public class Rock extends Stone implements Trap{
 
     public void beShovenLeft(){
         if (i == 3){
-            setStoneToNewPositionInArray(xInArray - 1, yInArray);
+            playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+            playPanel.getCurrentLevel().getMatrix()[xInArray - 1][yInArray].setTrapObject(Rock.this);
             xInArray -= 1;
         }
         x -= CELL_SIDE / 7;
@@ -64,7 +73,8 @@ public class Rock extends Stone implements Trap{
 
     public void beShovenRight(){
         if (i == 3){
-            setStoneToNewPositionInArray(xInArray + 1, yInArray);
+            playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(null);
+            playPanel.getCurrentLevel().getMatrix()[xInArray + 1][yInArray].setTrapObject(Rock.this);
             xInArray ++;
         }
         x += CELL_SIDE / 7;
@@ -72,14 +82,14 @@ public class Rock extends Stone implements Trap{
     }
 
     @Override
-    public void paintObject(Graphics2D g2, int newMapX, int newMapY) {
-        updateXAndY(newMapX, newMapY);
-        paintObject(g2);
+    public void paintObject(Graphics2D g2, int mapX, int mapY) {
+        g2.drawImage(image, x, y, WIDTH, HEIGHT,null);
+        //System.out.println(mapX + x + ", " + mapY + y);
     }
 
     @Override
     public void paintObject(Graphics2D g2) {
-        g2.drawImage(image, x, y, WIDTH, HEIGHT,null);
+
     }
 
     @Override
