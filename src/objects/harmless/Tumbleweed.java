@@ -5,31 +5,16 @@ import java.awt.*;
 
 public class Tumbleweed implements Harmless {
 
-    private JLabel tumbleweed;
-    private ImageIcon[] images = {new ImageIcon(""), null};
+    private Image image = new ImageIcon("mapImages/tumbleweed.png").getImage();
 
-    public Tumbleweed(){
-        tumbleweed = new JLabel(images[0]);
-    }
 
-    public JLabel getTumbleweed() {
-        return tumbleweed;
+    @Override
+    public void paintObject(Graphics2D g2, int x, int y) {
+        g2.drawImage(image,x,y,70,70,null);
     }
 
     @Override
-    public void changeState() {
-        tumbleweed.setIcon(images[1]);
-    }
-
-    @Override
-    public void paintObject(Graphics2D g2, int mapX, int mapY) {
-
-    }
-
-    @Override
-    public void paintObject(Graphics2D g2) {
-
-    }
+    public void paintObject(Graphics2D g2) { }
 
     @Override
     public boolean passable() {

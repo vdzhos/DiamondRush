@@ -67,11 +67,6 @@ public class Diamond extends Stone implements Harmless{
     }
 
     @Override
-    public void changeState() {
-
-    }
-
-    @Override
     public boolean passable() {
         return false;
     }
