@@ -105,7 +105,8 @@ public abstract class Stone {
 
     public void fallDown(){
         if (i == 3){
-            if (yInArray + 1 < playPanel.getCurrentLevel().getMatrix().length){
+            //Then change
+            if (yInArray + 2 < playPanel.getCurrentLevel().getMatrix().length){
                 setStoneToNewPositionInArray(xInArray, yInArray + 1);
                 yInArray ++;
             }

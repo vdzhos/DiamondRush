@@ -3,6 +3,7 @@ package source;
 import maps.Cell;
 import maps.Level;
 import maps.Maps;
+import objects.harmless.Chest;
 import objects.harmless.Diamond;
 import objects.traps.Rock;
 
@@ -101,6 +102,8 @@ public class PlayPanel extends JPanel implements KeyListener {
 
         boy.x = positionOnScreenX* Values.CELL_SIZE;
         boy.y = positionOnScreenY* Values.CELL_SIZE;
+        boy.xInArray = positionOnMapX;
+        boy.yInArray = positionOnMapY;
     }
 
     @Override
@@ -252,6 +255,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 if (boy.i == 7){
                     boy.i = 0;
                     boy.isMoving = false;
+                    System.out.println(boy.xInArray + ", " + boy.yInArray);
                     t.stop();
                 }
             }
@@ -322,6 +326,17 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        //You can test a chest
+        if (e.getKeyCode() == KeyEvent.VK_1){
+            Chest chest = (Chest)levelMatrix[12][8].getHarmlessObject();
+            if (chest != null){
+                chest.initVars(this);
+                boy.whatMove = 9;
+                boy.isMoving = true;
+                moveBoy();
+                chest.openChest();
+            }
+        }
         if ((e.getKeyCode() == KeyEvent.VK_UP) && (boy.isMoving == false) && isAllowedUp()) {
             setMovementUp();
             boy.whatMove = 1;
@@ -349,6 +364,7 @@ public class PlayPanel extends JPanel implements KeyListener {
             //if wall is right boy.whatMove = 8;
             boy.isMoving = true;
             moveBoy();
+            //You can test a stone
             Rock rock = (Rock)levelMatrix[4][19].getTrapObject();
             if (rock != null){
                 rock.whatMove = 1;

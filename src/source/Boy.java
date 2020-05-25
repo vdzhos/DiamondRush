@@ -7,6 +7,8 @@ public class Boy {
 
     int x;
     int y;
+    int xInArray;
+    int yInArray;
     int width;
     int height;
     int cellSide = Values.CELL_SIZE;
@@ -61,7 +63,8 @@ public class Boy {
 
     Image lookInChest = new ImageIcon("boy/lookInChest.png").getImage();
     Image cheer = new ImageIcon("boy/cheer.png").getImage();
-    Image[] arrayFindInChest = {lookInChest, lookInChest, lookInChest, cheer, cheer, cheer, standClear};
+    Image[] arrayFindInChest = {lookInChest, lookInChest, lookInChest, cheer, cheer, cheer, cheer};
+    //Question about stand clear
 
     Image imHoldARock = new ImageIcon("boy/holdARock.png").getImage();
 
@@ -109,49 +112,57 @@ public class Boy {
     }
 
     public void moveUp() {
+        if (i == 3) yInArray --;
         y -= cellSide / 7;
         currentPicture = arrayUp[i];
         i++;
     }
     public void moveUpAnimation() {
+        if (i == 3) yInArray --;
         currentPicture = arrayUp[i];
         i++;
     }
 
     public void moveDown() {
+        if (i == 3) yInArray ++;
         y += cellSide / 7;
         currentPicture = arrayDown[i];
         i++;
     }
 
     public void moveDownAnimation() {
+        if (i == 3) yInArray ++;
         currentPicture = arrayDown[i];
         i++;
     }
 
     public void moveLeft() {
+        if (i == 3) xInArray --;
         x -= cellSide / 7;
         currentPicture = arrayLeft[i];
         i++;
     }
     public void moveLeftAnimation() {
+        if (i == 3) xInArray --;
         currentPicture = arrayLeft[i];
         i++;
     }
 
     public void moveRight() {
+        if (i == 3) xInArray ++;
         x += cellSide / 7;
         currentPicture = arrayRight[i];
         i++;
     }
 
     public void moveRightAnimation() {
-//        x += cellSide / 7;
+        if (i == 3) xInArray ++;
         currentPicture = arrayRight[i];
         i++;
     }
 
     public void shoveLeftAndMove(){
+        if (i == 3) xInArray --;
         x -= cellSide / 7;
         currentPicture = arrayShoveLeft[i];
         i++;
@@ -163,6 +174,7 @@ public class Boy {
     }
 
     public void shoveRightAndMove(){
+        if (i == 3) xInArray ++;
         x += cellSide / 7;
         currentPicture = arrayShoveRight[i];
         i++;
