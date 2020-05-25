@@ -60,9 +60,6 @@ public class Maps {
         level1[5][19] = new Cell(new Floor(),null,null);
         level1[5][20] = new Cell(new Floor(),null,null);
         level1[6][4] = new Cell(new Floor(),null,snake2);
-        level1[6][10] = new Cell(new Floor(),null,null);
-        level1[6][11] = new Cell(new Floor(),null,null);
-        level1[6][4] = new Cell(new Floor(),null,null);
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),null,null);
