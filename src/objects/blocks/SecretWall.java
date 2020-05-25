@@ -1,5 +1,7 @@
 package objects.blocks;
 
+import maps.Level;
+
 import javax.swing.*;
 import java.awt.*;
 
