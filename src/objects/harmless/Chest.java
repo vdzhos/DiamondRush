@@ -42,11 +42,18 @@ public class Chest implements Harmless{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (isClosed) open();
-                else takeThings();
+                else if (thingsAreBeeingTaken) takeThings();
                 playPanel.repaint();
                 if (i == 7){
                     i = 0;
-                    if (index == 5) timer.stop();
+                    playPanel.boy.whatMove = 9;
+                    playPanel.boy.isMoving = true;
+                    playPanel.moveBoy();
+                    if (thingsAreBeeingTaken == false) thingsAreBeeingTaken = true;
+                    if (index >= 5){
+                        thingsAreBeeingTaken = false;
+                        timer.stop();
+                    }
                 }
             }
         });
@@ -60,10 +67,10 @@ public class Chest implements Harmless{
     }
 
     private void takeThings(){
-        if (things[index] != null) currentThing = things[index];
-        else{
+        if ((index < 5)&&(things[index] != null)) currentThing = things[index];
+        else if (things[index] == null){
             index++;
-            if (index < 5) currentThing = things[index];
+            if ((index < 5)&&(things[index] != null)) currentThing = things[index];
         }
         i++;
         if (i == 7) index++;

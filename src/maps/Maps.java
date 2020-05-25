@@ -65,7 +65,8 @@ public class Maps {
         level1[4][16] = new Cell(new Floor(),null,null);
         level1[4][18] = new Cell(new Floor(),null,null);
         level1[4][19] = new Cell(new Floor(),null,new Rock());
-        level1[5][16] = new Cell(new Floor(),null,null);
+        level1[5][16] = new Cell(new Floor(),new Chest(new PurpleDiamond(10), new RedDiamond(1),
+                new SilverKey(), new GoldKey(), new Energy()),null);//only for test
         level1[5][17] = new Cell(new Floor(),null,null);
         level1[5][18] = new Cell(new Floor(),null,null);
         level1[5][19] = new Cell(new Floor(),null,null);

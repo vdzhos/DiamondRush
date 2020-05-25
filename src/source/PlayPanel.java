@@ -18,7 +18,7 @@ import java.awt.event.KeyListener;
 
 public class PlayPanel extends JPanel implements KeyListener {
 
-    private Boy boy;
+    public Boy boy;
     private JPanel panel;
     private Maps maps;
     private boolean stonesAreInited = false;
@@ -149,7 +149,9 @@ public class PlayPanel extends JPanel implements KeyListener {
                         levelMatrix[i][j].getHarmlessObject().paintObject(g2,mapX+ i*70,mapY+j*70);
                         if (levelMatrix[i][j].getHarmlessObject() instanceof Chest) {
                             if (((Chest)levelMatrix[i][j].getHarmlessObject()).thingsAreBeeingTaken){
-                                ((Chest)levelMatrix[i][j].getHarmlessObject()).currentThing.paintObject(g2, mapX+ i*70, mapY+(j-1)*70);
+                                if (((Chest)levelMatrix[i][j].getHarmlessObject()).currentThing != null){
+                                    ((Chest)levelMatrix[i][j].getHarmlessObject()).currentThing.paintObject(g2, mapX+ i*70, mapY+(j-1)*70);
+                                }
                             }
                         }
                     }
@@ -225,7 +227,7 @@ public class PlayPanel extends JPanel implements KeyListener {
 
 
 
-    private void moveBoy(){
+    public void moveBoy(){
         Timer t = new Timer(100, null);
         t.addActionListener(new AbstractAction() {
             @Override
@@ -345,7 +347,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
         //You can test a chest
         if (e.getKeyCode() == KeyEvent.VK_1){
-            Chest chest = (Chest)levelMatrix[12][8].getHarmlessObject();
+            Chest chest = (Chest)levelMatrix[5][16].getHarmlessObject();
             if (chest != null){
                 chest.initVars(this);
                 boy.whatMove = 9;

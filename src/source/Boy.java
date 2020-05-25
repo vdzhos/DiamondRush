@@ -12,12 +12,12 @@ public class Boy {
     int width;
     int height;
     int cellSide = Values.CELL_SIZE;
-    int whatMove = 0; //Stand = 0; Up = 1; Down = 2; Left = 3; Right = 4;
+    public int whatMove = 0; //Stand = 0; Up = 1; Down = 2; Left = 3; Right = 4;
     //shoveLeftAndMove = 5; shoveLeftAndStand = 6; shoveRightAndMove = 7; shoveRightAndStand = 8;
     //findInChest = 9; holdARock = 10;
     //attackLeft = 11; attackRight = 12; attackLeft = 13; attackRight = 14;
     //openWithGoldKeyLeft = 15; openWithGoldKeyRight = 16; openWithSilverKeyLeft = 17; openWithSilverKeyRight = 18;
-    boolean isMoving = false;
+    public boolean isMoving = false;
     int i = 0;
 
     Image standLeft = new ImageIcon("boy/standLeft.png").getImage();
