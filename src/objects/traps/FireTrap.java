@@ -8,12 +8,21 @@ import java.awt.event.ActionListener;
 public class FireTrap extends JLabel implements Trap{
 
     private Timer timer;
+    private Image[] images;
     private boolean[] state = {false,false,false};
     private boolean turningOn = true;
     private JLabel fireTrap;
     private boolean side; //right - true; left - false
 
+    private void initImages(){
+        Image imageRight = new ImageIcon("fireTrap/fireballRight1.png").getImage();
+        Image imageDown = new ImageIcon("fireTrap/fireballLeft1.png").getImage();
+        Image[] images = {imageRight, imageDown};
+        this.images = images;
+    }
+
     public FireTrap(boolean side){
+        initImages();
         fireTrap = this;
         setPreferredSize(new Dimension(280,70));
         this.side = side;
@@ -58,7 +67,7 @@ public class FireTrap extends JLabel implements Trap{
             g2.setColor(Color.RED);
             for (int i = 3; i > 0; i--) {
                 if(state[i-1]){
-                    g2.fillRect(210-(4-i)*70,0,70,70);
+                    g2.drawImage(images[1], 210-(4-i)*70,0, 70,70,null);
                 }
             }
         }else{ //left
@@ -66,7 +75,7 @@ public class FireTrap extends JLabel implements Trap{
             g2.setColor(Color.RED);
             for (int i = 1; i < 4; i++) {
                 if(state[i-1]){
-                    g2.fillRect(i*70,0,70,70);
+                    g2.drawImage(images[0], i*70,0, 70,70,null);
                 }
             }
         }

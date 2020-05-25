@@ -1,5 +1,6 @@
 package maps;
 
+import objects.blocks.doors.*;
 import objects.blocks.*;
 import objects.harmless.Chest;
 import objects.thingsInChest.*;
@@ -34,6 +35,8 @@ public class Maps {
 
     private void initLevel1(){
 
+
+
         Snake snake1 = new Snake(140,70,true);
         Snake snake2 = new Snake(350,70,true);
         Snake snake3 = new Snake(70,140,false);
@@ -46,12 +49,17 @@ public class Maps {
         FireTrap fireTrap2 = new FireTrap(false);
         FireTrap fireTrap3 = new FireTrap(false);
 
+        Snake[] snakes = {snake3,snake4};
+        DoubleDoor doubleDoor = new DoubleDoor(snakes,true,20,13);
+        PressMechanism pressMechanism = new PressMechanism(5,20);
+        PressMechanism pressMechanism2 = new PressMechanism(12,19);
+
         //Floor + (Harmless/Trap)
         Cell[][] level1 = new Cell[40][22];
         level1[0][16] = new Cell(new Floor(),null,null);
-        level1[1][16] = new Cell(new Floor(),null,null);
+        level1[1][16] = new Cell(new BlockedDoor(),null,null);
         level1[2][16] = new Cell(new Floor(),null,null);
-        level1[3][16] = new Cell(new DoorWithKeyhole(false),null,null);
+        level1[3][16] = new Cell(new Floor(),null,null);
         level1[3][18] = new Cell(new Floor(),null,null);
         level1[3][19] = new Cell(new Floor(),new Diamond(),null);
         level1[4][16] = new Cell(new Floor(),null,null);
@@ -61,7 +69,7 @@ public class Maps {
         level1[5][17] = new Cell(new Floor(),null,null);
         level1[5][18] = new Cell(new Floor(),null,null);
         level1[5][19] = new Cell(new Floor(),null,null);
-        level1[5][20] = new Cell(new Floor(),null,null);
+        level1[5][20] = new Cell(pressMechanism.pressPanel,null,new Rock());
         level1[6][4] = new Cell(new Floor(),null,snake2);
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
@@ -77,7 +85,7 @@ public class Maps {
         level1[7][10] = new Cell(new Floor(),new Diamond(),null);
         level1[7][12] = new Cell(new Floor(),null,null);
         level1[7][13] = new Cell(new Floor(),null,fireTrap1);
-        level1[7][19] = new Cell(new Floor(),null,null);
+        level1[7][19] = new Cell(pressMechanism.door,null,null);
         level1[8][4] = new Cell(new Floor(),null,snake2);
         level1[8][5] = new Cell(new Floor(),null,null);
         level1[8][6] = new Cell(new Floor(),null,null);
@@ -118,14 +126,14 @@ public class Maps {
         level1[12][15] = new Cell(new Floor(),new Tumbleweed(),null);
         level1[12][17] = new Cell(new Floor(),null,null);
         level1[12][18] = new Cell(new Floor(),null,null);
-        level1[12][19] = new Cell(new Floor(),null,null);
+        level1[12][19] = new Cell(pressMechanism2.pressPanel,null,null);
         level1[13][1] = new Cell(new Floor(),null,new Rock());
         level1[13][2] = new Cell(new Floor(),new Diamond(),null);
         level1[13][3] = new Cell(new Floor(),new Tumbleweed(),null);
         level1[13][4] = new Cell(new Floor(),new Diamond(),null);
         level1[13][7] = new Cell(new Floor(),null,null);
         level1[13][8] = new Cell(new Floor(),null,null);
-        level1[13][13] = new Cell(new Floor(),null,null);
+        level1[13][13] = new Cell(doubleDoor.leftDoor,null,null);
         level1[13][17] = new Cell(new Floor(),null,null);
         level1[13][18] = new Cell(new Floor(),null,null);
         level1[13][19] = new Cell(new Floor(),null,null);
@@ -139,7 +147,7 @@ public class Maps {
         level1[14][12] = new Cell(new Floor(),null,null);
         level1[14][13] = new Cell(new Floor(),null,null);
         level1[14][14] = new Cell(new Floor(),null,null);
-        level1[14][18] = new Cell(new Floor(),null,null);
+        level1[14][18] = new Cell(pressMechanism2.door,null,null);
         level1[15][2] = new Cell(new Floor(),new Diamond(),null);
         level1[15][3] = new Cell(new Floor(),new Tumbleweed(),null);
         level1[15][4] = new Cell(new Floor(),new Diamond(),null);
@@ -182,7 +190,7 @@ public class Maps {
         level1[20][7] = new Cell(new Floor(),null,fireTrap2);
         level1[20][8] = new Cell(new Floor(),null,null);
         level1[20][9] = new Cell(new Floor(),null,fireTrap3);
-        level1[20][13] = new Cell(new Floor(),null,null);
+        level1[20][13] = new Cell(doubleDoor.rightDoor,null,null);
         level1[20][18] = new Cell(new Floor(),null,null);
         level1[21][3] = new Cell(new Floor(),null,null);
         level1[21][4] = new Cell(new Floor(),new Diamond(),null);
@@ -195,7 +203,7 @@ public class Maps {
         level1[21][11] = new Cell(new Floor(),null,null);
         level1[21][12] = new Cell(new Floor(),null,null);
         level1[21][13] = new Cell(new Floor(),null,null);
-        level1[21][18] = new Cell(new Floor(),null,null);
+        level1[21][18] = new Cell(new BlockedDoor(),null,null);
         level1[22][3] = new Cell(new Floor(),null,null);
         level1[22][4] = new Cell(new Floor(),null,null);
         level1[22][9] = new Cell(new Floor(),null,fireTrap3);
@@ -285,26 +293,26 @@ public class Maps {
         level1[37][10] = new Cell(new SecretWall(),null,null);
 
         //BreakableWalls
-        level1[22][11] = new Cell(new BreakableWall(),null,null);
-        level1[23][3] = new Cell(new BreakableWall(),null,null);
-        level1[23][4] = new Cell(new BreakableWall(),null,null);
-        level1[23][11] = new Cell(new BreakableWall(),null,null);
-        level1[24][3] = new Cell(new BreakableWall(),null,null);
-        level1[24][4] = new Cell(new BreakableWall(),null,null);
-        level1[24][5] = new Cell(new BreakableWall(),null,null);
-        level1[24][11] = new Cell(new BreakableWall(),null,null);
-        level1[26][11] = new Cell(new BreakableWall(),null,null);
-        level1[27][6] = new Cell(new BreakableWall(),null,null);
-        level1[27][7] = new Cell(new BreakableWall(),null,null);
-        level1[27][11] = new Cell(new BreakableWall(),null,null);
-        level1[28][6] = new Cell(new BreakableWall(),null,null);
-        level1[29][6] = new Cell(new BreakableWall(),null,null);
-        level1[31][11] = new Cell(new BreakableWall(),null,null);
-        level1[31][18] = new Cell(new BreakableWall(),null,null);
-        level1[32][11] = new Cell(new BreakableWall(),null,null);
-        level1[32][15] = new Cell(new BreakableWall(),null,null);
-        level1[32][16] = new Cell(new BreakableWall(),null,null);
-        level1[32][18] = new Cell(new BreakableWall(),null,null);
+        level1[22][11] = new Cell(new BreakableWall(22,11),null,null);
+        level1[23][3] = new Cell(new BreakableWall(23,3),null,null);
+        level1[23][4] = new Cell(new BreakableWall(23,4),null,null);
+        level1[23][11] = new Cell(new BreakableWall(23,11),null,null);
+        level1[24][3] = new Cell(new BreakableWall(24,3),null,null);
+        level1[24][4] = new Cell(new BreakableWall(24,4),null,null);
+        level1[24][5] = new Cell(new BreakableWall(24,5),null,null);
+        level1[24][11] = new Cell(new BreakableWall(24,11),null,null);
+        level1[26][11] = new Cell(new BreakableWall(26,11),null,null);
+        level1[27][6] = new Cell(new BreakableWall(27,6),null,null);
+        level1[27][7] = new Cell(new BreakableWall(27,7),null,null);
+        level1[27][11] = new Cell(new BreakableWall(27,11),null,null);
+        level1[28][6] = new Cell(new BreakableWall(28,6),null,null);
+        level1[29][6] = new Cell(new BreakableWall(29,6),null,null);
+        level1[31][11] = new Cell(new BreakableWall(31,11),null,null);
+        level1[31][18] = new Cell(new BreakableWall(31,18),null,null);
+        level1[32][11] = new Cell(new BreakableWall(32,11),null,null);
+        level1[32][15] = new Cell(new BreakableWall(32,15),null,null);
+        level1[32][16] = new Cell(new BreakableWall(32,16),null,null);
+        level1[32][18] = new Cell(new BreakableWall(32,18),null,null);
 
 
         for (int i = 0; i < level1.length; i++) {

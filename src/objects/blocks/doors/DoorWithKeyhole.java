@@ -1,11 +1,13 @@
-package objects.blocks;
+package objects.blocks.doors;
 
+import objects.blocks.Block;
+import objects.blocks.Floor;
 import source.Values;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class DoorWithKeyhole implements Block{
+public class DoorWithKeyhole implements Block {
 
     private Image closedDoorUpper;
     private Image closedDoorLower;
