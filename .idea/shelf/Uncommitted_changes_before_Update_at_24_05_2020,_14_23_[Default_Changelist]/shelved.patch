@@ -1,0 +1,44 @@
+Index: src/source/Game.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package source;\n\nimport javax.swing.*;\nimport java.awt.*;\n\nimport static javax.swing.BorderFactory.createEmptyBorder;\n\npublic class Game extends JFrame {\n\n    private JScrollPane scrollPane;\n    private PlayPanel playPanel;\n    private JPanel upper;\n\n    public Game(){\n        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);\n        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n        setVisible(true);\n        getContentPane().setLayout(new BorderLayout());\n        setResizable(false);\n\n        init();\n        add(upper, BorderLayout.NORTH);\n        add(playPanel, BorderLayout.CENTER);\n        revalidate();\n    }\n\n    private void init() {\n        upper = new JPanel();\n        upper.setPreferredSize(new Dimension(700,100));\n\n        Boy boy = new Boy(0, 0);\n        playPanel = new PlayPanel(boy,1);\n        addKeyListener(playPanel);\n\n        scrollPane = new JScrollPane(playPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);\n        scrollPane.setBorder(createEmptyBorder());\n    }\n\n    public static void main(String[] args) {\n        Game game = new Game();\n        JScrollBar vertical = game.scrollPane.getVerticalScrollBar();\n        vertical.setValue(vertical.getMaximum());\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/source/Game.java	(revision a1a7725322c7ddac489ae6a7726e9a6dcf51d6ba)
++++ src/source/Game.java	(date 1590265482089)
+@@ -25,7 +25,7 @@
+     }
+ 
+     private void init() {
+-        upper = new JPanel();
++        upper = new StatusBarPanel(new GameFrame());
+         upper.setPreferredSize(new Dimension(700,100));
+ 
+         Boy boy = new Boy(0, 0);
+Index: src/source/GameFrame.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package source;\n\nimport javax.swing.*;\n\npublic class GameFrame extends JFrame {\n\n    private MainMenu mainMenu;\n    private MapPanel mapPanel;\n\n\n    public GameFrame(){\n        super();\n        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);\n        setLocation(300,0);\n        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);\n        init();\n        setUndecorated(true);\n        setVisible(true);\n    }\n\n    private void init() {\n        mainMenu = new MainMenu(this);\n        mapPanel = new MapPanel(this);\n    }\n\n    public void showMainMenu(){\n        getContentPane().removeAll();\n        getContentPane().add(mainMenu);\n        revalidate();\n        repaint();\n    }\n\n    public void setNewMap(){\n        mapPanel = new MapPanel(this);\n    }\n\n    public void showMap(){\n        getContentPane().removeAll();\n        getContentPane().add(mapPanel);\n        revalidate();\n        repaint();\n    }\n\n    public void showLevel(LevelUI level){\n        getContentPane().removeAll();\n        getContentPane().add(level.getStatusBarPanel());\n//        add(level.getGamePanel());\n        revalidate();\n        repaint();\n    }\n\n    public void start(){\n        showMainMenu();\n    }\n\n    public static void main(String[] args) {\n        SwingUtilities.invokeLater(new Runnable() {\n            public void run() {\n                GameFrame gameFrame = new GameFrame();\n                gameFrame.start();\n            }\n        });\n    }\n\n\n\n\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/source/GameFrame.java	(revision a1a7725322c7ddac489ae6a7726e9a6dcf51d6ba)
++++ src/source/GameFrame.java	(date 1590265482101)
+@@ -15,7 +15,7 @@
+         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+         init();
+         setUndecorated(true);
+-        setVisible(true);
++//        setVisible(true);
+     }
+ 
+     private void init() {
+@@ -57,6 +57,7 @@
+         SwingUtilities.invokeLater(new Runnable() {
+             public void run() {
+                 GameFrame gameFrame = new GameFrame();
++                gameFrame.setVisible(true);
+                 gameFrame.start();
+             }
+         });
