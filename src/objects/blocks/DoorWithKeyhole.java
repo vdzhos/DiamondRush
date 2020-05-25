@@ -16,11 +16,13 @@ public class DoorWithKeyhole implements Block{
 
     private boolean opened = false;
     private boolean golden;
+    private Floor floor;
 
 
     public DoorWithKeyhole(boolean golden){
         this.golden = golden;
         initImages();
+        floor = new Floor();
     }
 
     private void initImages() {
@@ -52,7 +54,7 @@ public class DoorWithKeyhole implements Block{
 //            g2.drawImage(closedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
         }
         else {
-            new Floor().paintObject(g2,x,y);
+            floor.paintObject(g2,x,y);
             g2.drawImage(openedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
 //            g2.drawImage(openedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
         }

@@ -17,9 +17,11 @@ public class DoubleDoor{
 
     private Snake[] snakes;
     private boolean opened = true;
+    private Floor floor;
 
     public DoubleDoor(Snake[] snakes){
         this.snakes = snakes;
+        floor = new Floor();
     }
 
     private class LeftDoor implements Block{
@@ -44,8 +46,10 @@ public class DoubleDoor{
 
         @Override
         public void paintObject(Graphics2D g2, int x, int y) {
-            if (opened)
-                g2.drawImage(openedDoor, x-Values.CELL_SIZE,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
+            if (opened) {
+                floor.paintObject(g2,x - Values.CELL_SIZE, y);
+                g2.drawImage(openedDoor, x - Values.CELL_SIZE, y, Values.CELL_SIZE, Values.CELL_SIZE, null);
+            }
             else g2.drawImage(doorImage, x-Values.CELL_SIZE,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
 
         }
@@ -74,8 +78,10 @@ public class DoubleDoor{
 
         @Override
         public void paintObject(Graphics2D g2, int x, int y) {
-            if (opened)
-                g2.drawImage(openedDoor, x+Values.CELL_SIZE,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
+            if (opened) {
+                floor.paintObject(g2,x - Values.CELL_SIZE, y);
+                g2.drawImage(openedDoor, x + Values.CELL_SIZE, y, Values.CELL_SIZE, Values.CELL_SIZE, null);
+            }
             else g2.drawImage(doorImage, x+Values.CELL_SIZE,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
         }
     }
