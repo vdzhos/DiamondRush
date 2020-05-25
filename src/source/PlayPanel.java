@@ -110,7 +110,8 @@ public class PlayPanel extends JPanel implements KeyListener {
         Graphics2D g2 = (Graphics2D) g;
         for (int i = 0; i < levelMatrix.length; i++) {
             for (int j = 0; j < levelMatrix[i].length; j++) {
-                levelMatrix[i][j].getBlock().paintObject(g2,mapX+ i*70,mapY+j*70);
+                if (levelMatrix[i][j].getBlock() != null)
+                    levelMatrix[i][j].getBlock().paintObject(g2,mapX+ i*70,mapY+j*70);
 
                 if (levelMatrix[i][j].getTrapObject() != null) {
                     if (levelMatrix[i][j].getTrapObject() instanceof Rock){

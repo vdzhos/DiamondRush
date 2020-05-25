@@ -31,6 +31,8 @@ public class Maps {
 
     private void initLevel1(){
 
+
+
         Snake snake1 = new Snake(140,70,true);
         Snake snake2 = new Snake(350,70,true);
         Snake snake3 = new Snake(70,140,false);
@@ -42,6 +44,9 @@ public class Maps {
         FireTrap fireTrap1 = new FireTrap(false);
         FireTrap fireTrap2 = new FireTrap(false);
         FireTrap fireTrap3 = new FireTrap(false);
+
+        Snake[] snakes = {snake3,snake4};
+        DoubleDoor doubleDoor = new DoubleDoor(snakes);
 
         //Floor + (Harmless/Trap)
         Cell[][] level1 = new Cell[40][22];
@@ -133,7 +138,7 @@ public class Maps {
         level1[14][8] = new Cell(new Floor(),null,null);
         level1[14][11] = new Cell(new Floor(),null,null);
         level1[14][12] = new Cell(new Floor(),null,null);
-        level1[14][13] = new Cell(new Floor(),null,null);
+        level1[14][13] = new Cell(doubleDoor.leftDoor,null,null);
         level1[14][14] = new Cell(new Floor(),null,null);
         level1[14][18] = new Cell(new Floor(),null,null);
         level1[15][2] = new Cell(new Floor(),new Diamond(),null);
@@ -170,7 +175,7 @@ public class Maps {
         level1[19][7] = new Cell(new Floor(),null,fireTrap2);
         level1[19][8] = new Cell(new Floor(),null,null);
         level1[19][9] = new Cell(new Floor(),null,fireTrap3);
-        level1[19][13] = new Cell(new Floor(),null,null);
+        level1[19][13] = new Cell(doubleDoor.rightDoor,null,null);
         level1[19][18] = new Cell(new Floor(),null,null);
         level1[20][3] = new Cell(new Floor(),null,null);
         level1[20][4] = new Cell(new Floor(),new Diamond(),null);
@@ -178,7 +183,7 @@ public class Maps {
         level1[20][7] = new Cell(new Floor(),null,fireTrap2);
         level1[20][8] = new Cell(new Floor(),null,null);
         level1[20][9] = new Cell(new Floor(),null,fireTrap3);
-        level1[20][13] = new Cell(new Floor(),null,null);
+        level1[20][13] = new Cell(null,null,null);
         level1[20][18] = new Cell(new Floor(),null,null);
         level1[21][3] = new Cell(new Floor(),null,null);
         level1[21][4] = new Cell(new Floor(),new Diamond(),null);

@@ -22,9 +22,11 @@ public class DoubleDoor{
     public DoubleDoor(Snake[] snakes){
         this.snakes = snakes;
         floor = new Floor();
+        leftDoor = new LeftDoor();
+        rightDoor = new RightDoor();
     }
 
-    private class LeftDoor implements Block{
+    public class LeftDoor implements Block{
 
         public void interact(){
             if (opened){
@@ -47,15 +49,19 @@ public class DoubleDoor{
         @Override
         public void paintObject(Graphics2D g2, int x, int y) {
             if (opened) {
-                floor.paintObject(g2,x - Values.CELL_SIZE, y);
+                floor.paintObject(g2,x,y);
+//                floor.paintObject(g2,x - Values.CELL_SIZE, y);
                 g2.drawImage(openedDoor, x - Values.CELL_SIZE, y, Values.CELL_SIZE, Values.CELL_SIZE, null);
             }
-            else g2.drawImage(doorImage, x-Values.CELL_SIZE,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
+            else {
+                floor.paintObject(g2,x,y);
+                g2.drawImage(doorImage, x-Values.CELL_SIZE,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
+            }
 
         }
     }
 
-    private class RightDoor implements Block{
+    public class RightDoor implements Block{
 
 
         public void interact(){
@@ -79,10 +85,15 @@ public class DoubleDoor{
         @Override
         public void paintObject(Graphics2D g2, int x, int y) {
             if (opened) {
-                floor.paintObject(g2,x - Values.CELL_SIZE, y);
+                floor.paintObject(g2,x , y);
+                floor.paintObject(g2,x + Values.CELL_SIZE, y);
                 g2.drawImage(openedDoor, x + Values.CELL_SIZE, y, Values.CELL_SIZE, Values.CELL_SIZE, null);
             }
-            else g2.drawImage(doorImage, x+Values.CELL_SIZE,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
+            else {
+                floor.paintObject(g2,x , y);
+                floor.paintObject(g2,x + Values.CELL_SIZE, y);
+                g2.drawImage(doorImage, x+Values.CELL_SIZE,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
+            }
         }
     }
 
