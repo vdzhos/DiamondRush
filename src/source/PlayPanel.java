@@ -134,12 +134,17 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }else if(levelMatrix[i][j].getHarmlessObject() != null) {
                     if (levelMatrix[i][j].getHarmlessObject() instanceof Diamond) {
                         if (!stonesAreInited)
-                            ((Diamond) levelMatrix[i][j].getHarmlessObject()).initVars(this, i, j, mapX, mapY);
+                            ((Diamond)levelMatrix[i][j].getHarmlessObject()).initVars(this, i, j, mapX, mapY);
                         if (mapIsMoving()) levelMatrix[i][j].getHarmlessObject().paintObject(g2, mapX, mapY);
                         else levelMatrix[i][j].getHarmlessObject().paintObject(g2);
                     }
                     else{
                         levelMatrix[i][j].getHarmlessObject().paintObject(g2,mapX+ i*70,mapY+j*70);
+                        if (levelMatrix[i][j].getHarmlessObject() instanceof Chest) {
+                            if (((Chest)levelMatrix[i][j].getHarmlessObject()).thingsAreBeeingTaken){
+                                ((Chest)levelMatrix[i][j].getHarmlessObject()).currentThing.paintObject(g2, mapX+ i*70, mapY+(j-1)*70);
+                            }
+                        }
                     }
                 }
             }
