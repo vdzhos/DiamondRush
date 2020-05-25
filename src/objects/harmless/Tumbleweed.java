@@ -7,6 +7,9 @@ public class Tumbleweed implements Harmless {
 
     private Image image = new ImageIcon("mapImages/tumbleweed.png").getImage();
 
+    public void disappear(){
+
+    }
 
     @Override
     public void paintObject(Graphics2D g2, int x, int y) {
