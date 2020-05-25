@@ -111,7 +111,10 @@ public class PlayPanel extends JPanel implements KeyListener {
         for (int i = 0; i < levelMatrix.length; i++) {
             for (int j = 0; j < levelMatrix[i].length; j++) {
                 levelMatrix[i][j].getBlock().paintObject(g2,mapX+ i*70,mapY+j*70);
-
+            }
+        }
+        for (int i = 0; i < levelMatrix.length; i++) {
+            for (int j = 0; j < levelMatrix[i].length; j++) {
                 if (levelMatrix[i][j].getTrapObject() != null) {
                     if (levelMatrix[i][j].getTrapObject() instanceof Rock){
                         if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
@@ -132,8 +135,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                         if (mapIsMoving()) levelMatrix[i][j].getHarmlessObject().paintObject(g2, mapX, mapY);
                         else levelMatrix[i][j].getHarmlessObject().paintObject(g2);
                     }
+                    else{
+                        levelMatrix[i][j].getHarmlessObject().paintObject(g2,mapX+ i*70,mapY+j*70);
+                    }
                 }
-
             }
         }
         stonesAreInited = true;

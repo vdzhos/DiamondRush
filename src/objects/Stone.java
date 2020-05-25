@@ -40,7 +40,6 @@ public abstract class Stone {
             if (i % 2 == 0) x += CELL_SIDE / 14;
             else x -= CELL_SIDE / 14;
         }
-        System.out.println("stagger ");
         i++;
     }
 
@@ -101,17 +100,17 @@ public abstract class Stone {
         else if (i == 6){
             y += 2 * CELL_SIDE / 7;
         }
-        System.out.println("fallRight ");
         i++;
     }
 
     public void fallDown(){
         if (i == 3){
-            setStoneToNewPositionInArray(xInArray, yInArray + 1);
-            yInArray ++;
+            if (yInArray + 1 < playPanel.getCurrentLevel().getMatrix().length){
+                setStoneToNewPositionInArray(xInArray, yInArray + 1);
+                yInArray ++;
+            }
         }
         y += CELL_SIDE / 7;
-        System.out.println("fallDown ");
         i++;
     }
 
