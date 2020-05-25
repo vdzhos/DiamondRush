@@ -108,7 +108,7 @@ public class DoubleDoor{
                 g2.drawImage(openedDoor, x, y, Values.CELL_SIZE, Values.CELL_SIZE, null);
             }
             else {
-                g2.drawImage(doorImage, x+Values.CELL_SIZE,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
+                g2.drawImage(doorImage, x,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
             }
         }
     }
