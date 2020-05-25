@@ -3,6 +3,7 @@ package source;
 import maps.Cell;
 import maps.Level;
 import maps.Maps;
+import objects.blocks.doors.*;
 import objects.harmless.Diamond;
 import objects.traps.Rock;
 
@@ -103,6 +104,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         boy.y = positionOnScreenY* Values.CELL_SIZE;
     }
 
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -110,9 +112,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         Graphics2D g2 = (Graphics2D) g;
         for (int i = 0; i < levelMatrix.length; i++) {
             for (int j = 0; j < levelMatrix[i].length; j++) {
-                if (levelMatrix[i][j].getBlock() != null)
-                    levelMatrix[i][j].getBlock().paintObject(g2,mapX+ i*70,mapY+j*70);
-
+                levelMatrix[i][j].getBlock().paintObject(g2, mapX + i * 70, mapY + j * 70);
                 if (levelMatrix[i][j].getTrapObject() != null) {
                     if (levelMatrix[i][j].getTrapObject() instanceof Rock){
                         if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
@@ -132,6 +132,9 @@ public class PlayPanel extends JPanel implements KeyListener {
                             ((Diamond) levelMatrix[i][j].getHarmlessObject()).initVars(this, i, j, mapX, mapY);
                         if (mapIsMoving()) levelMatrix[i][j].getHarmlessObject().paintObject(g2, mapX, mapY);
                         else levelMatrix[i][j].getHarmlessObject().paintObject(g2);
+                    }
+                    else{
+                        levelMatrix[i][j].getHarmlessObject().paintObject(g2,mapX+ i*70,mapY+j*70);
                     }
                 }
 

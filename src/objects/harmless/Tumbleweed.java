@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Tumbleweed implements Harmless {
 
-    private Image image = new ImageIcon("mapImages/tumbleweed.png").getImage();
+    private Image image = new ImageIcon("mapImages/tumbleweed1.png").getImage();
 
     public void disappear(){
 
