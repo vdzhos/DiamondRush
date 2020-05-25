@@ -291,26 +291,26 @@ public class Maps {
         level1[37][10] = new Cell(new SecretWall(),null,null);
 
         //BreakableWalls
-        level1[22][11] = new Cell(new BreakableWall(),null,null);
-        level1[23][3] = new Cell(new BreakableWall(),null,null);
-        level1[23][4] = new Cell(new BreakableWall(),null,null);
-        level1[23][11] = new Cell(new BreakableWall(),null,null);
-        level1[24][3] = new Cell(new BreakableWall(),null,null);
-        level1[24][4] = new Cell(new BreakableWall(),null,null);
-        level1[24][5] = new Cell(new BreakableWall(),null,null);
-        level1[24][11] = new Cell(new BreakableWall(),null,null);
-        level1[26][11] = new Cell(new BreakableWall(),null,null);
-        level1[27][6] = new Cell(new BreakableWall(),null,null);
-        level1[27][7] = new Cell(new BreakableWall(),null,null);
-        level1[27][11] = new Cell(new BreakableWall(),null,null);
-        level1[28][6] = new Cell(new BreakableWall(),null,null);
-        level1[29][6] = new Cell(new BreakableWall(),null,null);
-        level1[31][11] = new Cell(new BreakableWall(),null,null);
-        level1[31][18] = new Cell(new BreakableWall(),null,null);
-        level1[32][11] = new Cell(new BreakableWall(),null,null);
-        level1[32][15] = new Cell(new BreakableWall(),null,null);
-        level1[32][16] = new Cell(new BreakableWall(),null,null);
-        level1[32][18] = new Cell(new BreakableWall(),null,null);
+        level1[22][11] = new Cell(new BreakableWall(22,11),null,null);
+        level1[23][3] = new Cell(new BreakableWall(23,3),null,null);
+        level1[23][4] = new Cell(new BreakableWall(23,4),null,null);
+        level1[23][11] = new Cell(new BreakableWall(23,11),null,null);
+        level1[24][3] = new Cell(new BreakableWall(24,3),null,null);
+        level1[24][4] = new Cell(new BreakableWall(24,4),null,null);
+        level1[24][5] = new Cell(new BreakableWall(24,5),null,null);
+        level1[24][11] = new Cell(new BreakableWall(24,11),null,null);
+        level1[26][11] = new Cell(new BreakableWall(26,11),null,null);
+        level1[27][6] = new Cell(new BreakableWall(27,6),null,null);
+        level1[27][7] = new Cell(new BreakableWall(27,7),null,null);
+        level1[27][11] = new Cell(new BreakableWall(27,11),null,null);
+        level1[28][6] = new Cell(new BreakableWall(28,6),null,null);
+        level1[29][6] = new Cell(new BreakableWall(29,6),null,null);
+        level1[31][11] = new Cell(new BreakableWall(31,11),null,null);
+        level1[31][18] = new Cell(new BreakableWall(31,18),null,null);
+        level1[32][11] = new Cell(new BreakableWall(32,11),null,null);
+        level1[32][15] = new Cell(new BreakableWall(32,15),null,null);
+        level1[32][16] = new Cell(new BreakableWall(32,16),null,null);
+        level1[32][18] = new Cell(new BreakableWall(32,18),null,null);
 
 
         for (int i = 0; i < level1.length; i++) {

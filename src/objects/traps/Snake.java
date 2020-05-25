@@ -12,8 +12,18 @@ public class Snake extends JLabel implements Trap{
     private int y = 0;
     private JLabel snake;
     private boolean side = true; //right - true; left - false
+    private Image[] images;
+    private Image current;
+
+    private void initImages(){
+        Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
+        Image imageLeft = new ImageIcon("snake/snakeLeft.png").getImage();
+        Image[] images = {imageRight, imageLeft};
+        this.images = images;
+    }
 
     public Snake(int width, int height, boolean horizontal){
+        initImages();
         snake = this;
         setPreferredSize(new Dimension(width,height));
         if(horizontal) {
@@ -22,11 +32,13 @@ public class Snake extends JLabel implements Trap{
                 public void actionPerformed(ActionEvent e) {
                     if (side) {
                         x += 1;
+                        current = images[0];
                         if (x+70 >= width) {
                             side = false;
                         }
                     } else {
                         x -= 1;
+                        current = images[1];
                         if (x <= 0) {
                             side = true;
                         }
@@ -61,8 +73,7 @@ public class Snake extends JLabel implements Trap{
     public void paint(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.GREEN);
-        g2.fillRect(x,y,70,70);
+        g2.drawImage(current,x,y,70,70,null);
     }
 
     public static void main(String[] args) {

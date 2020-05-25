@@ -36,4 +36,8 @@ public class Cell {
     public void setTrapObject(Trap trapObject){
         this.trapObject = trapObject;
     }
+
+    public void setBlock(Block block) {
+        this.block = block;
+    }
 }
