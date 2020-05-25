@@ -1,12 +1,9 @@
 package maps;
 
-import objects.blocks.BreakableWall;
-import objects.blocks.Floor;
-import objects.blocks.SecretWall;
-import objects.blocks.Wall;
-import objects.harmless.Tumbleweed;
+import objects.blocks.*;
 import objects.traps.FireTrap;
 import objects.harmless.Diamond;
+import objects.harmless.Tumbleweed;
 import objects.traps.Rock;
 import objects.traps.Scorpion;
 import objects.traps.Snake;
@@ -52,7 +49,7 @@ public class Maps {
         level1[0][16] = new Cell(new Floor(),null,null);
         level1[1][16] = new Cell(new Floor(),null,null);
         level1[2][16] = new Cell(new Floor(),null,null);
-        level1[3][16] = new Cell(new Floor(),null,null);
+        level1[3][16] = new Cell(new DoorWithKeyhole(false),null,null);
         level1[3][18] = new Cell(new Floor(),null,null);
         level1[3][19] = new Cell(new Floor(),new Diamond(),null);
         level1[4][16] = new Cell(new Floor(),null,null);
