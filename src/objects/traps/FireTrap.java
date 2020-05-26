@@ -16,8 +16,10 @@ public class FireTrap extends JLabel implements Trap{
 
     private void initImages(){
         Image imageRight = new ImageIcon("fireTrap/fireballRight1.png").getImage();
-        Image imageDown = new ImageIcon("fireTrap/fireballLeft1.png").getImage();
-        Image[] images = {imageRight, imageDown};
+        Image imageLeft = new ImageIcon("fireTrap/fireballLeft1.png").getImage();
+        Image anubisRight = new ImageIcon("fireTrap/anubisRight.png").getImage();
+        Image anubisLeft = new ImageIcon("fireTrap/anubisLeft.png").getImage();
+        Image[] images = {imageRight, imageLeft,anubisRight,anubisLeft};
         this.images = images;
     }
 
@@ -64,18 +66,15 @@ public class FireTrap extends JLabel implements Trap{
     public void paint(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.BLACK);
-        if(side){ //right
-            g2.fillRect(210,0,70,70);
-            g2.setColor(Color.RED);
+        if(side){ //left
+            g2.drawImage(images[3],210,0,70,70,null);
             for (int i = 3; i > 0; i--) {
                 if(state[i-1]){
                     g2.drawImage(images[1], 210-(4-i)*70,0, 70,70,null);
                 }
             }
-        }else{ //left
-            g2.fillRect(0,0,70,70);
-            g2.setColor(Color.RED);
+        }else{ //right
+            g2.drawImage(images[2],0,0,70,70,null);
             for (int i = 1; i < 4; i++) {
                 if(state[i-1]){
                     g2.drawImage(images[0], i*70,0, 70,70,null);
