@@ -1,7 +1,5 @@
 package objects;
 
-import maps.Maps;
-import objects.traps.Rock;
 import source.PlayPanel;
 
 import javax.swing.*;

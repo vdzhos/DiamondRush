@@ -33,7 +33,7 @@ public class Rock extends Stone implements Trap{
                 if (i == 7){
                     i = 0;
                     if (whatMove == 1) whatMove = 3;
-                    else if (whatMove == 3) whatMove = 4;
+                    //else if (whatMove == 3) whatMove = 4;
                     else{
                         isMoving = false;
                         timer.stop();

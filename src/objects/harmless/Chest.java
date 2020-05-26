@@ -87,7 +87,7 @@ public class Chest implements Harmless{
     }
 
     @Override
-    public boolean passable() {
+    public boolean pass() {
         return true;
     }
 }
