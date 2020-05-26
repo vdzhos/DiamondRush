@@ -63,8 +63,8 @@ public class PressMechanism{
 
     public class PressPanel implements Block {
 
-        public void interact(Cell[][] matrix, int positionOfBoyX, int positionOfBoyY){
-            PressMechanism.this.interact(matrix,positionOfBoyX,positionOfBoyY);
+        public void interact(Cell[][] matrix, int positionOfBoyInArrayX, int positionOfBoyInArrayY){
+            PressMechanism.this.interact(matrix,positionOfBoyInArrayX,positionOfBoyInArrayY);
         }
 
         @Override

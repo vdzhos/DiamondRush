@@ -1,5 +1,6 @@
 package objects.harmless;
 
+import objects.thingsInChest.*;
 import source.PlayPanel;
 
 import javax.swing.*;
@@ -16,9 +17,19 @@ public class Chest implements Harmless{
     private Image currentPicture = chestClosed;
     private PlayPanel playPanel;
     private int i;
+    public ThingInChest[] things = new ThingInChest[5];
+    public ThingInChest currentThing = null;
+    private int index = 0;
+    public boolean isClosed = true;
+    public boolean thingsAreBeeingTaken = false;
 
-    public Chest(){
-
+    public Chest(PurpleDiamond purpleDiamond, RedDiamond redDiamond,
+                 SilverKey silverKey, GoldKey goldKey, Energy energy){
+        things[0] = purpleDiamond;
+        things[1] = redDiamond;
+        things[2] = silverKey;
+        things[3] = goldKey;
+        things[4] = energy;
     }
 
     public void initVars(PlayPanel playPanel){
@@ -30,16 +41,39 @@ public class Chest implements Harmless{
         timer.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                currentPicture = open[i];
-                i++;
+                if (isClosed) open();
+                else if (thingsAreBeeingTaken) takeThings();
                 playPanel.repaint();
                 if (i == 7){
                     i = 0;
-                    timer.stop();
+                    playPanel.boy.whatMove = 9;
+                    playPanel.boy.isMoving = true;
+                    playPanel.moveBoy();
+                    if (thingsAreBeeingTaken == false) thingsAreBeeingTaken = true;
+                    if (index >= 5){
+                        thingsAreBeeingTaken = false;
+                        timer.stop();
+                    }
                 }
             }
         });
         timer.start();
+    }
+
+    private void open(){
+        currentPicture = open[i];
+        i++;
+        if (i == 7) isClosed = false;
+    }
+
+    private void takeThings(){
+        if ((index < 5)&&(things[index] != null)) currentThing = things[index];
+        else if (things[index] == null){
+            index++;
+            if ((index < 5)&&(things[index] != null)) currentThing = things[index];
+        }
+        i++;
+        if (i == 7) index++;
     }
 
     @Override
