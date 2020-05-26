@@ -8,7 +8,6 @@ import objects.blocks.*;
 import objects.blocks.doors.*;
 import objects.harmless.Chest;
 import objects.harmless.Diamond;
-import objects.harmless.Harmless;
 import objects.harmless.Tumbleweed;
 import objects.traps.FireTrap;
 import objects.traps.Rock;
@@ -67,6 +66,21 @@ public class PlayPanel extends JPanel implements KeyListener {
     private Checkpoint currentCheckpoint;
     private boolean updated = true;
 
+    private int numberOfRedDiamondsCollected;
+//    these commented fields are in the currentLevel object
+//    private int maxNumberOfRedDiamondsCollected;
+
+    private int numberOfPurpleDiamondsCollected;
+//    private int maxNumberOfPurpleDiamondsCollected;
+
+    private int numberOfGoldKeysCollected;
+//    private int maxNumberOfGoldKeysCollected;
+
+    private int numberOfSilverKeysCollected;
+//    private int maxNumberOfSilverKeysCollected;
+
+    private boolean artefactIsCollected;
+
 
     public PlayPanel(Boy boy, int currentLevel) {
         panel = this;
@@ -78,6 +92,8 @@ public class PlayPanel extends JPanel implements KeyListener {
         calculateInitialValuesOfMap();
         setCoordinates();
     }
+
+
 
     private void initLevel(int currentLevel) {
         switch (currentLevel){
@@ -213,8 +229,21 @@ public class PlayPanel extends JPanel implements KeyListener {
             positionOnMapY = currentCheckpoint.positionInArrayY;
             positionOnScreenX = currentCheckpoint.minPositionOnScreenX;
             positionOnScreenY = currentCheckpoint.minPositionOnScreenY;
+
+            numberOfGoldKeysCollected -= currentCheckpoint.numberOfGoldKeysOnTheAreaCollected;
+            numberOfSilverKeysCollected -= currentCheckpoint.numberOfSilverKeysOnTheAreaCollected;
+            numberOfPurpleDiamondsCollected -= currentCheckpoint.numberOfPurpleDiamondsOnTheAreaCollected;
+            numberOfRedDiamondsCollected -= currentCheckpoint.numberOfRedDiamondsOnTheAreaCollected;
+
             setCoordinates();
             repaint();
+            System.out.println("___________________________");
+            System.out.println(numberOfGoldKeysCollected);
+            System.out.println(numberOfSilverKeysCollected);
+            System.out.println(numberOfPurpleDiamondsCollected);
+            System.out.println(numberOfRedDiamondsCollected);
+            System.out.println("___________________________");
+
         }
     }
 

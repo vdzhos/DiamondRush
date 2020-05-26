@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class RedDiamond extends ThingInChest{
 
-    int quantity;
+    public int quantity;
 
     public RedDiamond(int quantity){
         image = new ImageIcon("statusBar/diamondHexRed.png").getImage();
