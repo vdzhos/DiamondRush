@@ -3,6 +3,7 @@ package source;
 import maps.Cell;
 import maps.Level;
 import maps.Maps;
+import objects.blocks.Checkpoint;
 import objects.blocks.*;
 import objects.blocks.doors.*;
 import objects.harmless.Chest;
@@ -63,6 +64,8 @@ public class PlayPanel extends JPanel implements KeyListener {
     private Cell[][] levelMatrix;
     private int numberOfKeys = 2;
 
+    private Checkpoint currentCheckpoint;
+    private boolean updated = true;
 
 
     public PlayPanel(Boy boy, int currentLevel) {
@@ -73,6 +76,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         maps = new Maps();
         initLevel(currentLevel);
         calculateInitialValuesOfMap();
+        setCoordinates();
     }
 
     private void initLevel(int currentLevel) {
@@ -106,13 +110,18 @@ public class PlayPanel extends JPanel implements KeyListener {
 
         positionOnMapX = currentLevel.getPositionOnMapX();
         positionOnMapY = currentLevel.getPositionOnMapY();
-        mapX = 0;
-        mapY = 0 - ((positionOnMapY  - positionOnScreenY)* Values.CELL_SIZE);
+    }
 
+    private void setCoordinates() {
+        mapX = 0 - (Math.abs(positionOnMapX  - positionOnScreenX)* Values.CELL_SIZE);
+        mapY = 0 - (Math.abs(positionOnMapY  - positionOnScreenY)* Values.CELL_SIZE);
         boy.x = positionOnScreenX* Values.CELL_SIZE;
         boy.y = positionOnScreenY* Values.CELL_SIZE;
         boy.xInArray = positionOnMapX;
         boy.yInArray = positionOnMapY;
+        System.out.println(mapX +"   "+mapY);
+        System.out.println(boy.x+"   "+boy.y);
+        System.out.println(boy.xInArray+"   "+boy.yInArray);
     }
 
 
@@ -182,8 +191,27 @@ public class PlayPanel extends JPanel implements KeyListener {
         for (SecretWall secretWall:secretWalls) {
             secretWall.paintObject(g2,secretWall.getX(),secretWall.getY());
         }
+        if (!updated){
+            mapMovesDown = false;
+            updated = true;
+            boy.isMoving = false;
+        }
     }
 
+    public void applyCheckpoint(){
+        if (currentCheckpoint != null) {
+            boy.isMoving = true;
+            mapMovesDown = true;
+            levelMatrix = currentCheckpoint.getRestoredMatrix(levelMatrix);
+            updated = false;
+            positionOnMapX = currentCheckpoint.positionInArrayX;
+            positionOnMapY = currentCheckpoint.positionInArrayY;
+            positionOnScreenX = currentCheckpoint.minPositionOnScreenX;
+            positionOnScreenY = currentCheckpoint.minPositionOnScreenY;
+            setCoordinates();
+            repaint();
+        }
+    }
 
     private void setMovementRight() {
         if ((mapX != 0 && boy.x < 350) || (mapX == 0 || mapX == -(mapWidth - panelWidth))) {
@@ -304,6 +332,14 @@ public class PlayPanel extends JPanel implements KeyListener {
                     boy.isMoving = false;
                     System.out.println(boy.xInArray + ", " + boy.yInArray);
                     t.stop();
+                    Checkpoint temp = currentCheckpoint;
+                    currentCheckpoint = currentLevel.getCheckpoint(boy.xInArray,boy.yInArray);
+                    if (currentCheckpoint == null)
+                        currentCheckpoint = temp;
+                    else if (!currentCheckpoint.isUsed) {
+                        currentCheckpoint.setUsed(true);
+                        repaint();
+                    }
                 }
             }
         });
@@ -373,37 +409,39 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //You can test a chest
-        if (e.getKeyCode() == KeyEvent.VK_1){
-            Chest chest = (Chest)levelMatrix[5][16].getHarmlessObject();
-            if (chest != null){
-                chest.initVars(this);
-                boy.whatMove = 9;
-                boy.isMoving = true;
-                moveBoy();
-                chest.openChest();
+        if (updated && !boy.isMoving) {
+            int code = e.getKeyCode();
+            if (code == KeyEvent.VK_1) {
+                Chest chest = (Chest) levelMatrix[5][16].getHarmlessObject();
+                if (chest != null){
+                    chest.initVars(this);
+                    boy.whatMove = 9;
+                    boy.isMoving = true;
+                    moveBoy();
+                    chest.openChest();
+                }
             }
         }
-        if ((e.getKeyCode() == KeyEvent.VK_UP) && (boy.isMoving == false) && isAllowedUp()) {
+        else if ((code ==KeyEvent.VK_UP) && (boy.isMoving == false) && isAllowedUp()) {
             Block block = levelMatrix[boy.xInArray][boy.yInArray-1].getBlock();
-            if ((block.pass()&&!(itIsRock(boy.xInArray, boy.yInArray-1)))||itIsHarmless(boy.xInArray, boy.yInArray-1)){
+            if ((block.pass()&&!(itIsRock(boy.xInArray, boy.yInArray-1)))||itIsHarmless(boy.xInArray, boy.yInArray-1)) {
                 setMovementUp();
                 boy.whatMove = 1;
                 boy.isMoving = true;
             }
             else if (itIsRock(boy.xInArray, boy.yInArray-1)){
-                boy.whatMove = 10;
-                //take energy
-                boy.isMoving = true;
-            }
-            else if (!block.pass()){
-                boy.whatMove = 19;
-                boy.isMoving = true;
-                boy.yInArray++;
-            }
+                    boy.whatMove = 10;
+                    //take energy
+                    boy.isMoving = true;
+                }
+                else if (!block.pass()){
+                    boy.whatMove = 19;
+                    boy.isMoving = true;
+                    boy.yInArray++;
+                }
             moveBoy();
         }
-        if ((e.getKeyCode() == KeyEvent.VK_DOWN) && (boy.isMoving == false) && isAllowedDown()) {
+        else if ((code == KeyEvent.VK_DOWN) && (boy.isMoving == false) && isAllowedDown()) {
             Block block = levelMatrix[boy.xInArray][boy.yInArray+1].getBlock();
            if ((block.pass()&&!(itIsRock(boy.xInArray, boy.yInArray+1)))||itIsHarmless(boy.xInArray, boy.yInArray+1)){
                 setMovementDown();
@@ -416,7 +454,7 @@ public class PlayPanel extends JPanel implements KeyListener {
            }
             moveBoy();
         }
-        if ((e.getKeyCode() == KeyEvent.VK_LEFT) && (boy.isMoving == false) && isAllowedLeft()) {
+        else if ((code == KeyEvent.VK_LEFT) && (boy.isMoving == false) && isAllowedLeft()) {
             Block block = levelMatrix[boy.xInArray-1][boy.yInArray].getBlock();
             if (block instanceof DoorWithKeyhole && numberOfKeys != 0){
                 ((DoorWithKeyhole) block).openTheDoor();
@@ -452,7 +490,7 @@ public class PlayPanel extends JPanel implements KeyListener {
             }
             moveBoy();
         }
-        if ((e.getKeyCode() == KeyEvent.VK_RIGHT) && (boy.isMoving == false) && isAllowedRight()) {
+        else if ((code == KeyEvent.VK_RIGHT) && (boy.isMoving == false) && isAllowedRight()) {
             Block block = levelMatrix[boy.xInArray+1][boy.yInArray].getBlock();
             if (block instanceof DoorWithKeyhole && numberOfKeys != 0){
                 ((DoorWithKeyhole) block).openTheDoor();
@@ -495,7 +533,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 rock.moveRock();
             }*/
         }
-        if ((e.getKeyCode() == KeyEvent.VK_SPACE) && (boy.isMoving == false)) {
+        else if ((code == KeyEvent.VK_SPACE) && (boy.isMoving == false)) {
             if (boy.currentPicture == boy.walkUp2){
                 boy.whatMove = 11;
                 if(levelMatrix[boy.xInArray][boy.yInArray-1].getBlock() instanceof BreakableWall){

@@ -1,9 +1,6 @@
 package objects.blocks;
 
 import maps.Cell;
-import maps.Level;
-import source.PlayPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

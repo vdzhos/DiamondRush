@@ -20,4 +20,5 @@ public class BlockedDoor implements Block {
     public void paintObject(Graphics2D g2, int x, int y) {
         g2.drawImage(image,x,y, Values.CELL_SIZE,Values.CELL_SIZE, null);
     }
+
 }
