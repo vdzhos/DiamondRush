@@ -61,7 +61,7 @@ public class PressMechanism{
 
 
 
-    public class PressPanel implements Block {
+    public class PressPanel implements Block, Resetable {
 
         public void interact(Cell[][] matrix, int positionOfBoyInArrayX, int positionOfBoyInArrayY){
             PressMechanism.this.interact(matrix,positionOfBoyInArrayX,positionOfBoyInArrayY);
@@ -82,6 +82,11 @@ public class PressMechanism{
                 floor.paintObject(g2,x,y);
                 g2.drawImage(pressPanelImage, x,y,Values.CELL_SIZE,Values.CELL_SIZE,null);
             }
+        }
+
+        @Override
+        public void reset() {
+            opened = false;
         }
     }
 

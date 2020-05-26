@@ -22,6 +22,7 @@ public abstract class Stone {
     public int mapX;
     public int mapY;
 
+
     public void initVars(PlayPanel playPanel, int xInArray, int yInArray, int mapX, int mapY){
         this.playPanel = playPanel;
         this.xInArray = xInArray;

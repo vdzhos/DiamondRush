@@ -56,10 +56,10 @@ public class Maps {
         PressMechanism pressMechanism = new PressMechanism(5,20);
         PressMechanism pressMechanism2 = new PressMechanism(12,19);
 
-        Checkpoint check1 = new Checkpoint(3,8,13,20,4,16,4,4);
+        Checkpoint check1 = new Checkpoint(3,8,13,21,4,16,4,4);
         Checkpoint check2 = new Checkpoint(11,1,19,8,8,7,4,4);
         Checkpoint check3 = new Checkpoint(18,3,24,13,18,4,4,4);
-        Checkpoint check4 = new Checkpoint(9,11,18,19,18,13,4,4);
+        Checkpoint check4 = new Checkpoint(9,11,18,19,19,13,4,4);
         Checkpoint check5 = new Checkpoint(25,4,38,14,25,5,4,4);
 
         //Floor + (Harmless/Trap)
@@ -78,7 +78,7 @@ public class Maps {
         level1[5][17] = new Cell(new Floor(),null,null);
         level1[5][18] = new Cell(new Floor(),null,null);
         level1[5][19] = new Cell(new Floor(),null,null);
-        level1[5][20] = new Cell(pressMechanism.pressPanel,null, null);
+        level1[5][20] = new Cell(pressMechanism.pressPanel,null,null);
         level1[6][4] = new Cell(new Floor(),null,snake2);
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
@@ -184,14 +184,14 @@ public class Maps {
         level1[18][7] = new Cell(new Floor(),null,fireTrap2);
         level1[18][11] = new Cell(new Floor(),null,null);
         level1[18][12] = new Cell(new Floor(),null,null);
-        level1[18][13] = new Cell(check4,null,null);
+        level1[18][13] = new Cell(new Floor(),null,null);
         level1[18][18] = new Cell(new Floor(),null,null);
         level1[19][3] = new Cell(new Floor(),null,null);
         level1[19][4] = new Cell(new Floor(),new Diamond(),null);
         level1[19][7] = new Cell(new Floor(),null,fireTrap2);
         level1[19][8] = new Cell(new Floor(),new Chest(null, null, null, null, null),null);
         level1[19][9] = new Cell(new Floor(),null,fireTrap3);
-        level1[19][13] = new Cell(new Floor(),null,null);
+        level1[19][13] = new Cell(check4,null,null);
         level1[19][18] = new Cell(new Floor(),null,null);
         level1[20][3] = new Cell(new Floor(),null,null);
         level1[20][4] = new Cell(new Floor(),new Diamond(),null);
