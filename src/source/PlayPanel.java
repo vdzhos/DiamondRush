@@ -494,7 +494,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                         setMovementLeft();
                         boy.whatMove = 5;
                         boy.isMoving = true;
-                        Rock rock = (Rock)levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
                         rock.whatMove = 5;
                         rock.isMoving = true;
                         rock.moveRock();
