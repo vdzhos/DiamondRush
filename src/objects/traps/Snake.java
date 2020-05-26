@@ -18,7 +18,9 @@ public class Snake extends JLabel implements Trap{
     private void initImages(){
         Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
         Image imageLeft = new ImageIcon("snake/snakeLeft.png").getImage();
-        Image[] images = {imageRight, imageLeft};
+        Image imageUp = new ImageIcon("snake/snakeUp.png").getImage();
+        Image imageDown = new ImageIcon("snake/snakeDown.png").getImage();
+        Image[] images = {imageRight, imageLeft,imageUp,imageDown};
         this.images = images;
     }
 
@@ -52,11 +54,13 @@ public class Snake extends JLabel implements Trap{
                 public void actionPerformed(ActionEvent e) {
                     if (side) {
                         y += 1;
+                        current = images[3];
                         if (y+70 >= height) {
                             side = false;
                         }
                     } else {
                         y -= 1;
+                        current = images[2];
                         if (y <= 0) {
                             side = true;
                         }
