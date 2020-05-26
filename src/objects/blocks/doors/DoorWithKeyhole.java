@@ -17,7 +17,7 @@ public class DoorWithKeyhole implements Block, Resetable {
 
 
     private boolean opened = false;
-    private boolean golden;
+    public boolean golden;
     private Floor floor;
 
 

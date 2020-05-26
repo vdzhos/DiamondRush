@@ -57,7 +57,7 @@ public class Maps {
         PressMechanism pressMechanism2 = new PressMechanism(12,19);
 
         Checkpoint check1 = new Checkpoint(3,8,13,21,4,16,4,4);
-        Checkpoint check2 = new Checkpoint(11,1,19,8,8,7,4,4);
+        Checkpoint check2 = new Checkpoint(6,1,19,8,8,7,4,4);
         Checkpoint check3 = new Checkpoint(18,3,24,13,18,4,4,4);
         Checkpoint check4 = new Checkpoint(9,11,18,19,19,13,4,4);
         Checkpoint check5 = new Checkpoint(25,4,38,14,25,5,4,4);
@@ -337,7 +337,7 @@ public class Maps {
             checkpoint.setInitialMatrix(level1);
         }
 
-        this.level1 = new Level(level1,2,4,2,16);
+        this.level1 = new Level(level1,2,4,2,16, 500,5);
         this.level1.setCheckpoints(checkpoints);
     }
 
