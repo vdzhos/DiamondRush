@@ -1,13 +1,26 @@
 package objects.harmless;
 
+import source.PlayPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Tumbleweed implements Harmless {
 
+    private PlayPanel playPanel;
+    private int xInArray;
+    private int yInArray;
+
     private Image image = new ImageIcon("mapImages/tumbleweed1.png").getImage();
 
-    public void disappear(){
+    public void initVars(PlayPanel playPanel, int xInArray, int yInArray){
+        this.playPanel = playPanel;
+        this.xInArray = xInArray;
+        this.yInArray = yInArray;
+    }
+
+    @Override
+    public void disappear() {
 
     }
 

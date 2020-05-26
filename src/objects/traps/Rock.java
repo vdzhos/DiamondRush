@@ -32,21 +32,32 @@ public class Rock extends Stone implements Trap{
                 playPanel.repaint();
                 if (i == 7){
                     i = 0;
-                    if (whatMove == 1){
-                          if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                                  playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)) whatMove = 3;
-                          else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                                  playPanel.itIsClearForStone(xInArray - 1, yInArray - 1)) whatMove = 2;
+                    if (whatMove != 1 && playPanel.itIsClearForStone(xInArray, yInArray + 1)){
+                        whatMove = 4;
                     }
-                    else if (whatMove != 1 && playPanel.itIsClearForStone(xInArray, yInArray + 1)){
-                         whatMove = 4;
+                    else if (whatMove != 1 && (playPanel.itIsRock(xInArray, yInArray + 1) || playPanel.itIsDiamond(xInArray, yInArray + 1))){
+                        if ((playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                playPanel.itIsClearForStone(xInArray + 1, yInArray + 1))
+                            || (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                playPanel.itIsClearForStone(xInArray + 1, yInArray + 1))){
+                            whatMove = 1;
+                        }
+                    }
+                    else if (whatMove == 1){
+                        if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)){
+                            whatMove = 3;
+                        }
+                        else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
+                                playPanel.itIsClearForStone(xInArray - 1, yInArray - 1)){
+                            whatMove = 2;
+                        }
                     }
                     else{
                         isMoving = false;
                         whatMove = 0;
                         timer.stop();
                     }
-
                 }
             }
         });

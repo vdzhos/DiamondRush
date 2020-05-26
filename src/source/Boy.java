@@ -118,8 +118,9 @@ public class Boy {
         currentPicture = arrayUp[i];
         i++;
     }
-    public void moveUpAnimation() {
-        if (i == 3) yInArray --;
+
+    public void moveUpAnimation(boolean changeCoordinates) {
+        if (i == 3 && changeCoordinates) yInArray --;
         currentPicture = arrayUp[i];
         i++;
     }
@@ -131,8 +132,8 @@ public class Boy {
         i++;
     }
 
-    public void moveDownAnimation() {
-        if (i == 3) yInArray ++;
+    public void moveDownAnimation(boolean changeCoordinates) {
+        if (i == 3 && changeCoordinates) yInArray ++;
         currentPicture = arrayDown[i];
         i++;
     }
@@ -143,8 +144,9 @@ public class Boy {
         currentPicture = arrayLeft[i];
         i++;
     }
-    public void moveLeftAnimation() {
-        if (i == 3) xInArray --;
+
+    public void moveLeftAnimation(boolean changeCoordinates) {
+        if (i == 3 && changeCoordinates) xInArray --;
         currentPicture = arrayLeft[i];
         i++;
     }
@@ -156,14 +158,14 @@ public class Boy {
         i++;
     }
 
-    public void moveRightAnimation() {
-        if (i == 3) xInArray ++;
+    public void moveRightAnimation(boolean changeCoordinates) {
+        if (i == 3 && changeCoordinates) xInArray ++;
         currentPicture = arrayRight[i];
         i++;
     }
 
-    public void shoveLeftAndMove(){
-        if (i == 3) xInArray --;
+    public void shoveLeftAndMove(boolean changeCoordinates){
+        if (i == 3 && changeCoordinates) xInArray --;
         if (i == 0) x -= 3 * cellSide / 7;
         else if (i == 6) x += cellSide / 7;
         else x -= cellSide / 7;
@@ -171,15 +173,16 @@ public class Boy {
         i++;
     }
 
-    public void shoveLeftAndStand(){
+    public void shoveLeftAndStand(boolean changeCoordinates){
+        if (i == 3 && changeCoordinates) xInArray --;
         if (i == 0) x -= 2 * cellSide / 7 ;
         else if (i == 6) x += 2 * cellSide / 7;
         currentPicture = arrayShoveLeft[i];
         i++;
     }
 
-    public void shoveRightAndMove(){
-        if (i == 3) xInArray ++;
+    public void shoveRightAndMove(boolean changeCoordinates){
+        if (i == 3 && changeCoordinates) xInArray ++;
         if (i == 0) x += 3 * cellSide / 7;
         else if (i == 6) x -= cellSide / 7;
         else x += cellSide / 7;
@@ -187,7 +190,8 @@ public class Boy {
         i++;
     }
 
-    public void shoveRightAndStand(){
+    public void shoveRightAndStand(boolean changeCoordinates){
+        if (i == 3 && changeCoordinates) xInArray ++;
         if (i == 0) x += 2 * cellSide / 7 ;
         else if (i == 6) x -= 2 * cellSide / 7;
         currentPicture = arrayShoveRight[i];
@@ -243,6 +247,5 @@ public class Boy {
         currentPicture = arrayOpenWithSilverKeyRight[i];
         i++;
     }
-
 
 }
