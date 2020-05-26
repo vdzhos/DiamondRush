@@ -17,6 +17,7 @@ public class Boy {
     //findInChest = 9; holdARock = 10;
     //attackLeft = 11; attackRight = 12; attackLeft = 13; attackRight = 14;
     //openWithGoldKeyLeft = 15; openWithGoldKeyRight = 16; openWithSilverKeyLeft = 17; openWithSilverKeyRight = 18;
+    //UpAnimation = 19; DownAnimation = 20; LeftAnimation = 21; RightAnimation = 22;
     public boolean isMoving = false;
     int i = 0;
 
@@ -163,24 +164,32 @@ public class Boy {
 
     public void shoveLeftAndMove(){
         if (i == 3) xInArray --;
-        x -= cellSide / 7;
+        if (i == 0) x -= 3 * cellSide / 7;
+        else if (i == 6) x += cellSide / 7;
+        else x -= cellSide / 7;
         currentPicture = arrayShoveLeft[i];
         i++;
     }
 
     public void shoveLeftAndStand(){
+        if (i == 0) x -= 2 * cellSide / 7 ;
+        else if (i == 6) x += 2 * cellSide / 7;
         currentPicture = arrayShoveLeft[i];
         i++;
     }
 
     public void shoveRightAndMove(){
         if (i == 3) xInArray ++;
-        x += cellSide / 7;
+        if (i == 0) x += 3 * cellSide / 7;
+        else if (i == 6) x -= cellSide / 7;
+        else x += cellSide / 7;
         currentPicture = arrayShoveRight[i];
         i++;
     }
 
     public void shoveRightAndStand(){
+        if (i == 0) x += 2 * cellSide / 7 ;
+        else if (i == 6) x -= 2 * cellSide / 7;
         currentPicture = arrayShoveRight[i];
         i++;
     }

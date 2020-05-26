@@ -32,21 +32,21 @@ public class Rock extends Stone implements Trap{
                 playPanel.repaint();
                 if (i == 7){
                     i = 0;
-                    if (whatMove == 1) whatMove = 3;
-                    //else if (whatMove == 3) whatMove = 4;
+                    if (whatMove == 1){
+                          if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                  playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)) whatMove = 3;
+                          else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
+                                  playPanel.itIsClearForStone(xInArray - 1, yInArray - 1)) whatMove = 2;
+                    }
+                    else if (whatMove != 1 && playPanel.itIsClearForStone(xInArray, yInArray + 1)){
+                         whatMove = 4;
+                    }
                     else{
                         isMoving = false;
+                        whatMove = 0;
                         timer.stop();
                     }
-                    /*if (whatMove == 1){
-                          if (left isClear()) whatMove = 2;
-                    *     else if (right isClear()) whatMove = 3;
-                    * }
-                    * else if (((whatMove == 2)||(whatMove == 3)||(whatMove == 4))&&(down isClear()){
-                    *     whatMove = 4;
-                    * }
-                    * else isMoving = false;
-                    * */
+
                 }
             }
         });
