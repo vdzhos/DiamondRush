@@ -21,11 +21,14 @@ public class FireTrap extends JLabel implements Trap{
         this.images = images;
     }
 
-    public FireTrap(boolean side){
+    public FireTrap(int initState, boolean side){
         initImages();
         fireTrap = this;
         setPreferredSize(new Dimension(280,70));
         this.side = side;
+        for (int i = 0; i < initState-1; i++) {
+            state[i] = true;
+        }
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,7 +89,7 @@ public class FireTrap extends JLabel implements Trap{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500,500);
         frame.setVisible(true);
-        FireTrap fireTrap = new FireTrap(true);
+        FireTrap fireTrap = new FireTrap(2,true);
         frame.add(fireTrap);
         fireTrap.timer.start();
     }

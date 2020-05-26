@@ -24,7 +24,7 @@ public class BreakableWall implements Block{
 
     @Override
     public boolean pass() {
-        return true;
+        return false;
     }
 
     public void breakWall(Cell[][] matrix, JPanel panel){

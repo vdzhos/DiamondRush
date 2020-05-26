@@ -37,17 +37,17 @@ public class Maps {
 
 
 
-        Snake snake1 = new Snake(140,70,true);
-        Snake snake2 = new Snake(350,70,true);
-        Snake snake3 = new Snake(70,140,false);
-        Snake snake4 = new Snake(70,140,false);
-        Snake snake5 = new Snake(70,140,false);
+        Snake snake1 = new Snake(140,70,40,true);
+        Snake snake2 = new Snake(350,70,180,true);
+        Snake snake3 = new Snake(70,140,20,false);
+        Snake snake4 = new Snake(70,140,70,false);
+        Snake snake5 = new Snake(70,140,10,false);
 
-        Scorpion scorpion = new Scorpion(210,210,false);
+        Scorpion scorpion = new Scorpion(210,210,false,null,null);
 
-        FireTrap fireTrap1 = new FireTrap(false);
-        FireTrap fireTrap2 = new FireTrap(false);
-        FireTrap fireTrap3 = new FireTrap(false);
+        FireTrap fireTrap1 = new FireTrap(0,false);
+        FireTrap fireTrap2 = new FireTrap(3,false);
+        FireTrap fireTrap3 = new FireTrap(2,false);
 
         Snake[] snakes = {snake3,snake4};
         DoubleDoor doubleDoor = new DoubleDoor(snakes,true,20,13);
