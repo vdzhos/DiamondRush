@@ -155,7 +155,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 if (levelMatrix[i][j].getTrapObject() != null) {
                     if (levelMatrix[i][j].getTrapObject() instanceof Rock){
-                        if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
+                        if (!stonesAreInited) {
+                            ((Rock) levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
+                            System.out.println(i + "  " + j);
+                        }
+
                         if (mapIsMoving()) levelMatrix[i][j].getTrapObject().paintObject(g2, mapX, mapY);
                         else levelMatrix[i][j].getTrapObject().paintObject(g2);
                     }else{
@@ -202,6 +206,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         if (currentCheckpoint != null) {
             boy.isMoving = true;
             mapMovesDown = true;
+            stonesAreInited = false;
             levelMatrix = currentCheckpoint.getRestoredMatrix(levelMatrix);
             updated = false;
             positionOnMapX = currentCheckpoint.positionInArrayX;
@@ -311,6 +316,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                     moveMapToRight();
                 }
                 else if (boy.whatMove == 6) boy.shoveLeftAndStand();
+                else if (boy.whatMove == 7) boy.shoveRightAndMove();
                 else if (boy.whatMove == 8) boy.shoveRightAndStand();
                 else if (boy.whatMove == 9) boy.findInChest();
                 else if (boy.whatMove == 10) boy.holdARock();
@@ -599,7 +605,7 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     public boolean itIsFloor(int x, int y){
         if (levelMatrix[x][y].getBlock() == null) return false;
-        return levelMatrix[x][y].getBlock() instanceof Floor;
+        return levelMatrix[x][y].getBlock() instanceof Floor ||levelMatrix[x][y].getBlock() instanceof PressMechanism.PressPanel;
     }
 
     public boolean itIsSecretWall(int x, int y){
