@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class PlayPanel extends JPanel implements KeyListener {
 
@@ -120,9 +121,18 @@ public class PlayPanel extends JPanel implements KeyListener {
         super.paintComponent(g);
         panel.removeAll();
         Graphics2D g2 = (Graphics2D) g;
+        ArrayList<SecretWall> secretWalls = new ArrayList<>();
         for (int i = 0; i < levelMatrix.length; i++) {
             for (int j = 0; j < levelMatrix[i].length; j++) {
-                levelMatrix[i][j].getBlock().paintObject(g2, mapX + i * 70, mapY + j * 70);
+                if(levelMatrix[i][j].getBlock() instanceof SecretWall){
+                    SecretWall secretWall = (SecretWall) levelMatrix[i][j].getBlock();
+                    secretWall.setCoordinates(mapX + i * 70,mapY + j * 70);
+                    secretWalls.add(secretWall);
+                    g2.drawImage(new ImageIcon("mapImages/floor.png").getImage(),
+                            mapX + i * 70, mapY + j * 70,70,70,null);
+                }else{
+                    levelMatrix[i][j].getBlock().paintObject(g2, mapX + i * 70, mapY + j * 70);
+                }
             }
         }
         for (int i = 0; i < levelMatrix.length; i++) {
@@ -168,6 +178,9 @@ public class PlayPanel extends JPanel implements KeyListener {
         }
         stonesAreInited = true;
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
+        for (SecretWall secretWall:secretWalls) {
+            secretWall.paintObject(g2,secretWall.getX(),secretWall.getY());
+        }
     }
 
 
