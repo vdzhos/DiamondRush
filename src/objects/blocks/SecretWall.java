@@ -1,15 +1,16 @@
 package objects.blocks;
 
-import maps.Level;
-
-import javax.swing.*;
 import java.awt.*;
 
 public class SecretWall implements Block{
 
-    private Image image = new ImageIcon("mapImages/secretWall.png").getImage();
+    private Image image;
     private int x;
     private int y;
+
+    public SecretWall(Image image) {
+        this.image = image;
+    }
 
     public void setCoordinates(int x, int y){
         this.x = x;

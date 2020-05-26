@@ -11,6 +11,8 @@ import objects.traps.Rock;
 import objects.traps.Scorpion;
 import objects.traps.Snake;
 
+import javax.swing.*;
+
 public class Maps {
 
 //    private Cell[][] level1;
@@ -283,15 +285,15 @@ public class Maps {
         level1[39][4] = new Cell(new Floor(),null,null);
 
         //SecretWalls
-        level1[9][7] = new Cell(new SecretWall(),null,null);
-        level1[10][7] = new Cell(new SecretWall(),null,null);
-        level1[11][7] = new Cell(new SecretWall(),null,null);
-        level1[35][7] = new Cell(new SecretWall(),null,null);
-        level1[36][7] = new Cell(new SecretWall(),null,null);
-        level1[37][7] = new Cell(new SecretWall(),null,null);
-        level1[37][8] = new Cell(new SecretWall(),null,null);
-        level1[37][9] = new Cell(new SecretWall(),null,null);
-        level1[37][10] = new Cell(new SecretWall(),null,null);
+        level1[9][7] = new Cell(new SecretWall(new ImageIcon("mapImages/wall.png").getImage()),null,null);
+        level1[10][7] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
+        level1[11][7] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
+        level1[35][7] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
+        level1[36][7] = new Cell(new SecretWall(new ImageIcon("mapImages/wall.png").getImage()),null,null);
+        level1[37][7] = new Cell(new SecretWall(new ImageIcon("mapImages/wall.png").getImage()),null,null);
+        level1[37][8] = new Cell(new SecretWall(new ImageIcon("mapImages/wall.png").getImage()),null,null);
+        level1[37][9] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
+        level1[37][10] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
 
         //BreakableWalls
         level1[22][11] = new Cell(new BreakableWall(22,11),null,null);
