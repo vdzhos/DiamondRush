@@ -244,5 +244,12 @@ public class Boy {
         i++;
     }
 
+    public int getX(){
+        return this.x;
+    }
+
+    public int getY(){
+        return this.y;
+    }
 
 }

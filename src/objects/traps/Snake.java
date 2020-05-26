@@ -1,5 +1,8 @@
 package objects.traps;
 
+import maps.Cell;
+import source.Boy;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,12 +11,14 @@ import java.awt.event.ActionListener;
 public class Snake extends JLabel implements Trap{
 
     private Timer timer;
+    private Timer check;
     private int x = 0;
     private int y = 0;
     private JLabel snake;
     private boolean side = true; //right - true; left - false
     private Image[] images;
     private Image current;
+    private Snake trap;
 
     private void initImages(){
         Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
@@ -25,6 +30,7 @@ public class Snake extends JLabel implements Trap{
     }
 
     public Snake(int width, int height, int coord, boolean horizontal){
+        trap = this;
         initImages();
         snake = this;
         setPreferredSize(new Dimension(width,height));
@@ -42,6 +48,7 @@ public class Snake extends JLabel implements Trap{
                             side = false;
                             current = images[1];
                             t.setDelay(1000);
+                            x++;
                         }
                     } else {
                         x -= 1;
@@ -50,6 +57,7 @@ public class Snake extends JLabel implements Trap{
                             side = true;
                             current = images[0];
                             t.setDelay(1000);
+                            x--;
                         }
                     }
                     snake.repaint();
@@ -69,6 +77,7 @@ public class Snake extends JLabel implements Trap{
                             side = false;
                             current = images[2];
                             t.setDelay(1000);
+                            y++;
                         }
                     } else {
                         y -= 1;
@@ -77,6 +86,7 @@ public class Snake extends JLabel implements Trap{
                             side = true;
                             current = images[3];
                             t.setDelay(1000);
+                            y--;
                         }
                     }
                     snake.repaint();
@@ -85,6 +95,37 @@ public class Snake extends JLabel implements Trap{
         }
         revalidate();
         timer.start();
+    }
+
+    public void checkTimerStart(JPanel panel, Boy boy, Cell[][] levelMatrix){
+        check = new Timer(50, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
+                Rectangle snakeRect = new Rectangle(x+snake.getX(),y+snake.getY(),70,70);
+                System.out.println("----------");
+                if(boyRect.intersects(snakeRect)){
+                    panel.remove(snake);
+                    Timer t = (Timer) e.getSource();
+                    t.stop();
+                    for (int i = 0; i < levelMatrix.length; i++) {
+                        for (int j = 0; j < levelMatrix[i].length; j++) {
+                            if(levelMatrix[i][j].getTrapObject() instanceof Snake){
+                                if(levelMatrix[i][j].getTrapObject().equals(trap)){
+                                    levelMatrix[i][j].setTrapObject(null);
+                                }
+                            }
+                        }
+                    }
+                    panel.repaint();
+                }
+            }
+        });
+        check.start();
+    }
+
+    public Timer getCheckTimer(){
+        return check;
     }
 
     @Override

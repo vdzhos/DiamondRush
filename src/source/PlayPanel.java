@@ -200,6 +200,8 @@ public class PlayPanel extends JPanel implements KeyListener {
             updated = true;
             boy.isMoving = false;
         }
+//        JLabel label = levelMatrix[9][16].getTrapObject().getLabel();
+//        System.out.println(boy.x + " " + boy.y + " | " + label.getX() + " " + label.getY());
     }
 
     public void applyCheckpoint(){
@@ -431,6 +433,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                 applyCheckpoint();
             }
             else if ((code ==KeyEvent.VK_UP) && (boy.isMoving == false) && isAllowedUp()) {
+                if(!itIsSnake(boy.xInArray,boy.yInArray)&&itIsSnake(boy.xInArray,boy.yInArray-1)){
+                    snakeCheck(boy.xInArray,boy.yInArray-1);
+                }else if(itIsSnake(boy.xInArray,boy.yInArray)&&!itIsSnake(boy.xInArray,boy.yInArray-1)){
+                    finishSnakeCheckTimer((Snake)levelMatrix[boy.xInArray][boy.yInArray].getTrapObject());
+                }
                 Block block = levelMatrix[boy.xInArray][boy.yInArray-1].getBlock();
                 if ((block.pass()&&!(itIsRock(boy.xInArray, boy.yInArray-1)))||itIsHarmless(boy.xInArray, boy.yInArray-1)) {
                     setMovementUp();
@@ -450,6 +457,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                 moveBoy();
             }
             else if ((code == KeyEvent.VK_DOWN) && (boy.isMoving == false) && isAllowedDown()) {
+                if(!itIsSnake(boy.xInArray,boy.yInArray)&&itIsSnake(boy.xInArray,boy.yInArray+1)){
+                    snakeCheck(boy.xInArray,boy.yInArray+1);
+                }else if(itIsSnake(boy.xInArray,boy.yInArray)&&!itIsSnake(boy.xInArray,boy.yInArray+1)){
+                    finishSnakeCheckTimer((Snake)levelMatrix[boy.xInArray][boy.yInArray].getTrapObject());
+                }
                 Block block = levelMatrix[boy.xInArray][boy.yInArray+1].getBlock();
                 if ((block.pass()&&!(itIsRock(boy.xInArray, boy.yInArray+1)))||itIsHarmless(boy.xInArray, boy.yInArray+1)){
                     setMovementDown();
@@ -463,6 +475,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                 moveBoy();
             }
             else if ((code == KeyEvent.VK_LEFT) && (boy.isMoving == false) && isAllowedLeft()) {
+                if(!itIsSnake(boy.xInArray,boy.yInArray)&&itIsSnake(boy.xInArray-1,boy.yInArray)){
+                    snakeCheck(boy.xInArray-1,boy.yInArray);
+                }else if(itIsSnake(boy.xInArray,boy.yInArray)&&!itIsSnake(boy.xInArray-1,boy.yInArray)){
+                    finishSnakeCheckTimer((Snake)levelMatrix[boy.xInArray][boy.yInArray].getTrapObject());
+                }
                 Block block = levelMatrix[boy.xInArray-1][boy.yInArray].getBlock();
                 if (block instanceof DoorWithKeyhole && numberOfKeys != 0){
                     ((DoorWithKeyhole) block).openTheDoor();
@@ -499,6 +516,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                 moveBoy();
             }
             else if ((code == KeyEvent.VK_RIGHT) && (boy.isMoving == false) && isAllowedRight()) {
+                if(!itIsSnake(boy.xInArray,boy.yInArray)&&itIsSnake(boy.xInArray+1,boy.yInArray)){
+                    snakeCheck(boy.xInArray+1,boy.yInArray);
+                }else if(itIsSnake(boy.xInArray,boy.yInArray)&&!itIsSnake(boy.xInArray+1,boy.yInArray)){
+                    finishSnakeCheckTimer((Snake)levelMatrix[boy.xInArray][boy.yInArray].getTrapObject());
+                }
                 Block block = levelMatrix[boy.xInArray+1][boy.yInArray].getBlock();
                 if (block instanceof DoorWithKeyhole && numberOfKeys != 0){
                     ((DoorWithKeyhole) block).openTheDoor();
@@ -651,6 +673,26 @@ public class PlayPanel extends JPanel implements KeyListener {
     public boolean itIsSnake(int x, int y){
         if (levelMatrix[x][y].getTrapObject() == null) return false;
         return levelMatrix[x][y].getTrapObject() instanceof Snake;
+    }
+
+    public void snakeCheck(int x, int y){
+        if(itIsSnake(x,y)) {
+            Snake snake = (Snake)levelMatrix[x][y].getTrapObject();
+            snake.checkTimerStart(panel,boy,levelMatrix);
+        }
+    }
+
+    private void finishSnakeCheckTimer(Snake snake){
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        System.out.println("finished");
+                        snake.getCheckTimer().stop();
+                    }
+                },
+                1000
+        );
     }
 
     @Override
