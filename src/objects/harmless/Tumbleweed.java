@@ -20,7 +20,7 @@ public class Tumbleweed implements Harmless {
     public void paintObject(Graphics2D g2) { }
 
     @Override
-    public boolean passable() {
+    public boolean pass() {
         return true;
     }
 }

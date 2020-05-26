@@ -18,47 +18,65 @@ public class Snake extends JLabel implements Trap{
     private void initImages(){
         Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
         Image imageLeft = new ImageIcon("snake/snakeLeft.png").getImage();
-        Image[] images = {imageRight, imageLeft};
+        Image imageUp = new ImageIcon("snake/snakeUp.png").getImage();
+        Image imageDown = new ImageIcon("snake/snakeDown.png").getImage();
+        Image[] images = {imageRight, imageLeft,imageUp,imageDown};
         this.images = images;
     }
 
-    public Snake(int width, int height, boolean horizontal){
+    public Snake(int width, int height, int coord, boolean horizontal){
         initImages();
         snake = this;
         setPreferredSize(new Dimension(width,height));
         if(horizontal) {
-            timer = new Timer(10, new ActionListener() {
+            this.x = coord;
+            timer = new Timer(15, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    Timer t = (Timer)e.getSource();
+                    t.setDelay(15);
                     if (side) {
                         x += 1;
                         current = images[0];
                         if (x+70 >= width) {
                             side = false;
+                            current = images[1];
+                            t.setDelay(1000);
                         }
                     } else {
                         x -= 1;
                         current = images[1];
                         if (x <= 0) {
                             side = true;
+                            current = images[0];
+                            t.setDelay(1000);
                         }
                     }
                     snake.repaint();
                 }
             });
         }else{
-            timer = new Timer(10, new ActionListener() {
+            this.y = coord;
+            timer = new Timer(15, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    Timer t = (Timer)e.getSource();
+                    t.setDelay(15);
                     if (side) {
                         y += 1;
+                        current = images[3];
                         if (y+70 >= height) {
                             side = false;
+                            current = images[2];
+                            t.setDelay(1000);
                         }
                     } else {
                         y -= 1;
+                        current = images[2];
                         if (y <= 0) {
                             side = true;
+                            current = images[3];
+                            t.setDelay(1000);
                         }
                     }
                     snake.repaint();
@@ -81,7 +99,7 @@ public class Snake extends JLabel implements Trap{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500,500);
         frame.setVisible(true);
-        Snake snake = new Snake(100,300,true);
+        Snake snake = new Snake(100,300, 50,true);
         frame.add(snake);
         snake.timer.start();
     }

@@ -3,12 +3,15 @@ package maps;
 import objects.blocks.doors.*;
 import objects.blocks.*;
 import objects.harmless.Chest;
+import objects.thingsInChest.*;
 import objects.traps.FireTrap;
 import objects.harmless.Diamond;
 import objects.harmless.Tumbleweed;
 import objects.traps.Rock;
 import objects.traps.Scorpion;
 import objects.traps.Snake;
+
+import javax.swing.*;
 
 public class Maps {
 
@@ -36,17 +39,17 @@ public class Maps {
 
 
 
-        Snake snake1 = new Snake(140,70,true);
-        Snake snake2 = new Snake(350,70,true);
-        Snake snake3 = new Snake(70,140,false);
-        Snake snake4 = new Snake(70,140,false);
-        Snake snake5 = new Snake(70,140,false);
+        Snake snake1 = new Snake(140,70,40,true);
+        Snake snake2 = new Snake(350,70,180,true);
+        Snake snake3 = new Snake(70,140,20,false);
+        Snake snake4 = new Snake(70,140,70,false);
+        Snake snake5 = new Snake(70,140,10,false);
 
-        Scorpion scorpion = new Scorpion(210,210,false);
+        Scorpion scorpion = new Scorpion(210,210,false,null,null);
 
-        FireTrap fireTrap1 = new FireTrap(false);
-        FireTrap fireTrap2 = new FireTrap(false);
-        FireTrap fireTrap3 = new FireTrap(false);
+        FireTrap fireTrap1 = new FireTrap(0,false);
+        FireTrap fireTrap2 = new FireTrap(3,false);
+        FireTrap fireTrap3 = new FireTrap(2,false);
 
         Snake[] snakes = {snake3,snake4};
         DoubleDoor doubleDoor = new DoubleDoor(snakes,true,20,13);
@@ -70,7 +73,8 @@ public class Maps {
         level1[4][16] = new Cell(check1,null,null);
         level1[4][18] = new Cell(new Floor(),null,null);
         level1[4][19] = new Cell(new Floor(),null,new Rock());
-        level1[5][16] = new Cell(new Floor(),null,null);
+        level1[5][16] = new Cell(new Floor(),new Chest(new PurpleDiamond(10), new RedDiamond(1),
+                new SilverKey(), new GoldKey(), new Energy()),null);//only for test
         level1[5][17] = new Cell(new Floor(),null,null);
         level1[5][18] = new Cell(new Floor(),null,null);
         level1[5][19] = new Cell(new Floor(),null,null);
@@ -124,7 +128,8 @@ public class Maps {
         level1[12][3] = new Cell(new Floor(),new Tumbleweed(),null);
         level1[12][4] = new Cell(new Floor(),new Diamond(),null);
         level1[12][7] = new Cell(new Floor(),null,null);
-        level1[12][8] = new Cell(new Floor(),new Chest(),null);
+        level1[12][8] = new Cell(new Floor(),new Chest(new PurpleDiamond(10), new RedDiamond(1),
+                new SilverKey(), new GoldKey(), new Energy()),null);
         level1[12][13] = new Cell(new Floor(),null,null);
         level1[12][14] = new Cell(new Floor(),null,null);
         level1[12][15] = new Cell(new Floor(),new Tumbleweed(),null);
@@ -146,7 +151,7 @@ public class Maps {
         level1[14][3] = new Cell(new Floor(),new Diamond(),null);
         level1[14][4] = new Cell(new Floor(),null,new Rock());
         level1[14][7] = new Cell(new Floor(),null,null);
-        level1[14][8] = new Cell(new Floor(),new Chest(),null);
+        level1[14][8] = new Cell(new Floor(),new Chest(null, null, null, null, null),null);
         level1[14][11] = new Cell(new Floor(),null,null);
         level1[14][12] = new Cell(new Floor(),null,null);
         level1[14][13] = new Cell(new Floor(),null,null);
@@ -184,7 +189,7 @@ public class Maps {
         level1[19][3] = new Cell(new Floor(),null,null);
         level1[19][4] = new Cell(new Floor(),new Diamond(),null);
         level1[19][7] = new Cell(new Floor(),null,fireTrap2);
-        level1[19][8] = new Cell(new Floor(),new Chest(),null);
+        level1[19][8] = new Cell(new Floor(),new Chest(null, null, null, null, null),null);
         level1[19][9] = new Cell(new Floor(),null,fireTrap3);
         level1[19][13] = new Cell(new Floor(),null,null);
         level1[19][18] = new Cell(new Floor(),null,null);
@@ -219,7 +224,7 @@ public class Maps {
         level1[24][18] = new Cell(new Floor(),null,null);
         level1[25][5] = new Cell(check5,null,null);
         level1[25][6] = new Cell(new Floor(),null,null);
-        level1[25][7] = new Cell(new Floor(),new Chest(),null);
+        level1[25][7] = new Cell(new Floor(),new Chest(null, null, null, null, null),null);
         level1[25][11] = new Cell(new Floor(),new Diamond(),null);
         level1[25][15] = new Cell(new Floor(),null,null);
         level1[25][16] = new Cell(new Floor(),null,null);
@@ -231,7 +236,7 @@ public class Maps {
         level1[26][14] = new Cell(new Floor(),null,null);
         level1[26][15] = new Cell(new Floor(),null,null);
         level1[26][16] = new Cell(new Floor(),null,null);
-        level1[26][17] = new Cell(new Floor(),new Chest(),null);
+        level1[26][17] = new Cell(new Floor(),new Chest(null, null, null, null, null),null);
         level1[27][5] = new Cell(new Floor(),null,new Rock());
         level1[27][15] = new Cell(new Floor(),null,null);
         level1[27][16] = new Cell(new Floor(),null,null);
@@ -282,19 +287,19 @@ public class Maps {
         level1[38][11] = new Cell(new Floor(),null,scorpion);
         level1[38][12] = new Cell(new Floor(),null,scorpion);
         level1[38][13] = new Cell(new Floor(),null,scorpion);
-        level1[38][14] = new Cell(new Floor(),new Chest(),null);
+        level1[38][14] = new Cell(new Floor(),new Chest(null, null, null, null, null),null);
         level1[39][4] = new Cell(new Floor(),null,null);
 
         //SecretWalls
-        level1[9][7] = new Cell(new SecretWall(),null,null);
-        level1[10][7] = new Cell(new SecretWall(),null,null);
-        level1[11][7] = new Cell(new SecretWall(),null,null);
-        level1[35][7] = new Cell(new SecretWall(),null,null);
-        level1[36][7] = new Cell(new SecretWall(),null,null);
-        level1[37][7] = new Cell(new SecretWall(),null,null);
-        level1[37][8] = new Cell(new SecretWall(),null,null);
-        level1[37][9] = new Cell(new SecretWall(),null,null);
-        level1[37][10] = new Cell(new SecretWall(),null,null);
+        level1[9][7] = new Cell(new SecretWall(new ImageIcon("mapImages/wall.png").getImage()),null,null);
+        level1[10][7] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
+        level1[11][7] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
+        level1[35][7] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
+        level1[36][7] = new Cell(new SecretWall(new ImageIcon("mapImages/wall.png").getImage()),null,null);
+        level1[37][7] = new Cell(new SecretWall(new ImageIcon("mapImages/wall.png").getImage()),null,null);
+        level1[37][8] = new Cell(new SecretWall(new ImageIcon("mapImages/wall.png").getImage()),null,null);
+        level1[37][9] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
+        level1[37][10] = new Cell(new SecretWall(new ImageIcon("mapImages/secretWall.png").getImage()),null,null);
 
         //BreakableWalls
         level1[22][11] = new Cell(new BreakableWall(22,11),null,null);

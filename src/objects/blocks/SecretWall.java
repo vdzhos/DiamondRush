@@ -1,14 +1,21 @@
 package objects.blocks;
 
-import maps.Level;
-
-import javax.swing.*;
 import java.awt.*;
 
 public class SecretWall implements Block{
 
-    private ImageIcon image = new ImageIcon("");
+    private Image image;
+    private int x;
+    private int y;
 
+    public SecretWall(Image image) {
+        this.image = image;
+    }
+
+    public void setCoordinates(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
 
     @Override
     public boolean pass() {
@@ -17,7 +24,14 @@ public class SecretWall implements Block{
 
     @Override
     public void paintObject(Graphics2D g2, int x, int y) {
-        g2.setColor(Color.MAGENTA);
-        g2.fillRect(x,y,70,70);
+        g2.drawImage(image,x,y,70,70,null);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

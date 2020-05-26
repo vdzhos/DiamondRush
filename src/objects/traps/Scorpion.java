@@ -27,14 +27,31 @@ public class Scorpion extends JLabel implements Trap{
         this.images = images;
     }
 
-    public Scorpion(int width, int height, boolean clockwise){
+    public Scorpion(int width, int height, boolean clockwise, Point point, Direction dir){
         initImages();
         scorpion = this;
         setPreferredSize(new Dimension(width,height));
+        if(point != null && dir != null){
+            x = point.x;
+            y = point.y;
+            if(point.x==0 || point.x==width-70){
+                hor = false;
+            }else{
+                hor = true;
+            }
+            if(dir==Direction.RIGHT||dir==Direction.DOWN){
+                side = true;
+            }else{
+                side = false;
+            }
+            direction = dir;
+        }
         if(clockwise) {
-            direction = Direction.RIGHT;
-            hor = true;
-            side = true;
+            if(point == null && direction == null){
+                direction = Direction.RIGHT;
+                hor = true;
+                side = true;
+            }
             timer = new Timer(12, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -73,9 +90,11 @@ public class Scorpion extends JLabel implements Trap{
                 }
             });
         }else{
-            direction = Direction.DOWN;
-            hor = false;
-            side = true;
+            if(point == null && direction == null) {
+                direction = Direction.DOWN;
+                hor = false;
+                side = true;
+            }
             timer = new Timer(12, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -138,8 +157,10 @@ public class Scorpion extends JLabel implements Trap{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500,500);
         frame.setVisible(true);
-        Scorpion scorpion = new Scorpion(350,350,true);
-        frame.add(scorpion);
+        Scorpion scorpion = new Scorpion(350,350,true, new Point(280,200), Direction.DOWN);
+        JLabel label = scorpion.getLabel();
+        label.setBounds(0,0,350,350);
+        frame.add(label);
         scorpion.timer.start();
     }
 
