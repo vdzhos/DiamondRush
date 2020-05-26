@@ -53,6 +53,12 @@ public class Maps {
         PressMechanism pressMechanism = new PressMechanism(5,20);
         PressMechanism pressMechanism2 = new PressMechanism(12,19);
 
+        Checkpoint check1 = new Checkpoint(3,8,13,20,4,16,4,4);
+        Checkpoint check2 = new Checkpoint(11,1,19,8,8,7,4,4);
+        Checkpoint check3 = new Checkpoint(18,3,24,13,18,4,4,4);
+        Checkpoint check4 = new Checkpoint(9,11,18,19,18,13,4,4);
+        Checkpoint check5 = new Checkpoint(25,4,38,14,25,5,4,4);
+
         //Floor + (Harmless/Trap)
         Cell[][] level1 = new Cell[40][22];
         level1[0][16] = new Cell(new Floor(),null,null);
@@ -61,7 +67,7 @@ public class Maps {
         level1[3][16] = new Cell(new Floor(),null,null);
         level1[3][18] = new Cell(new Floor(),null,null);
         level1[3][19] = new Cell(new Floor(),new Diamond(),null);
-        level1[4][16] = new Cell(new Floor(),null,null);
+        level1[4][16] = new Cell(check1,null,null);
         level1[4][18] = new Cell(new Floor(),null,null);
         level1[4][19] = new Cell(new Floor(),null,new Rock());
         level1[5][16] = new Cell(new Floor(),null,null);
@@ -88,7 +94,7 @@ public class Maps {
         level1[8][4] = new Cell(new Floor(),null,snake2);
         level1[8][5] = new Cell(new Floor(),null,null);
         level1[8][6] = new Cell(new Floor(),null,null);
-        level1[8][7] = new Cell(new Floor(),null,null);
+        level1[8][7] = new Cell(check2,null,null);
         level1[8][12] = new Cell(new Floor(),null,null);
         level1[8][13] = new Cell(new Floor(),null,fireTrap1);
         level1[8][19] = new Cell(new Floor(),null,null);
@@ -169,11 +175,11 @@ public class Maps {
         level1[17][13] = new Cell(new Floor(),null,null);
         level1[17][14] = new Cell(new Floor(),null,null);
         level1[17][18] = new Cell(new Floor(),null,null);
-        level1[18][4] = new Cell(new Floor(),null,null);
+        level1[18][4] = new Cell(check3,null,null);
         level1[18][7] = new Cell(new Floor(),null,fireTrap2);
         level1[18][11] = new Cell(new Floor(),null,null);
         level1[18][12] = new Cell(new Floor(),null,null);
-        level1[18][13] = new Cell(new Floor(),null,null);
+        level1[18][13] = new Cell(check4,null,null);
         level1[18][18] = new Cell(new Floor(),null,null);
         level1[19][3] = new Cell(new Floor(),null,null);
         level1[19][4] = new Cell(new Floor(),new Diamond(),null);
@@ -211,7 +217,7 @@ public class Maps {
         level1[24][16] = new Cell(new Floor(),null,null);
         level1[24][17] = new Cell(new Floor(),null,null);
         level1[24][18] = new Cell(new Floor(),null,null);
-        level1[25][5] = new Cell(new Floor(),null,null);
+        level1[25][5] = new Cell(check5,null,null);
         level1[25][6] = new Cell(new Floor(),null,null);
         level1[25][7] = new Cell(new Floor(),new Chest(),null);
         level1[25][11] = new Cell(new Floor(),new Diamond(),null);
@@ -321,7 +327,13 @@ public class Maps {
             }
         }
 
+        Checkpoint[] checkpoints = {check1,check2,check3,check4,check5};
+        for (Checkpoint checkpoint: checkpoints){
+            checkpoint.setInitialMatrix(level1);
+        }
+
         this.level1 = new Level(level1,2,4,2,16);
+        this.level1.setCheckpoints(checkpoints);
     }
 
     private void initLevel2(){

@@ -17,6 +17,14 @@ public class Cell {
         this.trapObject = trapObject;
     }
 
+    public Cell clone(){
+        return new Cell(block,harmlessObject,trapObject);
+    }
+
+    public String toString(){
+        return block.toString() + trapObject.toString();
+    }
+
     public Block getBlock() {
         return block;
     }

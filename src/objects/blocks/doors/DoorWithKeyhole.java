@@ -7,7 +7,7 @@ import source.Values;
 import javax.swing.*;
 import java.awt.*;
 
-public class DoorWithKeyhole implements Block {
+public class DoorWithKeyhole implements Block, Resetable {
 
     private Image closedDoorUpper;
     private Image closedDoorLower;
@@ -41,6 +41,10 @@ public class DoorWithKeyhole implements Block {
 
     public void openTheDoor(){
         opened = true;
+    }
+
+    public void reset(){
+        opened = false;
     }
 
 

@@ -68,7 +68,12 @@ public class DoubleDoor{
         }
     }
 
-    public class LeftDoor implements Block {
+    public class LeftDoor implements Block, Resetable {
+
+        public void reset(){
+            DoubleDoor.this.opened = true;
+            n =0;
+        }
 
         @Override
         public boolean pass() {
@@ -89,8 +94,12 @@ public class DoubleDoor{
         }
     }
 
-    public class RightDoor implements Block{
+    public class RightDoor implements Block, Resetable {
 
+        public void reset(){
+            DoubleDoor.this.opened = true;
+            n = 0;
+        }
 
         public void interact(int positionOfBoyInArrayX, int positionOfBoyInArrayY){
             DoubleDoor.this.interact(positionOfBoyInArrayX,positionOfBoyInArrayY);

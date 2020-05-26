@@ -1,12 +1,13 @@
 package objects.harmless;
 
+import objects.blocks.doors.Resetable;
 import source.PlayPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class Chest implements Harmless{
+public class Chest implements Harmless, Resetable {
 
     private Image chestClosed = new ImageIcon("mapImages/chestClosed.png").getImage();
     private Image chestAlmostOpened = new ImageIcon("mapImages/chestAlmostOpened.png").getImage();
@@ -55,5 +56,10 @@ public class Chest implements Harmless{
     @Override
     public boolean passable() {
         return true;
+    }
+
+    @Override
+    public void reset() {
+
     }
 }
