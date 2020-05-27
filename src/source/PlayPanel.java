@@ -441,12 +441,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                 Block block = levelMatrix[boy.xInArray][boy.yInArray-1].getBlock();
                 if(block.pass()){
                     if(!itIsTrap(boy.xInArray,boy.yInArray)&&itIsTrap(boy.xInArray,boy.yInArray-1)&&!itIsRock(boy.xInArray,boy.yInArray-1)){
-                        levelMatrix[boy.xInArray][boy.yInArray-1].getTrapObject().checkTimerStart(panel,boy,levelMatrix);
+                        levelMatrix[boy.xInArray][boy.yInArray-1].getTrapObject().checkTimerStart(this,boy,levelMatrix);
                     }else if(itIsTrap(boy.xInArray,boy.yInArray)&&!itIsTrap(boy.xInArray,boy.yInArray-1)){
                         finishTrapCheckTimer(boy.xInArray,boy.yInArray);
                     }else if(itIsTrap(boy.xInArray,boy.yInArray)&&itIsTrap(boy.xInArray,boy.yInArray-1)&&
                             (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray][boy.yInArray-1].getTrapObject()))){
-                        levelMatrix[boy.xInArray][boy.yInArray-1].getTrapObject().checkTimerStart(panel,boy,levelMatrix);
+                        levelMatrix[boy.xInArray][boy.yInArray-1].getTrapObject().checkTimerStart(this,boy,levelMatrix);
                         finishTrapCheckTimer(boy.xInArray,boy.yInArray);
                     }
                 }
@@ -470,12 +470,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                 Block block = levelMatrix[boy.xInArray][boy.yInArray+1].getBlock();
                 if(block.pass()){
                     if(!itIsTrap(boy.xInArray,boy.yInArray)&&itIsTrap(boy.xInArray,boy.yInArray+1)&&!itIsRock(boy.xInArray,boy.yInArray+1)){
-                        levelMatrix[boy.xInArray][boy.yInArray+1].getTrapObject().checkTimerStart(panel,boy,levelMatrix);
+                        levelMatrix[boy.xInArray][boy.yInArray+1].getTrapObject().checkTimerStart(this,boy,levelMatrix);
                     }else if(itIsTrap(boy.xInArray,boy.yInArray)&&!itIsTrap(boy.xInArray,boy.yInArray+1)){
                         finishTrapCheckTimer(boy.xInArray,boy.yInArray);
                     }else if(itIsTrap(boy.xInArray,boy.yInArray)&&itIsTrap(boy.xInArray,boy.yInArray+1)&&
                             (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray][boy.yInArray+1].getTrapObject()))){
-                        levelMatrix[boy.xInArray][boy.yInArray+1].getTrapObject().checkTimerStart(panel,boy,levelMatrix);
+                        levelMatrix[boy.xInArray][boy.yInArray+1].getTrapObject().checkTimerStart(this,boy,levelMatrix);
                         finishTrapCheckTimer(boy.xInArray,boy.yInArray);
                     }
                 }
@@ -493,12 +493,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                 Block block = levelMatrix[boy.xInArray-1][boy.yInArray].getBlock();
                 if(block.pass()){
                     if(!itIsTrap(boy.xInArray,boy.yInArray)&&itIsTrap(boy.xInArray-1,boy.yInArray)&&!itIsRock(boy.xInArray-1,boy.yInArray)){
-                        levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject().checkTimerStart(panel,boy,levelMatrix);
+                        levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject().checkTimerStart(this,boy,levelMatrix);
                     }else if(itIsTrap(boy.xInArray,boy.yInArray)&&!itIsTrap(boy.xInArray-1,boy.yInArray)){
                         finishTrapCheckTimer(boy.xInArray,boy.yInArray);
                     }else if(itIsTrap(boy.xInArray,boy.yInArray)&&itIsTrap(boy.xInArray-1,boy.yInArray)&&
                             (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject()))){
-                        levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject().checkTimerStart(panel,boy,levelMatrix);
+                        levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject().checkTimerStart(this,boy,levelMatrix);
                         finishTrapCheckTimer(boy.xInArray,boy.yInArray);
                     }
                 }
@@ -538,12 +538,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                 Block block = levelMatrix[boy.xInArray+1][boy.yInArray].getBlock();
                 if(block.pass()){
                     if(!itIsTrap(boy.xInArray,boy.yInArray)&&itIsTrap(boy.xInArray+1,boy.yInArray)&&!itIsRock(boy.xInArray+1,boy.yInArray)){
-                        levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject().checkTimerStart(panel,boy,levelMatrix);
+                        levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject().checkTimerStart(this,boy,levelMatrix);
                     }else if(itIsTrap(boy.xInArray,boy.yInArray)&&!itIsTrap(boy.xInArray+1,boy.yInArray)){
                         finishTrapCheckTimer(boy.xInArray,boy.yInArray);
                     }else if(itIsTrap(boy.xInArray,boy.yInArray)&&itIsTrap(boy.xInArray+1,boy.yInArray)&&
                             (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject()))){
-                        levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject().checkTimerStart(panel,boy,levelMatrix);
+                        levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject().checkTimerStart(this,boy,levelMatrix);
                         finishTrapCheckTimer(boy.xInArray,boy.yInArray);
                     }
                 }

@@ -3,6 +3,7 @@ package objects.traps;
 import maps.Cell;
 import objects.Direction;
 import source.Boy;
+import source.PlayPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -183,7 +184,7 @@ public class Scorpion extends JLabel implements Trap{
     }
 
     @Override
-    public void checkTimerStart(JPanel panel, Boy boy, Cell[][] levelMatrix){
+    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

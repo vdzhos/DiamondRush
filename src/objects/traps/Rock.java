@@ -4,6 +4,7 @@ import maps.Cell;
 import maps.Maps;
 import objects.Stone;
 import source.Boy;
+import source.PlayPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,5 +112,5 @@ public class Rock extends Stone implements Trap{
     public void interactWithBoy() { }
 
     @Override
-    public void checkTimerStart(JPanel panel, Boy boy, Cell[][] levelMatrix) { }
+    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix) { }
 }
