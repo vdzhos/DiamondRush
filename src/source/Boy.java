@@ -112,90 +112,101 @@ public class Boy {
         this.height = 70;
     }
 
-    public void moveUp() {
+    public void moveUp(PlayPanel playPanel) {
         if (i == 3) yInArray --;
         y -= cellSide / 7;
         currentPicture = arrayUp[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray, yInArray + 1);
     }
 
-    public void moveUpAnimation(boolean changeCoordinates) {
+    public void moveUpAnimation(PlayPanel playPanel, boolean changeCoordinates) {
         if (i == 3 && changeCoordinates) yInArray --;
         currentPicture = arrayUp[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray, yInArray + 1);
     }
 
-    public void moveDown() {
+    public void moveDown(PlayPanel playPanel) {
         if (i == 3) yInArray ++;
         y += cellSide / 7;
         currentPicture = arrayDown[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray, yInArray - 1);
     }
 
-    public void moveDownAnimation(boolean changeCoordinates) {
+    public void moveDownAnimation(PlayPanel playPanel, boolean changeCoordinates) {
         if (i == 3 && changeCoordinates) yInArray ++;
         currentPicture = arrayDown[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray, yInArray - 1);
     }
 
-    public void moveLeft() {
+    public void moveLeft(PlayPanel playPanel) {
         if (i == 3) xInArray --;
         x -= cellSide / 7;
         currentPicture = arrayLeft[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray + 1, yInArray);
     }
 
-    public void moveLeftAnimation(boolean changeCoordinates) {
+    public void moveLeftAnimation(PlayPanel playPanel, boolean changeCoordinates) {
         if (i == 3 && changeCoordinates) xInArray --;
         currentPicture = arrayLeft[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray + 1, yInArray);
     }
 
-    public void moveRight() {
+    public void moveRight(PlayPanel playPanel) {
         if (i == 3) xInArray ++;
         x += cellSide / 7;
         currentPicture = arrayRight[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray - 1, yInArray);
     }
 
-    public void moveRightAnimation(boolean changeCoordinates) {
+    public void moveRightAnimation(PlayPanel playPanel, boolean changeCoordinates) {
         if (i == 3 && changeCoordinates) xInArray ++;
         currentPicture = arrayRight[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray - 1, yInArray);
     }
 
-    public void shoveLeftAndMove(boolean changeCoordinates){
-        if (i == 3 && changeCoordinates) xInArray --;
+    public void shoveLeftAndMove(PlayPanel playPanel){
+        if (i == 3) xInArray --;
         if (i == 0) x -= 3 * cellSide / 7;
         else if (i == 6) x += cellSide / 7;
         else x -= cellSide / 7;
         currentPicture = arrayShoveLeft[i];
-        i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray + 1, yInArray);
     }
 
-    public void shoveLeftAndStand(boolean changeCoordinates){
+    public void shoveLeftAndStand(PlayPanel playPanel, boolean changeCoordinates){
         if (i == 3 && changeCoordinates) xInArray --;
         if (i == 0) x -= 2 * cellSide / 7 ;
         else if (i == 6) x += 2 * cellSide / 7;
         currentPicture = arrayShoveLeft[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray + 1, yInArray);
     }
 
-    public void shoveRightAndMove(boolean changeCoordinates){
-        if (i == 3 && changeCoordinates) xInArray ++;
+    public void shoveRightAndMove(PlayPanel playPanel){
+        if (i == 3) xInArray ++;
         if (i == 0) x += 3 * cellSide / 7;
         else if (i == 6) x -= cellSide / 7;
         else x += cellSide / 7;
         currentPicture = arrayShoveRight[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray - 1, yInArray);
     }
 
-    public void shoveRightAndStand(boolean changeCoordinates){
+    public void shoveRightAndStand(PlayPanel playPanel, boolean changeCoordinates){
         if (i == 3 && changeCoordinates) xInArray ++;
         if (i == 0) x += 2 * cellSide / 7 ;
         else if (i == 6) x -= 2 * cellSide / 7;
         currentPicture = arrayShoveRight[i];
         i++;
+        if (i == 7) playPanel.disappearFromCell(xInArray - 1, yInArray);
     }
 
     public void findInChest(){

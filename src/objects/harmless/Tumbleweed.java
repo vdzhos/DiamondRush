@@ -1,5 +1,6 @@
 package objects.harmless;
 
+import objects.Stone;
 import source.PlayPanel;
 
 import javax.swing.*;
@@ -21,7 +22,8 @@ public class Tumbleweed implements Harmless {
 
     @Override
     public void disappear() {
-
+        playPanel.levelMatrix[xInArray][yInArray].setHarmlessObject(null);
+        playPanel.disappearFromCell(xInArray, yInArray);
     }
 
     @Override

@@ -51,7 +51,7 @@ public class Diamond extends Stone implements Harmless{
 
     @Override
     protected void setStoneToNewPositionInArray(int xInArray, int yInArray){
-        playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setHarmlessObject(this);
+        playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setHarmlessObject(null);
         playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setHarmlessObject(this);
     }
 
@@ -73,11 +73,17 @@ public class Diamond extends Stone implements Harmless{
 
     @Override
     public void disappear() {
-
+        playPanel.levelMatrix[xInArray][yInArray].setHarmlessObject(null);
+        playPanel.numberOfPurpleDiamondsCollected++;
+        playPanel.disappearFromCell(xInArray, yInArray);
     }
 
     @Override
-    public void interactWithBoy() {
+    public void beShovenLeft() { }
 
-    }
+    @Override
+    public void beShovenRight() { }
+
+    @Override
+    public void interactWithBoy() { }
 }
