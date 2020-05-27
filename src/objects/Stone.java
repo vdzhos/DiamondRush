@@ -40,12 +40,37 @@ public abstract class Stone {
         timer.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (i == 0){
+                    if (whatMove == 4 && !playPanel.itIsClearForStone(xInArray, yInArray + 1)){
+                        whatMove = 0;
+                        i = 7;
+                    }
+                    else if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
+                        whatMove = 4;
+                    }
+                    else if (whatMove != 1 && playPanel.itIsStone(xInArray, yInArray + 1)){
+                        if ((playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                playPanel.itIsClearForStone(xInArray + 1, yInArray + 1))
+                                || (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                playPanel.itIsClearForStone(xInArray + 1, yInArray + 1))){
+                            whatMove = 1;
+                        }
+                    }
+                    /*if (whatMove == 1) stagger();
+                    else if (whatMove == 2) fallLeft();
+                    else if (whatMove == 3) fallRight();
+                    else if (whatMove == 4) fallDown();
+                    else if (whatMove == 5) beShovenLeft();
+                    else if (whatMove == 6) beShovenRight();*/
+                }
+
                 if (whatMove == 1) stagger();
                 else if (whatMove == 2) fallLeft();
                 else if (whatMove == 3) fallRight();
                 else if (whatMove == 4) fallDown();
                 else if (whatMove == 5) beShovenLeft();
                 else if (whatMove == 6) beShovenRight();
+
                 playPanel.repaint();
                 if (i == 7){
                     i = 0;
@@ -99,6 +124,7 @@ public abstract class Stone {
             y += 0.5 * CELL_SIDE / 7;
             if (i == 2){
                 setStoneToNewPositionInArray(xInArray - 1, yInArray);
+                playPanel.disappearFromCell(xInArray + 1, yInArray);
                 xInArray -= 1;
             }
         }
@@ -111,7 +137,7 @@ public abstract class Stone {
             y += 1.5 * CELL_SIDE / 7;
             if (i == 5){
                 setStoneToNewPositionInArray(xInArray, yInArray + 1);
-                playPanel.disappearFromCell(xInArray + 1, yInArray);
+                playPanel.disappearFromCell(xInArray, yInArray - 1);
                 yInArray++;
             }
         }
@@ -119,7 +145,6 @@ public abstract class Stone {
             y += 2 * CELL_SIDE / 7;
         }
         i++;
-        if (i == 7) playPanel.disappearFromCell(xInArray, yInArray - 1);
     }
 
     public void fallRight(){
@@ -131,6 +156,7 @@ public abstract class Stone {
             y += 0.5 * CELL_SIDE / 7;
             if (i == 2){
                 setStoneToNewPositionInArray(xInArray + 1, yInArray);
+                playPanel.disappearFromCell(xInArray - 1, yInArray);
                 xInArray ++;
             }
         }
@@ -143,7 +169,7 @@ public abstract class Stone {
             y += 1.5 * CELL_SIDE / 7;
             if (i == 5){
                 setStoneToNewPositionInArray(xInArray, yInArray + 1);
-                playPanel.disappearFromCell(xInArray - 1, yInArray);
+                playPanel.disappearFromCell(xInArray, yInArray - 1);
                 yInArray++;
             }
         }
@@ -151,20 +177,23 @@ public abstract class Stone {
             y += 2 * CELL_SIDE / 7;
         }
         i++;
-        if (i == 7) playPanel.disappearFromCell(xInArray, yInArray - 1);
     }
 
     public void fallDown(){
+        //if (i == 0){
+            //System.out.println("Fall down " + xInArray + ", " + yInArray);
+            //System.out.println("It is stone down: " + playPanel.itIsStone(xInArray, yInArray + 1));
+        //}
         if (i == 3){
             //Then change
-            if (yInArray + 2 < playPanel.getCurrentLevel().getMatrix().length){
+            if (yInArray + 1 < playPanel.getCurrentLevel().getMatrix()[0].length){
                 setStoneToNewPositionInArray(xInArray, yInArray + 1);
+                playPanel.disappearFromCell(xInArray, yInArray - 1);
                 yInArray ++;
             }
         }
         y += CELL_SIDE / 7;
         i++;
-        if (i == 7) playPanel.disappearFromCell(xInArray, yInArray - 1);
     }
 
     public abstract void beShovenLeft();
@@ -186,8 +215,8 @@ public abstract class Stone {
         else if (whatMove != 1 && playPanel.itIsStone(xInArray, yInArray + 1)) {
             if ((playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
                     playPanel.itIsClearForStone(xInArray + 1, yInArray + 1))
-                    || (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                    playPanel.itIsClearForStone(xInArray + 1, yInArray + 1))) {
+                    || (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
+                    playPanel.itIsClearForStone(xInArray - 1, yInArray + 1))) {
                 this.whatMove = 1;
                 this.isMoving = true;
                 this.moveStone();

@@ -16,39 +16,6 @@ public class Diamond extends Stone implements Harmless{
         isMoving = false;
     }
 
-    public void moveDiamond(){
-        Timer timer = new Timer(100, null);
-        timer.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (whatMove == 1) stagger();
-                else if (whatMove == 2) fallLeft();
-                else if (whatMove == 3) fallRight();
-                else if (whatMove == 4) fallDown();
-                playPanel.repaint();
-                if (i == 7){
-                    i = 0;
-                    if (whatMove == 1) whatMove = 3;
-                    else if (whatMove == 3) whatMove = 4;
-                    else{
-                        isMoving = false;
-                        timer.stop();
-                    }
-                    /*if (whatMove == 1){
-                          if (left isClear()) whatMove = 2;
-                    *     else if (right isClear()) whatMove = 3;
-                    * }
-                    * else if (((whatMove == 2)||(whatMove == 3)||(whatMove == 4))&&(down isClear()){
-                    *     whatMove = 4;
-                    * }
-                    * else isMoving = false;
-                    * */
-                }
-            }
-        });
-        timer.start();
-    }
-
     @Override
     protected void setStoneToNewPositionInArray(int xInArray, int yInArray){
         playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setHarmlessObject(null);

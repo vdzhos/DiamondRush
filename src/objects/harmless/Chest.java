@@ -69,7 +69,7 @@ public class Chest implements Harmless, Resetable {
 
     private void takeThings(){
         if ((index < 5)&&(things[index] != null)) currentThing = things[index];
-        else if (things[index] == null){
+        else if ((index < 5)&&(things[index] == null)){
             index++;
             if ((index < 5)&&(things[index] != null)) currentThing = things[index];
         }

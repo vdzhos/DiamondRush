@@ -1,6 +1,8 @@
 package objects.blocks;
 
 import maps.Cell;
+import source.PlayPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +26,7 @@ public class BreakableWall implements Block{
         return false;
     }
 
-    public void breakWall(Cell[][] matrix, JPanel panel){
+    public void breakWall(Cell[][] matrix, PlayPanel panel){
         Cell[][] map = matrix;
         ArrayList<Cell> all = new ArrayList<>();
         all.add(map[x][y]);
@@ -46,6 +48,7 @@ public class BreakableWall implements Block{
                 if(all.size()>0){
                     all.get(0).setBlock(new Floor());
                     panel.repaint();
+                    panel.disappearFromCell(x, y);
                     all.remove(0);
                 }else{
                     Timer t = (Timer)e.getSource();
