@@ -1,5 +1,9 @@
 package objects.traps;
 
+import maps.Cell;
+import source.Boy;
+import source.PlayPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +12,7 @@ import java.awt.event.ActionListener;
 public class FireTrap extends JLabel implements Trap{
 
     private Timer timer;
+    private Timer check;
     private Image[] images;
     private boolean[] state = {false,false,false};
     private boolean turningOn = true;
@@ -66,14 +71,14 @@ public class FireTrap extends JLabel implements Trap{
     public void paint(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if(side){ //left
+        if(side){ //beginning right
             g2.drawImage(images[3],210,0,70,70,null);
             for (int i = 3; i > 0; i--) {
                 if(state[i-1]){
                     g2.drawImage(images[1], 210-(4-i)*70,0, 70,70,null);
                 }
             }
-        }else{ //right
+        }else{ //beginning left
             g2.drawImage(images[2],0,0,70,70,null);
             for (int i = 1; i < 4; i++) {
                 if(state[i-1]){
@@ -103,10 +108,71 @@ public class FireTrap extends JLabel implements Trap{
 
     }
 
-
     @Override
     public JLabel getLabel() {
         return this;
     }
+
+    @Override
+    public void pause() {
+        timer.stop();
+    }
+
+    @Override
+    public void resume() {
+        timer.start();
+    }
+
+    @Override
+    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
+        int side = 0;
+        if(!this.side){
+            side = 70;
+        }
+        int finalSide = side;
+        check = new Timer(50, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
+                int first = -1;
+                int quantity = 0;
+                for (int i = 0; i < state.length; i++) {
+                    if(state[i]){
+                        if(first==-1){
+                            first = i;
+                        }
+                        quantity++;
+                    }
+                }
+                Rectangle fireTrapRect = new Rectangle(finalSide +first*70 + fireTrap.getX(), fireTrap.getY(),quantity*70,70);
+                System.out.println("----------");
+                boolean intersects = boyRect.intersects(fireTrapRect);
+                if(quantity==0){
+                    intersects=false;
+                }
+                if(intersects){
+                    panel.remove(fireTrap);
+                    Timer t = (Timer) e.getSource();
+                    t.stop();
+                    for (int i = 0; i < levelMatrix.length; i++) {
+                        for (int j = 0; j < levelMatrix[i].length; j++) {
+                            if(levelMatrix[i][j].getTrapObject() instanceof FireTrap){
+                                if(levelMatrix[i][j].getTrapObject().equals(fireTrap)){
+                                    levelMatrix[i][j].setTrapObject(null);
+                                }
+                            }
+                        }
+                    }
+                    panel.repaint();
+                }
+            }
+        });
+        check.start();
+    }
+
+    public Timer getCheckTimer(){
+        return check;
+    }
+
 
 }

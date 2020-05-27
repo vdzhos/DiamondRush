@@ -30,25 +30,28 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
 
 
-    private int currentEnergyLevel = 500;
+    private int currentEnergyLevel =200;
     private int maxEnergyLevel = 500;
+    double unit;
 
-    private int currentNumberOfGoldKeys = 0;
+    private int currentNumberOfGoldKeys;
     private int maxNumberOfGoldKeys = 2;
 
-    private int currentNumberOfSilverKeys = 0;
+    private int currentNumberOfSilverKeys;
     private int maxNumberOfSilverKeys = 2;
 
-    private int currentNumberOfPurpleDiamonds = 40;
+    private int currentNumberOfPurpleDiamonds;
     private int maxNumberOfPurpleDiamonds = 40;
 
-    private int currentNumberOfRedDiamonds = 0;
+    private int currentNumberOfRedDiamonds;
     private int maxNumberOfRedDiamonds = 2;
 
     private int currentLevel = 1;
 
     private double progressBarWidth;
     private Rectangle2D.Double progressBar;
+
+    private PlayPanel playPanel;
 
 
 //    public StatusBarPanel() {
@@ -58,7 +61,6 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 //    }
 
 
-    // do not use this constructor!!!
     public StatusBarPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
         setPreferredSize(new Dimension(Values.GAME_STATUS_BAR_WIDTH,Values.GAME_STATUS_BAR_LENGTH));
@@ -68,19 +70,43 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         pauseMenuDialog = new PauseMenuDialog(gameFrame);
     }
 
-    public StatusBarPanel(GameFrame gameFrame, int level, int maxEnergyLevel, int maxNumberOfGoldKeys, int maxNumberOfSilverKeys, int maxNumberOfPurpleDiamonds, int maxNumberOfRedDiamonds){
+    public StatusBarPanel(GameFrame gameFrame, PlayPanel playPanel) {
         this.gameFrame = gameFrame;
-        currentLevel = level;
-        this.maxEnergyLevel = maxEnergyLevel;
-        this.maxNumberOfGoldKeys = maxNumberOfGoldKeys;
-        this.maxNumberOfSilverKeys = maxNumberOfSilverKeys;
-        this.maxNumberOfPurpleDiamonds = maxNumberOfPurpleDiamonds;
-        this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
+        this.playPanel = playPanel;
+        setPreferredSize(new Dimension(Values.GAME_STATUS_BAR_WIDTH,Values.GAME_STATUS_BAR_LENGTH));
         addMouseListener(this);
         font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
         fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
-        pauseMenuDialog = new PauseMenuDialog(gameFrame);
+        pauseMenuDialog = new PauseMenuDialog(gameFrame, playPanel);
     }
+
+//    public void setPlayPanel() {
+//        playPanel = gameFrame.getCurrentPlayPanel();
+//    }
+
+    //    public StatusBarPanel(GameFrame gameFrame, PlayPanel playPanel) {
+//        this.playPanel = playPanel;
+//        this.gameFrame = gameFrame;
+//        setPreferredSize(new Dimension(Values.GAME_STATUS_BAR_WIDTH,Values.GAME_STATUS_BAR_LENGTH));
+//        addMouseListener(this);
+//        font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
+//        fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
+//        pauseMenuDialog = new PauseMenuDialog(gameFrame);
+//    }
+
+//    public StatusBarPanel(GameFrame gameFrame, int level, int maxEnergyLevel, int maxNumberOfGoldKeys, int maxNumberOfSilverKeys, int maxNumberOfPurpleDiamonds, int maxNumberOfRedDiamonds){
+//        this.gameFrame = gameFrame;
+//        currentLevel = level;
+//        this.maxEnergyLevel = maxEnergyLevel;
+//        this.maxNumberOfGoldKeys = maxNumberOfGoldKeys;
+//        this.maxNumberOfSilverKeys = maxNumberOfSilverKeys;
+//        this.maxNumberOfPurpleDiamonds = maxNumberOfPurpleDiamonds;
+//        this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
+//        addMouseListener(this);
+//        font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
+//        fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
+//        pauseMenuDialog = new PauseMenuDialog(gameFrame);
+//    }
 
 
     public void paint(Graphics gr){
@@ -99,15 +125,15 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
 
     private void drawProgressBar(Graphics g) {
-        if (currentEnergyLevel >= 400)
+        if (currentEnergyLevel >= unit*4)
             g.setColor(Color.green);
-        else if (currentEnergyLevel >= 300)
+        else if (currentEnergyLevel >= unit*3)
             g.setColor(new Color(183,226,10));
-        else if (currentEnergyLevel >= 200)
+        else if (currentEnergyLevel >= unit*2)
             g.setColor(new Color(255,157,0));
-        else if (currentEnergyLevel >= 100)
+        else if (currentEnergyLevel >= unit)
             g.setColor(new Color(255,90,0));
-        else if (currentEnergyLevel < 100)
+        else if (currentEnergyLevel < unit)
             g.setColor(new Color(255,14,0));
         progressBarWidth = ((Values.ENERGY_FIELD_WIDTH-5)/(double)(maxEnergyLevel))*currentEnergyLevel;
         progressBar = new Rectangle2D.Double(Values.PROGRESS_BAR_X, Values.PROGRESS_BAR_Y,progressBarWidth, Values.PROGRESS_BAR_LENGTH);
@@ -219,6 +245,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    playPanel.pause();
                     pauseMenuDialog.setVisible(true);
                 }
             });
@@ -227,6 +254,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         else if (checkpoint.contains(point)){
             checkpointImage.animate(this);
             System.out.println("Checkpoint button");
+            playPanel.applyCheckpoint();
 //            there should be the method that moves boy to the checkpoint
         }
         else if (energyLevel.contains(point)){
@@ -257,7 +285,32 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     }
 
-//    public static void main(String[] args) {
+    public void setImage(AnimatableImage image) {
+        this.image = image;
+    }
+
+    public void setMaxEnergyLevel(int maxEnergyLevel) {
+        this.maxEnergyLevel = maxEnergyLevel;
+        unit = maxEnergyLevel/5;
+    }
+
+    public void setMaxNumberOfGoldKeys(int maxNumberOfGoldKeys) {
+        this.maxNumberOfGoldKeys = maxNumberOfGoldKeys;
+    }
+
+    public void setMaxNumberOfSilverKeys(int maxNumberOfSilverKeys) {
+        this.maxNumberOfSilverKeys = maxNumberOfSilverKeys;
+    }
+
+    public void setMaxNumberOfPurpleDiamonds(int maxNumberOfPurpleDiamonds) {
+        this.maxNumberOfPurpleDiamonds = maxNumberOfPurpleDiamonds;
+    }
+
+    public void setMaxNumberOfRedDiamonds(int maxNumberOfRedDiamonds) {
+        this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
+    }
+
+    //    public static void main(String[] args) {
 //        SwingUtilities.invokeLater(new Runnable() {
 //            public void run() {
 //                JFrame f = new JFrame();

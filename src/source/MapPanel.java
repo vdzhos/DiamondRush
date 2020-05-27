@@ -65,23 +65,24 @@ public class MapPanel extends JPanel implements MouseListener {
 //
 //    }
 
-
+    private StatusBarPanel statusBarPanel;
 
     public MapPanel(GameFrame gameFrame){
         setImages();
         addMouseListener(this);
         this.gameFrame = gameFrame;
+//        statusBarPanel = new StatusBarPanel(gameFrame);
         initLevels();
     }
 
     //demonstrative version do not use these constructors!!!
     private void initLevels() {
         levels = new LevelUI[5];
-        levels[0] = new LevelUI(gameFrame,new PlayPanel(1),this);
-        levels[1] = new LevelUI(gameFrame);
-        levels[2] = new LevelUI(gameFrame);
-        levels[3] = new LevelUI(gameFrame);
-        levels[4] = new LevelUI(gameFrame);
+        levels[0] = new LevelUI(gameFrame, new PlayPanel(1,gameFrame,this));
+        levels[1] = new LevelUI(gameFrame);//, new PlayPanel(2,statusBarPanel,this));
+        levels[2] = new LevelUI(gameFrame);//, new PlayPanel(3,statusBarPanel,this));
+        levels[3] = new LevelUI(gameFrame);//, new PlayPanel(4,statusBarPanel,this));
+        levels[4] = new LevelUI(gameFrame);//, new PlayPanel(5,statusBarPanel,this));
     }
 
     public void paint(Graphics g){

@@ -1,14 +1,16 @@
 package objects.traps;
 
 import maps.Cell;
+import objects.blocks.doors.Resettable;
 import source.Boy;
+import source.PlayPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Snake extends JLabel implements Trap{
+public class Snake extends JLabel implements Trap, Resettable {
 
     private Timer timer;
     private Timer check;
@@ -19,6 +21,7 @@ public class Snake extends JLabel implements Trap{
     private Image[] images;
     private Image current;
     private Snake trap;
+    public boolean isAlive = true;
 
     private void initImages(){
         Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
@@ -30,7 +33,6 @@ public class Snake extends JLabel implements Trap{
     }
 
     public Snake(int width, int height, int coord, boolean horizontal){
-        trap = this;
         initImages();
         snake = this;
         setPreferredSize(new Dimension(width,height));
@@ -97,7 +99,8 @@ public class Snake extends JLabel implements Trap{
         timer.start();
     }
 
-    public void checkTimerStart(JPanel panel, Boy boy, Cell[][] levelMatrix){
+    @Override
+    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,8 +114,9 @@ public class Snake extends JLabel implements Trap{
                     for (int i = 0; i < levelMatrix.length; i++) {
                         for (int j = 0; j < levelMatrix[i].length; j++) {
                             if(levelMatrix[i][j].getTrapObject() instanceof Snake){
-                                if(levelMatrix[i][j].getTrapObject().equals(trap)){
+                                if(levelMatrix[i][j].getTrapObject().equals(snake)){
                                     levelMatrix[i][j].setTrapObject(null);
+                                    isAlive = false;
                                 }
                             }
                         }
@@ -160,4 +164,18 @@ public class Snake extends JLabel implements Trap{
         return this;
     }
 
+    @Override
+    public void pause() {
+        timer.stop();
+    }
+
+    @Override
+    public void resume() {
+        timer.start();
+    }
+
+    @Override
+    public void reset() {
+        isAlive = true;
+    }
 }

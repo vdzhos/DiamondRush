@@ -7,62 +7,86 @@ import source.Values;
 import javax.swing.*;
 import java.awt.*;
 
-public class DoorWithKeyhole implements Block, Resetable {
+public class DoorWithKeyhole {
 
-    private Image closedDoorUpper;
-    private Image closedDoorLower;
-
-    private Image openedDoorLower = new ImageIcon("doors/openedDoorLower.png").getImage();
-    private Image openedDoorUpper = new ImageIcon("doors/openedDoorUpper.png").getImage();
-
+    public GoldDoor gold;
+    public SilverDoor silver;
 
     private boolean opened = false;
-    public boolean golden;
     private Floor floor;
 
 
-    public DoorWithKeyhole(boolean golden){
-        this.golden = golden;
-        initImages();
+    public DoorWithKeyhole(){
         floor = new Floor();
+        gold = new GoldDoor();
+        silver = new SilverDoor();
     }
 
-    private void initImages() {
-        if (golden){
-            closedDoorUpper = new ImageIcon("doors/closedDoorUpper.png").getImage();
-            closedDoorLower = new ImageIcon("doors/closedDoorLower.png").getImage();
+
+    public class GoldDoor implements Block, Resettable {
+
+        private Image closedDoorLower = new ImageIcon("doors/closedDoorLower.png").getImage();
+        private Image openedDoorLower = new ImageIcon("doors/openedDoorLower.png").getImage();
+
+        public void openTheDoor(){
+            opened = true;
         }
-        else {
-//            closedDoorUpper = new ImageIcon("doors/closedDoorUpperSilver.png").getImage();
-            closedDoorLower = new ImageIcon("doors/closedDoorLowerSilver.png").getImage();
+
+        @Override
+        public boolean pass() {
+            return opened;
         }
-    }
 
-
-    public void openTheDoor(){
-        opened = true;
-    }
-
-    public void reset(){
-        opened = false;
-    }
-
-
-    @Override
-    public boolean pass() {
-        return opened;
-    }
-
-    @Override
-    public void paintObject(Graphics2D g2, int x, int y) {
-        if (!opened){
-            g2.drawImage(closedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
+        @Override
+        public void paintObject(Graphics2D g2, int x, int y) {
+            if (!opened){
+                g2.drawImage(closedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
 //            g2.drawImage(closedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
-        }
-        else {
-            floor.paintObject(g2,x,y);
-            g2.drawImage(openedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
+            }
+            else {
+                floor.paintObject(g2,x,y);
+                g2.drawImage(openedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
 //            g2.drawImage(openedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
+            }
+        }
+
+        @Override
+        public void reset() {
+            opened = false;
+        }
+    }
+
+
+    public class SilverDoor implements Block, Resettable {
+
+        private Image closedDoorLower = new ImageIcon("doors/closedDoorLowerSilver.png").getImage();
+        private Image openedDoorLower = new ImageIcon("doors/openedDoorLower.png").getImage();
+
+        public void openTheDoor(){
+            opened = true;
+        }
+
+        @Override
+        public boolean pass() {
+            return opened;
+        }
+
+        @Override
+        public void paintObject(Graphics2D g2, int x, int y) {
+            if (!opened){
+                g2.drawImage(closedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
+//            g2.drawImage(closedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
+            }
+            else {
+                floor.paintObject(g2,x,y);
+                g2.drawImage(openedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
+//            g2.drawImage(openedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
+            }
+        }
+
+        @Override
+        public void reset() {
+            opened = false;
         }
     }
 

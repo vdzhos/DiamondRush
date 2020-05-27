@@ -7,6 +7,7 @@ public class GameFrame extends JFrame {
 
     private MainMenu mainMenu;
     private MapPanel mapPanel;
+//    private PlayPanel currentPlayPanel;
 
 
     public GameFrame(){
@@ -43,6 +44,7 @@ public class GameFrame extends JFrame {
     }
 
     public void showLevel(LevelUI level){
+        level.restart();
         getContentPane().removeAll();
         setLayout(new BorderLayout());
         getContentPane().add(level.getStatusBarPanel(), BorderLayout.NORTH);
@@ -51,6 +53,10 @@ public class GameFrame extends JFrame {
         revalidate();
         repaint();
     }
+
+//    public PlayPanel getCurrentPlayPanel() {
+//        return currentPlayPanel;
+//    }
 
     public void start(){
         showMainMenu();

@@ -1,6 +1,6 @@
 package objects.harmless;
 
-import objects.blocks.doors.Resetable;
+import objects.blocks.doors.Resettable;
 import objects.thingsInChest.*;
 import source.PlayPanel;
 
@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class Chest implements Harmless, Resetable {
+public class Chest implements Harmless, Resettable {
 
     private Image chestClosed = new ImageIcon("mapImages/chestClosed.png").getImage();
     private Image chestAlmostOpened = new ImageIcon("mapImages/chestAlmostOpened.png").getImage();

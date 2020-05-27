@@ -11,6 +11,7 @@ import java.awt.geom.Rectangle2D;
 public class PauseMenuDialog extends JDialog implements MouseListener {
 
     private GameFrame gameFrame;
+    private PlayPanel playPanel;
 
     private Image backgroundImage = new ImageIcon("pauseMenu/pauseBackCut1.png").getImage();
     private Image chestImage = new ImageIcon("pauseMenu/treasureChest.png").getImage();
@@ -35,6 +36,16 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 
     public PauseMenuDialog(GameFrame gameFrame) {
         super(gameFrame, "", true);
+        this.gameFrame = gameFrame;
+        setLocation(gameFrame.getX()+ Values.PAUSE_MENU_SHIFT_X, gameFrame.getY()+ Values.PAUSE_MENU_SHIFT_Y);
+        setSize(Values.PAUSE_MENU_WIDTH, Values.PAUSE_MENU_LENGTH);
+        setUndecorated(true);
+        addMouseListener(this);
+    }
+
+    public PauseMenuDialog(GameFrame gameFrame, PlayPanel playPanel) {
+        super(gameFrame, "", true);
+        this.playPanel = playPanel;
         this.gameFrame = gameFrame;
         setLocation(gameFrame.getX()+ Values.PAUSE_MENU_SHIFT_X, gameFrame.getY()+ Values.PAUSE_MENU_SHIFT_Y);
         setSize(Values.PAUSE_MENU_WIDTH, Values.PAUSE_MENU_LENGTH);
@@ -103,18 +114,20 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     PauseMenuDialog.this.setVisible(false);
+                    playPanel.resume();
                 }
             });
 //            pause window should be closed here
         }
         else if (restart.contains(point)){
             restartImage.animate(this,"pauseMenu",restart);
-//            Util.wait(500, new AbstractAction() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-////                               level should be restarted here
-//                }
-//            });
+            Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    PauseMenuDialog.this.setVisible(false);
+                    playPanel.restart();
+                }
+            });
         }
         else if (goToMap.contains(point)){
             goToMapImage.animate(this,"pauseMenu",goToMap);
