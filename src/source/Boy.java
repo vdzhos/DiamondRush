@@ -7,8 +7,8 @@ public class Boy {
 
     int x;
     int y;
-    int xInArray;
-    int yInArray;
+    public int xInArray;
+    public int yInArray;
     int width;
     int height;
     int cellSide = Values.CELL_SIZE;

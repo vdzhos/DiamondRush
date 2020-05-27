@@ -174,7 +174,7 @@ public class Maps {
         level1[12][17] = new Cell(new Floor(),null,null);
         level1[12][18] = new Cell(new Floor(),null,null);
         level1[12][19] = new Cell(pressMechanism2.pressPanel,null,null);
-        level1[13][1] = new Cell(new Floor(),null,new Rock());
+        level1[13][1] = new Cell(new Floor(),null,null);//new Rock()
         level1[13][2] = new Cell(new Floor(),new Diamond(),null);
         level1[13][3] = new Cell(new Floor(),new Tumbleweed(),null);
         level1[13][4] = new Cell(new Floor(),new Diamond(),null);

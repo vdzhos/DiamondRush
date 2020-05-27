@@ -10,9 +10,7 @@ import java.awt.event.ActionEvent;
 public class Rock extends Stone implements Trap{
 
     public Rock(){
-        whatMove = 0;//Stay calm = 0; stagger = 1;
-        // fallLeft = 2; fallRight = 3; fallDown = 4;
-        //beShovenLeft = 5; beShovenRight = 6;
+        whatMove = 0;
         image = new ImageIcon("mapImages/rock.png").getImage();
         i = 0;
         isMoving = false;
@@ -22,22 +20,23 @@ public class Rock extends Stone implements Trap{
     public void beShovenLeft(){
         if (i == 3){
             setStoneToNewPositionInArray(xInArray - 1, yInArray);
+            playPanel.disappearFromCell(xInArray, yInArray);
             xInArray -= 1;
         }
         x -= CELL_SIDE / 7;
         i++;
-        if (i == 7) playPanel.disappearFromCell(xInArray + 1, yInArray);
     }
 
     @Override
     public void beShovenRight(){
         if (i == 3){
             setStoneToNewPositionInArray(xInArray + 1, yInArray);
+            playPanel.disappearFromCell(xInArray, yInArray);
             xInArray ++;
+
         }
         x += CELL_SIDE / 7;
         i++;
-        if (i == 7) playPanel.disappearFromCell(xInArray - 1, yInArray);
     }
 
     @Override

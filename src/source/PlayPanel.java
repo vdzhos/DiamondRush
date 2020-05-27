@@ -608,12 +608,12 @@ public class PlayPanel extends JPanel implements KeyListener {
         if (itIsStone(x + 1, y)){
             getStone(x + 1, y).checkSpace();
         }
-        if (itIsStone(x - 1, y - 1)){
+        /*if (itIsStone(x - 1, y - 1)){
             getStone(x - 1, y - 1).checkSpace();
         }
         if (itIsStone(x + 1, y - 1)){
             getStone(x + 1, y - 1).checkSpace();
-        }
+        }*/
     }
 
     public void checkHarmless(int x, int y){
@@ -623,8 +623,9 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     public boolean itIsClearForStone(int x, int y){
         if (boy.xInArray == x && boy.yInArray == y) return false;
-        if (itIsSnake(x, y)) return true;
-        return ((!itIsTrap(x, y) && !itIsHarmless(x, y))
+        if (itIsStone(x, y)) return false;
+        if (itIsTrap(x, y)) return true;
+        return (!itIsHarmless(x, y)
                 && (itIsFloor(x, y) || itIsSecretWall(x, y)
                 || itIsPressPanel(x, y) || itIsCheckpoint(x, y)));
         }
