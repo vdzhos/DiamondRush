@@ -2,7 +2,12 @@ package maps;
 
 import objects.blocks.Checkpoint;
 import objects.blocks.doors.DoorWithKeyhole;
+import objects.harmless.Chest;
 import objects.harmless.Diamond;
+import objects.thingsInChest.GoldKey;
+import objects.thingsInChest.PurpleDiamond;
+import objects.thingsInChest.RedDiamond;
+import objects.thingsInChest.SilverKey;
 
 public class Level {
 
@@ -38,14 +43,13 @@ public class Level {
 
     private int maxEnergyLevel;
 
-    public Level(Cell[][] matrix, int positionOnScreenX, int positionOnScreenY, int positionOnMapX, int positionOnMapY, int maxEnergyLevel, int maxNumberOfRedDiamonds){
+    public Level(Cell[][] matrix, int positionOnScreenX, int positionOnScreenY, int positionOnMapX, int positionOnMapY, int maxEnergyLevel){
         this.matrix = matrix;
         this.positionOnScreenX = positionOnScreenX;
         this.positionOnScreenY = positionOnScreenY;
         this.positionOnMapX = positionOnMapX;
         this.positionOnMapY = positionOnMapY;
         this.maxEnergyLevel = maxEnergyLevel;
-        this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
         setAccessories();
     }
 
@@ -54,15 +58,28 @@ public class Level {
             for (byte j = 0; j < matrix[0].length; j ++){
                 if (matrix[i][j].getHarmlessObject() instanceof Diamond)
                     maxNumberOfPurpleDiamonds ++;
-                else if (matrix[i][j].getHarmlessObject() instanceof DoorWithKeyhole.GoldDoor){
+                else if (matrix[i][j].getBlock() instanceof DoorWithKeyhole.GoldDoor){
                     maxNumberOfGoldKeys ++;
                 }
-                else if (matrix[i][j].getHarmlessObject() instanceof DoorWithKeyhole.SilverDoor) {
+                else if (matrix[i][j].getBlock() instanceof DoorWithKeyhole.SilverDoor) {
                     maxNumberOfSilverKeys++;
+                }
+                else if (matrix[i][j].getHarmlessObject() instanceof Chest) {
+                    if (((Chest) matrix[i][j].getHarmlessObject()).things[0] != null) {
+//                        if ((((Chest) matrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
+                            maxNumberOfPurpleDiamonds += ((PurpleDiamond) (((Chest) matrix[i][j].getHarmlessObject()).things[0])).quantity;
+                    }
+                    if (((Chest) matrix[i][j].getHarmlessObject()).things[1] != null) {
+//                        if ((((Chest) matrix[i][j].getHarmlessObject()).things[1]) instanceof RedDiamond) {
+                            maxNumberOfRedDiamonds += ((RedDiamond) (((Chest) matrix[i][j].getHarmlessObject()).things[1])).quantity;
+                        }
+
+                    }
                 }
             }
         }
-    }
+
+
 
     public Checkpoint getCheckpoint(int positionOfBoyInArrayX, int positionOfBoyInArrayY){
         for (Checkpoint checkpoint: checkpoints){

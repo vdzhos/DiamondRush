@@ -121,7 +121,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new Floor(),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(10),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);
@@ -311,7 +311,7 @@ public class Maps {
         level1[34][6] = new Cell(new Floor(),null,null);
         level1[34][7] = new Cell(new Floor(),null,null);
         level1[35][4] = new Cell(new Floor(),null,null);
-        level1[36][4] = new Cell(new Floor(),null,null);
+        level1[36][4] = new Cell(new DiamondDoor(5),null,null);
         level1[36][11] = new Cell(new Floor(),null,scorpion);
         level1[36][12] = new Cell(new Floor(),null,scorpion);
         level1[36][13] = new Cell(new Floor(),null,scorpion);
@@ -375,7 +375,7 @@ public class Maps {
             checkpoint.setInitialMatrix(level1);
         }
 
-        this.level1 = new Level(level1,2,4,2,16, 200,5);
+        this.level1 = new Level(level1,2,4,2,16, 200);
         this.level1.setCheckpoints(checkpoints);
     }
 

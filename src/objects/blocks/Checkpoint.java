@@ -92,19 +92,19 @@ public class Checkpoint implements Block {
                     numberOfPurpleDiamondsOnTheAreaLeft++;
                 else if (currentMatrix[i][j].getHarmlessObject() instanceof Chest) {
                     if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[0] != null) {
-                        if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
+//                        if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
                             numberOfPurpleDiamondsOnTheAreaLeft += ((PurpleDiamond) (((Chest) currentMatrix[i][j].getHarmlessObject()).things[0])).quantity;
                     }
                     if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[1] != null) {
-                        if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof RedDiamond)
+//                        if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof RedDiamond)
                             numberOfRedDiamondsOnTheAreaLeft += ((RedDiamond) (((Chest) currentMatrix[i][j].getHarmlessObject()).things[1])).quantity;
                     }
                     if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[2] != null) {
-                        if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[2]) instanceof SilverKey)
+//                        if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[2]) instanceof SilverKey)
                             numberOfSilverKeysOnTheAreaLeft++;
                     }
                     if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[3] != null) {
-                        if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[3]) instanceof GoldKey)
+//                        if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[3]) instanceof GoldKey)
                             numberOfGoldKeysOnTheAreaLeft++;
                     }
                 }
@@ -118,19 +118,19 @@ public class Checkpoint implements Block {
                         numberOfPurpleDiamondsOnTheAreaLeft++;
                     else if (currentMatrix[i][j].getHarmlessObject() instanceof Chest) {
                         if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[0] != null) {
-                            if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
+//                            if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
                                 numberOfPurpleDiamondsOnTheAreaLeft += ((PurpleDiamond) (((Chest) currentMatrix[i][j].getHarmlessObject()).things[0])).quantity;
                         }
                         if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[1] != null) {
-                            if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof RedDiamond)
+//                            if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof RedDiamond)
                                 numberOfRedDiamondsOnTheAreaLeft += ((RedDiamond) (((Chest) currentMatrix[i][j].getHarmlessObject()).things[1])).quantity;
                         }
                         if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[2] != null) {
-                            if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[2]) instanceof SilverKey)
+//                            if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[2]) instanceof SilverKey)
                                 numberOfSilverKeysOnTheAreaLeft++;
                         }
                         if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[3] != null) {
-                            if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[3]) instanceof GoldKey)
+//                            if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[3]) instanceof GoldKey)
                                 numberOfGoldKeysOnTheAreaLeft++;
                         }
                     }
@@ -179,19 +179,19 @@ public class Checkpoint implements Block {
                     numberOfPurpleDiamondsOnTheArea++;
                 else if (initialMatrix[i][j].getHarmlessObject() instanceof Chest) {
                     if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[0] != null) {
-                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
+//                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
                             numberOfPurpleDiamondsOnTheArea += ((PurpleDiamond) (((Chest) initialMatrix[i][j].getHarmlessObject()).things[0])).quantity;
                     }
                     if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[1] != null) {
-                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof RedDiamond)
+//                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof RedDiamond)
                             numberOfRedDiamondsOnTheArea += ((RedDiamond) (((Chest) initialMatrix[i][j].getHarmlessObject()).things[1])).quantity;
                     }
                     if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[2] != null) {
-                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[2]) instanceof SilverKey)
+//                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[2]) instanceof SilverKey)
                             numberOfSilverKeysOnTheArea++;
                     }
                     if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[3] != null) {
-                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[3]) instanceof GoldKey)
+//                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[3]) instanceof GoldKey)
                             numberOfGoldKeysOnTheArea++;
                     }
                 }
@@ -204,19 +204,19 @@ public class Checkpoint implements Block {
                         numberOfPurpleDiamondsOnTheArea++;
                     else if (initialMatrix[i][j].getHarmlessObject() instanceof Chest) {
                         if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[0] != null) {
-                            if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
+//                            if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
                                 numberOfPurpleDiamondsOnTheArea += ((PurpleDiamond) (((Chest) initialMatrix[i][j].getHarmlessObject()).things[0])).quantity;
                         }
                         if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[1] != null) {
-                            if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof RedDiamond)
+//                            if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[1]) instanceof RedDiamond)
                                 numberOfRedDiamondsOnTheArea += ((RedDiamond) (((Chest) initialMatrix[i][j].getHarmlessObject()).things[1])).quantity;
                         }
                         if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[2] != null) {
-                            if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[2]) instanceof SilverKey)
+//                            if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[2]) instanceof SilverKey)
                                 numberOfSilverKeysOnTheArea++;
                         }
                         if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[3] != null) {
-                            if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[3]) instanceof GoldKey)
+//                            if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[3]) instanceof GoldKey)
                                 numberOfGoldKeysOnTheArea++;
                         }
                     }

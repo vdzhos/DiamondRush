@@ -23,7 +23,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     public Boy boy;
     private JPanel panel;
     private Maps maps;
-    private boolean stonesAreInited = false;
+    private boolean stonesAreInited;
 
     private int mapX;
     private int mapY;
@@ -139,7 +139,6 @@ public class PlayPanel extends JPanel implements KeyListener {
     }
 
     private void calculateInitialValuesOfMap() {
-
         mapWidth = currentLevel.getMatrix().length* Values.CELL_SIZE;
         mapHeight = currentLevel.getMatrix()[0].length* Values.CELL_SIZE;
 
@@ -184,7 +183,6 @@ public class PlayPanel extends JPanel implements KeyListener {
 //        panelWidth = 700;
 //        panelHeight = 700;
 
-
         mapMovesToRight = false;
         boyMovesToRight = false;
 
@@ -203,7 +201,6 @@ public class PlayPanel extends JPanel implements KeyListener {
 
         numberOfRedDiamondsCollected = 0;
 
-
         numberOfPurpleDiamondsCollected = 0;
 
         numberOfGoldKeysCollected = 0;
@@ -220,6 +217,26 @@ public class PlayPanel extends JPanel implements KeyListener {
         repaint();
     }
 
+
+    private void updateNumberOfRedDiamondsOnStatusBar(){
+        statusBarPanel.setCurrentNumberOfRedDiamonds(numberOfRedDiamondsCollected);
+    }
+
+    private void updateNumberOfPurpleDiamondsOnStatusBar(){
+        statusBarPanel.setCurrentNumberOfPurpleDiamonds(numberOfPurpleDiamondsCollected);
+    }
+
+    private void updateNumberOfGoldKeysOnStatusBar(){
+        statusBarPanel.setCurrentNumberOfGoldKeys(numberOfGoldKeysCollected);
+    }
+
+    private void updateNumberOfSilverKeysOnStatusBar(){
+        statusBarPanel.setCurrentNumberOfSilverKeys(numberOfSilverKeysCollected);
+    }
+
+    private void updateEnergyLevelOnStatusBar(){
+        statusBarPanel.setCurrentEnergyLevel(currentEnergyLevel);
+    }
 
     @Override
     public void paintComponent(Graphics g) {
@@ -248,6 +265,9 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 else if (levelMatrix[i][j].getBlock() instanceof DoubleDoor.RightDoor){
                     ((DoubleDoor.RightDoor) levelMatrix[i][j].getBlock()).interact(boy.xInArray,boy.yInArray);
+                }
+                else if (levelMatrix[i][j].getBlock() instanceof DiamondDoor){
+                    ((DiamondDoor) levelMatrix[i][j].getBlock()).setNumberOfDiamonds(numberOfPurpleDiamondsCollected);
                 }
                 if (levelMatrix[i][j].getTrapObject() != null) {
                     if (levelMatrix[i][j].getTrapObject() instanceof Rock){

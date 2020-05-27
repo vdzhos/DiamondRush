@@ -44,6 +44,7 @@ public class GameFrame extends JFrame {
     }
 
     public void showLevel(LevelUI level){
+        level.restart();
         getContentPane().removeAll();
         setLayout(new BorderLayout());
         getContentPane().add(level.getStatusBarPanel(), BorderLayout.NORTH);

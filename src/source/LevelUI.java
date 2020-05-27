@@ -28,6 +28,10 @@ public class LevelUI {
 //        statusBarPanel = new StatusBarPanel(gameFrame, gamePanel.getLevel(), gamePanel.getEnergyLevel(), gamePanel.getMaxNumberOfGoldKeys, gamePanel.getMaxNumberOfSilverKeys(),gamePanel.getMaxNumberOfPurpleDiamonds().gamePanel.getMaxNumberOfRedDiamonds());
     }
 
+    public void restart(){
+        playPanel.restart();
+    }
+
 
     public PlayPanel getPlayPanel() {
         return playPanel;
