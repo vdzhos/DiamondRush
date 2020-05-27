@@ -45,7 +45,7 @@ public abstract class Stone {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (i == 0){
-                    if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    //if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     if ((whatMove == 4 || whatMove == 1) && !playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                         whatMove = 0;
                         if (playPanel.itIsStone(xInArray, yInArray + 1)){
@@ -90,7 +90,7 @@ public abstract class Stone {
                             whatMove = 1;
                         }
                     }
-                    if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
                 if (whatMove != 0) isMoving = true;
                 if (whatMove == 1) stagger();
@@ -101,7 +101,7 @@ public abstract class Stone {
                 else if (whatMove == 6) beShovenRight();
                 playPanel.repaint();
                 if (i == 7){
-                    System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    //System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     i = 0;
                     //There was && whatMove != 1
                     if (whatMove != 0 && playPanel.itIsClearForStone(xInArray, yInArray + 1)){
@@ -144,7 +144,7 @@ public abstract class Stone {
                         whatMove = 0;
                         timer.stop();
                     }
-                    System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    //System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
             }
         });
