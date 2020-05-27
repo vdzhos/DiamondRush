@@ -1,6 +1,7 @@
 package source;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class GameFrame extends JFrame {
 
@@ -43,8 +44,10 @@ public class GameFrame extends JFrame {
 
     public void showLevel(LevelUI level){
         getContentPane().removeAll();
-        getContentPane().add(level.getStatusBarPanel());
-//        add(level.getGamePanel());
+        setLayout(new BorderLayout());
+        getContentPane().add(level.getStatusBarPanel(), BorderLayout.NORTH);
+        getContentPane().add(level.getPlayPanel(),BorderLayout.CENTER);
+        addKeyListener(level.getPlayPanel());
         revalidate();
         repaint();
     }

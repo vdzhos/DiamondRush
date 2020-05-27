@@ -84,37 +84,20 @@ public class PlayPanel extends JPanel implements KeyListener {
     private boolean artefactIsCollected;
 
 
-    public PlayPanel(Boy boy, int currentLevel) {
+    public PlayPanel(int currentLevel) {
         panel = this;
         panel.setLayout(null);
         setPreferredSize(new Dimension(2800, 1540));
-        this.boy = boy;
-        maps = new Maps();
-        initLevel(currentLevel);
+        this.boy = new Boy(0,0);
+        maps = new Maps(currentLevel);
+        initLevel();
         calculateInitialValuesOfMap();
         setCoordinates();
     }
 
 
-
-    private void initLevel(int currentLevel) {
-        switch (currentLevel){
-            case 1:
-                this.currentLevel = maps.getLevel1();
-                break;
-            case 2:
-                this.currentLevel = maps.getLevel2();
-                break;
-            case 3:
-                this.currentLevel = maps.getLevel3();
-                break;
-            case 4:
-                this.currentLevel = maps.getLevel4();
-                break;
-            case 5:
-                this.currentLevel = maps.getLevel5();
-                break;
-        }
+    private void initLevel() {
+        this.currentLevel = maps.getLevel();
         levelMatrix = this.currentLevel.getMatrix();
     }
 
