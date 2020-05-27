@@ -8,7 +8,6 @@ import objects.blocks.*;
 import objects.blocks.doors.*;
 import objects.harmless.Chest;
 import objects.harmless.Diamond;
-import objects.harmless.Harmless;
 import objects.harmless.Tumbleweed;
 import objects.traps.FireTrap;
 import objects.traps.Rock;
@@ -67,36 +66,36 @@ public class PlayPanel extends JPanel implements KeyListener {
     private Checkpoint currentCheckpoint;
     private boolean updated = true;
 
+    private int numberOfRedDiamondsCollected;
+//    these commented fields are in the currentLevel object
+//    private int maxNumberOfRedDiamondsCollected;
 
-    public PlayPanel(Boy boy, int currentLevel) {
+    private int numberOfPurpleDiamondsCollected;
+//    private int maxNumberOfPurpleDiamondsCollected;
+
+    private int numberOfGoldKeysCollected;
+//    private int maxNumberOfGoldKeysCollected;
+
+    private int numberOfSilverKeysCollected;
+//    private int maxNumberOfSilverKeysCollected;
+
+    private boolean artefactIsCollected;
+
+
+    public PlayPanel(int currentLevel) {
         panel = this;
         panel.setLayout(null);
         setPreferredSize(new Dimension(2800, 1540));
-        this.boy = boy;
-        maps = new Maps();
-        initLevel(currentLevel);
+        this.boy = new Boy(0,0);
+        maps = new Maps(currentLevel);
+        initLevel();
         calculateInitialValuesOfMap();
         setCoordinates();
     }
 
-    private void initLevel(int currentLevel) {
-        switch (currentLevel){
-            case 1:
-                this.currentLevel = maps.getLevel1();
-                break;
-            case 2:
-                this.currentLevel = maps.getLevel2();
-                break;
-            case 3:
-                this.currentLevel = maps.getLevel3();
-                break;
-            case 4:
-                this.currentLevel = maps.getLevel4();
-                break;
-            case 5:
-                this.currentLevel = maps.getLevel5();
-                break;
-        }
+
+    private void initLevel() {
+        this.currentLevel = maps.getLevel();
         levelMatrix = this.currentLevel.getMatrix();
     }
 
@@ -155,11 +154,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 if (levelMatrix[i][j].getTrapObject() != null) {
                     if (levelMatrix[i][j].getTrapObject() instanceof Rock){
-                        if (!stonesAreInited) {
-                            ((Rock) levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
-                            System.out.println(i + "  " + j);
-                        }
-
+                        if (!stonesAreInited) ((Rock)levelMatrix[i][j].getTrapObject()).initVars(this, i, j, mapX, mapY);
                         if (mapIsMoving()) levelMatrix[i][j].getTrapObject().paintObject(g2, mapX, mapY);
                         else levelMatrix[i][j].getTrapObject().paintObject(g2);
                     }else{
@@ -215,8 +210,21 @@ public class PlayPanel extends JPanel implements KeyListener {
             positionOnMapY = currentCheckpoint.positionInArrayY;
             positionOnScreenX = currentCheckpoint.minPositionOnScreenX;
             positionOnScreenY = currentCheckpoint.minPositionOnScreenY;
+
+            numberOfGoldKeysCollected -= currentCheckpoint.numberOfGoldKeysOnTheAreaCollected;
+            numberOfSilverKeysCollected -= currentCheckpoint.numberOfSilverKeysOnTheAreaCollected;
+            numberOfPurpleDiamondsCollected -= currentCheckpoint.numberOfPurpleDiamondsOnTheAreaCollected;
+            numberOfRedDiamondsCollected -= currentCheckpoint.numberOfRedDiamondsOnTheAreaCollected;
+
             setCoordinates();
             repaint();
+            System.out.println("___________________________");
+            System.out.println(numberOfGoldKeysCollected);
+            System.out.println(numberOfSilverKeysCollected);
+            System.out.println(numberOfPurpleDiamondsCollected);
+            System.out.println(numberOfRedDiamondsCollected);
+            System.out.println("___________________________");
+
         }
     }
 
@@ -289,37 +297,36 @@ public class PlayPanel extends JPanel implements KeyListener {
             public void actionPerformed(ActionEvent e) {
                 if (boy.whatMove == 1 && boyMovesUp) boy.moveUp();
                 else if (boy.whatMove == 1 && mapMovesUp) {
-                    boy.moveUpAnimation();
+                    boy.moveUpAnimation(true);
                     moveMapUp();
                 }
                 else if (boy.whatMove == 2 && boyMovesDown) boy.moveDown();
                 else if (boy.whatMove == 2 && mapMovesDown) {
-                    boy.moveDownAnimation();
+                    boy.moveDownAnimation(true);
                     moveMapDown();
                 }
                 else if (boy.whatMove == 3 && boyMovesToLeft) boy.moveLeft();
                 else if (boy.whatMove == 3 && mapMovesToLeft) {
-                    boy.moveLeftAnimation();
+                    boy.moveLeftAnimation(true);
                     moveMapToLeft();
                 }
                 else if (boy.whatMove == 4 && boyMovesToRight) boy.moveRight();
                 else if (boy.whatMove == 4 && mapMovesToRight) {
-                    boy.moveRightAnimation();
+                    boy.moveRightAnimation(true);
                     moveMapToRight();
                 }
-                else if (boy.whatMove == 5 && boyMovesToLeft) boy.shoveLeftAndMove();
+                else if (boy.whatMove == 5 && boyMovesToLeft) boy.shoveLeftAndMove(true);
                 else if (boy.whatMove == 5 && mapMovesToLeft) {
-                    boy.shoveLeftAndStand();
+                    boy.shoveLeftAndStand(true);
                     moveMapToLeft();
                 }
-                else if (boy.whatMove == 7 && boyMovesToRight) boy.shoveRightAndMove();
+                else if (boy.whatMove == 7 && boyMovesToRight) boy.shoveRightAndMove(true);
                 else if (boy.whatMove == 7 && mapMovesToRight) {
-                    boy.shoveRightAndStand();
+                    boy.shoveRightAndStand(true);
                     moveMapToRight();
                 }
-                else if (boy.whatMove == 6) boy.shoveLeftAndStand();
-                else if (boy.whatMove == 7) boy.shoveRightAndMove();
-                else if (boy.whatMove == 8) boy.shoveRightAndStand();
+                else if (boy.whatMove == 6) boy.shoveLeftAndStand(false);
+                else if (boy.whatMove == 8) boy.shoveRightAndStand(false);
                 else if (boy.whatMove == 9) boy.findInChest();
                 else if (boy.whatMove == 10) boy.holdARock();
                 else if (boy.whatMove == 11) boy.attackUp();
@@ -330,10 +337,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if (boy.whatMove == 16) boy.openWithGoldKeyRight();
                 else if (boy.whatMove == 17) boy.openWithSilverKeyLeft();
                 else if (boy.whatMove == 18) boy.openWithSilverKeyRight();
-                else if(boy.whatMove == 19) boy.moveUpAnimation();
-                else if(boy.whatMove == 20) boy.moveDownAnimation();
-                else if(boy.whatMove == 21) boy.moveLeftAnimation();
-                else if(boy.whatMove == 22) boy.moveRightAnimation();
+                else if(boy.whatMove == 19) boy.moveUpAnimation(false);
+                else if(boy.whatMove == 20) boy.moveDownAnimation(false);
+                else if(boy.whatMove == 21) boy.moveLeftAnimation(false);
+                else if(boy.whatMove == 22) boy.moveRightAnimation(false);
+                if (boy.i == 4) checkHarmless(boy.xInArray, boy.yInArray);
                 repaint();
                 if (boy.i == 7){
                     boy.i = 0;
@@ -490,15 +498,14 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if ((block.pass()&&!(itIsRock(boy.xInArray - 1, boy.yInArray)))||itIsHarmless(boy.xInArray - 1, boy.yInArray)){
                     setMovementLeft();
                     boy.whatMove = 3;
-                    //if stone is left boy.whatMove = 5;
-                    //if wall is left boy.whatMove = 6;
                     boy.isMoving = true;
                 }
                 else if (itIsRock(boy.xInArray - 1, boy.yInArray)){
                     if (itIsClearForStone(boy.xInArray - 2, boy.yInArray)){
+                        Rock rock = (Rock)levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
+                        setMovementLeft();
                         boy.whatMove = 5;
                         boy.isMoving = true;
-                        Rock rock = (Rock)levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
                         rock.whatMove = 5;
                         rock.isMoving = true;
                         rock.moveRock();
@@ -511,16 +518,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if (!block.pass()){
                     boy.whatMove = 21;
                     boy.isMoving = true;
-                    boy.xInArray++;
                 }
                 moveBoy();
             }
             else if ((code == KeyEvent.VK_RIGHT) && (boy.isMoving == false) && isAllowedRight()) {
-                if(!itIsSnake(boy.xInArray,boy.yInArray)&&itIsSnake(boy.xInArray+1,boy.yInArray)){
-                    snakeCheck(boy.xInArray+1,boy.yInArray);
-                }else if(itIsSnake(boy.xInArray,boy.yInArray)&&!itIsSnake(boy.xInArray+1,boy.yInArray)){
-                    finishSnakeCheckTimer((Snake)levelMatrix[boy.xInArray][boy.yInArray].getTrapObject());
-                }
                 Block block = levelMatrix[boy.xInArray+1][boy.yInArray].getBlock();
                 if (block instanceof DoorWithKeyhole && numberOfKeys != 0){
                     ((DoorWithKeyhole) block).openTheDoor();
@@ -531,15 +532,14 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if ((block.pass()&&!(itIsRock(boy.xInArray + 1, boy.yInArray)))||itIsHarmless(boy.xInArray + 1, boy.yInArray)){
                     setMovementRight();
                     boy.whatMove = 4;
-                    //if stone is right boy.whatMove = 7;
-                    //if wall is left boy.whatMove = 6;
                     boy.isMoving = true;
                 }
                 else if (itIsRock(boy.xInArray + 1, boy.yInArray)){
                     if (itIsClearForStone(boy.xInArray + 2, boy.yInArray)){
+                        Rock rock = (Rock)levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject();
+                        setMovementRight();
                         boy.whatMove = 7;
                         boy.isMoving = true;
-                        Rock rock = (Rock)levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject();
                         rock.whatMove = 6;
                         rock.isMoving = true;
                         rock.moveRock();
@@ -552,16 +552,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if (!block.pass()){
                     boy.whatMove = 22;
                     boy.isMoving = true;
-                    boy.xInArray--;
                 }
                 moveBoy();
-                //You can test a stone
-            /*Rock rock = (Rock)levelMatrix[4][19].getTrapObject();
-            if (rock != null){
-                rock.whatMove = 1;
-                rock.isMoving = true;
-                rock.moveRock();
-            }*/
             }
             else if ((code == KeyEvent.VK_SPACE) && (boy.isMoving == false)) {
                 if (boy.currentPicture == boy.walkUp2){
@@ -597,7 +589,20 @@ public class PlayPanel extends JPanel implements KeyListener {
         }
     }
 
+    public void checkHarmless(int x, int y){
+        if (itIsDiamond(x, y)){
+            ((Diamond)levelMatrix[x][y].getHarmlessObject()).disappear();
+            levelMatrix[x][y].setHarmlessObject(null);
+        }
+        else if (itIsTumbleweed(x, y)){
+            ((Tumbleweed)levelMatrix[x][y].getHarmlessObject()).disappear();
+            levelMatrix[x][y].setHarmlessObject(null);
+        }
+    }
+
     public boolean itIsClearForStone(int x, int y){
+        if (itIsPressPanel(x, y)) return true;
+        if (itIsSnake(x, y)) return true;
         return (!itIsTrap(x, y) && !itIsHarmless(x, y)
                 && (itIsFloor(x, y) || itIsSecretWall(x, y)));
         }
@@ -618,6 +623,11 @@ public class PlayPanel extends JPanel implements KeyListener {
     public boolean itIsDoorWithKeyhole(int x, int y){
         if (levelMatrix[x][y].getBlock() == null) return false;
         return levelMatrix[x][y].getBlock() instanceof DoorWithKeyhole;
+    }
+
+    public boolean itIsPressPanel(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof PressMechanism.PressPanel;
     }
 
     public boolean itIsBreakableWall(int x, int y){

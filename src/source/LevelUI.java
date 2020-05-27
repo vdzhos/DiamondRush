@@ -5,15 +5,15 @@ public class LevelUI {
     private StatusBarPanel statusBarPanel;
     private GameFrame gameFrame;
     private MapPanel mapPanel;
-//    private GamePanel gamePanel;
+    private PlayPanel playPanel;
 
     //proper constructor
-//    public Level(GameFrame gameFrame, GamePanel gamePanel, MapPanel mapPanel){
-//        this.gameFrame = gameFrame;
-//        this.mapPanel = mapPanel;
-//        this.gamePanel = gamePanel;
-//        initStatusBar();
-//    }
+    public LevelUI(GameFrame gameFrame, PlayPanel playPanel, MapPanel mapPanel){
+        this.gameFrame = gameFrame;
+        this.mapPanel = mapPanel;
+        this.playPanel = playPanel;
+        initStatusBar();
+    }
 
     //demonstrative constructor do not use this constructor!!!
     public LevelUI(GameFrame gameFrame){
@@ -28,6 +28,10 @@ public class LevelUI {
 //        statusBarPanel = new StatusBarPanel(gameFrame, gamePanel.getLevel(), gamePanel.getEnergyLevel(), gamePanel.getMaxNumberOfGoldKeys, gamePanel.getMaxNumberOfSilverKeys(),gamePanel.getMaxNumberOfPurpleDiamonds().gamePanel.getMaxNumberOfRedDiamonds());
     }
 
+
+    public PlayPanel getPlayPanel() {
+        return playPanel;
+    }
 
     public StatusBarPanel getStatusBarPanel() {
         return statusBarPanel;

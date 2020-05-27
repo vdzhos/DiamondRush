@@ -96,4 +96,9 @@ public class Chest implements Harmless, Resetable {
     public void reset() {
 
     }
+
+    @Override
+    public void disappear() {
+
+    }
 }

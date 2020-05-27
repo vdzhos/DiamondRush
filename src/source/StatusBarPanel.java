@@ -61,6 +61,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     // do not use this constructor!!!
     public StatusBarPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
+        setPreferredSize(new Dimension(Values.GAME_STATUS_BAR_WIDTH,Values.GAME_STATUS_BAR_LENGTH));
         addMouseListener(this);
         font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
         fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
