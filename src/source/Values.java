@@ -20,7 +20,7 @@ public interface Values {
     //status bar with level, number of diamonds
     int GAME_STATUS_BAR_X = 0;
     int GAME_STATUS_BAR_Y = 0;
-    int GAME_STATUS_BAR_LENGTH = 100;
+    int GAME_STATUS_BAR_LENGTH = 120;
     int GAME_STATUS_BAR_WIDTH = 700;
 
     int PAUSE_BUTTON_X = 25;

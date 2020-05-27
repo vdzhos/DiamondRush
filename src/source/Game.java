@@ -1,5 +1,7 @@
 package source;
 
+import objects.blocks.Block;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -28,14 +30,13 @@ public class Game extends JFrame {
         upper = new StatusBarPanel(new GameFrame());
         upper.setPreferredSize(new Dimension(700,100));
 
-        Boy boy = new Boy(0, 0);
-        playPanel = new PlayPanel(boy,1);
+//        Boy boy = new Boy(0, 0);
+        playPanel = new PlayPanel(1);
         addKeyListener(playPanel);
 
         scrollPane = new JScrollPane(playPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(createEmptyBorder());
     }
-
     public static void main(String[] args) {
         Game game = new Game();
         JScrollBar vertical = game.scrollPane.getVerticalScrollBar();

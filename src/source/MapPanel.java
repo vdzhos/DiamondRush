@@ -77,7 +77,7 @@ public class MapPanel extends JPanel implements MouseListener {
     //demonstrative version do not use these constructors!!!
     private void initLevels() {
         levels = new LevelUI[5];
-        levels[0] = new LevelUI(gameFrame);
+        levels[0] = new LevelUI(gameFrame,new PlayPanel(1),this);
         levels[1] = new LevelUI(gameFrame);
         levels[2] = new LevelUI(gameFrame);
         levels[3] = new LevelUI(gameFrame);

@@ -27,17 +27,54 @@ public class Maps {
     private Level level4;
     private Level level5;
 
-    public Maps(){
-        initLevel1();
-        initLevel2();
-        initLevel3();
-        initLevel4();
-        initLevel5();
+//    public Maps(){
+//        initLevel1();
+//        initLevel2();
+//        initLevel3();
+//        initLevel4();
+//        initLevel5();
+//    }
+
+    public Maps(int currentLevel){
+        initLevels(currentLevel);
+    }
+
+    private void initLevels(int currentLevel) {
+        switch (currentLevel){
+            case 1:
+                initLevel1();
+                break;
+            case 2:
+                initLevel2();
+                break;
+            case 3:
+                initLevel3();
+                break;
+            case 4:
+                initLevel4();
+                break;
+            case 5:
+                initLevel5();
+                break;
+        }
+    }
+
+
+    public Level getLevel(){
+        if(level1!=null)
+            return level1;
+        else if (level2!=null)
+            return level2;
+        else if (level3!=null)
+            return level3;
+        else if (level4!=null)
+            return level4;
+        else if (level5!=null)
+            return level5;
+        return null;
     }
 
     private void initLevel1(){
-
-
 
         Snake snake1 = new Snake(140,70,40,true);
         Snake snake2 = new Snake(350,70,180,true);
@@ -57,7 +94,8 @@ public class Maps {
         PressMechanism pressMechanism2 = new PressMechanism(12,19);
 
         Checkpoint check1 = new Checkpoint(3,8,13,21,4,16,4,4);
-        Checkpoint check2 = new Checkpoint(6,1,19,8,8,7,4,4);
+        int[] additionalSegmentCheck2 = {12,8,14,8};
+        Checkpoint check2 = new Checkpoint(6,1,18,7,additionalSegmentCheck2,8,7,4,4);
         Checkpoint check3 = new Checkpoint(18,3,24,13,18,4,4,4);
         Checkpoint check4 = new Checkpoint(9,11,18,19,19,13,4,4);
         Checkpoint check5 = new Checkpoint(25,4,38,14,25,5,4,4);
@@ -141,7 +179,7 @@ public class Maps {
         level1[13][3] = new Cell(new Floor(),new Tumbleweed(),null);
         level1[13][4] = new Cell(new Floor(),new Diamond(),null);
         level1[13][7] = new Cell(new Floor(),null,null);
-        level1[13][8] = new Cell(new Floor(),null,null);
+        level1[13][8] = new Cell(new Floor(),new Diamond(),null);
         level1[13][13] = new Cell(doubleDoor.leftDoor,null,null);
         level1[13][17] = new Cell(new Floor(),null,null);
         level1[13][18] = new Cell(new Floor(),null,null);
