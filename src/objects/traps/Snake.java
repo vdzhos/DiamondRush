@@ -3,6 +3,7 @@ package objects.traps;
 import maps.Cell;
 import objects.blocks.doors.Resettable;
 import source.Boy;
+import source.PlayPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +33,6 @@ public class Snake extends JLabel implements Trap, Resettable {
     }
 
     public Snake(int width, int height, int coord, boolean horizontal){
-        trap = this;
         initImages();
         snake = this;
         setPreferredSize(new Dimension(width,height));
@@ -99,7 +99,8 @@ public class Snake extends JLabel implements Trap, Resettable {
         timer.start();
     }
 
-    public void checkTimerStart(JPanel panel, Boy boy, Cell[][] levelMatrix){
+    @Override
+    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -113,7 +114,7 @@ public class Snake extends JLabel implements Trap, Resettable {
                     for (int i = 0; i < levelMatrix.length; i++) {
                         for (int j = 0; j < levelMatrix[i].length; j++) {
                             if(levelMatrix[i][j].getTrapObject() instanceof Snake){
-                                if(levelMatrix[i][j].getTrapObject().equals(trap)){
+                                if(levelMatrix[i][j].getTrapObject().equals(snake)){
                                     levelMatrix[i][j].setTrapObject(null);
                                     isAlive = false;
                                 }

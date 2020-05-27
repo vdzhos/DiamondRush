@@ -1,5 +1,9 @@
 package objects.traps;
 
+import maps.Cell;
+import source.Boy;
+import source.PlayPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,5 +14,6 @@ public interface Trap {
     JLabel getLabel();
     void pause();
     void resume();
+    void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix);
 
 }
