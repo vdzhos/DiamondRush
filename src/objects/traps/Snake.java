@@ -1,6 +1,7 @@
 package objects.traps;
 
 import maps.Cell;
+import objects.blocks.doors.Resettable;
 import source.Boy;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Snake extends JLabel implements Trap{
+public class Snake extends JLabel implements Trap, Resettable {
 
     private Timer timer;
     private Timer check;
@@ -19,6 +20,7 @@ public class Snake extends JLabel implements Trap{
     private Image[] images;
     private Image current;
     private Snake trap;
+    public boolean isAlive = true;
 
     private void initImages(){
         Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
@@ -113,6 +115,7 @@ public class Snake extends JLabel implements Trap{
                             if(levelMatrix[i][j].getTrapObject() instanceof Snake){
                                 if(levelMatrix[i][j].getTrapObject().equals(trap)){
                                     levelMatrix[i][j].setTrapObject(null);
+                                    isAlive = false;
                                 }
                             }
                         }
@@ -160,4 +163,18 @@ public class Snake extends JLabel implements Trap{
         return this;
     }
 
+    @Override
+    public void pause() {
+        timer.stop();
+    }
+
+    @Override
+    public void resume() {
+        timer.start();
+    }
+
+    @Override
+    public void reset() {
+        isAlive = true;
+    }
 }

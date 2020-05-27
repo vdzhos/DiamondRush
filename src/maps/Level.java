@@ -54,10 +54,11 @@ public class Level {
             for (byte j = 0; j < matrix[0].length; j ++){
                 if (matrix[i][j].getHarmlessObject() instanceof Diamond)
                     maxNumberOfPurpleDiamonds ++;
-                else if (matrix[i][j].getHarmlessObject() instanceof DoorWithKeyhole){
-                    if (((DoorWithKeyhole) matrix[i][j].getHarmlessObject()).golden)
-                        maxNumberOfGoldKeys ++;
-                    else maxNumberOfSilverKeys ++;
+                else if (matrix[i][j].getHarmlessObject() instanceof DoorWithKeyhole.GoldDoor){
+                    maxNumberOfGoldKeys ++;
+                }
+                else if (matrix[i][j].getHarmlessObject() instanceof DoorWithKeyhole.SilverDoor) {
+                    maxNumberOfSilverKeys++;
                 }
             }
         }

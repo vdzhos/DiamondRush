@@ -1,5 +1,5 @@
 package objects.blocks.doors;
 
-public interface Resetable {
+public interface Resettable {
     void reset();
 }

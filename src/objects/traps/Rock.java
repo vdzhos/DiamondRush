@@ -106,6 +106,16 @@ public class Rock extends Stone implements Trap{
     }
 
     @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
     public void interactWithBoy() {
 
     }

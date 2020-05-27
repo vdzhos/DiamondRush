@@ -36,10 +36,10 @@ public class Maps {
 //    }
 
     public Maps(int currentLevel){
-        initLevels(currentLevel);
+        initLevel(currentLevel);
     }
 
-    private void initLevels(int currentLevel) {
+    public void initLevel(int currentLevel) {
         switch (currentLevel){
             case 1:
                 initLevel1();
@@ -254,7 +254,7 @@ public class Maps {
         level1[22][3] = new Cell(new Floor(),null,null);
         level1[22][4] = new Cell(new Floor(),null,null);
         level1[22][9] = new Cell(new Floor(),null,fireTrap3);
-        level1[22][18] = new Cell(new Floor(),null,null);
+        level1[22][18] = new Cell(new DoorWithKeyhole().silver,null,null);
         level1[23][17] = new Cell(new Floor(),null,null);
         level1[23][18] = new Cell(new Floor(),null,null);
         level1[24][16] = new Cell(new Floor(),null,null);
@@ -282,7 +282,7 @@ public class Maps {
         level1[27][18] = new Cell(new Floor(),null,null);
         level1[28][5] = new Cell(new Floor(),new Diamond(),null);
         level1[28][7] = new Cell(new Floor(),null,null);
-        level1[28][11] = new Cell(new Floor(),null,null);
+        level1[28][11] = new Cell(new DoorWithKeyhole().gold,null,null);
         level1[28][16] = new Cell(new Floor(),null,null);
         level1[28][17] = new Cell(new Floor(),null,null);
         level1[28][18] = new Cell(new Floor(),null,null);
@@ -293,7 +293,7 @@ public class Maps {
         level1[29][18] = new Cell(new Floor(),null,null);
         level1[30][7] = new Cell(new Floor(),null,null);
         level1[30][11] = new Cell(new Floor(),null,null);
-        level1[30][18] = new Cell(new Floor(),null,null);
+        level1[30][18] = new Cell(new DoorWithKeyhole().silver,null,null);
         level1[31][6] = new Cell(new Floor(),null,null);
         level1[31][7] = new Cell(new Floor(),null,null);
         level1[32][6] = new Cell(new Floor(),null,snake5);
@@ -375,7 +375,7 @@ public class Maps {
             checkpoint.setInitialMatrix(level1);
         }
 
-        this.level1 = new Level(level1,2,4,2,16, 500,5);
+        this.level1 = new Level(level1,2,4,2,16, 200,5);
         this.level1.setCheckpoints(checkpoints);
     }
 

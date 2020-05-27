@@ -61,7 +61,7 @@ public class PressMechanism{
 
 
 
-    public class PressPanel implements Block, Resetable {
+    public class PressPanel implements Block, Resettable {
 
         public void interact(Cell[][] matrix, int positionOfBoyInArrayX, int positionOfBoyInArrayY){
             PressMechanism.this.interact(matrix,positionOfBoyInArrayX,positionOfBoyInArrayY);

@@ -47,7 +47,7 @@ public class DoubleDoor{
             }
             else if (!opened){
                 for (Snake snake: snakes){
-//                    if (snake.isAlive())
+                    if (snake.isAlive)
                         return;
                 }
                 opened = true;
@@ -60,7 +60,7 @@ public class DoubleDoor{
             }
             else if (!opened){
                 for (Snake snake: snakes){
-//                    if (snake.isAlive())
+                    if (snake.isAlive)
                         return;
                 }
                 opened = true;
@@ -68,7 +68,7 @@ public class DoubleDoor{
         }
     }
 
-    public class LeftDoor implements Block, Resetable {
+    public class LeftDoor implements Block, Resettable {
 
         public void reset(){
             DoubleDoor.this.opened = true;
@@ -94,7 +94,7 @@ public class DoubleDoor{
         }
     }
 
-    public class RightDoor implements Block, Resetable {
+    public class RightDoor implements Block, Resettable {
 
         public void reset(){
             DoubleDoor.this.opened = true;

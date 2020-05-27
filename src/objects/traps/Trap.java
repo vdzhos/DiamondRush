@@ -8,5 +8,7 @@ public interface Trap {
     void paintObject(Graphics2D g2, int mapX, int mapY);
     void paintObject(Graphics2D g2);
     JLabel getLabel();
+    void pause();
+    void resume();
 
 }

@@ -179,4 +179,14 @@ public class Scorpion extends JLabel implements Trap{
         return this;
     }
 
+    @Override
+    public void pause() {
+        timer.stop();
+    }
+
+    @Override
+    public void resume() {
+        timer.start();
+    }
+
 }

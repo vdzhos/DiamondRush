@@ -62,6 +62,9 @@ public class FireTrap extends JLabel implements Trap{
         timer.start();
     }
 
+
+
+
     @Override
     public void paint(Graphics g) {
         super.paintComponent(g);
@@ -107,6 +110,16 @@ public class FireTrap extends JLabel implements Trap{
     @Override
     public JLabel getLabel() {
         return this;
+    }
+
+    @Override
+    public void pause() {
+        timer.stop();
+    }
+
+    @Override
+    public void resume() {
+        timer.start();
     }
 
 }

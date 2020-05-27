@@ -1,7 +1,7 @@
 package objects.blocks;
 
 import maps.Cell;
-import objects.blocks.doors.Resetable;
+import objects.blocks.doors.Resettable;
 import objects.harmless.Chest;
 import objects.harmless.Diamond;
 import objects.thingsInChest.GoldKey;
@@ -231,12 +231,22 @@ public class Checkpoint implements Block {
             temp[i] = new Cell[initialMatrix[0].length];
             for (byte j = 0; j < initialMatrix[0].length; j++){
                 temp[i][j] = initialMatrix[i][j].clone();
-                if (temp[i][j].getBlock() instanceof Resetable){
-                    ((Resetable) temp[i][j].getBlock()).reset();
+                if (temp[i][j].getBlock() instanceof Resettable){
+                    ((Resettable) temp[i][j].getBlock()).reset();
+                }
+                if (temp[i][j].getTrapObject() instanceof Resettable){
+                    ((Resettable) temp[i][j].getTrapObject()).reset();
+                }
+                if (temp[i][j].getHarmlessObject() instanceof Resettable){
+                    ((Resettable) temp[i][j].getHarmlessObject()).reset();
                 }
             }
         }
         return temp;
+    }
+
+    public Cell[][] getInitialMatrix() {
+        return initialMatrix;
     }
 
     public void setUsed(boolean used) {

@@ -61,7 +61,6 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     private Level currentLevel;
     private Cell[][] levelMatrix;
-    private int numberOfKeys = 2;
 
     private Checkpoint currentCheckpoint;
     private boolean updated = true;
@@ -73,14 +72,20 @@ public class PlayPanel extends JPanel implements KeyListener {
     private int numberOfPurpleDiamondsCollected;
 //    private int maxNumberOfPurpleDiamondsCollected;
 
-    private int numberOfGoldKeysCollected;
+    private int numberOfGoldKeysCollected = 1;
 //    private int maxNumberOfGoldKeysCollected;
 
-    private int numberOfSilverKeysCollected;
+    private int numberOfSilverKeysCollected = 1;
 //    private int maxNumberOfSilverKeysCollected;
+
+    private int currentEnergyLevel;
 
     private boolean artefactIsCollected;
 
+    private StatusBarPanel statusBarPanel;
+    private MapPanel mapPanel;
+    private GameFrame gameFrame;
+    private int currentLevelInt;
 
     public PlayPanel(int currentLevel) {
         panel = this;
@@ -93,9 +98,46 @@ public class PlayPanel extends JPanel implements KeyListener {
         setCoordinates();
     }
 
+    public PlayPanel(int currentLevel, GameFrame gameFrame, MapPanel mapPanel) {
+        this.mapPanel = mapPanel;
+        currentLevelInt = currentLevel;
+        this.gameFrame = gameFrame;
+        panel = this;
+        panel.setLayout(null);
+        setPreferredSize(new Dimension(2800, 1540));
+        this.boy = new Boy(0,0);
+        maps = new Maps(currentLevel);
+        initLevel();
+        initStatusBar();
+        calculateInitialValuesOfMap();
+        setCoordinates();
+    }
+
+    private void initStatusBar() {
+        statusBarPanel = new StatusBarPanel(gameFrame, this);
+        statusBarPanel.setCurrentLevel(currentLevelInt);
+        statusBarPanel.setMaxNumberOfGoldKeys(currentLevel.getMaxNumberOfGoldKeys());
+        statusBarPanel.setMaxEnergyLevel(currentLevel.getMaxEnergyLevel());
+        statusBarPanel.setMaxNumberOfSilverKeys(currentLevel.getMaxNumberOfSilverKeys());
+        statusBarPanel.setMaxNumberOfPurpleDiamonds(currentLevel.getMaxNumberOfPurpleDiamonds());
+        statusBarPanel.setMaxNumberOfRedDiamonds(currentLevel.getMaxNumberOfRedDiamonds());
+
+        statusBarPanel.setCurrentNumberOfGoldKeys(0);
+        statusBarPanel.setCurrentEnergyLevel(currentLevel.getMaxEnergyLevel());
+        statusBarPanel.setCurrentNumberOfSilverKeys(0);
+        statusBarPanel.setCurrentNumberOfPurpleDiamonds(0);
+        statusBarPanel.setCurrentNumberOfRedDiamonds(0);
+
+        numberOfSilverKeysCollected = 0;
+        numberOfGoldKeysCollected = 0;
+        numberOfRedDiamondsCollected = 0;
+        numberOfPurpleDiamondsCollected = 0;
+        currentEnergyLevel = currentLevel.getMaxEnergyLevel();
+    }
+
 
     private void initLevel() {
-        this.currentLevel = maps.getLevel();
+        currentLevel = maps.getLevel();
         levelMatrix = this.currentLevel.getMatrix();
     }
 
@@ -121,6 +163,64 @@ public class PlayPanel extends JPanel implements KeyListener {
         System.out.println(mapX +"   "+mapY);
         System.out.println(boy.x+"   "+boy.y);
         System.out.println(boy.xInArray+"   "+boy.yInArray);
+    }
+
+    public void restart() {
+        currentLevel = null;
+        currentCheckpoint = null;
+        stonesAreInited = false;
+        boy = null;
+        boy = new Boy(0,0);
+
+        mapX = 0;
+        mapY = 0;
+
+        positionOnScreenX = 0;
+        positionOnScreenY = 0;
+
+        positionOnMapX = 0;
+        positionOnMapY = 0;
+
+//        mapWidth = 0;
+//        mapHeight = 0;
+//
+//        panelWidth = 700;
+//        panelHeight = 700;
+
+
+        mapMovesToRight = false;
+        boyMovesToRight = false;
+
+        mapMovesToLeft = false;
+        boyMovesToLeft = false;
+
+        mapMovesUp = false;
+        boyMovesUp = false;
+
+        mapMovesDown = false;
+        boyMovesDown = false;
+
+        levelMatrix = null;
+
+        updated = true;
+
+        numberOfRedDiamondsCollected = 0;
+
+
+        numberOfPurpleDiamondsCollected = 0;
+
+        numberOfGoldKeysCollected = 0;
+
+        numberOfSilverKeysCollected = 0;
+
+        artefactIsCollected = false;
+
+        maps.initLevel(currentLevelInt);
+        initLevel();
+        initStatusBar();
+        calculateInitialValuesOfMap();
+        setCoordinates();
+        repaint();
     }
 
 
@@ -362,6 +462,36 @@ public class PlayPanel extends JPanel implements KeyListener {
         t.start();
     }
 
+    public void pause(){
+        for (byte i = 0; i < levelMatrix.length; i ++){
+            for (byte j = 0; j < levelMatrix[0].length; j ++){
+                if (levelMatrix[i][j].getTrapObject()!=null){
+                    levelMatrix[i][j].getTrapObject().pause();
+                }
+            }
+        }
+    }
+
+    public void resume(){
+        for (byte i = 0; i < levelMatrix.length; i ++){
+            for (byte j = 0; j < levelMatrix[0].length; j ++){
+                if (levelMatrix[i][j].getTrapObject()!=null){
+                    levelMatrix[i][j].getTrapObject().resume();
+                }
+            }
+        }
+    }
+
+
+
+//        levelMatrix = currentCheckpoint.getInitialMatrix();
+//
+
+//
+//        calculateInitialValuesOfMap();
+//        setCoordinates();
+
+
 
     private boolean isAllowedUp(){
         return boy.y != 0;
@@ -460,7 +590,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if (!block.pass()){
                     boy.whatMove = 19;
                     boy.isMoving = true;
-                    boy.yInArray++;
+//                    boy.yInArray++;
                 }
                 moveBoy();
             }
@@ -478,7 +608,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }else if (!block.pass() || itIsRock(boy.xInArray, boy.yInArray+1)){
                     boy.whatMove = 20;
                     boy.isMoving = true;
-                    boy.yInArray--;
+//                    boy.yInArray--;
                 }
                 moveBoy();
             }
@@ -489,10 +619,16 @@ public class PlayPanel extends JPanel implements KeyListener {
                     finishSnakeCheckTimer((Snake)levelMatrix[boy.xInArray][boy.yInArray].getTrapObject());
                 }
                 Block block = levelMatrix[boy.xInArray-1][boy.yInArray].getBlock();
-                if (block instanceof DoorWithKeyhole && numberOfKeys != 0){
-                    ((DoorWithKeyhole) block).openTheDoor();
-                    numberOfKeys --;
+                if (block instanceof DoorWithKeyhole.GoldDoor && numberOfGoldKeysCollected != 0){
+                    ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
+                    numberOfGoldKeysCollected --;
                     boy.whatMove = 15;
+                    boy.isMoving = true;
+                }
+                else if (block instanceof DoorWithKeyhole.SilverDoor && numberOfSilverKeysCollected != 0){
+                    ((DoorWithKeyhole.SilverDoor) block).openTheDoor();
+                    numberOfSilverKeysCollected --;
+                    boy.whatMove = 17;
                     boy.isMoving = true;
                 }
                 else if ((block.pass()&&!(itIsRock(boy.xInArray - 1, boy.yInArray)))||itIsHarmless(boy.xInArray - 1, boy.yInArray)){
@@ -523,10 +659,16 @@ public class PlayPanel extends JPanel implements KeyListener {
             }
             else if ((code == KeyEvent.VK_RIGHT) && (boy.isMoving == false) && isAllowedRight()) {
                 Block block = levelMatrix[boy.xInArray+1][boy.yInArray].getBlock();
-                if (block instanceof DoorWithKeyhole && numberOfKeys != 0){
-                    ((DoorWithKeyhole) block).openTheDoor();
-                    numberOfKeys --;
+                if (block instanceof DoorWithKeyhole.GoldDoor && numberOfGoldKeysCollected != 0){
+                    ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
+                    numberOfGoldKeysCollected --;
                     boy.whatMove = 16;
+                    boy.isMoving = true;
+                }
+                else if (block instanceof DoorWithKeyhole.SilverDoor && numberOfSilverKeysCollected != 0){
+                    ((DoorWithKeyhole.SilverDoor) block).openTheDoor();
+                    numberOfSilverKeysCollected --;
+                    boy.whatMove = 18;
                     boy.isMoving = true;
                 }
                 else if ((block.pass()&&!(itIsRock(boy.xInArray + 1, boy.yInArray)))||itIsHarmless(boy.xInArray + 1, boy.yInArray)){
@@ -703,6 +845,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                 },
                 1000
         );
+    }
+
+    public StatusBarPanel getStatusBarPanel() {
+        return statusBarPanel;
     }
 
     @Override
