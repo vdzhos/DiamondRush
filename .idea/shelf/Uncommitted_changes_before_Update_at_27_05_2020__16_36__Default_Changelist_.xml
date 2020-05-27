@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Update_at_27_05_2020,_16_36_[Default_Changelist]" date="1590587066978" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2020,_16_36_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 27.05.2020, 16:36 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/blocks/doors/DoubleDoor.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/blocks/doors/DoubleDoor.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2020,_16_36_[Default_Changelist]/DoubleDoor.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/traps/Snake$3.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/traps/Snake$3.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2020,_16_36_[Default_Changelist]/Snake$3.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/traps/Snake$1.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/traps/Snake$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2020,_16_36_[Default_Changelist]/Snake$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/traps/Snake$2.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/traps/Snake$2.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2020,_16_36_[Default_Changelist]/Snake$2.class" />
+  </binary>
+</changelist>
