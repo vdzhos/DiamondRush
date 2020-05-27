@@ -1,6 +1,8 @@
 package objects.traps;
 
+import maps.Cell;
 import objects.Direction;
+import source.Boy;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +12,7 @@ import java.awt.event.ActionListener;
 public class Scorpion extends JLabel implements Trap{
 
     private Timer timer;
+    private Timer check;
     private int x = 0;
     private int y = 0;
     private JLabel scorpion;
@@ -177,6 +180,38 @@ public class Scorpion extends JLabel implements Trap{
     @Override
     public JLabel getLabel() {
         return this;
+    }
+
+    @Override
+    public void checkTimerStart(JPanel panel, Boy boy, Cell[][] levelMatrix){
+        check = new Timer(50, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
+                Rectangle scorpionRect = new Rectangle(x+scorpion.getX(),y+scorpion.getY(),70,70);
+                System.out.println("----------");
+                if(boyRect.intersects(scorpionRect)){
+                    panel.remove(scorpion);
+                    Timer t = (Timer) e.getSource();
+                    t.stop();
+                    for (int i = 0; i < levelMatrix.length; i++) {
+                        for (int j = 0; j < levelMatrix[i].length; j++) {
+                            if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
+                                if(levelMatrix[i][j].getTrapObject().equals(scorpion)){
+                                    levelMatrix[i][j].setTrapObject(null);
+                                }
+                            }
+                        }
+                    }
+                    panel.repaint();
+                }
+            }
+        });
+        check.start();
+    }
+
+    public Timer getCheckTimer(){
+        return check;
     }
 
 }

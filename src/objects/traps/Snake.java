@@ -18,7 +18,6 @@ public class Snake extends JLabel implements Trap{
     private boolean side = true; //right - true; left - false
     private Image[] images;
     private Image current;
-    private Snake trap;
 
     private void initImages(){
         Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
@@ -30,7 +29,6 @@ public class Snake extends JLabel implements Trap{
     }
 
     public Snake(int width, int height, int coord, boolean horizontal){
-        trap = this;
         initImages();
         snake = this;
         setPreferredSize(new Dimension(width,height));
@@ -97,6 +95,7 @@ public class Snake extends JLabel implements Trap{
         timer.start();
     }
 
+    @Override
     public void checkTimerStart(JPanel panel, Boy boy, Cell[][] levelMatrix){
         check = new Timer(50, new ActionListener() {
             @Override
@@ -111,7 +110,7 @@ public class Snake extends JLabel implements Trap{
                     for (int i = 0; i < levelMatrix.length; i++) {
                         for (int j = 0; j < levelMatrix[i].length; j++) {
                             if(levelMatrix[i][j].getTrapObject() instanceof Snake){
-                                if(levelMatrix[i][j].getTrapObject().equals(trap)){
+                                if(levelMatrix[i][j].getTrapObject().equals(snake)){
                                     levelMatrix[i][j].setTrapObject(null);
                                 }
                             }
