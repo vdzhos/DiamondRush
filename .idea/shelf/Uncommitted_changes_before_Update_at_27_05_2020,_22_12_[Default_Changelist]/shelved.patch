@@ -1,0 +1,31 @@
+Index: src/source/Game.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package source;\n\nimport objects.blocks.Block;\n\nimport javax.swing.*;\nimport java.awt.*;\n\nimport static javax.swing.BorderFactory.createEmptyBorder;\n\npublic class Game extends JFrame {\n\n    private JScrollPane scrollPane;\n    private PlayPanel playPanel;\n    private JPanel upper;\n\n    public Game(){\n        setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);\n        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n        setVisible(true);\n        getContentPane().setLayout(new BorderLayout());\n        setResizable(false);\n\n        init();\n        add(upper, BorderLayout.NORTH);\n        add(playPanel, BorderLayout.CENTER);\n        revalidate();\n    }\n\n    private void init() {\n        upper = new StatusBarPanel(new GameFrame());\n        upper.setPreferredSize(new Dimension(700,100));\n\n//        Boy boy = new Boy(0, 0);\n        playPanel = new PlayPanel(1);\n        addKeyListener(playPanel);\n\n        scrollPane = new JScrollPane(playPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);\n        scrollPane.setBorder(createEmptyBorder());\n    }\n    public static void main(String[] args) {\n        Game game = new Game();\n        JScrollBar vertical = game.scrollPane.getVerticalScrollBar();\n        vertical.setValue(vertical.getMaximum());\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/source/Game.java	(revision d720251685842924f7376c22bde3fdb132c3edb0)
++++ src/source/Game.java	(date 1590602190313)
+@@ -1,10 +1,12 @@
+ package source;
+ 
+-import objects.blocks.Block;
++
+ 
+ import javax.swing.*;
++import java.applet.AudioClip;
+ import java.awt.*;
+ 
++
+ import static javax.swing.BorderFactory.createEmptyBorder;
+ 
+ public class Game extends JFrame {
+@@ -41,6 +43,7 @@
+         Game game = new Game();
+         JScrollBar vertical = game.scrollPane.getVerticalScrollBar();
+         vertical.setValue(vertical.getMaximum());
++
+     }
+ 
+ }

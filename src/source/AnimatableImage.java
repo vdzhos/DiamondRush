@@ -33,6 +33,10 @@ public class AnimatableImage {
         t.start();
     }
 
+    public static void update(JComponent component){
+        component.repaint();
+    }
+
     public void animate(JComponent component, String directory){
         image = new ImageIcon(directory+"/"+name+"Shade.png").getImage();
         component.repaint();

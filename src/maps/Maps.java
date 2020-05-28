@@ -97,8 +97,10 @@ public class Maps {
         int[] additionalSegmentCheck2 = {12,8,14,8};
         Checkpoint check2 = new Checkpoint(6,1,18,7,additionalSegmentCheck2,8,7,4,4);
         Checkpoint check3 = new Checkpoint(18,3,24,13,18,4,4,4);
-        Checkpoint check4 = new Checkpoint(9,11,18,19,19,13,4,4);
-        Checkpoint check5 = new Checkpoint(25,4,38,14,25,5,4,4);
+        int[] additionalSegmentCheck4 = {9,16,10,16};
+        Checkpoint check4 = new Checkpoint(11,11,18,19,additionalSegmentCheck4,19,13,4,4);
+        int[] additionalSegmentCheck5 = {35,4,38,14};
+        Checkpoint check5 = new Checkpoint(25,4,34,7,additionalSegmentCheck5,25,5,4,4);
 
         //Floor + (Harmless/Trap)
         Cell[][] level1 = new Cell[40][22];
@@ -320,7 +322,7 @@ public class Maps {
         level1[37][11] = new Cell(new Floor(),null,scorpion);
         level1[37][12] = new Cell(new Floor(),null,null);
         level1[37][13] = new Cell(new Floor(),null,scorpion);
-        level1[37][14] = new Cell(new Floor(),null,null);
+        level1[37][14] = new Cell(new Floor(),new Diamond(),null);
         level1[38][4] = new Cell(new Floor(),null,null);
         level1[38][11] = new Cell(new Floor(),null,scorpion);
         level1[38][12] = new Cell(new Floor(),null,scorpion);

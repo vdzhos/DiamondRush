@@ -122,17 +122,22 @@ public class PlayPanel extends JPanel implements KeyListener {
         statusBarPanel.setMaxNumberOfPurpleDiamonds(currentLevel.getMaxNumberOfPurpleDiamonds());
         statusBarPanel.setMaxNumberOfRedDiamonds(currentLevel.getMaxNumberOfRedDiamonds());
 
-        statusBarPanel.setCurrentNumberOfGoldKeys(0);
-        statusBarPanel.setCurrentEnergyLevel(currentLevel.getMaxEnergyLevel());
-        statusBarPanel.setCurrentNumberOfSilverKeys(0);
-        statusBarPanel.setCurrentNumberOfPurpleDiamonds(0);
-        statusBarPanel.setCurrentNumberOfRedDiamonds(0);
-
+        if (updated) {
+            statusBarPanel.setCurrentNumberOfGoldKeys(0);
+            statusBarPanel.setCurrentEnergyLevel(currentLevel.getMaxEnergyLevel());
+            statusBarPanel.setCurrentNumberOfSilverKeys(0);
+            statusBarPanel.setCurrentNumberOfPurpleDiamonds(0);
+            statusBarPanel.setCurrentNumberOfRedDiamonds(0);
+        }
+        else
+            updateStatusBar();
         numberOfSilverKeysCollected = 0;
         numberOfGoldKeysCollected = 0;
         numberOfRedDiamondsCollected = 0;
         numberOfPurpleDiamondsCollected = 0;
         currentEnergyLevel = currentLevel.getMaxEnergyLevel();
+
+
     }
 
 
@@ -221,24 +226,33 @@ public class PlayPanel extends JPanel implements KeyListener {
     }
 
 
-    private void updateNumberOfRedDiamondsOnStatusBar(){
-        statusBarPanel.setCurrentNumberOfRedDiamonds(numberOfRedDiamondsCollected);
+    public void updateStatusBar(){
+        updateNumberOfPurpleDiamondsOnStatusBar();
+        updateEnergyLevelOnStatusBar();
+        updateNumberOfRedDiamondsOnStatusBar();
+        updateNumberOfSilverKeysOnStatusBar();
+        updateNumberOfGoldKeysOnStatusBar();
     }
 
-    private void updateNumberOfPurpleDiamondsOnStatusBar(){
-        statusBarPanel.setCurrentNumberOfPurpleDiamonds(numberOfPurpleDiamondsCollected);
+
+    private void updateNumberOfRedDiamondsOnStatusBar(){
+        gameFrame.updateNumberOfRedDiamondsOnStatusBar(numberOfRedDiamondsCollected);
+    }
+
+    public void updateNumberOfPurpleDiamondsOnStatusBar(){
+       gameFrame.updateNumberOfPurpleDiamondsOnStatusBar(numberOfPurpleDiamondsCollected);
     }
 
     private void updateNumberOfGoldKeysOnStatusBar(){
-        statusBarPanel.setCurrentNumberOfGoldKeys(numberOfGoldKeysCollected);
+        gameFrame.updateNumberOfGoldKeysOnStatusBar(numberOfGoldKeysCollected);
     }
 
     private void updateNumberOfSilverKeysOnStatusBar(){
-        statusBarPanel.setCurrentNumberOfSilverKeys(numberOfSilverKeysCollected);
+        gameFrame.updateNumberOfSilverKeysOnStatusBar(numberOfSilverKeysCollected);
     }
 
     private void updateEnergyLevelOnStatusBar(){
-        statusBarPanel.setCurrentEnergyLevel(currentEnergyLevel);
+        gameFrame.updateEnergyLevelOnStatusBar(currentEnergyLevel);
     }
 
     @Override
@@ -341,12 +355,13 @@ public class PlayPanel extends JPanel implements KeyListener {
 
             setCoordinates();
             repaint();
-            System.out.println("___________________________");
-            System.out.println(numberOfGoldKeysCollected);
-            System.out.println(numberOfSilverKeysCollected);
-            System.out.println(numberOfPurpleDiamondsCollected);
-            System.out.println(numberOfRedDiamondsCollected);
-            System.out.println("___________________________");
+            updateStatusBar();
+//            System.out.println("___________________________");
+//            System.out.println(numberOfGoldKeysCollected);
+//            System.out.println(numberOfSilverKeysCollected);
+//            System.out.println(numberOfPurpleDiamondsCollected);
+//            System.out.println(numberOfRedDiamondsCollected);
+//            System.out.println("___________________________");
 
         }
     }

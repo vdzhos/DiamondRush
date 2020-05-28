@@ -188,7 +188,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     public void setCurrentEnergyLevel(int currentEnergyLevel) {
         this.currentEnergyLevel = currentEnergyLevel;
-        repaint(new Rectangle(Values.ENERGY_FIELD_X, Values.ENERGY_FIELD_Y, Values.ENERGY_FIELD_WIDTH, Values.ENERGY_FIELD_LENGTH));
+        repaint();
+//        repaint(new Rectangle(Values.ENERGY_FIELD_X, Values.ENERGY_FIELD_Y, Values.ENERGY_FIELD_WIDTH, Values.ENERGY_FIELD_LENGTH));
     }
 
     public int getCurrentNumberOfGoldKeys() {
@@ -197,7 +198,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     public void setCurrentNumberOfGoldKeys(int currentNumberOfGoldKeys) {
         this.currentNumberOfGoldKeys = currentNumberOfGoldKeys;
-        repaint(new Rectangle(Values.GOLD_KEY_LABEL_X, Values.GOLD_KEY_LABEL_Y,200,100));
+        repaint();
+//        repaint(new Rectangle(Values.GOLD_KEY_LABEL_X, Values.GOLD_KEY_LABEL_Y,200,100));
     }
 
     public int getCurrentNumberOfSilverKeys() {
@@ -206,7 +208,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     public void setCurrentNumberOfSilverKeys(int currentNumberOfSilverKeys) {
         this.currentNumberOfSilverKeys = currentNumberOfSilverKeys;
-        repaint(new Rectangle(Values.SILVER_KEY_LABEL_X, Values.SILVER_KEY_LABEL_Y,200,100));
+        repaint();
+//        repaint(new Rectangle(Values.SILVER_KEY_LABEL_X, Values.SILVER_KEY_LABEL_Y,200,100));
     }
 
     public int getCurrentNumberOfPurpleDiamonds() {
@@ -215,7 +218,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     public void setCurrentNumberOfPurpleDiamonds(int currentNumberOfPurpleDiamonds) {
         this.currentNumberOfPurpleDiamonds = currentNumberOfPurpleDiamonds;
-        repaint(new Rectangle(Values.PURPLE_DIAMOND_LABEL_X, Values.PURPLE_DIAMOND_LABEL_Y,200,100));
+        repaint();
+//        repaint(new Rectangle(Values.PURPLE_DIAMOND_LABEL_X, Values.PURPLE_DIAMOND_LABEL_Y,200,100));
     }
 
     public int getCurrentNumberOfRedDiamonds() {
@@ -224,7 +228,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
     public void setCurrentNumberOfRedDiamonds(int currentNumberOfRedDiamonds) {
         this.currentNumberOfRedDiamonds = currentNumberOfRedDiamonds;
-        repaint(new Rectangle(Values.RED_DIAMOND_LABEL_X, Values.RED_DIAMOND_LABEL_Y,200,100));
+        repaint();
+//        repaint(new Rectangle(Values.RED_DIAMOND_LABEL_X, Values.RED_DIAMOND_LABEL_Y,200,100));
     }
 
     public void setCurrentLevel(int currentLevel) {
@@ -310,19 +315,33 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
     }
 
-    //    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//            public void run() {
-//                JFrame f = new JFrame();
-//                f.setSize(700,820);
-//
-//                f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//                f.setUndecorated(true);
-//                StatusBarPanel statusBarPanel = new StatusBarPanel(f);
-//                f.add(statusBarPanel);
-//                f.setVisible(true);
-//            }
-//        });
+        public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                JFrame f = new JFrame();
+                f.setSize(700,820);
+
+                f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                f.setUndecorated(true);
+
+
+
+                PlayPanel playPanel =new PlayPanel(1,new GameFrame(),new MapPanel(new GameFrame()));
+                StatusBarPanel statusBarPanel = playPanel.getStatusBarPanel();
+                f.setLayout(new BorderLayout());
+                f.getContentPane().add(statusBarPanel, BorderLayout.NORTH);
+                f.getContentPane().add(playPanel, BorderLayout.CENTER);
+                f.setVisible(true);
+                Timer t = new Timer(1000, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        statusBarPanel.setCurrentEnergyLevel(statusBarPanel.getCurrentEnergyLevel()-5);
+                        statusBarPanel.setCurrentNumberOfPurpleDiamonds(statusBarPanel.getCurrentNumberOfGoldKeys()+1);
+                    }
+                });
+                t.start();
+            }
+        });
 
 
 
@@ -330,15 +349,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
 
 
 
-//        Timer t = new Timer(1000, new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                statusBarPanel.setCurrentEnergyLevel(statusBarPanel.getCurrentEnergyLevel()-5);
-//                statusBarPanel.setCurrentNumberOfGoldKeys(statusBarPanel.getCurrentNumberOfGoldKeys()+1);
-//            }
-//        });
-//        t.start();
-//    }
+
+    }
 
 
 }

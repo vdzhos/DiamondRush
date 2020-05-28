@@ -1,9 +1,11 @@
 package source;
 
-import objects.blocks.Block;
+
 
 import javax.swing.*;
+import java.applet.AudioClip;
 import java.awt.*;
+
 
 import static javax.swing.BorderFactory.createEmptyBorder;
 
@@ -41,6 +43,7 @@ public class Game extends JFrame {
         Game game = new Game();
         JScrollBar vertical = game.scrollPane.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
+
     }
 
 }
