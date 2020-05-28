@@ -17,7 +17,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class PlayPanel extends JPanel implements KeyListener {
@@ -411,7 +410,7 @@ public class PlayPanel extends JPanel implements KeyListener {
             mapMovesToLeft = false;
             boyMovesToLeft = true;
         }
-        if (boy.x <= 280 && mapX != 0) {
+        if (boy.x == 280 && mapX != 0) {
             mapMovesToLeft = true;
             boyMovesToLeft = false;
         }
@@ -573,7 +572,8 @@ public class PlayPanel extends JPanel implements KeyListener {
     }
 
     private boolean isAllowedRight(){
-        return boy.x != panelWidth- boy.width;
+//        return boy.x != panelWidth- boy.width;
+        return boy.xInArray != levelMatrix.length-1;
     }
 
     private boolean isAllowedLeft(){
@@ -734,16 +734,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.isMoving = true;
                     }
                 }
-                else if (block instanceof DiamondDoor) {
-                    if (!((DiamondDoor) block).opened) {
-                        drawMessage = true;
-                        twoLineMessage = true;
-                        message = "    I need more ";
-                        messageLower = "purple diamonds!";
-                        boy.whatMove = 21;
-                        boy.isMoving = true;
-                    }
-                }
                 else if ((block.pass() && !(itIsRock(boy.xInArray - 1, boy.yInArray))) || itIsHarmless(boy.xInArray - 1, boy.yInArray)) {
                     setMovementLeft();
                     boy.whatMove = 3;
@@ -766,6 +756,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.isMoving = true;
                     }
                 } else if (!block.pass()) {
+                    if (block instanceof DiamondDoor) {
+                            drawMessage = true;
+                            twoLineMessage = true;
+                            message = "    I need more ";
+                            messageLower = "purple diamonds!";
+                    }
                     boy.whatMove = 21;
                     boy.isMoving = true;
                 }
@@ -816,17 +812,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                         messageLower = "    a silver key!";
                     }
                 }
-                else if (block instanceof DiamondDoor) {
-                    if (!((DiamondDoor) block).opened) {
-                        drawMessage = true;
-                        drawn = false;
-                        twoLineMessage = true;
-                        message = "    I need more ";
-                        messageLower = "purple diamonds!";
-                        boy.whatMove = 22;
-                        boy.isMoving = true;
-                    }
-                }else if ((block.pass() && !(itIsRock(boy.xInArray + 1, boy.yInArray))) || itIsHarmless(boy.xInArray + 1, boy.yInArray)) {
+                else if ((block.pass() && !(itIsRock(boy.xInArray + 1, boy.yInArray))) || itIsHarmless(boy.xInArray + 1, boy.yInArray)) {
                     setMovementRight();
                     boy.whatMove = 4;
                     boy.isMoving = true;
@@ -850,6 +836,13 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.isMoving = true;
                     }
                 } else if (!block.pass()) {
+                    if (block instanceof DiamondDoor) {
+                        drawMessage = true;
+                        drawn = false;
+                        twoLineMessage = true;
+                        message = "    I need more ";
+                        messageLower = "purple diamonds!";
+                    }
                     boy.whatMove = 22;
                     boy.isMoving = true;
                 }
@@ -890,20 +883,22 @@ public class PlayPanel extends JPanel implements KeyListener {
     }
 
     public void disappearFromCell(int x, int y){
-        if (itIsStone(x, y - 1)){
-            getStone(x, y - 1).checkSpace();
-        }
-        if (itIsStone(x - 1, y)){
-            getStone(x - 1, y).checkSpace();
-        }
-        if (itIsStone(x + 1, y)){
-            getStone(x + 1, y).checkSpace();
-        }
-        if (itIsStone(x - 1, y - 1)){
-            getStone(x - 1, y - 1).checkSpace();
-        }
-        if (itIsStone(x + 1, y - 1)){
-            getStone(x + 1, y - 1).checkSpace();
+        if (x != levelMatrix.length-1) {
+            if (itIsStone(x, y - 1)) {
+                getStone(x, y - 1).checkSpace();
+            }
+            if (itIsStone(x - 1, y)) {
+                getStone(x - 1, y).checkSpace();
+            }
+            if (itIsStone(x + 1, y)) {
+                getStone(x + 1, y).checkSpace();
+            }
+            if (itIsStone(x - 1, y - 1)){
+                getStone(x - 1, y - 1).checkSpace();
+            }
+            if (itIsStone(x + 1, y - 1)){
+                getStone(x + 1, y - 1).checkSpace();
+            }
         }
     }
 

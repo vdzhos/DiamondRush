@@ -155,7 +155,9 @@ public class Boy {
     public void moveLeft(PlayPanel playPanel) {
         if (i == 3){
             xInArray --;
-            playPanel.disappearFromCell(xInArray + 1, yInArray);
+            if (xInArray != playPanel.levelMatrix.length-1) {
+                playPanel.disappearFromCell(xInArray + 1, yInArray);
+            }
         }
         x -= cellSide / 7;
         currentPicture = arrayLeft[i];

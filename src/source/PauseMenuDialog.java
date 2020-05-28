@@ -40,6 +40,8 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
         setLocation(gameFrame.getX()+ Values.PAUSE_MENU_SHIFT_X, gameFrame.getY()+ Values.PAUSE_MENU_SHIFT_Y);
         setSize(Values.PAUSE_MENU_WIDTH, Values.PAUSE_MENU_LENGTH);
         setUndecorated(true);
+//        getRootPane().setOpaque(true);
+//        setBackground(new Color(0,0,0,0));
         addMouseListener(this);
     }
 
@@ -208,16 +210,16 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 
 
 
-//    public static void main(String[] args){
-//        JFrame f = new JFrame();
-//        f.setSize(700,820);
-//        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        PauseMenuDialog p = new PauseMenuDialog(f);
-//
-//        f.setVisible(true);
-//        p.setVisible(true);
-//
-//    }
+    public static void main(String[] args){
+        JFrame f = new JFrame();
+        f.setSize(700,820);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        PauseMenuDialog p = new PauseMenuDialog(new GameFrame());
+
+        f.setVisible(true);
+        p.setVisible(true);
+
+    }
 }
 
 
