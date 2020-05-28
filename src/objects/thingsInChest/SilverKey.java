@@ -12,7 +12,8 @@ public class SilverKey extends ThingInChest{
 
     @Override
     public void disappear(PlayPanel playPanel) {
-
+        playPanel.numberOfSilverKeysCollected ++;
+        playPanel.updateNumberOfSilverKeysOnStatusBar();
     }
 }
 

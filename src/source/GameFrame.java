@@ -19,7 +19,7 @@ public class GameFrame extends JFrame {
         setLocation(300,0);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         init();
-        setUndecorated(true);
+        setUndecorated(false);
 //        setVisible(true);
     }
 

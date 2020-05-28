@@ -12,6 +12,7 @@ public class GoldKey extends ThingInChest{
 
     @Override
     public void disappear(PlayPanel playPanel) {
-
+        playPanel.numberOfGoldKeysCollected ++;
+        playPanel.updateNumberOfGoldKeysOnStatusBar();
     }
 }

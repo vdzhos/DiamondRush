@@ -242,7 +242,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     }
 
 
-    private void updateNumberOfRedDiamondsOnStatusBar(){
+    public void updateNumberOfRedDiamondsOnStatusBar(){
         gameFrame.updateNumberOfRedDiamondsOnStatusBar(numberOfRedDiamondsCollected);
     }
 
@@ -250,15 +250,15 @@ public class PlayPanel extends JPanel implements KeyListener {
        gameFrame.updateNumberOfPurpleDiamondsOnStatusBar(numberOfPurpleDiamondsCollected);
     }
 
-    private void updateNumberOfGoldKeysOnStatusBar(){
+    public void updateNumberOfGoldKeysOnStatusBar(){
         gameFrame.updateNumberOfGoldKeysOnStatusBar(numberOfGoldKeysCollected);
     }
 
-    private void updateNumberOfSilverKeysOnStatusBar(){
+    public void updateNumberOfSilverKeysOnStatusBar(){
         gameFrame.updateNumberOfSilverKeysOnStatusBar(numberOfSilverKeysCollected);
     }
 
-    private void updateEnergyLevelOnStatusBar(){
+    public void updateEnergyLevelOnStatusBar(){
         gameFrame.updateEnergyLevelOnStatusBar(currentEnergyLevel);
     }
 
