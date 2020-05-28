@@ -45,6 +45,7 @@ public class Chest implements Harmless, Resettable {
                 if (isClosed) open();
                 else if (thingsAreBeeingTaken) takeThings();
                 playPanel.repaint();
+                playPanel.boy.isMoving = true;
                 if (i == 7){
                     i = 0;
                     if (index < 5 && things[index] != null){
@@ -66,7 +67,9 @@ public class Chest implements Harmless, Resettable {
     private void open(){
         currentPicture = open[i];
         i++;
-        if (i == 7) isClosed = false;
+        if (i == 7) {
+            isClosed = false;
+        }
     }
 
     private void takeThings(){

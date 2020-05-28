@@ -86,12 +86,11 @@ public class Checkpoint implements Block {
         numberOfSilverKeysOnTheAreaLeft = 0;
         numberOfGoldKeysOnTheAreaLeft = 0;
 
-        Cell[][] temp = refreshInitialMatrix(this.initialMatrix);
         for (int i = startX; i <= endX; i++) {
             for (int j = startY; j <= endY; j++) {
                 if (currentMatrix[i][j].getHarmlessObject() instanceof Diamond)
                     numberOfPurpleDiamondsOnTheAreaLeft++;
-                else if (currentMatrix[i][j].getHarmlessObject() instanceof Chest) {
+                else if (currentMatrix[i][j].getHarmlessObject() instanceof Chest && ((Chest) currentMatrix[i][j].getHarmlessObject()).isClosed) {
                     if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[0] != null) {
 //                        if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
                             numberOfPurpleDiamondsOnTheAreaLeft += ((PurpleDiamond) (((Chest) currentMatrix[i][j].getHarmlessObject()).things[0])).quantity;
@@ -117,7 +116,7 @@ public class Checkpoint implements Block {
                 for (int j = additionalSegment[1]; j <= additionalSegment[3]; j++) {
                     if (currentMatrix[i][j].getHarmlessObject() instanceof Diamond)
                         numberOfPurpleDiamondsOnTheAreaLeft++;
-                    else if (currentMatrix[i][j].getHarmlessObject() instanceof Chest) {
+                    else if (currentMatrix[i][j].getHarmlessObject() instanceof Chest && ((Chest) currentMatrix[i][j].getHarmlessObject()).isClosed) {
                         if (((Chest) currentMatrix[i][j].getHarmlessObject()).things[0] != null) {
 //                            if ((((Chest) currentMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
                                 numberOfPurpleDiamondsOnTheAreaLeft += ((PurpleDiamond) (((Chest) currentMatrix[i][j].getHarmlessObject()).things[0])).quantity;
@@ -139,7 +138,7 @@ public class Checkpoint implements Block {
                 }
             }
         }
-
+        Cell[][] temp = refreshInitialMatrix(this.initialMatrix);
 
         this.initialMatrix = temp;
         numberOfPurpleDiamondsOnTheAreaCollected = numberOfPurpleDiamondsOnTheArea - numberOfPurpleDiamondsOnTheAreaLeft;
@@ -176,8 +175,9 @@ public class Checkpoint implements Block {
     private void setOriginalQuantity() {
         for (int i = startX; i <= endX; i++) {
             for (int j = startY; j <= endY; j++) {
-                if (initialMatrix[i][j].getHarmlessObject() instanceof Diamond)
+                if (initialMatrix[i][j].getHarmlessObject() instanceof Diamond) {
                     numberOfPurpleDiamondsOnTheArea++;
+                }
                 else if (initialMatrix[i][j].getHarmlessObject() instanceof Chest) {
                     if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[0] != null) {
 //                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)

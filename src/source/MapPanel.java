@@ -38,10 +38,10 @@ public class MapPanel extends JPanel implements MouseListener {
     private AnimatableImage level5;
 
     private boolean level1Available = true;
-    private boolean level2Available = false;
-    private boolean level3Available = false;
-    private boolean level4Available = false;
-    private boolean level5Available = false;
+    private boolean level2Available = true;
+    private boolean level3Available = true;
+    private boolean level4Available = true;
+    private boolean level5Available = true;
 
     private int[] x12 = {543, 527, 516, 493, 457, 452, 405, 369, 338, 316, 297};
     private int[] y12 = {185, 187, 187, 186, 180, 180, 178, 184, 197, 206, 218};
@@ -75,14 +75,13 @@ public class MapPanel extends JPanel implements MouseListener {
         initLevels();
     }
 
-    //demonstrative version do not use these constructors!!!
     private void initLevels() {
         levels = new LevelUI[5];
         levels[0] = new LevelUI(gameFrame, new PlayPanel(1,gameFrame,this));
-        levels[1] = new LevelUI(gameFrame);//, new PlayPanel(2,statusBarPanel,this));
-        levels[2] = new LevelUI(gameFrame);//, new PlayPanel(3,statusBarPanel,this));
-        levels[3] = new LevelUI(gameFrame);//, new PlayPanel(4,statusBarPanel,this));
-        levels[4] = new LevelUI(gameFrame);//, new PlayPanel(5,statusBarPanel,this));
+        levels[1] = new LevelUI(gameFrame, new PlayPanel(2,gameFrame,this));
+        levels[2] = new LevelUI(gameFrame, new PlayPanel(3,gameFrame,this));
+        levels[3] = new LevelUI(gameFrame, new PlayPanel(4,gameFrame,this));
+        levels[4] = new LevelUI(gameFrame, new PlayPanel(5,gameFrame,this));
     }
 
     public void paint(Graphics g){
