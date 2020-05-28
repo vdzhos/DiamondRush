@@ -18,8 +18,9 @@ public class Boy {
     //attackLeft = 11; attackRight = 12; attackLeft = 13; attackRight = 14;
     //openWithGoldKeyLeft = 15; openWithGoldKeyRight = 16; openWithSilverKeyLeft = 17; openWithSilverKeyRight = 18;
     //UpAnimation = 19; DownAnimation = 20; LeftAnimation = 21; RightAnimation = 22;
+    //openChest = 23
     public boolean isMoving = false;
-    int i = 0;
+    public int i = 0;
 
     Image standLeft = new ImageIcon("boy/standLeft.png").getImage();
     Image standRight = new ImageIcon("boy/standRight.png").getImage();
@@ -64,7 +65,8 @@ public class Boy {
 
     Image lookInChest = new ImageIcon("boy/lookInChest.png").getImage();
     Image cheer = new ImageIcon("boy/cheer.png").getImage();
-    Image[] arrayFindInChest = {lookInChest, lookInChest, lookInChest, cheer, cheer, cheer, cheer};
+    Image[] arrayFindInChest = {lookInChest, lookInChest, cheer, cheer, cheer, cheer, cheer};
+    Image[] arrayOpenChest = {walkUp2, walkUp2, lookInChest, lookInChest, lookInChest, lookInChest, walkUp2};
     //Question about stand clear
 
     Image imHoldARock = new ImageIcon("boy/holdARock.png").getImage();
@@ -280,6 +282,11 @@ public class Boy {
 
     public void openWithSilverKeyRight(){
         currentPicture = arrayOpenWithSilverKeyRight[i];
+        i++;
+    }
+
+    public void openChest(){
+        currentPicture = arrayOpenChest[i];
         i++;
     }
 

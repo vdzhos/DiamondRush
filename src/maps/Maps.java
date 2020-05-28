@@ -114,7 +114,7 @@ public class Maps {
         level1[4][18] = new Cell(new Floor(),null,null);
         level1[4][19] = new Cell(new Floor(),null,new Rock());
         level1[5][16] = new Cell(new Floor(),new Chest(new PurpleDiamond(10), new RedDiamond(1),
-                new SilverKey(), new GoldKey(), new Energy()),null);//only for test
+                new SilverKey(), new GoldKey(), new Energy(2)),null);//only for test
         level1[5][17] = new Cell(new Floor(),null,null);
         level1[5][18] = new Cell(new Floor(),null,null);
         level1[5][19] = new Cell(new Floor(),null,null);
@@ -158,7 +158,7 @@ public class Maps {
         level1[10][15] = new Cell(new Floor(),null,null);
         level1[10][16] = new Cell(new Floor(),null,snake1);
         level1[10][17] = new Cell(new Floor(),null,null);
-        level1[10][18] = new Cell(new Floor(),null,null);
+        level1[10][18] = new Cell(new Floor(),null,new Rock());//only for test
         level1[11][2] = new Cell(new Floor(),new Diamond(),null);
         level1[11][3] = new Cell(new Floor(),new Diamond(),null);
         level1[11][15] = new Cell(new Floor(),null,new Rock());
@@ -169,7 +169,7 @@ public class Maps {
         level1[12][4] = new Cell(new Floor(),new Diamond(),null);
         level1[12][7] = new Cell(new Floor(),null,null);
         level1[12][8] = new Cell(new Floor(),new Chest(new PurpleDiamond(10), new RedDiamond(1),
-                new SilverKey(), new GoldKey(), new Energy()),null);
+                new SilverKey(), new GoldKey(), new Energy(3)),null);
         level1[12][13] = new Cell(new Floor(),null,null);
         level1[12][14] = new Cell(new Floor(),null,null);
         level1[12][15] = new Cell(new Floor(),new Tumbleweed(),null);
@@ -191,7 +191,7 @@ public class Maps {
         level1[14][3] = new Cell(new Floor(),new Diamond(),null);
         level1[14][4] = new Cell(new Floor(),null,new Rock());
         level1[14][7] = new Cell(new Floor(),null,null);
-        level1[14][8] = new Cell(new Floor(),new Chest(null, null, null, null, null),null);
+        level1[14][8] = new Cell(new Floor(),new Chest(new PurpleDiamond(10), null, null, null, new Energy(3)),null);
         level1[14][11] = new Cell(new Floor(),null,null);
         level1[14][12] = new Cell(new Floor(),null,null);
         level1[14][13] = new Cell(new Floor(),null,null);
@@ -276,7 +276,7 @@ public class Maps {
         level1[26][14] = new Cell(new Floor(),null,null);
         level1[26][15] = new Cell(new Floor(),null,null);
         level1[26][16] = new Cell(new Floor(),null,null);
-        level1[26][17] = new Cell(new Floor(),new Chest(null, null, null, null, null),null);
+        level1[26][17] = new Cell(new Floor(),new Chest(null, new RedDiamond(1), null, null, null),null);
         level1[27][5] = new Cell(new Floor(),null,new Rock());
         level1[27][15] = new Cell(new Floor(),null,null);
         level1[27][16] = new Cell(new Floor(),null,null);

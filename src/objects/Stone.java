@@ -45,7 +45,7 @@ public abstract class Stone {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (i == 0){
-                    //if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     if ((whatMove == 4 || whatMove == 1) && !playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                         whatMove = 0;
                         if (playPanel.itIsStone(xInArray, yInArray + 1)){
@@ -64,15 +64,15 @@ public abstract class Stone {
                     }
                     else if (whatMove == 2 || whatMove == 3){
                         Stone stoneUnder = playPanel.getStone(xInArray, yInArray + 1);
-                        if (stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3)){
+                        if (stoneUnder != null && stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3)){
                             whatMove = 4;
                         }
-                        else if (whatMove == 2){
+                        /*else if (whatMove == 2){
                             Stone stoneLeftLeft = playPanel.getStone(xInArray - 2, yInArray);
                             if (stoneLeftLeft != null && stoneLeftLeft.isMoving && stoneLeftLeft.whatMove == 3){
                                 whatMove = 1;
                             }
-                        }
+                        }*/
                     }
                     else if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                         whatMove = 4;
@@ -90,7 +90,7 @@ public abstract class Stone {
                             whatMove = 1;
                         }
                     }
-                    //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
                 if (whatMove != 0) isMoving = true;
                 if (whatMove == 1) stagger();
@@ -101,8 +101,14 @@ public abstract class Stone {
                 else if (whatMove == 6) beShovenRight();
                 playPanel.repaint();
                 if (i == 7){
-                    //System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     i = 0;
+                    //if (whatMove == 5 || whatMove == 6){
+                        //playPanel.boy.whatMove = 0;
+                        //playPanel.boy.isMoving = false;
+                    //    playPanel.boy.i = 0;
+                    //    playPanel.boy.isMoving = false;
+                    //}
                     //There was && whatMove != 1
                     if (whatMove != 0 && playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                         whatMove = 4;
@@ -144,7 +150,7 @@ public abstract class Stone {
                         whatMove = 0;
                         timer.stop();
                     }
-                    //System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
             }
         });

@@ -1,5 +1,7 @@
 package objects.thingsInChest;
 
+import source.PlayPanel;
+
 import javax.swing.*;
 
 public class GoldKey extends ThingInChest{
@@ -9,7 +11,8 @@ public class GoldKey extends ThingInChest{
     }
 
     @Override
-    void disappear() {
-
+    public void disappear(PlayPanel playPanel) {
+        playPanel.numberOfGoldKeysCollected ++;
+        playPanel.updateNumberOfGoldKeysOnStatusBar();
     }
 }

@@ -57,7 +57,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     private boolean boyMovesDown;
 
 
-    private Level currentLevel;
+    public Level currentLevel;
     //levelMatrix was private
     public Cell[][] levelMatrix;
 
@@ -82,7 +82,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     public int numberOfSilverKeysCollected;
 //    private int maxNumberOfSilverKeysCollected;
 
-    private int currentEnergyLevel;
+    public int currentEnergyLevel;
 
     private boolean artefactIsCollected;
 
@@ -241,7 +241,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     }
 
 
-    private void updateNumberOfRedDiamondsOnStatusBar(){
+    public void updateNumberOfRedDiamondsOnStatusBar(){
         gameFrame.updateNumberOfRedDiamondsOnStatusBar(numberOfRedDiamondsCollected);
     }
 
@@ -249,15 +249,15 @@ public class PlayPanel extends JPanel implements KeyListener {
        gameFrame.updateNumberOfPurpleDiamondsOnStatusBar(numberOfPurpleDiamondsCollected);
     }
 
-    private void updateNumberOfGoldKeysOnStatusBar(){
+    public void updateNumberOfGoldKeysOnStatusBar(){
         gameFrame.updateNumberOfGoldKeysOnStatusBar(numberOfGoldKeysCollected);
     }
 
-    private void updateNumberOfSilverKeysOnStatusBar(){
+    public void updateNumberOfSilverKeysOnStatusBar(){
         gameFrame.updateNumberOfSilverKeysOnStatusBar(numberOfSilverKeysCollected);
     }
 
-    private void updateEnergyLevelOnStatusBar(){
+    public void updateEnergyLevelOnStatusBar(){
         gameFrame.updateEnergyLevelOnStatusBar(currentEnergyLevel);
     }
 
@@ -507,6 +507,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 else if(boy.whatMove == 20) boy.moveDownAnimation(PlayPanel.this, false);
                 else if(boy.whatMove == 21) boy.moveLeftAnimation(PlayPanel.this, false);
                 else if(boy.whatMove == 22) boy.moveRightAnimation(PlayPanel.this, false);
+                else if (boy.whatMove == 23) boy.openChest();
                 if (boy.i == 4) checkHarmless(boy.xInArray, boy.yInArray);
                 repaint();
                 if (boy.i == 7){
@@ -629,11 +630,13 @@ public class PlayPanel extends JPanel implements KeyListener {
             if (code == KeyEvent.VK_1) {
                 if (itIsChest(boy.xInArray, boy.yInArray)){
                     Chest chest = (Chest) levelMatrix[boy.xInArray][boy.yInArray].getHarmlessObject();
-                    chest.initVars(this);
-                    boy.whatMove = 9;
-                    boy.isMoving = true;
-                    moveBoy();
-                    chest.openChest();
+                    if (chest.isClosed){
+                        chest.initVars(this);
+                        boy.whatMove = 23;
+                        boy.isMoving = true;
+                        moveBoy();
+                        chest.openChest();
+                    }
                 }
             } else if (code == KeyEvent.VK_2) {
                 applyCheckpoint();
@@ -750,9 +753,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                         setMovementLeft();
                         boy.whatMove = 5;
                         boy.isMoving = true;
-                        rock.whatMove = 5;
-                        rock.isMoving = true;
-                        rock.moveStone();
+                        if (rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
+                            rock.i = 0;
+                            rock.whatMove = 5;
+                            rock.isMoving = true;
+                            rock.moveStone();
+                        }
                     }
                     else{
                         boy.whatMove = 6;
@@ -829,9 +835,14 @@ public class PlayPanel extends JPanel implements KeyListener {
                         setMovementRight();
                         boy.whatMove = 7;
                         boy.isMoving = true;
-                        rock.whatMove = 6;
-                        rock.isMoving = true;
-                        rock.moveStone();
+                        if (rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
+                            //rock.isMoving = false;
+                            rock.i = 0;
+                            rock.whatMove = 6;
+                            rock.isMoving = true;
+
+                            rock.moveStone();
+                        }
                     }
                     else {
                         boy.whatMove = 8;

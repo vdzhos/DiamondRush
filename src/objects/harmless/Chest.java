@@ -47,9 +47,11 @@ public class Chest implements Harmless, Resettable {
                 playPanel.repaint();
                 if (i == 7){
                     i = 0;
-                    playPanel.boy.whatMove = 9;
-                    playPanel.boy.isMoving = true;
-                    playPanel.moveBoy();
+                    if (index < 5 && things[index] != null){
+                        playPanel.boy.whatMove = 9;
+                        playPanel.boy.isMoving = true;
+                        playPanel.moveBoy();
+                    }
                     if (thingsAreBeeingTaken == false) thingsAreBeeingTaken = true;
                     if (index >= 5){
                         thingsAreBeeingTaken = false;
@@ -74,7 +76,10 @@ public class Chest implements Harmless, Resettable {
             if ((index < 5)&&(things[index] != null)) currentThing = things[index];
         }
         i++;
-        if (i == 7) index++;
+        if (i == 7){
+            if (index < 5 && things[index] != null) things[index].disappear(playPanel);
+            index++;
+        }
     }
 
     @Override
@@ -82,10 +87,8 @@ public class Chest implements Harmless, Resettable {
         g2.drawImage(currentPicture,x,y,70,70,null);
     }
 
-
     @Override
-    public void paintObject(Graphics2D g2) {
-    }
+    public void paintObject(Graphics2D g2) { }
 
     @Override
     public boolean pass() {
@@ -94,11 +97,14 @@ public class Chest implements Harmless, Resettable {
 
     @Override
     public void reset() {
-
+        currentPicture = chestClosed;
+        i = 0;
+        currentThing = null;
+        index = 0;
+        isClosed = true;
+        thingsAreBeeingTaken = false;
     }
 
     @Override
-    public void disappear() {
-
-    }
+    public void disappear() { }
 }
