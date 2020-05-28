@@ -114,13 +114,13 @@ public class PlayPanel extends JPanel implements KeyListener {
         this.boy = new Boy(0,0);
         maps = new Maps(currentLevel);
         initLevel();
+        statusBarPanel = new StatusBarPanel(gameFrame, this);
         initStatusBar();
         calculateInitialValuesOfMap();
         setCoordinates();
     }
 
     private void initStatusBar() {
-        statusBarPanel = new StatusBarPanel(gameFrame, this);
         statusBarPanel.setCurrentLevel(currentLevelInt);
         statusBarPanel.setMaxNumberOfGoldKeys(currentLevel.getMaxNumberOfGoldKeys());
         statusBarPanel.setMaxEnergyLevel(currentLevel.getMaxEnergyLevel());
@@ -128,22 +128,11 @@ public class PlayPanel extends JPanel implements KeyListener {
         statusBarPanel.setMaxNumberOfPurpleDiamonds(currentLevel.getMaxNumberOfPurpleDiamonds());
         statusBarPanel.setMaxNumberOfRedDiamonds(currentLevel.getMaxNumberOfRedDiamonds());
 
-        if (updated) {
-            statusBarPanel.setCurrentNumberOfGoldKeys(0);
-            statusBarPanel.setCurrentEnergyLevel(currentLevel.getMaxEnergyLevel());
-            statusBarPanel.setCurrentNumberOfSilverKeys(0);
-            statusBarPanel.setCurrentNumberOfPurpleDiamonds(0);
-            statusBarPanel.setCurrentNumberOfRedDiamonds(0);
-        }
-        else
-            updateStatusBar();
         numberOfSilverKeysCollected = 0;
         numberOfGoldKeysCollected = 0;
         numberOfRedDiamondsCollected = 0;
         numberOfPurpleDiamondsCollected = 0;
         currentEnergyLevel = currentLevel.getMaxEnergyLevel();
-
-
     }
 
 
@@ -222,6 +211,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         numberOfSilverKeysCollected = 0;
 
         artefactIsCollected = false;
+        statusBarIsInitiated = false;
 
         maps.initLevel(currentLevelInt);
         initLevel();
@@ -261,8 +251,14 @@ public class PlayPanel extends JPanel implements KeyListener {
         gameFrame.updateEnergyLevelOnStatusBar(currentEnergyLevel);
     }
 
+    private boolean statusBarIsInitiated;
+
     @Override
     public void paintComponent(Graphics g) {
+        if (!statusBarIsInitiated){
+            updateStatusBar();
+            statusBarIsInitiated = true;
+        }
         super.paintComponent(g);
         panel.removeAll();
         Graphics2D g2 = (Graphics2D) g;
