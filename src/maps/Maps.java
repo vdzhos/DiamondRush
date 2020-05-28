@@ -319,7 +319,7 @@ public class Maps {
         level1[34][6] = new Cell(new Floor(),null,null);
         level1[34][7] = new Cell(new Floor(),null,null);
         level1[35][4] = new Cell(new Floor(),null,null);
-        level1[36][4] = new Cell(new DiamondDoor(5),null,null);
+        level1[36][4] = new Cell(new DiamondDoor(20),null,null);
         level1[36][11] = new Cell(new Floor(),null,scorpion);
         level1[36][12] = new Cell(new Floor(),null,scorpion);
         level1[36][13] = new Cell(new Floor(),null,scorpion);
