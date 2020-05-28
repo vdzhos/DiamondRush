@@ -1,5 +1,7 @@
 package objects.thingsInChest;
 
+import source.PlayPanel;
+
 import javax.swing.*;
 
 public class RedDiamond extends ThingInChest{
@@ -12,7 +14,7 @@ public class RedDiamond extends ThingInChest{
     }
 
     @Override
-    void disappear() {
+    public void disappear(PlayPanel playPanel) {
 
     }
 }

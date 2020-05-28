@@ -46,9 +46,11 @@ public class BreakableWall implements Block{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(all.size()>0){
+                    int oldX = ((BreakableWall) all.get(0).getBlock()).x;
+                    int oldY = ((BreakableWall) all.get(0).getBlock()).y;
                     all.get(0).setBlock(new Floor());
                     panel.repaint();
-                    panel.disappearFromCell(x, y);
+                    panel.disappearFromCell(oldX, oldY);
                     all.remove(0);
                 }else{
                     Timer t = (Timer)e.getSource();

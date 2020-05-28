@@ -1,5 +1,7 @@
 package objects.thingsInChest;
 
+import source.PlayPanel;
+
 import java.awt.*;
 
 public abstract class ThingInChest {
@@ -10,5 +12,5 @@ public abstract class ThingInChest {
         g2.drawImage(image,x,y,70,70,null);
     }
 
-    abstract void disappear();
+    public abstract void disappear(PlayPanel playPanel);
 }

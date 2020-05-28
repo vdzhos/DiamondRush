@@ -1,5 +1,7 @@
 package objects.thingsInChest;
 
+import source.PlayPanel;
+
 import javax.swing.*;
 
 public class SilverKey extends ThingInChest{
@@ -9,7 +11,7 @@ public class SilverKey extends ThingInChest{
     }
 
     @Override
-    void disappear() {
+    public void disappear(PlayPanel playPanel) {
 
     }
 }
