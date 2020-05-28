@@ -2,12 +2,15 @@ package source;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class GameFrame extends JFrame {
 
     private MainMenu mainMenu;
     private MapPanel mapPanel;
 //    private PlayPanel currentPlayPanel;
+    private StatusBarPanel currentStatusBar;
+
 
 
     public GameFrame(){
@@ -47,11 +50,32 @@ public class GameFrame extends JFrame {
         level.restart();
         getContentPane().removeAll();
         setLayout(new BorderLayout());
+        currentStatusBar = level.getStatusBarPanel();
         getContentPane().add(level.getStatusBarPanel(), BorderLayout.NORTH);
         getContentPane().add(level.getPlayPanel(),BorderLayout.CENTER);
         addKeyListener(level.getPlayPanel());
         revalidate();
         repaint();
+    }
+
+    public void updateNumberOfPurpleDiamondsOnStatusBar(int currentNumberOfPurpleDiamonds){
+        currentStatusBar.setCurrentNumberOfPurpleDiamonds(currentNumberOfPurpleDiamonds);
+    }
+
+    public void updateNumberOfRedDiamondsOnStatusBar(int currentNumberOfRedDiamonds){
+        currentStatusBar.setCurrentNumberOfRedDiamonds(currentNumberOfRedDiamonds);
+    }
+
+    public void updateNumberOfGoldKeysOnStatusBar(int currentNumberOfGoldKeys){
+        currentStatusBar.setCurrentNumberOfGoldKeys(currentNumberOfGoldKeys);
+    }
+
+    public void updateNumberOfSilverKeysOnStatusBar(int currentNumberOfSilverKeys){
+        currentStatusBar.setCurrentNumberOfSilverKeys(currentNumberOfSilverKeys);
+    }
+
+    public void updateEnergyLevelOnStatusBar(int currentEnergyLevel){
+        currentStatusBar.setCurrentEnergyLevel(currentEnergyLevel);
     }
 
 //    public PlayPanel getCurrentPlayPanel() {
@@ -68,6 +92,16 @@ public class GameFrame extends JFrame {
                 GameFrame gameFrame = new GameFrame();
                 gameFrame.setVisible(true);
                 gameFrame.start();
+//                Timer t = new Timer(1000, new AbstractAction() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        if (gameFrame.currentStatusBar != null) {
+//                            gameFrame.currentStatusBar.setCurrentEnergyLevel(gameFrame.currentStatusBar.getCurrentEnergyLevel() - 5);
+//                            gameFrame.currentStatusBar.setCurrentNumberOfPurpleDiamonds(gameFrame.currentStatusBar.getCurrentNumberOfGoldKeys() + 1);
+//                        }
+//                    }
+//                });
+//                t.start();
             }
         });
     }

@@ -3,6 +3,8 @@ package objects.blocks.doors;
 import objects.blocks.Block;
 import objects.blocks.Floor;
 import objects.traps.Snake;
+import source.Boy;
+import source.PlayPanel;
 import source.Values;
 
 import javax.swing.*;
@@ -39,11 +41,18 @@ public class DoubleDoor{
         positionInArrayY = positionOfEntranceDoorInArrayY;
     }
 
-    public void interact(int positionOfBoyInArrayX, int positionOfBoyInArrayY){
+    public void interact(PlayPanel playPanel, Boy boy){
+        int positionOfBoyInArrayX = boy.xInArray;
+        int positionOfBoyInArrayY = boy.yInArray;
         if (toLeft){
             if (positionOfBoyInArrayX == positionInArrayX - 1 && positionOfBoyInArrayY == positionInArrayY && n == 0){
                 n = 1;
                 opened = false;
+                playPanel.drawMessage = true;
+                playPanel.twoLineMessage = true;
+                playPanel.message = "      I have to";
+                playPanel.messageLower = "    Kill them all!";
+                boy.isMoving = true;
             }
             else if (!opened){
                 for (Snake snake: snakes){
@@ -57,6 +66,11 @@ public class DoubleDoor{
             if (positionOfBoyInArrayX == positionInArrayX + 1 && positionOfBoyInArrayY == positionInArrayY && n == 0){
                 n = 1;
                 opened = false;
+                playPanel.drawMessage = true;
+                playPanel.twoLineMessage = true;
+                playPanel.message = "      I have to";
+                playPanel.messageLower = "    Kill them all!";
+                boy.isMoving = true;
             }
             else if (!opened){
                 for (Snake snake: snakes){
@@ -101,8 +115,8 @@ public class DoubleDoor{
             n = 0;
         }
 
-        public void interact(int positionOfBoyInArrayX, int positionOfBoyInArrayY){
-            DoubleDoor.this.interact(positionOfBoyInArrayX,positionOfBoyInArrayY);
+        public void interact(PlayPanel playPanel, Boy boy){
+            DoubleDoor.this.interact(playPanel,boy);
         }
 
         @Override
