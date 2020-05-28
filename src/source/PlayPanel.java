@@ -754,7 +754,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                         setMovementLeft();
                         boy.whatMove = 5;
                         boy.isMoving = true;
-                        if (rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
+                        if (rock.whatMove != 2 && rock.whatMove != 3){
                             rock.i = 0;
                             rock.whatMove = 5;
                             rock.isMoving = true;
@@ -836,7 +836,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                         setMovementRight();
                         boy.whatMove = 7;
                         boy.isMoving = true;
-                        if (rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
+                        if (rock.whatMove != 2 && rock.whatMove != 3){
                             //rock.isMoving = false;
                             rock.i = 0;
                             rock.whatMove = 6;
@@ -899,12 +899,12 @@ public class PlayPanel extends JPanel implements KeyListener {
         if (itIsStone(x + 1, y)){
             getStone(x + 1, y).checkSpace();
         }
-        /*if (itIsStone(x - 1, y - 1)){
+        if (itIsStone(x - 1, y - 1)){
             getStone(x - 1, y - 1).checkSpace();
         }
         if (itIsStone(x + 1, y - 1)){
             getStone(x + 1, y - 1).checkSpace();
-        }*/
+        }
     }
 
     public void checkHarmless(int x, int y){

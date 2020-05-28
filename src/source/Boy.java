@@ -199,6 +199,8 @@ public class Boy {
         else if (i == 6) x += cellSide / 7;
         else x -= cellSide / 7;
         currentPicture = arrayShoveLeft[i];
+        //System.out.println("left i = " + i + ": " + xInArray + ", " + yInArray);
+        i++;
     }
 
     public void shoveLeftAndStand(PlayPanel playPanel, boolean changeCoordinates){
@@ -221,6 +223,7 @@ public class Boy {
         else if (i == 6) x -= cellSide / 7;
         else x += cellSide / 7;
         currentPicture = arrayShoveRight[i];
+        //System.out.println("right i = " + i + ": " + xInArray + ", " + yInArray);
         i++;
     }
 

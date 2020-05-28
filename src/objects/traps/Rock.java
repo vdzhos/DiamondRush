@@ -1,14 +1,12 @@
 package objects.traps;
 
 import maps.Cell;
-import maps.Maps;
 import objects.Stone;
 import source.Boy;
 import source.PlayPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class Rock extends Stone implements Trap{
 
@@ -36,7 +34,6 @@ public class Rock extends Stone implements Trap{
             setStoneToNewPositionInArray(xInArray + 1, yInArray);
             playPanel.disappearFromCell(xInArray, yInArray);
             xInArray ++;
-
         }
         x += CELL_SIDE / 7;
         i++;
