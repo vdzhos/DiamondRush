@@ -14,13 +14,15 @@ public class DiamondDoor implements Block {
     private Image openedImage = new ImageIcon("doors/openedDoorLower.png").getImage();
     private Image closedImage = new ImageIcon("doors/closedDoorDiamond.png").getImage();
 
-    public boolean opened;
+    private boolean opened;
     private int numberOfDiamonds;
     private int numberOfDiamondsLeft;
     private Font font;
     private Floor floor;
+    private boolean exit;
 
-    public DiamondDoor(int numberOfDiamondsToPass){
+    public DiamondDoor(int numberOfDiamondsToPass, boolean exit){
+        this.exit = exit;
         numberOfDiamonds = numberOfDiamondsToPass;
         numberOfDiamondsLeft = numberOfDiamondsToPass;
         font = Util.getFont("fonts/Funhouse-Ke17.ttf",27f);
@@ -52,5 +54,9 @@ public class DiamondDoor implements Block {
             floor.paintObject(g2,x,y);
             g2.drawImage(openedImage,x,y,Values.CELL_SIZE, Values.CELL_SIZE,null);
         }
+    }
+
+    public boolean isExit() {
+        return exit;
     }
 }

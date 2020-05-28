@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class PlayPanel extends JPanel implements KeyListener {
 
     public Boy boy;
-    private JPanel panel;
+    private PlayPanel panel;
     private Maps maps;
     private boolean stonesAreInited = false;
 
@@ -86,6 +86,7 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     private boolean artefactIsCollected;
 
+    private boolean boyCanMove = true;
     private StatusBarPanel statusBarPanel;
     private MapPanel mapPanel;
     private GameFrame gameFrame;
@@ -173,6 +174,8 @@ public class PlayPanel extends JPanel implements KeyListener {
 
         mapX = 0;
         mapY = 0;
+
+        boyCanMove = true;
 
         positionOnScreenX = 0;
         positionOnScreenY = 0;
@@ -560,20 +563,20 @@ public class PlayPanel extends JPanel implements KeyListener {
 
 
     private boolean isAllowedUp(){
-        return boy.y != 0;
+        return boy.y != 0 && boyCanMove;
     }
 
     private boolean isAllowedDown(){
-        return boy.y != panelHeight- boy.height;
+        return boy.y != panelHeight- boy.height && boyCanMove;
     }
 
     private boolean isAllowedRight(){
 //        return boy.x != panelWidth- boy.width;
-        return boy.xInArray != levelMatrix.length-1;
+        return boy.xInArray != levelMatrix.length-1 && boyCanMove;
     }
 
     private boolean isAllowedLeft(){
-        return boy.x != 0;
+        return boy.x != 0 && boyCanMove;
     }
 
     private boolean mapIsMoving(){
@@ -654,6 +657,18 @@ public class PlayPanel extends JPanel implements KeyListener {
                     setMovementUp();
                     boy.whatMove = 1;
                     boy.isMoving = true;
+                    if(itIsDiamondDoor(boy.xInArray, boy.yInArray - 1)){
+                        DiamondDoor diamondDoor = (DiamondDoor) levelMatrix[boy.xInArray][ boy.yInArray - 1].getBlock();
+                        if(diamondDoor.isExit()){
+                            boyCanMove=false;
+                            Util.wait(1000, new AbstractAction() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+                                }
+                            });
+                        }
+                    }
                 } else if (itIsRock(boy.xInArray, boy.yInArray - 1)) {
                     boy.whatMove = 10;
                     //take energy
@@ -681,6 +696,18 @@ public class PlayPanel extends JPanel implements KeyListener {
                     setMovementDown();
                     boy.whatMove = 2;
                     boy.isMoving = true;
+                    if(itIsDiamondDoor(boy.xInArray, boy.yInArray + 1)){
+                        DiamondDoor diamondDoor = (DiamondDoor) levelMatrix[boy.xInArray][ boy.yInArray + 1].getBlock();
+                        if(diamondDoor.isExit()){
+                            boyCanMove=false;
+                            Util.wait(1000, new AbstractAction() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+                                }
+                            });
+                        }
+                    }
                 } else if (!block.pass() || itIsRock(boy.xInArray, boy.yInArray + 1)) {
                     boy.whatMove = 20;
                     boy.isMoving = true;
@@ -734,6 +761,18 @@ public class PlayPanel extends JPanel implements KeyListener {
                     setMovementLeft();
                     boy.whatMove = 3;
                     boy.isMoving = true;
+                    if(itIsDiamondDoor(boy.xInArray-1, boy.yInArray)){
+                        DiamondDoor diamondDoor = (DiamondDoor) levelMatrix[boy.xInArray-1][ boy.yInArray].getBlock();
+                        if(diamondDoor.isExit()){
+                            boyCanMove=false;
+                            Util.wait(1000, new AbstractAction() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+                                }
+                            });
+                        }
+                    }
                 } else if (itIsRock(boy.xInArray - 1, boy.yInArray)) {
                     if (itIsClearForStone(boy.xInArray - 2, boy.yInArray)) {
                         Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
@@ -812,6 +851,18 @@ public class PlayPanel extends JPanel implements KeyListener {
                     setMovementRight();
                     boy.whatMove = 4;
                     boy.isMoving = true;
+                    if(itIsDiamondDoor(boy.xInArray+1, boy.yInArray)){
+                        DiamondDoor diamondDoor = (DiamondDoor) levelMatrix[boy.xInArray+1][ boy.yInArray].getBlock();
+                        if(diamondDoor.isExit()){
+                            boyCanMove=false;
+                            Util.wait(1000, new AbstractAction() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+                                }
+                            });
+                        }
+                    }
                 } else if (itIsRock(boy.xInArray + 1, boy.yInArray)) {
                     if (itIsClearForStone(boy.xInArray + 2, boy.yInArray)) {
                         Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject();
@@ -968,6 +1019,11 @@ public class PlayPanel extends JPanel implements KeyListener {
         return levelMatrix[x][y].getBlock() instanceof SecretWall;
     }
 
+    public boolean itIsDiamondDoor(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof DiamondDoor;
+    }
+
     public boolean itIsWall(int x, int y){
         if (levelMatrix[x][y].getBlock() == null) return false;
         return levelMatrix[x][y].getBlock() instanceof Wall;
@@ -1033,9 +1089,9 @@ public class PlayPanel extends JPanel implements KeyListener {
 
 
     @Override
-            public void keyReleased (KeyEvent e){
+    public void keyReleased (KeyEvent e){
 
-            }
+    }
 
     public Level getCurrentLevel() {
         return currentLevel;
@@ -1043,5 +1099,9 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     public StatusBarPanel getStatusBarPanel() {
         return statusBarPanel;
+    }
+
+    public void setBoyCanMove(boolean boyCanMove) {
+        this.boyCanMove = boyCanMove;
     }
 }

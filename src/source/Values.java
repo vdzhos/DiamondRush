@@ -3,8 +3,8 @@ package source;
 public interface Values {
 
     //window size
-    int MAIN_WINDOW_WIDTH = 700;
-    int MAIN_WINDOW_LENGTH = 820;
+    int MAIN_WINDOW_WIDTH = 715;
+    int MAIN_WINDOW_LENGTH = 855;
 
     //game panel (the one where all the actions are performed)
     int GAME_PANEL_WIDTH = 700;
@@ -192,10 +192,49 @@ public interface Values {
     int EXIT_LENGTH = 90;
 
 
+    //Level ending menu
+    int END_LEVEL_BG_WIDTH = 500;
+    int END_LEVEL_BG_HEIGHT = 700;
+    int END_LEVEL_BG_X = 0;
+    int END_LEVEL_BG_Y = 0;
 
+    int END_LEVEL_CONTINUE_WIDTH = 250;
+    int END_LEVEL_CONTINUE_HEIGHT = 55;
+    int END_LEVEL_CONTINUE_X = 122;
+    int END_LEVEL_CONTINUE_Y = 485;
 
+    int END_LEVEL_RESTART_WIDTH = 145;
+    int END_LEVEL_RESTART_HEIGHT = 55;
+    int END_LEVEL_RESTART_X = 97;
+    int END_LEVEL_RESTART_Y = 550;
 
+    int END_LEVEL_GOTOMAP_WIDTH = 145;
+    int END_LEVEL_GOTOMAP_HEIGHT = 55;
+    int END_LEVEL_GOTOMAP_X = 252;
+    int END_LEVEL_GOTOMAP_Y = 550;
 
+    int END_LEVEL_DIAMOND_WIDTH = 300;
+    int END_LEVEL_DIAMOND_HEIGHT = 70;
+    int END_LEVEL_DIAMOND_X = 100;
+    int END_LEVEL_DIAMOND_Y = 160;
+
+    int END_LEVEL_RED_DIAMOND_WIDTH = 300;
+    int END_LEVEL_RED_DIAMOND_HEIGHT = 70;
+    int END_LEVEL_RED_DIAMOND_X = 100;
+    int END_LEVEL_RED_DIAMOND_Y = 240;
+
+    int END_LEVEL_REVIVALS_WIDTH = 300;
+    int END_LEVEL_REVIVALS_HEIGHT = 70;
+    int END_LEVEL_REVIVALS_X = 100;
+    int END_LEVEL_REVIVALS_Y = 320;
+
+    int END_LEVEL_ARTIFACT_PIECE_WIDTH = 300;
+    int END_LEVEL_ARTIFACT_PIECE_HEIGHT = 70;
+    int END_LEVEL_ARTIFACT_PIECE_X = 100;
+    int END_LEVEL_ARTIFACT_PIECE_Y = 400;
+
+    int END_LEVEL_RESULT_SHIFT_X = 178;
+    int END_LEVEL_RESULT_SHIFT_Y = 58;
 
 
 

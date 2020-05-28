@@ -43,13 +43,16 @@ public class Level {
 
     private int maxEnergyLevel;
 
-    public Level(Cell[][] matrix, int positionOnScreenX, int positionOnScreenY, int positionOnMapX, int positionOnMapY, int maxEnergyLevel){
+    private int levelNumber;
+
+    public Level(Cell[][] matrix, int positionOnScreenX, int positionOnScreenY, int positionOnMapX, int positionOnMapY, int maxEnergyLevel, int levelNumber){
         this.matrix = matrix;
         this.positionOnScreenX = positionOnScreenX;
         this.positionOnScreenY = positionOnScreenY;
         this.positionOnMapX = positionOnMapX;
         this.positionOnMapY = positionOnMapY;
         this.maxEnergyLevel = maxEnergyLevel;
+        this.levelNumber = levelNumber;
         setAccessories();
     }
 
@@ -159,5 +162,9 @@ public class Level {
 
     public void setMaxEnergyLevel(int maxEnergyLevel) {
         this.maxEnergyLevel = maxEnergyLevel;
+    }
+
+    public int getLevelNumber() {
+        return levelNumber;
     }
 }
