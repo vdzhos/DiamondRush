@@ -105,6 +105,7 @@ public abstract class Stone implements Resettable {
                     }
                     //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
+                //System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
                 if (whatMove != 0) isMoving = true;
                 if (whatMove == 1) stagger();
                 else if (whatMove == 2) fallLeft();
@@ -244,8 +245,6 @@ public abstract class Stone implements Resettable {
             y += 2 * CELL_SIDE / 7;
         }
         i++;
-        //For example 4. Might be not 2
-        //whatMove = 4;
     }
 
     public void fallRight(){
@@ -279,15 +278,9 @@ public abstract class Stone implements Resettable {
             y += 2 * CELL_SIDE / 7;
         }
         i++;
-        //For example 4. Might be not 3
-        //whatMove = 4;
     }
 
     public void fallDown(){
-        //if (i == 0){
-            //System.out.println("Fall down " + xInArray + ", " + yInArray);
-            //System.out.println("It is stone down: " + playPanel.itIsStone(xInArray, yInArray + 1));
-        //}
         if (i == 3){
             //Then change
             //if (yInArray + 1 < playPanel.getCurrentLevel().getMatrix()[0].length){
