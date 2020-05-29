@@ -16,14 +16,18 @@ public class PuzzlePanel extends JPanel implements MouseListener {
     private Image puzzle3 = new ImageIcon("puzzles/puzzle2.png").getImage();
     private Image puzzle4 = new ImageIcon("puzzles/puzzle4.png").getImage();
     private Image puzzle5 = new ImageIcon("puzzles/puzzle5.png").getImage();
+    private Image congrats = new ImageIcon("puzzles/congrats.png").getImage();
 
     private AnimatableImage goToMap = new AnimatableImage("puzzles/goToMap.png");
+    private AnimatableImage menu = new AnimatableImage("puzzles/menu.png");
 
     public boolean drawFirst = true;
     public boolean drawSecond= true;
-    public boolean drawThird= false;
+    public boolean drawThird= true;
     public boolean drawFourth= true;
-    public boolean drawFifth= false;
+    public boolean drawFifth= true;
+    public boolean showCongrats = true;
+    public boolean showButtonToMap = true;
 
     private GameFrame gameFrame;
 
@@ -45,7 +49,9 @@ public class PuzzlePanel extends JPanel implements MouseListener {
         Graphics2D g = (Graphics2D) gr;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         drawBack(g);
-        drawGoToMap(g);
+        if (!showCongrats)
+            drawGoToMap(g);
+        else drawMenu(g);
         if (drawFirst)
             drawFirst(g);
         if (drawSecond)
@@ -56,7 +62,17 @@ public class PuzzlePanel extends JPanel implements MouseListener {
             drawFourth(g);
         if (drawFifth)
             drawFifth(g);
+        if (showCongrats)
+            drawCongrats(g);
 
+    }
+
+    private void drawMenu(Graphics2D g) {
+        g.drawImage(menu.image,Values.GO_TOMENU_X, Values.GO_TOMENU_Y, Values.GO_TOMENU_WIDTH, Values.GO_TOMENU_HEIGHT,null);
+    }
+
+    private void drawCongrats(Graphics2D g) {
+        g.drawImage(congrats, Values.CONGRATS_X, Values.CONGRATS_Y, Values.CONGRATS_WIDTH, Values.CONGRATS_HEIGHT,null);
     }
 
     private void drawGoToMap(Graphics2D g) {
@@ -133,7 +149,8 @@ public class PuzzlePanel extends JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         Point2D point = new Point2D.Double(e.getX(),e.getY());
         Rectangle2D.Double backToMap = new Rectangle2D.Double(Values.BACK_TOMAP_X, Values.BACK_TOMAP_Y, Values.BACK_TOMAP_WIDTH, Values.BACK_TOMAP_LENGTH);
-        if (backToMap.contains(point)){
+        Rectangle2D.Double menu = new Rectangle2D.Double(Values.GO_TOMENU_X, Values.GO_TOMENU_Y, Values.GO_TOMENU_WIDTH, Values.GO_TOMENU_HEIGHT);
+        if (backToMap.contains(point) && !showCongrats){
             goToMap.animate(PuzzlePanel.this,"puzzles");
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -142,6 +159,17 @@ public class PuzzlePanel extends JPanel implements MouseListener {
                 }
             });
         }
+        else if (menu.contains(point) && showCongrats){
+            PuzzlePanel.this.menu.animate(PuzzlePanel.this,"puzzles");
+            Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    gameFrame.showMainMenu();
+                    showCongrats = false;
+                }
+            });
+        }
+
     }
 
     @Override

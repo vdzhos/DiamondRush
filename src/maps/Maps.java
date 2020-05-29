@@ -263,7 +263,7 @@ public class Maps {
         level1[22][3] = new Cell(new Floor(),null,null);
         level1[22][4] = new Cell(new Floor(),null,null);
         level1[22][9] = new Cell(new Floor(),null,fireTrap3);
-        level1[22][18] = new Cell(new DoorWithKeyhole().silver,null,null);
+        level1[22][18] = new Cell(new Floor(),null,null);
         level1[23][17] = new Cell(new Floor(),null,null);
         level1[23][18] = new Cell(new Floor(),null,null);
         level1[24][16] = new Cell(new Floor(),null,null);

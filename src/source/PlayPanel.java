@@ -40,8 +40,8 @@ public class PlayPanel extends JPanel implements KeyListener {
     int mapWidth;
     int mapHeight;
 
-    int panelWidth = 700;
-    int panelHeight = 700;
+    int panelWidth = Values.GAME_PANEL_WIDTH;
+    int panelHeight = Values.GAME_PANEL_WIDTH;
 
 
     private boolean mapMovesToRight;
@@ -55,6 +55,8 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     private boolean mapMovesDown;
     private boolean boyMovesDown;
+
+    public int revivals;
 
 
     public Level currentLevel;
@@ -213,6 +215,8 @@ public class PlayPanel extends JPanel implements KeyListener {
 
         numberOfSilverKeysCollected = 0;
 
+        revivals = 0;
+
         artefactIsCollected = artefactIsCollected?true:false;
         statusBarIsInitiated = false;
 
@@ -365,6 +369,7 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     public void applyCheckpoint(){
         if (currentCheckpoint != null) {
+            revivals ++;
             boy.isMoving = true;
             mapMovesDown = true;
             stonesAreInited = false;
@@ -435,6 +440,13 @@ public class PlayPanel extends JPanel implements KeyListener {
             mapMovesDown = true;
             boyMovesDown = false;
         }
+    }
+
+    private void endLevel(){
+        if (numberOfPurpleDiamondsCollected == currentLevel.getMaxNumberOfPurpleDiamonds()
+        && numberOfRedDiamondsCollected == currentLevel.getMaxNumberOfRedDiamonds()
+        && revivals == 0)
+            artefactIsCollected = true;
     }
 
 

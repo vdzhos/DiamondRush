@@ -11,7 +11,7 @@ import java.awt.geom.Rectangle2D;
 public class MapPanel extends JPanel implements MouseListener {
 
 
-    private Image mapImage = new ImageIcon("mapPictures/backEmpty.png").getImage();
+    private Image mapImage = new ImageIcon("mapPictures/backEmptyNoCross.png").getImage();
     private GameFrame gameFrame;
 
     private LevelUI[] levels;
@@ -31,7 +31,7 @@ public class MapPanel extends JPanel implements MouseListener {
 
     private AnimatableImage backToMenuImage = new AnimatableImage("mapPictures/backToMainMenu.png");
 
-    private AnimatableImage goToPuzzle = new AnimatableImage("mapPictures/backToMainMenu.png");
+    private AnimatableImage goToPuzzle = new AnimatableImage("mapPictures/cross.png");
 
     private AnimatableImage level1;
     private AnimatableImage level2;
@@ -94,8 +94,13 @@ public class MapPanel extends JPanel implements MouseListener {
         drawLevel3(g);
         drawLevel4(g);
         drawLevel5(g);
+        drawCross(g);
         drawMenu(g);
 
+    }
+
+    private void drawCross(Graphics g) {
+        g.drawImage(goToPuzzle.image,Values.CROSS_X, Values.CROSS_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE,null );
     }
 
     private void drawMenu(Graphics g) {
@@ -117,7 +122,7 @@ public class MapPanel extends JPanel implements MouseListener {
             drawLine34(g);
         if (level5Available) {
             drawLine45(g);
-            drawLine5X(g);
+//            drawLine5X(g);
         }
 
     }
@@ -210,6 +215,7 @@ public class MapPanel extends JPanel implements MouseListener {
         Rectangle2D.Double level3 = new Rectangle2D.Double(Values.LEVEL_3_X, Values.LEVEL_3_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE);
         Rectangle2D.Double level4 = new Rectangle2D.Double(Values.LEVEL_4_X, Values.LEVEL_4_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE);
         Rectangle2D.Double level5 = new Rectangle2D.Double(Values.LEVEL_5_X, Values.LEVEL_5_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE);
+        Rectangle2D.Double cross = new Rectangle2D.Double(Values.CROSS_X, Values.CROSS_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE);
         Rectangle2D.Double menu = new Rectangle2D.Double(Values.MENU_X, Values.MENU_Y, Values.MENU_SIZE, Values.MENU_SIZE);
         if (menu.contains(point)){
             backToMenuImage.animate(this,"mapPictures",menu);
@@ -272,6 +278,15 @@ public class MapPanel extends JPanel implements MouseListener {
                     }
                 });
             }
+        }
+        else if (cross.contains(point)){
+            goToPuzzle.animate(this, "mapPictures", cross);
+            Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    gameFrame.showPuzzleMap();
+                }
+            });
         }
     }
 
