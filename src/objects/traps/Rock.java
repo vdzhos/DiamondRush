@@ -76,4 +76,6 @@ public class Rock extends Stone implements Trap{
 
     @Override
     public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix) { }
+
+
 }

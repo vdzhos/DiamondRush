@@ -56,6 +56,7 @@ public class Chest implements Harmless, Resettable {
                     if (thingsAreBeeingTaken == false) thingsAreBeeingTaken = true;
                     if (index >= 5){
                         thingsAreBeeingTaken = false;
+                        playPanel.boy.isMoving = false;
                         timer.stop();
                     }
                 }

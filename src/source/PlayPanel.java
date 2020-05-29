@@ -523,7 +523,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                 repaint();
                 if (boy.i == 7){
                     boy.i = 0;
-                    boy.isMoving = false;
+                    if (itIsChest(boy.xInArray, boy.yInArray) && ((Chest) levelMatrix[boy.xInArray][boy.yInArray].getHarmlessObject()).thingsAreBeeingTaken){
+                        boy.isMoving = true;
+                    }
+                    else boy.isMoving = false;
                     System.out.println(boy.xInArray + ", " + boy.yInArray);
 
                     t.stop();
@@ -639,7 +642,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if (updated && !boy.isMoving) {
             int code = e.getKeyCode();
-            if (code == KeyEvent.VK_1) {
+            if ((code == KeyEvent.VK_1) && (boy.isMoving == false)){
                 if (itIsChest(boy.xInArray, boy.yInArray)){
                     Chest chest = (Chest) levelMatrix[boy.xInArray][boy.yInArray].getHarmlessObject();
                     if (chest.isClosed){
@@ -679,6 +682,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                                     pause();
                                     gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+                                    ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
                                 }
                             });
                         }
@@ -720,6 +724,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                                     pause();
                                     gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+                                    ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
                                 }
                             });
                         }
@@ -787,6 +792,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                                     pause();
                                     gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+                                    ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
                                 }
                             });
                         }
@@ -879,6 +885,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                                     pause();
                                     gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+                                    ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
                                 }
                             });
                         }
