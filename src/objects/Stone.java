@@ -1,13 +1,13 @@
 package objects;
 
-import objects.traps.Rock;
+import objects.blocks.doors.Resettable;
 import source.PlayPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public abstract class Stone {
+public abstract class Stone implements Resettable {
 
     public int x;
     public int y;
@@ -309,6 +309,14 @@ public abstract class Stone {
         y = y - mapY + newMapY;
         mapX = newMapX;
         mapY = newMapY;
+    }
+
+    @Override
+    public void reset() {
+        timer.stop();
+        whatMove = 0;
+        i = 0;
+        isMoving = false;
     }
 
     public abstract void interactWithBoy();

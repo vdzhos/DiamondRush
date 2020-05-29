@@ -64,7 +64,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
         setBackground (new Color (0, 0, 0, 0));
         addMouseListener(this);
         font = Util.getFont("fonts/Funhouse-Ke17.ttf",24f);
-//        setVisible(true);
+        setVisible(true);
     }
 
     public void paint(Graphics gr){

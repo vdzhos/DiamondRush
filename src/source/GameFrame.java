@@ -2,7 +2,6 @@ package source;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class GameFrame extends JFrame {
 
@@ -20,6 +19,7 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         init();
         setUndecorated(false);
+        //ProgressStorage progressStorage = new ProgressStorage();
 //        setVisible(true);
     }
 
