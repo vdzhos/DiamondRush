@@ -30,10 +30,12 @@ public class DiamondDoor implements Block {
     }
 
     public void setNumberOfDiamonds(int currentNumberOfPurpleDiamonds){
-        if (!opened) {
+//        if (!opened) {
            numberOfDiamondsLeft = numberOfDiamonds - currentNumberOfPurpleDiamonds;
-           if (numberOfDiamondsLeft <= 0) opened = true;
-        }
+           if (numberOfDiamondsLeft <= 0)
+               opened = true;
+           else opened = false;
+//        }
     }
 
     @Override

@@ -96,7 +96,10 @@ public class GameFrame extends JFrame {
         puzzlePanel.drawFourth&&
         puzzlePanel.drawFifth)
             puzzlePanel.showCongrats = true;
+    }
 
+    public boolean showCongrats(){
+        return puzzlePanel.showCongrats;
     }
 
     public void updateNumberOfPurpleDiamondsOnStatusBar(int currentNumberOfPurpleDiamonds){
