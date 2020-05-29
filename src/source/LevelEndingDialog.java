@@ -20,14 +20,14 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
     private Image backgroundImage5 = new ImageIcon("levelEndingDialog/levelEndingBG5.png").getImage();
 
     private Image pieceVisible1 = new ImageIcon("levelEndingDialog/pieceVisible1.png").getImage();
-    private Image pieceVisible2 = new ImageIcon("levelEndingDialog/pieceVisible2.png").getImage();
-    private Image pieceVisible3 = new ImageIcon("levelEndingDialog/pieceVisible3.png").getImage();
+    private Image pieceVisible2 = new ImageIcon("levelEndingDialog/pieceVisible3.png").getImage();
+    private Image pieceVisible3 = new ImageIcon("levelEndingDialog/pieceVisible2.png").getImage();
     private Image pieceVisible4 = new ImageIcon("levelEndingDialog/pieceVisible4.png").getImage();
     private Image pieceVisible5 = new ImageIcon("levelEndingDialog/pieceVisible5.png").getImage();
 
     private Image pieceInvisible1 = new ImageIcon("levelEndingDialog/pieceInvisible1.png").getImage();
-    private Image pieceInvisible2 = new ImageIcon("levelEndingDialog/pieceInvisible2.png").getImage();
-    private Image pieceInvisible3 = new ImageIcon("levelEndingDialog/pieceInvisible3.png").getImage();
+    private Image pieceInvisible2 = new ImageIcon("levelEndingDialog/pieceInvisible3.png").getImage();
+    private Image pieceInvisible3 = new ImageIcon("levelEndingDialog/pieceInvisible2.png").getImage();
     private Image pieceInvisible4 = new ImageIcon("levelEndingDialog/pieceInvisible4.png").getImage();
     private Image pieceInvisible5 = new ImageIcon("levelEndingDialog/pieceInvisible5.png").getImage();
 
@@ -64,7 +64,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
         setBackground (new Color (0, 0, 0, 0));
         addMouseListener(this);
         font = Util.getFont("fonts/Funhouse-Ke17.ttf",24f);
-//        setVisible(true);
+        setVisible(true);
     }
 
     public void paint(Graphics gr){

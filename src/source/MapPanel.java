@@ -31,6 +31,8 @@ public class MapPanel extends JPanel implements MouseListener {
 
     private AnimatableImage backToMenuImage = new AnimatableImage("mapPictures/backToMainMenu.png");
 
+    private AnimatableImage goToPuzzle = new AnimatableImage("mapPictures/backToMainMenu.png");
+
     private AnimatableImage level1;
     private AnimatableImage level2;
     private AnimatableImage level3;

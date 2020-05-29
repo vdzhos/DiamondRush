@@ -236,6 +236,30 @@ public interface Values {
     int END_LEVEL_RESULT_SHIFT_X = 178;
     int END_LEVEL_RESULT_SHIFT_Y = 58;
 
+    // puzzle panel
+    double COEF = 2.5;
+
+    int PUZZLE_1_X = 291;
+    int PUZZLE_1_Y = 479;
+
+    int PUZZLE_2_X = 200;
+    int PUZZLE_2_Y = 203;
+
+    int PUZZLE_3_X = 407;
+    int PUZZLE_3_Y = 217;
+
+    int PUZZLE_4_X = 176;
+    int PUZZLE_4_Y = 341;
+
+    int PUZZLE_5_X = 292;
+    int PUZZLE_5_Y = 341;
+
+    int BACK_TOMAP_X = 30;
+    int BACK_TOMAP_Y = 720;
+    int BACK_TOMAP_WIDTH = 150;
+    int BACK_TOMAP_LENGTH = 50;
+
+
 
 
 

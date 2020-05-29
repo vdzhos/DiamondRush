@@ -8,6 +8,7 @@ public class GameFrame extends JFrame {
 
     private MainMenu mainMenu;
     private MapPanel mapPanel;
+    private PuzzlePanel puzzlePanel;
 //    private PlayPanel currentPlayPanel;
     private StatusBarPanel currentStatusBar;
 
@@ -26,6 +27,7 @@ public class GameFrame extends JFrame {
     private void init() {
         mainMenu = new MainMenu(this);
         mapPanel = new MapPanel(this);
+        puzzlePanel = new PuzzlePanel(this);
     }
 
     public void showMainMenu(){
@@ -56,6 +58,39 @@ public class GameFrame extends JFrame {
         addKeyListener(level.getPlayPanel());
         revalidate();
         repaint();
+    }
+
+    public void showPuzzleMap(){
+        getContentPane().removeAll();
+        getContentPane().add(puzzlePanel);
+        revalidate();
+        repaint();
+    }
+
+    public void updatePuzzlePanel(int level,boolean artefactIsCollected){
+        switch (level){
+            case 1:
+                if (artefactIsCollected)
+                    puzzlePanel.drawFirst = true;
+                break;
+            case 2:
+                if (artefactIsCollected)
+                    puzzlePanel.drawSecond = true;
+                break;
+            case 3:
+                if (artefactIsCollected)
+                    puzzlePanel.drawThird = true;
+                break;
+            case 4:
+                if (artefactIsCollected)
+                    puzzlePanel.drawFourth = true;
+                break;
+            case 5:
+                if (artefactIsCollected)
+                    puzzlePanel.drawFifth = true;
+                break;
+        }
+
     }
 
     public void updateNumberOfPurpleDiamondsOnStatusBar(int currentNumberOfPurpleDiamonds){
