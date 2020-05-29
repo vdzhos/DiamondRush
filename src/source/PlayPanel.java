@@ -138,7 +138,7 @@ public class PlayPanel extends JPanel implements KeyListener {
 
 
     private void initLevel() {
-        currentLevel = maps.getLevel();
+        currentLevel = maps.getLevel(currentLevelInt);
         levelMatrix = this.currentLevel.getMatrix();
     }
 
@@ -169,19 +169,19 @@ public class PlayPanel extends JPanel implements KeyListener {
         currentLevel = null;
         currentCheckpoint = null;
         stonesAreInited = false;
-        boy = null;
-        boy = new Boy(0,0);
+//        boy = null;
+//        boy = new Boy(0,0);
 
-        mapX = 0;
-        mapY = 0;
+//        mapX = 0;
+//        mapY = 0;
 
         boyCanMove = true;
-
-        positionOnScreenX = 0;
-        positionOnScreenY = 0;
-
-        positionOnMapX = 0;
-        positionOnMapY = 0;
+//
+//        positionOnScreenX = 0;
+//        positionOnScreenY = 0;
+//
+//        positionOnMapX = 0;
+//        positionOnMapY = 0;
 
 //        mapWidth = 0;
 //        mapHeight = 0;
@@ -201,9 +201,9 @@ public class PlayPanel extends JPanel implements KeyListener {
         mapMovesDown = false;
         boyMovesDown = false;
 
-        levelMatrix = null;
+//        levelMatrix = null;
 
-        updated = true;
+//        updated = true;
 
         numberOfRedDiamondsCollected = 0;
 
@@ -768,6 +768,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    pause();
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
                                 }
                             });
@@ -858,6 +859,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    pause();
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
                                 }
                             });

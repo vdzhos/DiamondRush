@@ -60,17 +60,19 @@ public class Maps {
     }
 
 
-    public Level getLevel(){
-        if(level1!=null)
-            return level1;
-        else if (level2!=null)
-            return level2;
-        else if (level3!=null)
-            return level3;
-        else if (level4!=null)
-            return level4;
-        else if (level5!=null)
-            return level5;
+    public Level getLevel(int level){
+        switch (level){
+            case 1:
+                return level1;
+            case 2:
+                return level2;
+            case 3:
+                return level3;
+            case 4:
+                return level4;
+            case 5:
+                return level5;
+        }
         return null;
     }
 
@@ -439,7 +441,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new DiamondDoor(10),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(10,false),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);
@@ -634,7 +636,7 @@ public class Maps {
         level1[34][6] = new Cell(new Floor(),null,null);
         level1[34][7] = new Cell(new Floor(),null,null);
         level1[35][4] = new Cell(new Floor(),null,null);
-        level1[36][4] = new Cell(new DiamondDoor(20),null,null);
+        level1[36][4] = new Cell(new DiamondDoor(10,true),null,null);
         level1[36][11] = new Cell(new Floor(),null,scorpion);
         level1[36][12] = new Cell(new Floor(),null,scorpion);
         level1[36][13] = new Cell(new Floor(),null,scorpion);
@@ -699,8 +701,8 @@ public class Maps {
             checkpoint.setInitialMatrix(level1);
         }
 
-        this.level1 = new Level(level1,2,4,2,16, 200);
-        this.level1.setCheckpoints(checkpoints);
+        this.level2 = new Level(level1,2,4,2,16, 200,2);
+        this.level2.setCheckpoints(checkpoints);
     }
 
 
@@ -754,7 +756,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new DiamondDoor(10),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(10,false),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);
@@ -949,7 +951,7 @@ public class Maps {
         level1[34][6] = new Cell(new Floor(),null,null);
         level1[34][7] = new Cell(new Floor(),null,null);
         level1[35][4] = new Cell(new Floor(),null,null);
-        level1[36][4] = new Cell(new DiamondDoor(20),null,null);
+        level1[36][4] = new Cell(new DiamondDoor(10,true),null,null);
         level1[36][11] = new Cell(new Floor(),null,scorpion);
         level1[36][12] = new Cell(new Floor(),null,scorpion);
         level1[36][13] = new Cell(new Floor(),null,scorpion);
@@ -1014,8 +1016,8 @@ public class Maps {
             checkpoint.setInitialMatrix(level1);
         }
 
-        this.level1 = new Level(level1,2,4,2,16, 200);
-        this.level1.setCheckpoints(checkpoints);
+        this.level3 = new Level(level1,2,4,2,16, 200,3);
+        this.level3.setCheckpoints(checkpoints);
     }
 
     private void initLevel4(){
@@ -1068,7 +1070,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new DiamondDoor(10),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(10,false),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);
@@ -1263,7 +1265,7 @@ public class Maps {
         level1[34][6] = new Cell(new Floor(),null,null);
         level1[34][7] = new Cell(new Floor(),null,null);
         level1[35][4] = new Cell(new Floor(),null,null);
-        level1[36][4] = new Cell(new DiamondDoor(20),null,null);
+        level1[36][4] = new Cell(new DiamondDoor(20,true),null,null);
         level1[36][11] = new Cell(new Floor(),null,scorpion);
         level1[36][12] = new Cell(new Floor(),null,scorpion);
         level1[36][13] = new Cell(new Floor(),null,scorpion);
@@ -1328,8 +1330,8 @@ public class Maps {
             checkpoint.setInitialMatrix(level1);
         }
 
-        this.level1 = new Level(level1,2,4,2,16, 200);
-        this.level1.setCheckpoints(checkpoints);
+        this.level4 = new Level(level1,2,4,2,16, 200,4);
+        this.level4.setCheckpoints(checkpoints);
     }
 
     private void initLevel5(){
@@ -1382,7 +1384,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new DiamondDoor(10),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(10, false),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);
@@ -1577,7 +1579,7 @@ public class Maps {
         level1[34][6] = new Cell(new Floor(),null,null);
         level1[34][7] = new Cell(new Floor(),null,null);
         level1[35][4] = new Cell(new Floor(),null,null);
-        level1[36][4] = new Cell(new DiamondDoor(20),null,null);
+        level1[36][4] = new Cell(new DiamondDoor(10,true),null,null);
         level1[36][11] = new Cell(new Floor(),null,scorpion);
         level1[36][12] = new Cell(new Floor(),null,scorpion);
         level1[36][13] = new Cell(new Floor(),null,scorpion);
@@ -1642,8 +1644,8 @@ public class Maps {
             checkpoint.setInitialMatrix(level1);
         }
 
-        this.level1 = new Level(level1,2,4,2,16, 200);
-        this.level1.setCheckpoints(checkpoints);
+        this.level5 = new Level(level1,2,4,2,16, 200, 5);
+        this.level5.setCheckpoints(checkpoints);
     }
 
     public Level getLevel1() {
