@@ -35,9 +35,6 @@ public class Maps {
 //        initLevel5();
 //    }
 
-    public Maps(int currentLevel){
-        initLevel(currentLevel);
-    }
 
     public void initLevel(int currentLevel) {
         switch (currentLevel){
@@ -127,7 +124,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new DiamondDoor(10,false),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(5,true),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);
@@ -263,7 +260,7 @@ public class Maps {
         level1[22][3] = new Cell(new Floor(),null,null);
         level1[22][4] = new Cell(new Floor(),null,null);
         level1[22][9] = new Cell(new Floor(),null,fireTrap3);
-        level1[22][18] = new Cell(new DoorWithKeyhole().silver,null,null);
+        level1[22][18] = new Cell(new Floor(),null,null);
         level1[23][17] = new Cell(new Floor(),null,null);
         level1[23][18] = new Cell(new Floor(),null,null);
         level1[24][16] = new Cell(new Floor(),null,null);
@@ -441,7 +438,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new DiamondDoor(10,false),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(5,true),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);
@@ -756,7 +753,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new DiamondDoor(10,false),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(5,true),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);
@@ -1070,7 +1067,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new DiamondDoor(10,false),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(5,true),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);
@@ -1384,7 +1381,7 @@ public class Maps {
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
-        level1[6][16] = new Cell(new DiamondDoor(10, false),null,null);
+        level1[6][16] = new Cell(new DiamondDoor(5, true),null,null);
         level1[6][18] = new Cell(new Floor(),null,null);
         level1[6][19] = new Cell(new Floor(),null,null);
         level1[6][20] = new Cell(new Floor(),null,null);

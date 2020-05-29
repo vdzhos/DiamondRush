@@ -166,6 +166,9 @@ public interface Values {
     int LEVEL_5_X = 540;
     int LEVEL_5_Y = 430;
 
+    int CROSS_X = 480;
+    int CROSS_Y = 300;
+
     int MENU_X = 25;
     int MENU_Y = 720;
 
@@ -258,6 +261,18 @@ public interface Values {
     int BACK_TOMAP_Y = 720;
     int BACK_TOMAP_WIDTH = 150;
     int BACK_TOMAP_LENGTH = 50;
+
+    int CONGRATS_X = 0;
+    int CONGRATS_Y = 520;
+
+    int CONGRATS_WIDTH = 700;
+    int CONGRATS_HEIGHT = 279;
+
+    int GO_TOMENU_X = 300;
+    int GO_TOMENU_Y = 740;
+
+    int GO_TOMENU_WIDTH = 100;
+    int GO_TOMENU_HEIGHT = 45;
 
 
 
