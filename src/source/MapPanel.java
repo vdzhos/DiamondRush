@@ -40,10 +40,10 @@ public class MapPanel extends JPanel implements MouseListener {
     private AnimatableImage level5;
 
     private boolean level1Available = true;
-    private boolean level2Available = true;
-    private boolean level3Available = true;
-    private boolean level4Available = true;
-    private boolean level5Available = true;
+    private boolean level2Available = false;
+    private boolean level3Available = false;
+    private boolean level4Available = false;
+    private boolean level5Available = false;
 
     private int[] x12 = {543, 527, 516, 493, 457, 452, 405, 369, 338, 316, 297};
     private int[] y12 = {185, 187, 187, 186, 180, 180, 178, 184, 197, 206, 218};
@@ -84,6 +84,25 @@ public class MapPanel extends JPanel implements MouseListener {
         levels[2] = new LevelUI(gameFrame, new PlayPanel(3,gameFrame,this));
         levels[3] = new LevelUI(gameFrame, new PlayPanel(4,gameFrame,this));
         levels[4] = new LevelUI(gameFrame, new PlayPanel(5,gameFrame,this));
+    }
+
+
+    public void openNextLevel(int currentLevel){
+        switch (currentLevel){
+            case 1:
+                level2Available = true;
+                break;
+            case 2:
+                level3Available = true;
+                break;
+            case 3:
+                level4Available = true;
+                break;
+            case 4:
+                level5Available = true;
+                break;
+        }
+        setImages();
     }
 
     public void paint(Graphics g){
@@ -169,7 +188,7 @@ public class MapPanel extends JPanel implements MouseListener {
         g.drawImage(level1.image, Values.LEVEL_1_X, Values.LEVEL_1_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE,null);
     }
 
-    private void setImages() {
+    public void setImages() {
         if (level1Available)
             level1 = level1Image;
         else level1 = level1DisImage;

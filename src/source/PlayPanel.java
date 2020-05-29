@@ -101,7 +101,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         panel.setLayout(null);
         setPreferredSize(new Dimension(2800, 1540));
         this.boy = new Boy(0,0);
-        maps = new Maps(currentLevel);
+        maps = new Maps();
         initLevel();
         calculateInitialValuesOfMap();
         setCoordinates();
@@ -115,7 +115,8 @@ public class PlayPanel extends JPanel implements KeyListener {
         panel.setLayout(null);
         setPreferredSize(new Dimension(2800, 1540));
         this.boy = new Boy(0,0);
-        maps = new Maps(currentLevel);
+        maps = new Maps();
+        maps.initLevel(currentLevel);
         initLevel();
         statusBarPanel = new StatusBarPanel(gameFrame, this);
         initStatusBar();
@@ -171,6 +172,10 @@ public class PlayPanel extends JPanel implements KeyListener {
         currentLevel = null;
         currentCheckpoint = null;
         stonesAreInited = false;
+
+        drawMessage = false;
+        twoLineMessage = false;
+        drawn = false;
 //        boy = null;
 //        boy = new Boy(0,0);
 
@@ -442,12 +447,6 @@ public class PlayPanel extends JPanel implements KeyListener {
         }
     }
 
-    private void endLevel(){
-        if (numberOfPurpleDiamondsCollected == currentLevel.getMaxNumberOfPurpleDiamonds()
-        && numberOfRedDiamondsCollected == currentLevel.getMaxNumberOfRedDiamonds()
-        && revivals == 0)
-            artefactIsCollected = true;
-    }
 
 
     private void moveMapToRight(){
@@ -638,6 +637,18 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     }
 
+    private void endLevel(){
+        if (numberOfPurpleDiamondsCollected == currentLevel.getMaxNumberOfPurpleDiamonds()
+                && numberOfRedDiamondsCollected == currentLevel.getMaxNumberOfRedDiamonds()
+                && revivals == 0)
+            artefactIsCollected = true;
+        pause();
+        gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
+        mapPanel.openNextLevel(currentLevelInt);
+        LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+        ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         if (updated && !boy.isMoving) {
@@ -679,10 +690,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    pause();
-                                    gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
-                                    LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
-                                    ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+                                    endLevel();
                                 }
                             });
                         }
@@ -721,10 +729,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    pause();
-                                    gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
-                                    LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
-                                    ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+                                    endLevel();
                                 }
                             });
                         }
@@ -748,10 +753,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     }
                 }
-                if (block instanceof DoorWithKeyhole.GoldDoor) {
+                if (block instanceof DoorWithKeyhole.GoldDoor && !block.pass()) {
                     if (numberOfGoldKeysCollected != 0) {
                         ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
                         numberOfGoldKeysCollected--;
+                        updateNumberOfGoldKeysOnStatusBar();
                         boy.whatMove = 15;
                         boy.isMoving = true;
                     } else if (numberOfGoldKeysCollected == 0){
@@ -762,10 +768,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.whatMove = 21;
                         boy.isMoving = true;
                     }
-                } else if (block instanceof DoorWithKeyhole.SilverDoor) {
+                } else if (block instanceof DoorWithKeyhole.SilverDoor && !block.pass()) {
                     if (numberOfSilverKeysCollected != 0) {
                         ((DoorWithKeyhole.SilverDoor) block).openTheDoor();
                         numberOfSilverKeysCollected--;
+                        updateNumberOfSilverKeysOnStatusBar();
                         boy.whatMove = 17;
                         boy.isMoving = true;
                     }
@@ -789,10 +796,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    pause();
-                                    gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
-                                    LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
-                                    ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+                                    endLevel();
                                 }
                             });
                         }
@@ -839,14 +843,15 @@ public class PlayPanel extends JPanel implements KeyListener {
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     }
                 }
-                if (block instanceof DoorWithKeyhole.GoldDoor) {
+                if (block instanceof DoorWithKeyhole.GoldDoor && !block.pass()) {
                     if (numberOfGoldKeysCollected != 0){
                         ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
                         numberOfGoldKeysCollected--;
+                        updateNumberOfGoldKeysOnStatusBar();
                         boy.whatMove = 16;
                         boy.isMoving = true;
                     }
-                    else {
+                    else  {
                         boy.whatMove = 22;
                         boy.isMoving = true;
                         drawMessage = true;
@@ -855,10 +860,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                         messageLower = "    a gold key!";
                     }
                 }
-                else if (block instanceof DoorWithKeyhole.SilverDoor) {
+                else if (block instanceof DoorWithKeyhole.SilverDoor && !block.pass()) {
                     if (numberOfSilverKeysCollected != 0) {
                         ((DoorWithKeyhole.SilverDoor) block).openTheDoor();
                         numberOfSilverKeysCollected--;
+                        updateNumberOfSilverKeysOnStatusBar();
                         boy.whatMove = 18;
                         boy.isMoving = true;
                     }
@@ -882,10 +888,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    pause();
-                                    gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
-                                    LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
-                                    ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+                                   endLevel();
                                 }
                             });
                         }

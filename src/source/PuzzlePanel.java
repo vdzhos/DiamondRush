@@ -21,12 +21,13 @@ public class PuzzlePanel extends JPanel implements MouseListener {
     private AnimatableImage goToMap = new AnimatableImage("puzzles/goToMap.png");
     private AnimatableImage menu = new AnimatableImage("puzzles/menu.png");
 
-    public boolean drawFirst = true;
-    public boolean drawSecond= true;
-    public boolean drawThird= true;
-    public boolean drawFourth= true;
-    public boolean drawFifth= true;
-    public boolean showCongrats = true;
+    public boolean drawFirst = false;
+    public boolean drawSecond= false;
+    public boolean drawThird= false;
+    public boolean drawFourth= false;
+    public boolean drawFifth= false;
+    public boolean showCongrats = false;
+    public boolean hasShownCongrats;
     public boolean showButtonToMap = true;
 
     private GameFrame gameFrame;
@@ -39,19 +40,13 @@ public class PuzzlePanel extends JPanel implements MouseListener {
 
 
 
-
-
-
-
-
-
     public void paint(Graphics gr){
         Graphics2D g = (Graphics2D) gr;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         drawBack(g);
-        if (!showCongrats)
-            drawGoToMap(g);
-        else drawMenu(g);
+        if (showCongrats && !hasShownCongrats)
+            drawMenu(g);
+        else drawGoToMap(g);
         if (drawFirst)
             drawFirst(g);
         if (drawSecond)
@@ -159,13 +154,14 @@ public class PuzzlePanel extends JPanel implements MouseListener {
                 }
             });
         }
-        else if (menu.contains(point) && showCongrats){
+        else if (menu.contains(point) && showCongrats && !hasShownCongrats){
             PuzzlePanel.this.menu.animate(PuzzlePanel.this,"puzzles");
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     gameFrame.showMainMenu();
                     showCongrats = false;
+                    hasShownCongrats = true;
                 }
             });
         }

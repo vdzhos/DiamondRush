@@ -49,7 +49,7 @@ public class GameFrame extends JFrame {
     }
 
     public void showLevel(LevelUI level){
-//        level.restart();
+        level.restart();
         getContentPane().removeAll();
         setLayout(new BorderLayout());
         currentStatusBar = level.getStatusBarPanel();
@@ -90,6 +90,12 @@ public class GameFrame extends JFrame {
                     puzzlePanel.drawFifth = true;
                 break;
         }
+        if (puzzlePanel.drawFirst&&
+        puzzlePanel.drawSecond&&
+        puzzlePanel.drawThird&&
+        puzzlePanel.drawFourth&&
+        puzzlePanel.drawFifth)
+            puzzlePanel.showCongrats = true;
 
     }
 
