@@ -213,7 +213,7 @@ public class PlayPanel extends JPanel implements KeyListener {
 
         numberOfSilverKeysCollected = 0;
 
-        artefactIsCollected = false;
+        artefactIsCollected = artefactIsCollected?true:false;
         statusBarIsInitiated = false;
 
         maps.initLevel(currentLevelInt);
@@ -667,6 +667,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    pause();
+                                    gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
                                     ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
                                 }
@@ -707,6 +709,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    pause();
+                                    gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
                                     ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
                                 }
@@ -774,6 +778,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     pause();
+                                    gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
                                     ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
                                 }
@@ -866,6 +871,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     pause();
+                                    gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
                                     LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
                                     ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
                                 }
