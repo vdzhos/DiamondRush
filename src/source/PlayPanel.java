@@ -378,6 +378,9 @@ public class PlayPanel extends JPanel implements KeyListener {
             revivals ++;
             boy.isMoving = true;
             boy.currentPicture = boy.standClear;
+            drawMessage = false;
+            drawn = false;
+            twoLineMessage = false;
             mapMovesDown = true;
             stonesAreInited = false;
             levelMatrix = currentCheckpoint.getRestoredMatrix(levelMatrix);
@@ -391,7 +394,8 @@ public class PlayPanel extends JPanel implements KeyListener {
             numberOfSilverKeysCollected -= currentCheckpoint.numberOfSilverKeysOnTheAreaCollected;
             numberOfPurpleDiamondsCollected -= currentCheckpoint.numberOfPurpleDiamondsOnTheAreaCollected;
             numberOfRedDiamondsCollected -= currentCheckpoint.numberOfRedDiamondsOnTheAreaCollected;
-
+            currentEnergyLevel -= 100;
+            currentEnergyLevel = currentEnergyLevel<0?0:currentEnergyLevel;
             setCoordinates();
             repaint();
             updateStatusBar();
@@ -530,7 +534,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                     else boy.isMoving = false;
                     System.out.println(boy.xInArray + ", " + boy.yInArray);
                     //Recently added
-                    boy.whatMove = 0;
+//                    boy.whatMove = 0;
                     t.stop();
                     if (!energyIsBeeingTaken) takeEnergy();
                     Checkpoint temp = currentCheckpoint;
@@ -558,7 +562,7 @@ public class PlayPanel extends JPanel implements KeyListener {
             public void actionPerformed(ActionEvent e) {
                 if (itIsRock(boy.xInArray, boy.yInArray - 1)){
                     energyIsBeeingTaken = true;
-                    if (boy.whatMove == 0) boy.currentPicture = boy.imHoldARock;
+                    if (!boy.isMoving) boy.currentPicture = boy.imHoldARock;
                     System.out.println("take energy");
                     currentEnergyLevel -= 10;
                     if (currentEnergyLevel <= 0){

@@ -130,6 +130,14 @@ public class GameFrame extends JFrame {
         showMainMenu();
     }
 
+    public void stop(){
+        mainMenu = null;
+        mapPanel = null;
+        currentStatusBar = null;
+        puzzlePanel = null;
+        dispose();
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
