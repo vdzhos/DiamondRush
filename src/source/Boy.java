@@ -24,7 +24,7 @@ public class Boy {
 
     Image standLeft = new ImageIcon("boy/standLeft.png").getImage();
     Image standRight = new ImageIcon("boy/standRight.png").getImage();
-    Image standClear = new ImageIcon("boy/standClear.png").getImage();
+    public Image standClear = new ImageIcon("boy/standClear.png").getImage();
 
     Image walkUp0 = new ImageIcon("boy/walkUp0.png").getImage();
     Image walkUp1 = new ImageIcon("boy/walkUp1.png").getImage();
@@ -69,7 +69,7 @@ public class Boy {
     Image[] arrayOpenChest = {walkUp2, walkUp2, lookInChest, lookInChest, lookInChest, lookInChest, walkUp2};
     //Question about stand clear
 
-    Image imHoldARock = new ImageIcon("boy/holdARock.png").getImage();
+    public Image imHoldARock = new ImageIcon("boy/holdARock.png").getImage();
 
     Image attackUp = new ImageIcon("boy/attackUp.png").getImage();
     Image[] arrayAttackUp = {walkUp2, attackUp, attackUp, attackUp, attackUp, attackUp, walkUp2};
@@ -105,7 +105,7 @@ public class Boy {
     Image[] arrayOpenWithSilverKeyRight = {holdSilverKeyRight, holdSilverKeyRight,
             holdSilverKeyRight, holdSilverKeyRight, cheer, cheer, standRight};
 
-    Image currentPicture = standClear;
+    public Image currentPicture = standClear;
 
     public Boy(int x, int y){
         this.x = x;

@@ -87,6 +87,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     private boolean artefactIsCollected;
 
     private boolean boyCanMove = true;
+    private boolean energyIsBeeingTaken  = false;
     private StatusBarPanel statusBarPanel;
     private MapPanel mapPanel;
     private GameFrame gameFrame;
@@ -366,6 +367,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     public void applyCheckpoint(){
         if (currentCheckpoint != null) {
             boy.isMoving = true;
+            boy.currentPicture = boy.standClear;
             mapMovesDown = true;
             stonesAreInited = false;
             levelMatrix = currentCheckpoint.getRestoredMatrix(levelMatrix);
@@ -516,8 +518,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                     }
                     else boy.isMoving = false;
                     System.out.println(boy.xInArray + ", " + boy.yInArray);
-
+                    //Recently added
+                    boy.whatMove = 0;
                     t.stop();
+                    if (!energyIsBeeingTaken) takeEnergy();
                     Checkpoint temp = currentCheckpoint;
                     currentCheckpoint = currentLevel.getCheckpoint(boy.xInArray,boy.yInArray);
                     if (currentCheckpoint == null)
@@ -528,6 +532,34 @@ public class PlayPanel extends JPanel implements KeyListener {
                         message = "New checkpoint!";
                         repaint();
                     }
+                }
+            }
+        });
+        t.start();
+    }
+
+
+    public void takeEnergy(){
+
+        Timer t = new Timer(700, null);
+        t.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (itIsRock(boy.xInArray, boy.yInArray - 1)){
+                    energyIsBeeingTaken = true;
+                    if (boy.whatMove == 0) boy.currentPicture = boy.imHoldARock;
+                    System.out.println("take energy");
+                    currentEnergyLevel -= 10;
+                    if (currentEnergyLevel <= 0){
+                        currentEnergyLevel = 0;
+                        //It is death
+                        System.out.println("Death!");
+                    }
+                    updateEnergyLevelOnStatusBar();
+                }
+                else{
+                    energyIsBeeingTaken = false;
+                    t.stop();
                 }
             }
         });
@@ -677,7 +709,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                     }
                 } else if (itIsRock(boy.xInArray, boy.yInArray - 1)) {
                     boy.whatMove = 10;
-                    //take energy
+                    //takeEnergy();
                     boy.isMoving = true;
                 } else if (!block.pass()) {
                     boy.whatMove = 19;
@@ -792,7 +824,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.whatMove = 5;
                         boy.isMoving = true;
                         if (rock.whatMove != 2 && rock.whatMove != 3){
+                            rock.whatMove = 0;
+                            rock.isMoving = false;
                             rock.i = 0;
+                            rock.timer.stop();
                             rock.whatMove = 5;
                             rock.isMoving = true;
                             rock.moveStone();
@@ -885,11 +920,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.whatMove = 7;
                         boy.isMoving = true;
                         if (rock.whatMove != 2 && rock.whatMove != 3){
-                            //rock.isMoving = false;
+                            rock.whatMove = 0;
+                            rock.isMoving = false;
                             rock.i = 0;
+                            rock.timer.stop();
                             rock.whatMove = 6;
                             rock.isMoving = true;
-
                             rock.moveStone();
                         }
                     }
