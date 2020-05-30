@@ -673,16 +673,21 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     }
 
-    private void endLevel(){
-        if (numberOfPurpleDiamondsCollected == currentLevel.getMaxNumberOfPurpleDiamonds()
-                && numberOfRedDiamondsCollected == currentLevel.getMaxNumberOfRedDiamonds()
-                && revivals == 0)
-            artefactIsCollected = true;
-        pause();
-        gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
-        mapPanel.openNextLevel(currentLevelInt);
-        LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
-        ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+    private void endLevel(boolean win){
+        if (win) {
+            if (numberOfPurpleDiamondsCollected == currentLevel.getMaxNumberOfPurpleDiamonds()
+                    && numberOfRedDiamondsCollected == currentLevel.getMaxNumberOfRedDiamonds()
+                    && revivals == 0)
+                artefactIsCollected = true;
+            pause();
+            gameFrame.updatePuzzlePanel(currentLevelInt, artefactIsCollected);
+            mapPanel.openNextLevel(currentLevelInt);
+            LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
+            ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+        }
+        else {
+            pause();
+        }
     }
 
     @Override
@@ -726,7 +731,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    endLevel();
+                                    endLevel(true);
                                 }
                             });
                         }
@@ -765,7 +770,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    endLevel();
+                                    endLevel(true);
                                 }
                             });
                         }
@@ -832,7 +837,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    endLevel();
+                                    endLevel(true);
                                 }
                             });
                         }
@@ -927,7 +932,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                   endLevel();
+                                   endLevel(true);
                                 }
                             });
                         }
