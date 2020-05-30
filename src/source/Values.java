@@ -258,7 +258,7 @@ public interface Values {
     int PUZZLE_5_Y = 341;
 
     int BACK_TOMAP_X = 30;
-    int BACK_TOMAP_Y = 720;
+    int BACK_TOMAP_Y = 680;//720;
     int BACK_TOMAP_WIDTH = 150;
     int BACK_TOMAP_LENGTH = 50;
 
