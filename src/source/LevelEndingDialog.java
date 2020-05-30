@@ -170,11 +170,16 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    if (gameFrame.showCongrats())
-//                        gameFrame.showPuzzleMap();
-//                    else show next level
-//                    LevelEndingDialog.this.dispose();
-                    //next level
+                    LevelEndingDialog.this.dispose();
+                    if (gameFrame.showCongrats()){
+                        gameFrame.showPuzzleMap();
+                    }else{
+                        if(playPanel.currentLevel.getLevelNumber()!=5){
+                            gameFrame.showNextLevel();
+                        }else{
+                            gameFrame.showMap();
+                        }
+                    }
                 }
             });
         }else if (restartB.contains(point)){
@@ -192,10 +197,11 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     LevelEndingDialog.this.dispose();
-//                    playPanel.restart();
-                    if (gameFrame.showCongrats())
+                    if (gameFrame.showCongrats()){
                         gameFrame.showPuzzleMap();
-                    else gameFrame.showMap();
+                    }else{
+                        gameFrame.showMap();
+                    }
                 }
             });
         }
