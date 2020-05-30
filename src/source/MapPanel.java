@@ -87,6 +87,11 @@ public class MapPanel extends JPanel implements MouseListener {
     }
 
 
+    public LevelUI getLevel(int level){
+        return levels[level-1];
+    }
+
+
     public void openNextLevel(int currentLevel){
         switch (currentLevel){
             case 1:

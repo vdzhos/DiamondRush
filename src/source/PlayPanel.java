@@ -1174,4 +1174,8 @@ public class PlayPanel extends JPanel implements KeyListener {
     public void setBoyCanMove(boolean boyCanMove) {
         this.boyCanMove = boyCanMove;
     }
+
+    public int getCurrentLevelInt() {
+        return currentLevelInt;
+    }
 }

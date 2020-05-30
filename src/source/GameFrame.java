@@ -10,6 +10,7 @@ public class GameFrame extends JFrame {
     private PuzzlePanel puzzlePanel;
 //    private PlayPanel currentPlayPanel;
     private StatusBarPanel currentStatusBar;
+    private int currentLevelInt;
 
 
 
@@ -49,6 +50,7 @@ public class GameFrame extends JFrame {
     }
 
     public void showLevel(LevelUI level){
+        currentLevelInt = level.getPlayPanel().getCurrentLevelInt();
         level.restart();
         getContentPane().removeAll();
         setLayout(new BorderLayout());
@@ -58,6 +60,12 @@ public class GameFrame extends JFrame {
         addKeyListener(level.getPlayPanel());
         revalidate();
         repaint();
+    }
+
+    public void showNextLevel(){
+        if (currentLevelInt < 5){
+            showLevel(mapPanel.getLevel(currentLevelInt+1));
+        }
     }
 
     public void showPuzzleMap(){
