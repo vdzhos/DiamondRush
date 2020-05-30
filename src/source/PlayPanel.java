@@ -533,8 +533,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                     }
                     else boy.isMoving = false;
                     System.out.println(boy.xInArray + ", " + boy.yInArray);
-                    //Recently added
-//                    boy.whatMove = 0;
                     t.stop();
                     if (!energyIsBeeingTaken) takeEnergy();
                     Checkpoint temp = currentCheckpoint;

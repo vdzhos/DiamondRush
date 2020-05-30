@@ -183,7 +183,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     LevelEndingDialog.this.dispose();
-//                    playPanel.restart();
+                    playPanel.restart();
                 }
             });
         }else if (goToMapB.contains(point)){
