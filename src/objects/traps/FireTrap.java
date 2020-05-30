@@ -174,5 +174,20 @@ public class FireTrap extends JLabel implements Trap{
         return check;
     }
 
+    public boolean isHead(int x){
+        if(side){
+            if(x==fireTrap.getX()+210){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            if(x==fireTrap.getX()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
 
 }
