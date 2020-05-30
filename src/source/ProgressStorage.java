@@ -37,6 +37,23 @@ public class ProgressStorage {
         }
     }
 
+    public static void resetContent(){
+        String[] content  = getContent();
+        String strContent = "" + content[0] + "\n";
+        for (int i = 0; i <=5; i++){
+            if (i != 0){
+                content[i] = i + "--\n";
+                strContent = strContent + content[i];
+            }
+        }
+        try{
+            writeContentToFile(strContent);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     private static void writeContentToFile(String strContent) throws IOException{
         BufferedWriter wr = new BufferedWriter(new FileWriter(file));
         wr.write(strContent);

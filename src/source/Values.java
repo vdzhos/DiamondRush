@@ -3,8 +3,8 @@ package source;
 public interface Values {
 
     //window size
-    int MAIN_WINDOW_WIDTH = 700;
-    int MAIN_WINDOW_LENGTH = 820;
+    int MAIN_WINDOW_WIDTH = 715;
+    int MAIN_WINDOW_LENGTH = 855;
 
     //game panel (the one where all the actions are performed)
     int GAME_PANEL_WIDTH = 700;
@@ -170,7 +170,7 @@ public interface Values {
     int CROSS_Y = 300;
 
     int MENU_X = 25;
-    int MENU_Y = 720;
+    int MENU_Y = 680;//720;
 
     int MENU_SIZE = 90;
 
@@ -189,7 +189,7 @@ public interface Values {
     int NEW_GAME_LENGTH = 90;
 
     int EXIT_X = 225;
-    int EXIT_Y = 725;
+    int EXIT_Y = 680;//725;
 
     int EXIT_WIDTH = 250;
     int EXIT_LENGTH = 90;
@@ -258,7 +258,7 @@ public interface Values {
     int PUZZLE_5_Y = 341;
 
     int BACK_TOMAP_X = 30;
-    int BACK_TOMAP_Y = 720;
+    int BACK_TOMAP_Y = 680;//720;
     int BACK_TOMAP_WIDTH = 150;
     int BACK_TOMAP_LENGTH = 50;
 
@@ -269,7 +269,7 @@ public interface Values {
     int CONGRATS_HEIGHT = 279;
 
     int GO_TOMENU_X = 300;
-    int GO_TOMENU_Y = 740;
+    int GO_TOMENU_Y = 680;//740;
 
     int GO_TOMENU_WIDTH = 100;
     int GO_TOMENU_HEIGHT = 45;

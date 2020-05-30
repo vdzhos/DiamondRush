@@ -20,6 +20,10 @@ public class GameFrame extends JFrame {
         setLocation(300,0);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         init();
+        for (int i = 1; i <=5; i++){
+            if (ProgressStorage.getLevelIsCompleted(i)) mapPanel.openNextLevel(i);
+            updatePuzzlePanel(i, ProgressStorage.getArtifactIsCollected(i));
+        }
         setUndecorated(false);
         //ProgressStorage progressStorage = new ProgressStorage();
 //        setVisible(true);
@@ -75,7 +79,7 @@ public class GameFrame extends JFrame {
         repaint();
     }
 
-    public void updatePuzzlePanel(int level,boolean artefactIsCollected){
+    public void updatePuzzlePanel(int level, boolean artefactIsCollected){
         switch (level){
             case 1:
                 if (artefactIsCollected)
@@ -144,6 +148,7 @@ public class GameFrame extends JFrame {
         currentStatusBar = null;
         puzzlePanel = null;
         dispose();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
