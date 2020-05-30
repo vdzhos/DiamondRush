@@ -4,6 +4,7 @@ import maps.Cell;
 import objects.blocks.doors.Resettable;
 import source.Boy;
 import source.PlayPanel;
+import source.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,7 @@ public class Snake extends JLabel implements Trap, Resettable {
     private boolean side = true; //right - true; left - false
     private Image[] images;
     private Image current;
-    private Snake trap;
+    private int energy = 20;
     public boolean isAlive = true;
 
     private void initImages(){
@@ -104,25 +105,40 @@ public class Snake extends JLabel implements Trap, Resettable {
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
                 Rectangle snakeRect = new Rectangle(x+snake.getX(),y+snake.getY(),70,70);
-                System.out.println("----------");
-                if(boyRect.intersects(snakeRect)){
-                    panel.remove(snake);
-                    Timer t = (Timer) e.getSource();
-                    t.stop();
-                    for (int i = 0; i < levelMatrix.length; i++) {
-                        for (int j = 0; j < levelMatrix[i].length; j++) {
-                            if(levelMatrix[i][j].getTrapObject() instanceof Snake){
-                                if(levelMatrix[i][j].getTrapObject().equals(snake)){
-                                    levelMatrix[i][j].setTrapObject(null);
-                                    isAlive = false;
-                                }
-                            }
+
+                if(boyRect.intersects(snakeRect) && !boy.gotInTrap){
+                    panel.takeEnergy(energy);
+                    boy.gotInTrap = true;
+                    Util.wait(5000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            boy.gotInTrap = false;
                         }
-                    }
-                    panel.repaint();
+                    });
                 }
+
+//                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
+//                Rectangle snakeRect = new Rectangle(x+snake.getX(),y+snake.getY(),70,70);
+//                System.out.println("----------");
+//                if(boyRect.intersects(snakeRect)){
+//                    panel.remove(snake);
+//                    Timer t = (Timer) e.getSource();
+//                    t.stop();
+//                    for (int i = 0; i < levelMatrix.length; i++) {
+//                        for (int j = 0; j < levelMatrix[i].length; j++) {
+//                            if(levelMatrix[i][j].getTrapObject() instanceof Snake){
+//                                if(levelMatrix[i][j].getTrapObject().equals(snake)){
+//                                    levelMatrix[i][j].setTrapObject(null);
+//                                    isAlive = false;
+//                                }
+//                            }
+//                        }
+//                    }
+//                    panel.repaint();
+//                }
             }
         });
         check.start();

@@ -20,6 +20,7 @@ public class Boy {
     //UpAnimation = 19; DownAnimation = 20; LeftAnimation = 21; RightAnimation = 22;
     //openChest = 23
     public boolean isMoving = false;
+    public boolean gotInTrap = false;
     public int i = 0;
 
     Image standLeft = new ImageIcon("boy/standLeft.png").getImage();

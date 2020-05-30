@@ -553,7 +553,6 @@ public class PlayPanel extends JPanel implements KeyListener {
 
 
     public void takeEnergy(){
-
         Timer t = new Timer(700, null);
         t.addActionListener(new AbstractAction() {
             @Override
@@ -577,6 +576,17 @@ public class PlayPanel extends JPanel implements KeyListener {
             }
         });
         t.start();
+    }
+
+    public void takeEnergy(int energy){
+        System.out.println("take energy");
+        currentEnergyLevel -= energy;
+        if (currentEnergyLevel <= 0){
+            currentEnergyLevel = 0;
+            //It is death
+            System.out.println("Death!");
+        }
+        updateEnergyLevelOnStatusBar();
     }
 
     public void pause(){

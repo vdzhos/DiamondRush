@@ -4,6 +4,7 @@ import maps.Cell;
 import objects.Direction;
 import source.Boy;
 import source.PlayPanel;
+import source.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class Scorpion extends JLabel implements Trap{
     private boolean hor; // true - horizontal; false - vertical
     private boolean side; //true - right(down); false - left(up)
     private Direction direction;
+    private int energy = 30;
     private Image[] images;
 
     private void initImages(){
@@ -198,24 +200,39 @@ public class Scorpion extends JLabel implements Trap{
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
                 Rectangle scorpionRect = new Rectangle(x+scorpion.getX(),y+scorpion.getY(),70,70);
-                System.out.println("----------");
-                if(boyRect.intersects(scorpionRect)){
-                    panel.remove(scorpion);
-                    Timer t = (Timer) e.getSource();
-                    t.stop();
-                    for (int i = 0; i < levelMatrix.length; i++) {
-                        for (int j = 0; j < levelMatrix[i].length; j++) {
-                            if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
-                                if(levelMatrix[i][j].getTrapObject().equals(scorpion)){
-                                    levelMatrix[i][j].setTrapObject(null);
-                                }
-                            }
+
+                if(boyRect.intersects(scorpionRect) && !boy.gotInTrap){
+                    panel.takeEnergy(energy);
+                    boy.gotInTrap = true;
+                    Util.wait(5000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            boy.gotInTrap = false;
                         }
-                    }
-                    panel.repaint();
+                    });
                 }
+
+//                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
+//                Rectangle scorpionRect = new Rectangle(x+scorpion.getX(),y+scorpion.getY(),70,70);
+//                System.out.println("----------");
+//                if(boyRect.intersects(scorpionRect)){
+//                    panel.remove(scorpion);
+//                    Timer t = (Timer) e.getSource();
+//                    t.stop();
+//                    for (int i = 0; i < levelMatrix.length; i++) {
+//                        for (int j = 0; j < levelMatrix[i].length; j++) {
+//                            if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
+//                                if(levelMatrix[i][j].getTrapObject().equals(scorpion)){
+//                                    levelMatrix[i][j].setTrapObject(null);
+//                                }
+//                            }
+//                        }
+//                    }
+//                    panel.repaint();
+//                }
             }
         });
         check.start();
