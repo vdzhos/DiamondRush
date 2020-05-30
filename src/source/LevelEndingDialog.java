@@ -170,6 +170,9 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+//                    if (gameFrame.showCongrats())
+//                        gameFrame.showPuzzleMap();
+//                    else show next level
 //                    LevelEndingDialog.this.dispose();
                     //next level
                 }
@@ -190,7 +193,9 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 public void actionPerformed(ActionEvent e) {
                     LevelEndingDialog.this.dispose();
 //                    playPanel.restart();
-                    gameFrame.showMap();
+                    if (gameFrame.showCongrats())
+                        gameFrame.showPuzzleMap();
+                    else gameFrame.showMap();
                 }
             });
         }

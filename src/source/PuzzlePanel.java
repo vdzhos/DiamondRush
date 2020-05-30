@@ -5,9 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.security.Key;
 
-public class PuzzlePanel extends JPanel implements MouseListener {
+public class PuzzlePanel extends JPanel implements MouseListener, MouseMotionListener {
 
     private Image image = new ImageIcon("puzzles/puzzleBack.jpg").getImage();
 
@@ -35,6 +34,7 @@ public class PuzzlePanel extends JPanel implements MouseListener {
     public PuzzlePanel(GameFrame gameFrame){
         this.gameFrame = gameFrame;
         addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
 
@@ -185,6 +185,16 @@ public class PuzzlePanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        System.out.println("888");
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
 }

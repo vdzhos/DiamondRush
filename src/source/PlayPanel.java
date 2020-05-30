@@ -378,6 +378,9 @@ public class PlayPanel extends JPanel implements KeyListener {
             revivals ++;
             boy.isMoving = true;
             boy.currentPicture = boy.standClear;
+            drawMessage = false;
+            drawn = false;
+            twoLineMessage = false;
             mapMovesDown = true;
             stonesAreInited = false;
             levelMatrix = currentCheckpoint.getRestoredMatrix(levelMatrix);
@@ -391,7 +394,8 @@ public class PlayPanel extends JPanel implements KeyListener {
             numberOfSilverKeysCollected -= currentCheckpoint.numberOfSilverKeysOnTheAreaCollected;
             numberOfPurpleDiamondsCollected -= currentCheckpoint.numberOfPurpleDiamondsOnTheAreaCollected;
             numberOfRedDiamondsCollected -= currentCheckpoint.numberOfRedDiamondsOnTheAreaCollected;
-
+            currentEnergyLevel -= 100;
+            currentEnergyLevel = currentEnergyLevel<0?0:currentEnergyLevel;
             setCoordinates();
             repaint();
             updateStatusBar();
@@ -530,7 +534,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                     else boy.isMoving = false;
                     System.out.println(boy.xInArray + ", " + boy.yInArray);
                     //Recently added
-                    //boy.whatMove = 0;
+//                    boy.whatMove = 0;
                     t.stop();
                     if (!energyIsBeeingTaken) takeEnergy();
                     Checkpoint temp = currentCheckpoint;
@@ -1169,5 +1173,9 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     public void setBoyCanMove(boolean boyCanMove) {
         this.boyCanMove = boyCanMove;
+    }
+
+    public int getCurrentLevelInt() {
+        return currentLevelInt;
     }
 }

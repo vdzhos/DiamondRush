@@ -10,6 +10,7 @@ public class GameFrame extends JFrame {
     private PuzzlePanel puzzlePanel;
 //    private PlayPanel currentPlayPanel;
     private StatusBarPanel currentStatusBar;
+    private int currentLevelInt;
 
 
 
@@ -49,6 +50,7 @@ public class GameFrame extends JFrame {
     }
 
     public void showLevel(LevelUI level){
+        currentLevelInt = level.getPlayPanel().getCurrentLevelInt();
         level.restart();
         getContentPane().removeAll();
         setLayout(new BorderLayout());
@@ -58,6 +60,12 @@ public class GameFrame extends JFrame {
         addKeyListener(level.getPlayPanel());
         revalidate();
         repaint();
+    }
+
+    public void showNextLevel(){
+        if (currentLevelInt < 5){
+            showLevel(mapPanel.getLevel(currentLevelInt+1));
+        }
     }
 
     public void showPuzzleMap(){
@@ -96,7 +104,10 @@ public class GameFrame extends JFrame {
         puzzlePanel.drawFourth&&
         puzzlePanel.drawFifth)
             puzzlePanel.showCongrats = true;
+    }
 
+    public boolean showCongrats(){
+        return puzzlePanel.showCongrats;
     }
 
     public void updateNumberOfPurpleDiamondsOnStatusBar(int currentNumberOfPurpleDiamonds){
@@ -125,6 +136,14 @@ public class GameFrame extends JFrame {
 
     public void start(){
         showMainMenu();
+    }
+
+    public void stop(){
+        mainMenu = null;
+        mapPanel = null;
+        currentStatusBar = null;
+        puzzlePanel = null;
+        dispose();
     }
 
     public static void main(String[] args) {

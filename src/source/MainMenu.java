@@ -85,8 +85,7 @@ public class MainMenu extends JPanel implements MouseListener {
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    gameFrame.dispose();
-                    System.gc();
+                    gameFrame.stop();
                 }
             });
         }
