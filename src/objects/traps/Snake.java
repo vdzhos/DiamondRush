@@ -2,6 +2,7 @@ package objects.traps;
 
 import maps.Cell;
 import objects.Stone;
+import objects.blocks.Wall;
 import objects.blocks.doors.Resettable;
 import source.Boy;
 import source.PlayPanel;
@@ -18,7 +19,7 @@ public class Snake extends JLabel implements Trap, Resettable {
     private Timer check;
     public int x = 0;
     public int y = 0;
-    private JLabel snake;
+    private Snake snake;
     private boolean side = true; //right - true; left - false
     private Image[] images;
     private Image current;
@@ -27,6 +28,7 @@ public class Snake extends JLabel implements Trap, Resettable {
     private PlayPanel playPanel;
     private int width;
     private int height;
+    private Timer rockCheck;
 
     private void initImages(){
         Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
@@ -126,74 +128,72 @@ public class Snake extends JLabel implements Trap, Resettable {
     }
 
     @Override
-    public void checkTimerStart(PlayPanel panel, Object object, Cell[][] levelMatrix){
+    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("-----+-----");
                 Rectangle snakeRect = new Rectangle(x+snake.getX(),y+snake.getY(),70,70);
-
-                if(object instanceof Boy){
-                    System.out.println("------------");
-                    Boy boy = (Boy)object;
-                    Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
-                    if(boyRect.intersects(snakeRect) && !boy.gotInTrap){
-                        panel.takeEnergy(energy);
-                        boy.gotInTrap = true;
-                        Util.wait(5000, new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                boy.gotInTrap = false;
-                                if(snake.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())){
-                                    check.start();
-                                }
+                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
+                if(boyRect.intersects(snakeRect) && !boy.gotInTrap){
+                    panel.takeEnergy(energy);
+                    boy.gotInTrap = true;
+                    Util.wait(5000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            boy.gotInTrap = false;
+                            if(snake.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())){
+                                check.start();
                             }
-                        });
-                        check.stop();
-                    }
-                }else if(object instanceof Stone){
-                    System.out.println("+!+!+!+!+!+!");
-                    Rock rock = (Rock)object;
-                    Rectangle rockRect = new Rectangle(rock.x,rock.y,70,70);
-                    if(rockRect.intersects(snakeRect)){
-                        panel.remove(snake);
-                        Timer t = (Timer) e.getSource();
-                        t.stop();
-                        for (int i = 0; i < levelMatrix.length; i++) {
-                            for (int j = 0; j < levelMatrix[i].length; j++) {
-                                if(levelMatrix[i][j].getTrapObject() instanceof Snake){
-                                    if(levelMatrix[i][j].getTrapObject().equals(snake)){
-                                        levelMatrix[i][j].setTrapObject(null);
-                                        isAlive = false;
+                        }
+                    });
+                    check.stop();
+                }
+            }
+        });
+        check.start();
+    }
+
+    public void checkTimerStart(PlayPanel panel, Stone stone, Cell[][] levelMatrix){
+        rockCheck = new Timer(50, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("+!+!+!+!+!+!");
+                Rock rock = (Rock)stone;
+                Rectangle snakeRect = new Rectangle(x+snake.getX(),y+snake.getY(),70,70);
+                Rectangle rockRect = new Rectangle(rock.x,rock.y,70,70);
+                if(rockRect.intersects(snakeRect)){
+                    System.out.println("123123123123213");
+                    panel.remove(snake);
+                    for (int i = 0; i < levelMatrix.length; i++) {
+                        for (int j = 0; j < levelMatrix[i].length; j++) {
+                            if(levelMatrix[i][j].getTrapObject() instanceof Snake){
+                                if(levelMatrix[i][j].getTrapObject().equals(snake)){
+                                    levelMatrix[i][j].setTrapObject(null);
+                                    isAlive = false;
+                                }else if(levelMatrix[i][j].getTrapObject() instanceof Rock){
+                                    Rock rock1 = (Rock) levelMatrix[i][j].getTrapObject();
+                                    if(rock1.snake.equals(snake)){
+                                        rock1.snake = null;
                                     }
                                 }
                             }
                         }
-                        panel.repaint();
+                    }
+                    panel.repaint();
+                    Timer t = (Timer) e.getSource();
+                    t.stop();
+                    if(check!=null && check.isRunning()){
+                        check.stop();
                     }
                 }
-
-//                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
-//                Rectangle snakeRect = new Rectangle(x+snake.getX(),y+snake.getY(),70,70);
-//                System.out.println("----------");
-//                if(boyRect.intersects(snakeRect)){
-//                    panel.remove(snake);
-//                    Timer t = (Timer) e.getSource();
-//                    t.stop();
-//                    for (int i = 0; i < levelMatrix.length; i++) {
-//                        for (int j = 0; j < levelMatrix[i].length; j++) {
-//                            if(levelMatrix[i][j].getTrapObject() instanceof Snake){
-//                                if(levelMatrix[i][j].getTrapObject().equals(snake)){
-//                                    levelMatrix[i][j].setTrapObject(null);
-//                                    isAlive = false;
-//                                }
-//                            }
-//                        }
-//                    }
-//                    panel.repaint();
-//                }
             }
         });
-        check.start();
+        rockCheck.start();
+    }
+
+    public Timer getRockCheck() {
+        return rockCheck;
     }
 
     public int[] obstacleCheckX(){
@@ -203,7 +203,7 @@ public class Snake extends JLabel implements Trap, Resettable {
             int labelIY = (snake.getY()-playPanel.getMapY())/70;
             for (int i = 0; i < width/70; i++) {
                 Cell cell = playPanel.currentLevel.getMatrix()[labelIX+i][labelIY];
-                if(cell.getTrapObject() instanceof Rock || cell.getHarmlessObject()!=null){
+                if(cell.getTrapObject() instanceof Rock || cell.getHarmlessObject()!=null || cell.getBlock() instanceof Wall){
                     if((labelIX+i)*70>=labelIX*70+x){
                         diapason[1] = i*70;
                     }else{
@@ -222,7 +222,7 @@ public class Snake extends JLabel implements Trap, Resettable {
             int labelIY = (snake.getY()-playPanel.getMapY())/70;
             for (int i = 0; i < height/70; i++) {
                 Cell cell = playPanel.currentLevel.getMatrix()[labelIX][labelIY+i];
-                if(cell.getTrapObject() instanceof Rock || cell.getHarmlessObject()!=null){
+                if(cell.getTrapObject() instanceof Rock || cell.getHarmlessObject()!=null || cell.getBlock() instanceof Wall){
                     if((labelIY+i)*70>=labelIY*70+y){
                         diapason[1] = i*70;
                     }else{

@@ -197,13 +197,11 @@ public class Scorpion extends JLabel implements Trap{
     }
 
     @Override
-    public void checkTimerStart(PlayPanel panel, Object object, Cell[][] levelMatrix){
+    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("-----------");
-                if(object instanceof Boy){
-                    Boy boy = (Boy)object;
                     Rectangle boyRect = new Rectangle(boy.getX(), boy.getY(), 70, 70);
                     Rectangle scorpionRect = new Rectangle(x + scorpion.getX(), y + scorpion.getY(), 70, 70);
 
@@ -220,9 +218,6 @@ public class Scorpion extends JLabel implements Trap{
                             }
                         });
                         check.stop();
-                    }
-                }else if(object instanceof Stone){
-
                 }
 
 //                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);

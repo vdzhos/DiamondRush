@@ -10,8 +10,9 @@ import java.awt.*;
 
 public class Rock extends Stone implements Trap{
 
-    public Rock() {
+    public Rock(Snake snake) {
         super();
+        this.snake = snake;
         image = new ImageIcon("mapImages/rock.png").getImage();
     }
 
@@ -20,12 +21,12 @@ public class Rock extends Stone implements Trap{
         if (enabled) {
             if (i == 3) {
                 if(playPanel.itIsSnake(xInArray-1, yInArray)){
-                    if(snake!=null && this.snake.isAlive){
+                    if(snake!=null && snake.isAlive){
                         playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
                     }
                     snake = (Snake)playPanel.currentLevel.getMatrix()[xInArray-1][yInArray].getTrapObject();
                 }else{
-                    if(snake!=null && this.snake.isAlive){
+                    if(snake!=null && snake.isAlive){
                         playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
                     }
                     snake=null;
@@ -103,7 +104,7 @@ public class Rock extends Stone implements Trap{
     public void interactWithBoy() { }
 
     @Override
-    public void checkTimerStart(PlayPanel panel, Object object, Cell[][] levelMatrix) { }
+    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix) { }
 
 
 }

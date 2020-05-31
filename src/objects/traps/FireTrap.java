@@ -126,8 +126,7 @@ public class FireTrap extends JLabel implements Trap{
     }
 
     @Override
-    public void checkTimerStart(PlayPanel panel, Object object, Cell[][] levelMatrix){
-        Boy boy = (Boy)object;
+    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
         int side = 0;
         if(!this.side){
             side = 70;
