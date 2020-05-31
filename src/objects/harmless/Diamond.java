@@ -4,16 +4,12 @@ import objects.Stone;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class Diamond extends Stone implements Harmless{
 
     public Diamond(){
-        whatMove = 0;//Stay calm = 0; stagger = 1;
-        // fallLeft = 2; fallRight = 3; fallDown = 4;
+        super();
         image = new ImageIcon("statusBar/diamondHexPurple.png").getImage();
-        i = 0;
-        isMoving = false;
     }
 
     @Override

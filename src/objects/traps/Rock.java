@@ -10,11 +10,9 @@ import java.awt.*;
 
 public class Rock extends Stone implements Trap{
 
-    public Rock(){
-        whatMove = 0;
+    public Rock() {
+        super();
         image = new ImageIcon("mapImages/rock.png").getImage();
-        i = 0;
-        isMoving = false;
     }
 
     @Override

@@ -3,6 +3,7 @@ package objects.traps;
 import maps.Cell;
 import source.Boy;
 import source.PlayPanel;
+import source.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ public class FireTrap extends JLabel implements Trap{
     private boolean[] state = {false,false,false};
     private boolean turningOn = true;
     private JLabel fireTrap;
+    private int energy = 25;
     private boolean side; //right - true; left - false
 
     private void initImages(){
@@ -150,20 +152,15 @@ public class FireTrap extends JLabel implements Trap{
                 if(quantity==0){
                     intersects=false;
                 }
-                if(intersects){
-                    panel.remove(fireTrap);
-                    Timer t = (Timer) e.getSource();
-                    t.stop();
-                    for (int i = 0; i < levelMatrix.length; i++) {
-                        for (int j = 0; j < levelMatrix[i].length; j++) {
-                            if(levelMatrix[i][j].getTrapObject() instanceof FireTrap){
-                                if(levelMatrix[i][j].getTrapObject().equals(fireTrap)){
-                                    levelMatrix[i][j].setTrapObject(null);
-                                }
-                            }
+                if(intersects && !boy.gotInTrap){
+                    panel.takeEnergy(energy);
+                    boy.gotInTrap = true;
+                    Util.wait(5000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            boy.gotInTrap = false;
                         }
-                    }
-                    panel.repaint();
+                    });
                 }
             }
         });
