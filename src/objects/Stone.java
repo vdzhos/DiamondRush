@@ -26,21 +26,13 @@ public abstract class Stone implements Resettable {
     public int mapX;
     public int mapY;
     public Timer timer;
+    public boolean enabled = true;
 
-
-    public void initVars(PlayPanel playPanel, int xInArray, int yInArray, int mapX, int mapY){
-        this.playPanel = playPanel;
-        this.xInArray = xInArray;
-        this.yInArray = yInArray;
-        this.mapX = mapX;
-        this.mapY = mapY;
-        this.x = xInArray * 70 + mapX;
-        this.y = yInArray * 70 + mapY;
+    public Stone(){
+        whatMove = 0;
+        i = 0;
+        isMoving = false;
         timer = new Timer(100, null);
-    }
-
-    public void moveStone(){
-        //timer = new Timer(100, null);
         timer.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -155,7 +147,7 @@ public abstract class Stone implements Resettable {
                             whatMove = 3;
                         }
                         else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                                    (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1))){
+                                (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1))){
                             whatMove = 2;
                         }
                         else whatMove = 0;
@@ -173,10 +165,24 @@ public abstract class Stone implements Resettable {
                 }
             }
         });
-        timer.start();
+    }
+
+    public void initVars(PlayPanel playPanel, int xInArray, int yInArray, int mapX, int mapY){
+        this.playPanel = playPanel;
+        this.xInArray = xInArray;
+        this.yInArray = yInArray;
+        this.mapX = mapX;
+        this.mapY = mapY;
+        this.x = xInArray * 70 + mapX;
+        this.y = yInArray * 70 + mapY;
+    }
+
+    public void moveStone(){
+        if (!timer.isRunning()) timer.start();
     }
 
     public void checkSpace(){
+        if (enabled){
         if (!isMoving){
             if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                 this.whatMove = 4;
@@ -199,6 +205,7 @@ public abstract class Stone implements Resettable {
                     this.moveStone();
                 }
             }
+        }
         }
     }
 

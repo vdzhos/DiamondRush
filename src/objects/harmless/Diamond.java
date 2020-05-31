@@ -4,16 +4,12 @@ import objects.Stone;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class Diamond extends Stone implements Harmless{
 
     public Diamond(){
-        whatMove = 0;//Stay calm = 0; stagger = 1;
-        // fallLeft = 2; fallRight = 3; fallDown = 4;
+        super();
         image = new ImageIcon("statusBar/diamondHexPurple.png").getImage();
-        i = 0;
-        isMoving = false;
     }
 
     @Override
@@ -40,14 +36,16 @@ public class Diamond extends Stone implements Harmless{
 
     @Override
     public void disappear() {
-        whatMove = 0;
-        isMoving = false;
-        i = 0;
-        timer.stop();
-        playPanel.levelMatrix[xInArray][yInArray].setHarmlessObject(null);
-        playPanel.numberOfPurpleDiamondsCollected++;
-        playPanel.updateNumberOfPurpleDiamondsOnStatusBar();
-        playPanel.disappearFromCell(xInArray, yInArray);
+        if (enabled) {
+            whatMove = 0;
+            isMoving = false;
+            i = 0;
+            timer.stop();
+            playPanel.levelMatrix[xInArray][yInArray].setHarmlessObject(null);
+            playPanel.numberOfPurpleDiamondsCollected++;
+            playPanel.updateNumberOfPurpleDiamondsOnStatusBar();
+            playPanel.disappearFromCell(xInArray, yInArray);
+        }
     }
 
     @Override

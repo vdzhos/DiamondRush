@@ -127,6 +127,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     PauseMenuDialog.this.setVisible(false);
+//                    gameFrame.restartLevel();
                     playPanel.restart();
                 }
             });

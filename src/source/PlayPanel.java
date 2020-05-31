@@ -70,6 +70,8 @@ public class PlayPanel extends JPanel implements KeyListener {
     public boolean twoLineMessage;
     public String message;
     public String messageLower;
+    private boolean drawn;
+    private int checkpointCost = 10;
 
     public int numberOfRedDiamondsCollected;
 //    these commented fields are in the currentLevel object
@@ -87,6 +89,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     public int currentEnergyLevel;
 
     private boolean artefactIsCollected;
+    private LevelEndingDialog levelEndingDialog;
 
     private boolean boyCanMove = true;
     private boolean energyIsBeeingTaken  = false;
@@ -123,6 +126,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         initStatusBar();
         calculateInitialValuesOfMap();
         setCoordinates();
+//        levelEndingDialog = new LevelEndingDialog(gameFrame,this);
     }
 
     private void initStatusBar() {
@@ -169,7 +173,24 @@ public class PlayPanel extends JPanel implements KeyListener {
         System.out.println(boy.xInArray+"   "+boy.yInArray);
     }
 
+    private int n = 0;
+
     public void restart() {
+        if (n != 0) {
+            for (int i = 0; i < levelMatrix.length; i++) {
+                for (int j = 0; j < levelMatrix[0].length; j++) {
+                    if (levelMatrix[i][j].getHarmlessObject() instanceof Diamond) {
+                        ((Diamond) levelMatrix[i][j].getHarmlessObject()).enabled = false;
+                        ((Diamond) levelMatrix[i][j].getHarmlessObject()).reset();
+                    }
+                    if (levelMatrix[i][j].getTrapObject() instanceof Rock) {
+                        ((Rock) levelMatrix[i][j].getTrapObject()).enabled = false;
+                        ((Rock) levelMatrix[i][j].getTrapObject()).reset();
+                    }
+                }
+            }
+        }
+        n = 1;
         currentLevel = null;
         currentCheckpoint = null;
         stonesAreInited = false;
@@ -177,8 +198,8 @@ public class PlayPanel extends JPanel implements KeyListener {
         drawMessage = false;
         twoLineMessage = false;
         drawn = false;
-//        boy = null;
-//        boy = new Boy(0,0);
+        boy = null;
+        boy = new Boy(0,0);
 
 //        mapX = 0;
 //        mapY = 0;
@@ -268,11 +289,11 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         if (!statusBarIsInitiated){
             updateStatusBar();
             statusBarIsInitiated = true;
         }
-        super.paintComponent(g);
         panel.removeAll();
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
@@ -367,14 +388,16 @@ public class PlayPanel extends JPanel implements KeyListener {
 
 
 
+
+
+
 //        JLabel label = levelMatrix[9][16].getTrapObject().getLabel();
 //        System.out.println(boy.x + " " + boy.y + " | " + label.getX() + " " + label.getY());
     }
 
-    private boolean drawn;
 
     public void applyCheckpoint(){
-        if (currentCheckpoint != null) {
+        if (currentCheckpoint != null && currentEnergyLevel >= checkpointCost) {
             revivals ++;
             boy.isMoving = true;
             boy.currentPicture = boy.standClear;
@@ -394,8 +417,10 @@ public class PlayPanel extends JPanel implements KeyListener {
             numberOfSilverKeysCollected -= currentCheckpoint.numberOfSilverKeysOnTheAreaCollected;
             numberOfPurpleDiamondsCollected -= currentCheckpoint.numberOfPurpleDiamondsOnTheAreaCollected;
             numberOfRedDiamondsCollected -= currentCheckpoint.numberOfRedDiamondsOnTheAreaCollected;
-            currentEnergyLevel -= 100;
+            currentEnergyLevel -= checkpointCost;
             currentEnergyLevel = currentEnergyLevel<0?0:currentEnergyLevel;
+            numberOfGoldKeysCollected = numberOfGoldKeysCollected < 0?0:numberOfGoldKeysCollected;
+            numberOfSilverKeysCollected = numberOfSilverKeysCollected < 0?0:numberOfSilverKeysCollected;
             setCoordinates();
             repaint();
             updateStatusBar();
@@ -406,6 +431,14 @@ public class PlayPanel extends JPanel implements KeyListener {
 //            System.out.println(numberOfRedDiamondsCollected);
 //            System.out.println("___________________________");
 
+        }
+        else if (currentEnergyLevel < checkpointCost){
+            drawMessage = true;
+            twoLineMessage = true;
+            message = "       Low energy";
+            messageLower = "                level!";
+            drawn = false;
+            repaint();
         }
     }
 
@@ -681,16 +714,21 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     }
 
-    private void endLevel(){
-        if (numberOfPurpleDiamondsCollected == currentLevel.getMaxNumberOfPurpleDiamonds()
-                && numberOfRedDiamondsCollected == currentLevel.getMaxNumberOfRedDiamonds()
-                && revivals == 0)
-            artefactIsCollected = true;
-        pause();
-        gameFrame.updatePuzzlePanel(currentLevelInt,artefactIsCollected);
-        mapPanel.openNextLevel(currentLevelInt);
-        LevelEndingDialog levelEndingDialog = new LevelEndingDialog(gameFrame, panel);
-        ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+    private void endLevel(boolean win){
+        if (win) {
+            pause();
+            if (numberOfPurpleDiamondsCollected == currentLevel.getMaxNumberOfPurpleDiamonds()
+                    && numberOfRedDiamondsCollected == currentLevel.getMaxNumberOfRedDiamonds()
+                    && revivals == 0)
+                artefactIsCollected = true;
+            gameFrame.updatePuzzlePanel(currentLevelInt, artefactIsCollected);
+            mapPanel.openNextLevel(currentLevelInt);
+            levelEndingDialog = new LevelEndingDialog(gameFrame,this);
+            ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+        }
+        else {
+            pause();
+        }
     }
 
     @Override
@@ -744,7 +782,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    endLevel();
+                                    endLevel(true);
                                 }
                             });
                         }
@@ -793,7 +831,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    endLevel();
+                                    endLevel(true);
                                 }
                             });
                         }
@@ -870,7 +908,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    endLevel();
+                                    endLevel(true);
                                 }
                             });
                         }
@@ -882,10 +920,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.whatMove = 5;
                         boy.isMoving = true;
                         if (rock.whatMove != 2 && rock.whatMove != 3){
-                            rock.whatMove = 0;
-                            rock.isMoving = false;
-                            rock.i = 0;
-                            rock.timer.stop();
+                            //rock.whatMove = 0;
+                            //rock.isMoving = false;
+                            //rock.i = 0;
+                            //rock.timer.stop();
                             rock.whatMove = 5;
                             rock.isMoving = true;
                             rock.moveStone();
@@ -975,7 +1013,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             Util.wait(1000, new AbstractAction() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                   endLevel();
+                                   endLevel(true);
                                 }
                             });
                         }
@@ -987,10 +1025,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.whatMove = 7;
                         boy.isMoving = true;
                         if (rock.whatMove != 2 && rock.whatMove != 3){
-                            rock.whatMove = 0;
-                            rock.isMoving = false;
-                            rock.i = 0;
-                            rock.timer.stop();
+                            //rock.whatMove = 0;
+                            //rock.isMoving = false;
+                            //rock.i = 0;
+                            //rock.timer.stop();
                             rock.whatMove = 6;
                             rock.isMoving = true;
                             rock.moveStone();
