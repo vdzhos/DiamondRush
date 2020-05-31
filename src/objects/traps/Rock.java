@@ -19,6 +19,17 @@ public class Rock extends Stone implements Trap{
     public void beShovenLeft(){
         if (enabled) {
             if (i == 3) {
+                if(playPanel.itIsSnake(xInArray-1, yInArray)){
+                    if(snake!=null && this.snake.isAlive){
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
+                    snake = (Snake)playPanel.currentLevel.getMatrix()[xInArray-1][yInArray].getTrapObject();
+                }else{
+                    if(snake!=null && this.snake.isAlive){
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
+                    snake=null;
+                }
                 setStoneToNewPositionInArray(xInArray - 1, yInArray);
                 playPanel.disappearFromCell(xInArray, yInArray);
                 xInArray -= 1;
@@ -32,6 +43,19 @@ public class Rock extends Stone implements Trap{
     public void beShovenRight(){
         if (enabled) {
             if (i == 3) {
+                if(playPanel.itIsSnake(xInArray+1, yInArray)){
+                    if(snake!=null && this.snake.isAlive){
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
+                    snake = (Snake)playPanel.currentLevel.getMatrix()[xInArray+1][yInArray].getTrapObject();
+                }else{
+                    System.out.println("????????");
+                    if(snake!=null && this.snake.isAlive){
+                        System.out.println("!!!!!!!!!!");
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
+                    snake=null;
+                }
                 setStoneToNewPositionInArray(xInArray + 1, yInArray);
                 playPanel.disappearFromCell(xInArray, yInArray);
                 xInArray++;
@@ -54,7 +78,9 @@ public class Rock extends Stone implements Trap{
 
     @Override
     protected void setStoneToNewPositionInArray(int xInArray, int yInArray){
-        playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setTrapObject(null);
+        if(playPanel.itIsRock(this.xInArray,this.yInArray)){
+            playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setTrapObject(null);
+        }
         playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(this);
     }
 
@@ -66,7 +92,6 @@ public class Rock extends Stone implements Trap{
     @Override
     public void pause() {
         reset();
-
     }
 
     @Override
@@ -78,7 +103,7 @@ public class Rock extends Stone implements Trap{
     public void interactWithBoy() { }
 
     @Override
-    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix) { }
+    public void checkTimerStart(PlayPanel panel, Object object, Cell[][] levelMatrix) { }
 
 
 }

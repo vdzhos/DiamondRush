@@ -1,6 +1,8 @@
 package objects;
 
 import objects.blocks.doors.Resettable;
+import objects.traps.Rock;
+import objects.traps.Snake;
 import source.PlayPanel;
 
 import javax.swing.*;
@@ -27,6 +29,7 @@ public abstract class Stone implements Resettable {
     public int mapY;
     public Timer timer;
     public boolean enabled = true;
+    public Snake snake;
 
     public Stone(){
         whatMove = 0;
@@ -291,10 +294,30 @@ public abstract class Stone implements Resettable {
         if (i == 3){
             //Then change
             //if (yInArray + 1 < playPanel.getCurrentLevel().getMatrix()[0].length){
-                setStoneToNewPositionInArray(xInArray, yInArray + 1);
-                playPanel.disappearFromCell(xInArray, yInArray);
-                yInArray ++;
-
+            if(playPanel.itIsSnake(xInArray, yInArray + 1)){
+                System.out.println("found snake");
+                Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
+                if(!newSnake.equals(snake)){
+                    newSnake.checkTimerStart(playPanel, this, playPanel.currentLevel.getMatrix());
+                    System.out.println("starting timer");
+                }
+                if(this.snake!=null && this.snake.isAlive){
+                    playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(this.snake);
+                    if(!this.snake.equals(newSnake)){
+                        this.snake.getCheckTimer().stop();
+                    }
+                }
+                this.snake = newSnake;
+            }else{
+                if(this.snake!=null && this.snake.isAlive){
+                    playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(this.snake);
+                    this.snake.getCheckTimer().stop();
+                }
+                this.snake=null;
+            }
+            setStoneToNewPositionInArray(xInArray, yInArray + 1);
+            playPanel.disappearFromCell(xInArray, yInArray);
+            yInArray ++;
            //}
         }
         y += CELL_SIDE / 7;

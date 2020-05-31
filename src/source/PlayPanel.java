@@ -105,7 +105,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         panel.setLayout(null);
         setPreferredSize(new Dimension(2800, 1540));
         this.boy = new Boy(0,0);
-        maps = new Maps();
+        maps = new Maps(this);
         initLevel();
         calculateInitialValuesOfMap();
         setCoordinates();
@@ -119,7 +119,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         panel.setLayout(null);
         setPreferredSize(new Dimension(2800, 1540));
         this.boy = new Boy(0,0);
-        maps = new Maps();
+        maps = new Maps(this);
         maps.initLevel(currentLevel);
         initLevel();
         statusBarPanel = new StatusBarPanel(gameFrame, this);
@@ -335,7 +335,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                             add(label);
                         }
                     }
-                }else if(levelMatrix[i][j].getHarmlessObject() != null) {
+                }
+                if(levelMatrix[i][j].getHarmlessObject() != null) {
                     if (levelMatrix[i][j].getHarmlessObject() instanceof Diamond) {
                         if (!stonesAreInited)
                             ((Diamond)levelMatrix[i][j].getHarmlessObject()).initVars(this, i, j, mapX, mapY);
@@ -751,24 +752,24 @@ public class PlayPanel extends JPanel implements KeyListener {
             } else if ((code == KeyEvent.VK_UP) && (boy.isMoving == false) && isAllowedUp()) {
                 Block block = levelMatrix[boy.xInArray][boy.yInArray - 1].getBlock();
                 if (block.pass()) {
-                    if(itIsFireTrap(boy.xInArray, boy.yInArray - 1)){
-                        FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject();
-                        if(fireTrap.isHead(boy.x)){
-                            Floor floor = (Floor) block;
-                            floor.setPassable(false);
+                    if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray - 1) && !itIsRock(boy.xInArray, boy.yInArray - 1)) {
+                        if(itIsFireTrap(boy.xInArray, boy.yInArray - 1)) {
+                            FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject();
+                            if (fireTrap.isHead(boy.x)) {
+                                Floor floor = (Floor) block;
+                                floor.setPassable(false);
+                            } else {
+                                levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                            }
                         }else{
                             levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
                         }
-                    }else{
-                        if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray - 1) && !itIsRock(boy.xInArray, boy.yInArray - 1)) {
-                            levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                        } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray, boy.yInArray - 1)) {
-                            finishTrapCheckTimer(boy.xInArray, boy.yInArray);
-                        } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray - 1) &&
-                                (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject()))) {
-                            levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                            finishTrapCheckTimer(boy.xInArray, boy.yInArray);
-                        }
+                    } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray, boy.yInArray - 1)) {
+                        finishTrapCheckTimer(boy.xInArray, boy.yInArray);
+                    } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray - 1) &&
+                            (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject()))) {
+                        levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     }
                 }
                 if ((block.pass() && !(itIsRock(boy.xInArray, boy.yInArray - 1))) || itIsHarmless(boy.xInArray, boy.yInArray - 1)) {
@@ -800,24 +801,24 @@ public class PlayPanel extends JPanel implements KeyListener {
             } else if ((code == KeyEvent.VK_DOWN) && (boy.isMoving == false) && isAllowedDown()) {
                 Block block = levelMatrix[boy.xInArray][boy.yInArray + 1].getBlock();
                 if (block.pass()) {
-                    if(itIsFireTrap(boy.xInArray, boy.yInArray + 1)){
-                        FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject();
-                        if(fireTrap.isHead(boy.x)){
-                            Floor floor = (Floor) block;
-                            floor.setPassable(false);
+                    if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray + 1) && !itIsRock(boy.xInArray, boy.yInArray + 1)) {
+                        if(itIsFireTrap(boy.xInArray, boy.yInArray + 1)) {
+                            FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject();
+                            if (fireTrap.isHead(boy.x)) {
+                                Floor floor = (Floor) block;
+                                floor.setPassable(false);
+                            } else {
+                                levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                            }
                         }else{
                             levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
                         }
-                    }else {
-                        if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray + 1) && !itIsRock(boy.xInArray, boy.yInArray + 1)) {
-                            levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                        } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray, boy.yInArray + 1)) {
-                            finishTrapCheckTimer(boy.xInArray, boy.yInArray);
-                        } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray + 1) &&
-                                (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject()))) {
-                            levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                            finishTrapCheckTimer(boy.xInArray, boy.yInArray);
-                        }
+                    } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray, boy.yInArray + 1)) {
+                        finishTrapCheckTimer(boy.xInArray, boy.yInArray);
+                    } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray + 1) &&
+                            (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject()))) {
+                        levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     }
                 }
                 if ((block.pass() && !(itIsRock(boy.xInArray, boy.yInArray + 1))) || itIsHarmless(boy.xInArray, boy.yInArray + 1)) {
@@ -843,28 +844,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 moveBoy();
             } else if ((code == KeyEvent.VK_LEFT) && (boy.isMoving == false) && isAllowedLeft()) {
+                Rock possibleRock = null;
                 Block block = levelMatrix[boy.xInArray - 1][boy.yInArray].getBlock();
-                if (block.pass()) {
-                    if(itIsFireTrap(boy.xInArray-1, boy.yInArray)){
-                        FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject();
-                        if(fireTrap.isHead(boy.x-70)){
-                            Floor floor = (Floor) block;
-                            floor.setPassable(false);
-                        }else{
-                            levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                        }
-                    }else {
-                        if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray - 1, boy.yInArray) && !itIsRock(boy.xInArray - 1, boy.yInArray)) {
-                            levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                        } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray - 1, boy.yInArray)) {
-                            finishTrapCheckTimer(boy.xInArray, boy.yInArray);
-                        } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray - 1, boy.yInArray) &&
-                                (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject()))) {
-                            levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                            finishTrapCheckTimer(boy.xInArray, boy.yInArray);
-                        }
-                    }
-                }
                 if (block instanceof DoorWithKeyhole.GoldDoor && !block.pass()) {
                     if (numberOfGoldKeysCollected != 0) {
                         ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
@@ -914,8 +895,9 @@ public class PlayPanel extends JPanel implements KeyListener {
                         }
                     }
                 } else if (itIsRock(boy.xInArray - 1, boy.yInArray)) {
-                    if (itIsClearForStone(boy.xInArray - 2, boy.yInArray)) {
-                        Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
+                    Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
+                    if (itIsClearForStone(boy.xInArray - 2, boy.yInArray) && rockCheckForSnakes(boy.xInArray - 2, boy.yInArray,rock)) {
+                        possibleRock = rock;
                         setMovementLeft();
                         boy.whatMove = 5;
                         boy.isMoving = true;
@@ -943,31 +925,35 @@ public class PlayPanel extends JPanel implements KeyListener {
                     boy.whatMove = 21;
                     boy.isMoving = true;
                 }
+                if (block.pass()) {
+                    if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray - 1, boy.yInArray) && !itIsRock(boy.xInArray - 1, boy.yInArray)) {
+                        if(itIsFireTrap(boy.xInArray-1, boy.yInArray)) {
+                            FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject();
+                            if (fireTrap.isHead(boy.x)) {
+                                Floor floor = (Floor) block;
+                                floor.setPassable(false);
+                            } else {
+                                levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                            }
+                        }else{
+                            levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        }
+                    } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray - 1, boy.yInArray)) {
+                        finishTrapCheckTimer(boy.xInArray, boy.yInArray);
+                    } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray - 1, boy.yInArray) &&
+                            (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject()))) {
+                        levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        finishTrapCheckTimer(boy.xInArray, boy.yInArray);
+                    }
+                    if(possibleRock!=null && possibleRock.snake!=null){
+                        possibleRock.snake.checkTimerStart(this,boy,levelMatrix);
+                    }
+                }
                 moveBoy();
             }
             else if ((code == KeyEvent.VK_RIGHT) && (boy.isMoving == false) && isAllowedRight()) {
+                Rock possibleRock = null;
                 Block block = levelMatrix[boy.xInArray + 1][boy.yInArray].getBlock();
-                if (block.pass()) {
-                    if(itIsFireTrap(boy.xInArray+1, boy.yInArray)){
-                        FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject();
-                        if(fireTrap.isHead(boy.x)){
-                            Floor floor = (Floor) block;
-                            floor.setPassable(false);
-                        }else{
-                            levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                        }
-                    }else {
-                        if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray + 1, boy.yInArray) && !itIsRock(boy.xInArray + 1, boy.yInArray)) {
-                            levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                        } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray + 1, boy.yInArray)) {
-                            finishTrapCheckTimer(boy.xInArray, boy.yInArray);
-                        } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray + 1, boy.yInArray) &&
-                                (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject()))) {
-                            levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
-                            finishTrapCheckTimer(boy.xInArray, boy.yInArray);
-                        }
-                    }
-                }
                 if (block instanceof DoorWithKeyhole.GoldDoor && !block.pass()) {
                     if (numberOfGoldKeysCollected != 0){
                         ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
@@ -1019,8 +1005,9 @@ public class PlayPanel extends JPanel implements KeyListener {
                         }
                     }
                 } else if (itIsRock(boy.xInArray + 1, boy.yInArray)) {
-                    if (itIsClearForStone(boy.xInArray + 2, boy.yInArray)) {
-                        Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject();
+                    Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject();
+                    if (itIsClearForStone(boy.xInArray + 2, boy.yInArray) && rockCheckForSnakes(boy.xInArray + 2, boy.yInArray,rock)) {
+                        possibleRock = rock;
                         setMovementRight();
                         boy.whatMove = 7;
                         boy.isMoving = true;
@@ -1048,6 +1035,30 @@ public class PlayPanel extends JPanel implements KeyListener {
                     }
                     boy.whatMove = 22;
                     boy.isMoving = true;
+                }
+                if (block.pass()) {
+                    if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray + 1, boy.yInArray) && !itIsRock(boy.xInArray + 1, boy.yInArray)) {
+                        if(itIsFireTrap(boy.xInArray+1, boy.yInArray)) {
+                            FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject();
+                            if (fireTrap.isHead(boy.x)) {
+                                Floor floor = (Floor) block;
+                                floor.setPassable(false);
+                            } else {
+                                levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                            }
+                        }else{
+                            levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        }
+                    } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray + 1, boy.yInArray)) {
+                        finishTrapCheckTimer(boy.xInArray, boy.yInArray);
+                    } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray + 1, boy.yInArray) &&
+                            (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject()))) {
+                        levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        finishTrapCheckTimer(boy.xInArray, boy.yInArray);
+                    }
+                    if(possibleRock!=null && possibleRock.snake!=null){
+                        possibleRock.snake.checkTimerStart(this,boy,levelMatrix);
+                    }
                 }
                 moveBoy();
             }
@@ -1083,6 +1094,23 @@ public class PlayPanel extends JPanel implements KeyListener {
                 moveBoy();
             }
         }
+    }
+
+    private boolean rockCheckForSnakes(int xInArray, int yInArray, Rock rock){
+        if(itIsSnake(xInArray,yInArray)){
+            Snake snake = (Snake) levelMatrix[xInArray][yInArray].getTrapObject();
+            Rectangle snakeRect = new Rectangle(snake.x+snake.getLabel().getX(),snake.y+snake.getLabel().getY(),70,70);
+            Rectangle rockRect = new Rectangle(rock.x+(xInArray-rock.xInArray)*70,rock.y,70,70);
+            if(rockRect.intersects(snakeRect)){
+                System.out.println(xInArray-rock.xInArray +" "+ false);
+                return false;
+            }else{
+                System.out.println(xInArray-rock.xInArray+" "+ true);
+                return true;
+            }
+        }
+        System.out.println(xInArray-rock.xInArray+" "+ true);
+        return true;
     }
 
     public void disappearFromCell(int x, int y){
@@ -1229,13 +1257,19 @@ public class PlayPanel extends JPanel implements KeyListener {
                         System.out.println("finished");
                         if(itIsSnake(x,y)){
                             Snake snake = (Snake)levelMatrix[x][y].getTrapObject();
-                            snake.getCheckTimer().stop();
+                            if(snake.getCheckTimer().isRunning()){
+                                snake.getCheckTimer().stop();
+                            }
                         }else if(itIsScorpion(x,y)){
                             Scorpion scorpion = (Scorpion)levelMatrix[x][y].getTrapObject();
-                            scorpion.getCheckTimer().stop();
+                            if(scorpion.getCheckTimer().isRunning()){
+                                scorpion.getCheckTimer().stop();
+                            }
                         }else if(itIsFireTrap(x,y)){
                             FireTrap fireTrap = (FireTrap)levelMatrix[x][y].getTrapObject();
-                            fireTrap.getCheckTimer().stop();
+                            if(fireTrap.getCheckTimer().isRunning()){
+                                fireTrap.getCheckTimer().stop();
+                            }
                         }
                     }
                 },
@@ -1263,5 +1297,13 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     public int getCurrentLevelInt() {
         return currentLevelInt;
+    }
+
+    public int getMapX() {
+        return mapX;
+    }
+
+    public int getMapY() {
+        return mapY;
     }
 }

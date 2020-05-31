@@ -10,6 +10,7 @@ import objects.harmless.Tumbleweed;
 import objects.traps.Rock;
 import objects.traps.Scorpion;
 import objects.traps.Snake;
+import source.PlayPanel;
 
 import javax.swing.*;
 import java.awt.image.DataBufferFloat;
@@ -28,14 +29,11 @@ public class Maps {
     private Level level4;
     private Level level5;
 
-//    public Maps(){
-//        initLevel1();
-//        initLevel2();
-//        initLevel3();
-//        initLevel4();
-//        initLevel5();
-//    }
+    private PlayPanel playPanel;
 
+    public Maps(PlayPanel playPanel){
+        this.playPanel = playPanel;
+    }
 
     public void initLevel(int currentLevel) {
         switch (currentLevel){
@@ -76,11 +74,11 @@ public class Maps {
 
     private void initLevel1(){
 
-        Snake snake1 = new Snake(140,70,40,true);
-        Snake snake2 = new Snake(350,70,180,true);
-        Snake snake3 = new Snake(70,140,20,false);
-        Snake snake4 = new Snake(70,140,70,false);
-        Snake snake5 = new Snake(70,140,10,false);
+        Snake snake1 = new Snake(140,70,40,true, playPanel);
+        Snake snake2 = new Snake(350,70,100,true, playPanel);
+        Snake snake3 = new Snake(70,210,80,false, playPanel);
+        Snake snake4 = new Snake(70,210,120,false, playPanel);
+        Snake snake5 = new Snake(70,140,10,false, playPanel);
 
         Scorpion scorpion = new Scorpion(210,210,false,null,null);
 
@@ -121,7 +119,7 @@ public class Maps {
         level1[5][18] = new Cell(new Floor(),null,null);
         level1[5][19] = new Cell(new Floor(),null,null);
         level1[5][20] = new Cell(pressMechanism.pressPanel,null,null);
-        level1[6][4] = new Cell(new Floor(),null,snake2);
+        level1[6][4] = new Cell(new Floor(),new Tumbleweed(),snake2);
         level1[6][10] = new Cell(new Floor(),new Diamond(),null);
         level1[6][11] = new Cell(new Floor(),new Diamond(),null);
         level1[6][12] = new Cell(new Floor(),new Tumbleweed(),null);
@@ -144,7 +142,7 @@ public class Maps {
         level1[8][12] = new Cell(new Floor(),null,null);
         level1[8][13] = new Cell(new Floor(),null,fireTrap1);
         level1[8][19] = new Cell(new Floor(),null,null);
-        level1[9][4] = new Cell(new Floor(),null,snake2);
+        level1[9][4] = new Cell(new Floor(),new Tumbleweed(),snake2);
         level1[9][12] = new Cell(new Floor(),null,null);
         level1[9][13] = new Cell(new Floor(),null,fireTrap1);
         level1[9][14] = new Cell(new Floor(),null,null);
@@ -205,7 +203,7 @@ public class Maps {
         level1[15][3] = new Cell(new Floor(),new Tumbleweed(),null);
         level1[15][4] = new Cell(new Floor(),new Diamond(),null);
         level1[15][11] = new Cell(new Floor(),null,new Rock());
-        level1[15][12] = new Cell(new Floor(),new Tumbleweed(),null);
+        level1[15][12] = new Cell(new Floor(),new Tumbleweed(),snake3);
         level1[15][13] = new Cell(new Floor(),null,snake3);
         level1[15][14] = new Cell(new Floor(),null,snake3);
         level1[15][18] = new Cell(new Floor(),null,null);
@@ -213,7 +211,7 @@ public class Maps {
         level1[16][3] = new Cell(new Floor(),null,null);
         level1[16][4] = new Cell(new Floor(),new Diamond(),null);
         level1[16][11] = new Cell(new Floor(),null,null);
-        level1[16][12] = new Cell(new Floor(),new Tumbleweed(),null);
+        level1[16][12] = new Cell(new Floor(),new Tumbleweed(),snake4);
         level1[16][13] = new Cell(new Floor(),null,snake4);
         level1[16][14] = new Cell(new Floor(),null,snake4);
         level1[16][18] = new Cell(new Floor(),null,null);
@@ -385,7 +383,7 @@ public class Maps {
             checkpoint.setInitialMatrix(level1);
         }
 
-        this.level1 = new Level(level1,2,4,2,16, 200,1);
+        this.level1 = new Level(level1,4,4,21,11, 200,1);
         this.level1.setCheckpoints(checkpoints);
     }
 
@@ -876,11 +874,11 @@ public class Maps {
 
 
     private void initLevel3(){
-        Snake snake1 = new Snake(210,70,40,true);
-        Snake snake2 = new Snake(350,70,180,true);
-        Snake snake3 = new Snake(70,210,20,false);
-        Snake snake4 = new Snake(350,70,70,true);
-        Snake snake5 = new Snake(70,840,10,false);
+        Snake snake1 = new Snake(140,70,40,true, playPanel);
+        Snake snake2 = new Snake(350,70,180,true, playPanel);
+        Snake snake3 = new Snake(70,140,20,false, playPanel);
+        Snake snake4 = new Snake(70,140,70,false, playPanel);
+        Snake snake5 = new Snake(70,140,10,false, playPanel);
 
         Scorpion scorpion1 = new Scorpion(350,490,false,null,null);
         Scorpion scorpion2 = new Scorpion(140,140,true,null,null);
@@ -1370,11 +1368,11 @@ public class Maps {
     }
 
     private void initLevel4(){
-        Snake snake1 = new Snake(140,70,40,true);
-        Snake snake2 = new Snake(350,70,180,true);
-        Snake snake3 = new Snake(70,140,20,false);
-        Snake snake4 = new Snake(70,140,70,false);
-        Snake snake5 = new Snake(70,140,10,false);
+        Snake snake1 = new Snake(140,70,40,true, playPanel);
+        Snake snake2 = new Snake(350,70,180,true, playPanel);
+        Snake snake3 = new Snake(70,140,20,false, playPanel);
+        Snake snake4 = new Snake(70,140,70,false, playPanel);
+        Snake snake5 = new Snake(70,140,10,false, playPanel);
 
         Scorpion scorpion = new Scorpion(210,210,false,null,null);
 
@@ -1684,11 +1682,11 @@ public class Maps {
     }
 
     private void initLevel5(){
-        Snake snake1 = new Snake(140,70,40,true);
-        Snake snake2 = new Snake(350,70,180,true);
-        Snake snake3 = new Snake(70,140,20,false);
-        Snake snake4 = new Snake(70,140,70,false);
-        Snake snake5 = new Snake(70,140,10,false);
+        Snake snake1 = new Snake(140,70,40,true, playPanel);
+        Snake snake2 = new Snake(350,70,180,true, playPanel);
+        Snake snake3 = new Snake(70,140,20,false, playPanel);
+        Snake snake4 = new Snake(70,140,70,false, playPanel);
+        Snake snake5 = new Snake(70,140,10,false, playPanel);
 
         Scorpion scorpion = new Scorpion(210,210,false,null,null);
 
