@@ -52,6 +52,7 @@ public class Diamond extends Stone implements Harmless{
     @Override
     public void beShovenRight() { }
 
-    @Override
-    public void interactWithBoy() { }
+    public void pause() {
+        reset();
+    }
 }

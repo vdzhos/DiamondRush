@@ -807,6 +807,7 @@ public class Maps {
         level3[7][5] = new Cell(new Floor(),null,null);
         level3[7][6] = new Cell(new Floor(),null,snake2);
         level3[7][7] = new Cell(new Floor(),null,null);
+        level3[7][14] = new Cell(new Floor(),null,null);
         level3[7][15] = new Cell(new Floor(),null,null);
         level3[7][16] = new Cell(new Floor(),null,null);
         level3[7][17] = new Cell(new Floor(),null,null);

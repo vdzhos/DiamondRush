@@ -36,27 +36,23 @@ public abstract class Stone implements Resettable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (i == 0){
+                    if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
+                        if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    }
                     //if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     if ((whatMove == 4 || whatMove == 1) && !playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                         whatMove = 0;
                         if (playPanel.itIsStone(xInArray, yInArray + 1)){
-                            if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                                    (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
-                                            || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))){
-                                whatMove = 1;
-                            }
-                            else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                                    (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
-                                            ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
-                                whatMove = 1;
-                            }
+                            setWhatMove1();
                         }
                         if (whatMove == 0) i = 7;
                     }
+                    //else if (stoneUnderIsFallingRightOrLeft()){
+                    //    whatMove = 4;
+                    //}
                     else if (whatMove == 2 || whatMove == 3){
                         //System.out.println("(whatMove == 2 || whatMove == 3)" + whatMove);
-                        Stone stoneUnder = playPanel.getStone(xInArray, yInArray + 1);
-                        if (stoneUnder != null && stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3)){
+                        if (stoneUnderIsFallingRightOrLeft()){
                             whatMove = 4;
                         }
                         else if (whatMove == 2){
@@ -65,14 +61,12 @@ public abstract class Stone implements Resettable {
                                 whatMove = 1;
                             }
                             else if (playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1){// && playPanel.boy.whatMove == 4){
-                                //System.out.println("yes 1");
                                 whatMove = 0;
                             }
                             //System.out.println("1Stone " + (xInArray) + ", " + (yInArray + 1));
                             //System.out.println("1Boy " + playPanel.boy.xInArray + ", " + playPanel.boy.yInArray);
                         }
                         else if (whatMove == 3 && playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1){// && playPanel.boy.whatMove == 3){
-                            //System.out.println("yes 2");
                             whatMove = 0;
                         }
                         //System.out.println("2Stone " + (xInArray) + ", " + (yInArray + 1));
@@ -83,35 +77,28 @@ public abstract class Stone implements Resettable {
                     }
                     else if (whatMove != 1 && whatMove != 2 && whatMove != 3
                             && playPanel.itIsStone(xInArray, yInArray + 1)){
-                        if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                                (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
-                                        || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))){
-                            whatMove = 1;
-                        }
-                        else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                                (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
-                                        ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
-                            whatMove = 1;
-                        }
+                        setWhatMove1();
+                    }
+                    if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
+                        if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     }
                     //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
-                //System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
+                if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
+                    if (whatMove != 0) System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
+                }
                 if (whatMove != 0) isMoving = true;
                 if (whatMove == 1) stagger();
                 else if (whatMove == 2) fallLeft();
                 else if (whatMove == 3) fallRight();
                 else if (whatMove == 4) fallDown();
-                else if (whatMove == 5){
-                    //if (playPanel.boy.i != 0) i = playPanel.boy.i;
-                    beShovenLeft();
-                }
-                else if (whatMove == 6){
-                    //if (playPanel.boy.i != 0) i = playPanel.boy.i;
-                    beShovenRight();
-                }
+                else if (whatMove == 5) beShovenLeft();
+                else if (whatMove == 6) beShovenRight();
                 playPanel.repaint();
                 if (i == 7){
+                    if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
+                        System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    }
                     //System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     i = 0;
                     //There was && whatMove != 1
@@ -120,25 +107,16 @@ public abstract class Stone implements Resettable {
                     }
                     else if (whatMove == 2 || whatMove == 3) whatMove = 1;
                     else if (whatMove != 1 && playPanel.itIsStone(xInArray, yInArray + 1)){
-                        if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                                (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
-                                        || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))){
-                            whatMove = 1;
-                        }
-                        else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                                (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
-                                        ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
-                            whatMove = 1;
-                        }
-                        else if (whatMove == 5 || whatMove == 6){
-                            isMoving = false;
-                            whatMove = 0;
-                            timer.stop();
+                        if (!setWhatMove1()){
+                            if (whatMove == 5 || whatMove == 6){
+                                isMoving = false;
+                                whatMove = 0;
+                                timer.stop();
+                            }
                         }
                     }
                     else if (whatMove == 1){
-                        Stone stoneUnder = playPanel.getStone(xInArray, yInArray + 1);
-                        if (stoneUnder != null && stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3)){
+                        if (stoneUnderIsFallingRightOrLeft()){
                             whatMove = 4;
                         }
                         else if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
@@ -160,7 +138,10 @@ public abstract class Stone implements Resettable {
                         whatMove = 0;
                         timer.stop();
                     }
-                    //System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
+                        System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    }
+                       // System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
             }
         });
@@ -181,29 +162,39 @@ public abstract class Stone implements Resettable {
     }
 
     public void checkSpace(){
-        if (!isMoving){
+        if (!timer.isRunning()){
             if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                 this.whatMove = 4;
                 this.isMoving = true;
                 this.moveStone();
             }
             else if (whatMove != 1 && playPanel.itIsStone(xInArray, yInArray + 1)) {
-                if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                        (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
-                                || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))){
-                    this.whatMove = 1;
-                    this.isMoving = true;
-                    this.moveStone();
-                }
-                else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                        (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
-                                ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
-                    this.whatMove = 1;
+                if (setWhatMove1()){
                     this.isMoving = true;
                     this.moveStone();
                 }
             }
         }
+    }
+
+    private boolean stoneUnderIsFallingRightOrLeft(){
+        Stone stoneUnder = playPanel.getStone(xInArray, yInArray + 1);
+        return (stoneUnder != null && stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3));
+            //whatMove = 4;
+    }
+
+    private boolean setWhatMove1(){
+        if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
+                        || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))){
+            whatMove = 1;
+        }
+        else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
+                (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
+                        ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
+            whatMove = 1;
+        }
+        return whatMove == 1;
     }
 
     //хитатися
@@ -316,7 +307,6 @@ public abstract class Stone implements Resettable {
         isMoving = false;
     }
 
-    public abstract void interactWithBoy();
     protected abstract void setStoneToNewPositionInArray(int xInArray, int yInArray);
 
 }
