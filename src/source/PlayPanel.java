@@ -882,10 +882,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.whatMove = 5;
                         boy.isMoving = true;
                         if (rock.whatMove != 2 && rock.whatMove != 3){
-                            rock.whatMove = 0;
-                            rock.isMoving = false;
-                            rock.i = 0;
-                            rock.timer.stop();
+                            //rock.whatMove = 0;
+                            //rock.isMoving = false;
+                            //rock.i = 0;
+                            //rock.timer.stop();
                             rock.whatMove = 5;
                             rock.isMoving = true;
                             rock.moveStone();
@@ -987,10 +987,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.whatMove = 7;
                         boy.isMoving = true;
                         if (rock.whatMove != 2 && rock.whatMove != 3){
-                            rock.whatMove = 0;
-                            rock.isMoving = false;
-                            rock.i = 0;
-                            rock.timer.stop();
+                            //rock.whatMove = 0;
+                            //rock.isMoving = false;
+                            //rock.i = 0;
+                            //rock.timer.stop();
                             rock.whatMove = 6;
                             rock.isMoving = true;
                             rock.moveStone();
