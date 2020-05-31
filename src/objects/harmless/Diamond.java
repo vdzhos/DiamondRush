@@ -40,14 +40,16 @@ public class Diamond extends Stone implements Harmless{
 
     @Override
     public void disappear() {
-        whatMove = 0;
-        isMoving = false;
-        i = 0;
-        timer.stop();
-        playPanel.levelMatrix[xInArray][yInArray].setHarmlessObject(null);
-        playPanel.numberOfPurpleDiamondsCollected++;
-        playPanel.updateNumberOfPurpleDiamondsOnStatusBar();
-        playPanel.disappearFromCell(xInArray, yInArray);
+        if (enabled) {
+            whatMove = 0;
+            isMoving = false;
+            i = 0;
+            timer.stop();
+            playPanel.levelMatrix[xInArray][yInArray].setHarmlessObject(null);
+            playPanel.numberOfPurpleDiamondsCollected++;
+            playPanel.updateNumberOfPurpleDiamondsOnStatusBar();
+            playPanel.disappearFromCell(xInArray, yInArray);
+        }
     }
 
     @Override

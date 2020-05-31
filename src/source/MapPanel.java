@@ -91,6 +91,10 @@ public class MapPanel extends JPanel implements MouseListener {
         return levels[level-1];
     }
 
+    public void restartLevel(int level) {
+        levels[level-1] = new LevelUI(gameFrame,new PlayPanel(level,gameFrame,this));
+    }
+
 
     public void openNextLevel(int currentLevel){
         switch (currentLevel){
@@ -333,4 +337,5 @@ public class MapPanel extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
 }

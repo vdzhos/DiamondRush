@@ -1,6 +1,7 @@
 package objects.blocks;
 
 import maps.Cell;
+import objects.Stone;
 import objects.blocks.doors.Resettable;
 import objects.harmless.Chest;
 import objects.harmless.Diamond;
@@ -8,11 +9,16 @@ import objects.thingsInChest.GoldKey;
 import objects.thingsInChest.PurpleDiamond;
 import objects.thingsInChest.RedDiamond;
 import objects.thingsInChest.SilverKey;
+import objects.traps.Rock;
+import objects.traps.Scorpion;
+import objects.traps.Snake;
+import objects.traps.Trap;
 import source.Util;
 import source.Values;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Checkpoint implements Block {
 
@@ -52,6 +58,9 @@ public class Checkpoint implements Block {
     private int numberOfSilverKeysOnTheArea;
     public int numberOfSilverKeysOnTheAreaCollected;
     private int numberOfSilverKeysOnTheAreaLeft;
+
+    private ArrayList<Chest> chestsOnTheArea = new ArrayList<>();
+    private ArrayList<Trap> trapsOnTheArea = new ArrayList<>();
 
     private Floor floor = new Floor();
 
@@ -175,10 +184,14 @@ public class Checkpoint implements Block {
     private void setOriginalQuantity() {
         for (int i = startX; i <= endX; i++) {
             for (int j = startY; j <= endY; j++) {
+                if (initialMatrix[i][j].getTrapObject() instanceof Snake || initialMatrix[i][j].getTrapObject() instanceof Scorpion){
+                    trapsOnTheArea.add(initialMatrix[i][j].getTrapObject());
+                }
                 if (initialMatrix[i][j].getHarmlessObject() instanceof Diamond) {
                     numberOfPurpleDiamondsOnTheArea++;
                 }
                 else if (initialMatrix[i][j].getHarmlessObject() instanceof Chest) {
+                    chestsOnTheArea.add((Chest) initialMatrix[i][j].getHarmlessObject());
                     if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[0] != null) {
 //                        if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
                             numberOfPurpleDiamondsOnTheArea += ((PurpleDiamond) (((Chest) initialMatrix[i][j].getHarmlessObject()).things[0])).quantity;
@@ -201,9 +214,13 @@ public class Checkpoint implements Block {
         if (additionalSegmentBoolean){
             for (int i = additionalSegment[0]; i <= additionalSegment[2]; i++) {
                 for (int j = additionalSegment[1]; j <= additionalSegment[3]; j++) {
+                    if (initialMatrix[i][j].getTrapObject() instanceof Snake || initialMatrix[i][j].getTrapObject() instanceof Scorpion){
+                        trapsOnTheArea.add(initialMatrix[i][j].getTrapObject());
+                    }
                     if (initialMatrix[i][j].getHarmlessObject() instanceof Diamond)
                         numberOfPurpleDiamondsOnTheArea++;
                     else if (initialMatrix[i][j].getHarmlessObject() instanceof Chest) {
+                        chestsOnTheArea.add((Chest) initialMatrix[i][j].getHarmlessObject());
                         if (((Chest) initialMatrix[i][j].getHarmlessObject()).things[0] != null) {
 //                            if ((((Chest) initialMatrix[i][j].getHarmlessObject()).things[0]) instanceof PurpleDiamond)
                                 numberOfPurpleDiamondsOnTheArea += ((PurpleDiamond) (((Chest) initialMatrix[i][j].getHarmlessObject()).things[0])).quantity;
@@ -235,14 +252,21 @@ public class Checkpoint implements Block {
                 if (temp[i][j].getBlock() instanceof Resettable){
                     ((Resettable) temp[i][j].getBlock()).reset();
                 }
-                if (temp[i][j].getTrapObject() instanceof Resettable){
+                if (temp[i][j].getTrapObject() instanceof Resettable && trapsOnTheArea.contains(temp[i][j].getTrapObject())){
                     ((Resettable) temp[i][j].getTrapObject()).reset();
                 }
-                if (temp[i][j].getHarmlessObject() instanceof Resettable){
+                if (temp[i][j].getTrapObject() instanceof Rock){
+                    ((Rock) temp[i][j].getTrapObject()).reset();
+                }
+//                if (temp[i][j].getHarmlessObject() instanceof Resettable)
+//                    ((Resettable) temp[i][j].getHarmlessObject()).reset();
+//            }
+                if (temp[i][j].getHarmlessObject() instanceof Chest && chestsOnTheArea.contains((Chest) temp[i][j].getHarmlessObject()))
+                    ((Resettable) temp[i][j].getHarmlessObject()).reset();
+                if (temp[i][j].getHarmlessObject() instanceof Diamond)
                     ((Resettable) temp[i][j].getHarmlessObject()).reset();
                 }
             }
-        }
         return temp;
     }
 

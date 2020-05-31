@@ -19,24 +19,28 @@ public class Rock extends Stone implements Trap{
 
     @Override
     public void beShovenLeft(){
-        if (i == 3){
-            setStoneToNewPositionInArray(xInArray - 1, yInArray);
-            playPanel.disappearFromCell(xInArray, yInArray);
-            xInArray -= 1;
+        if (enabled) {
+            if (i == 3) {
+                setStoneToNewPositionInArray(xInArray - 1, yInArray);
+                playPanel.disappearFromCell(xInArray, yInArray);
+                xInArray -= 1;
+            }
+            x -= CELL_SIDE / 7;
+            i++;
         }
-        x -= CELL_SIDE / 7;
-        i++;
     }
 
     @Override
     public void beShovenRight(){
-        if (i == 3){
-            setStoneToNewPositionInArray(xInArray + 1, yInArray);
-            playPanel.disappearFromCell(xInArray, yInArray);
-            xInArray ++;
+        if (enabled) {
+            if (i == 3) {
+                setStoneToNewPositionInArray(xInArray + 1, yInArray);
+                playPanel.disappearFromCell(xInArray, yInArray);
+                xInArray++;
+            }
+            x += CELL_SIDE / 7;
+            i++;
         }
-        x += CELL_SIDE / 7;
-        i++;
     }
 
     @Override
@@ -63,6 +67,7 @@ public class Rock extends Stone implements Trap{
 
     @Override
     public void pause() {
+        reset();
 
     }
 

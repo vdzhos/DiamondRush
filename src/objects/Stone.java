@@ -26,6 +26,7 @@ public abstract class Stone implements Resettable {
     public int mapX;
     public int mapY;
     public Timer timer;
+    public boolean enabled = true;
 
 
     public void initVars(PlayPanel playPanel, int xInArray, int yInArray, int mapX, int mapY){
@@ -40,143 +41,128 @@ public abstract class Stone implements Resettable {
     }
 
     public void moveStone(){
-        //timer = new Timer(100, null);
-        timer.addActionListener(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (i == 0){
-                    //if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
-                    if ((whatMove == 4 || whatMove == 1) && !playPanel.itIsClearForStone(xInArray, yInArray + 1)){
-                        whatMove = 0;
-                        if (playPanel.itIsStone(xInArray, yInArray + 1)){
-                            if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                                    (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
-                                            || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))){
-                                whatMove = 1;
+        if (enabled) {
+            //timer = new Timer(100, null);
+            timer.addActionListener(new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (i == 0) {
+                        //if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                        if ((whatMove == 4 || whatMove == 1) && !playPanel.itIsClearForStone(xInArray, yInArray + 1)) {
+                            whatMove = 0;
+                            if (playPanel.itIsStone(xInArray, yInArray + 1)) {
+                                if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                        (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
+                                                || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))) {
+                                    whatMove = 1;
+                                } else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
+                                        (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
+                                                || (playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))) {
+                                    whatMove = 1;
+                                }
                             }
-                            else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                                    (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
-                                            ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
-                                whatMove = 1;
-                            }
-                        }
-                        if (whatMove == 0) i = 7;
-                    }
-                    else if (whatMove == 2 || whatMove == 3){
-                        //System.out.println("(whatMove == 2 || whatMove == 3)" + whatMove);
-                        Stone stoneUnder = playPanel.getStone(xInArray, yInArray + 1);
-                        if (stoneUnder != null && stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3)){
-                            whatMove = 4;
-                        }
-                        else if (whatMove == 2){
-                            Stone stoneLeftLeft = playPanel.getStone(xInArray - 2, yInArray);
-                            if (stoneLeftLeft != null && stoneLeftLeft.isMoving && stoneLeftLeft.whatMove == 3){
-                                whatMove = 1;
-                            }
-                            else if (playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1){// && playPanel.boy.whatMove == 4){
-                                //System.out.println("yes 1");
+                            if (whatMove == 0) i = 7;
+                        } else if (whatMove == 2 || whatMove == 3) {
+                            //System.out.println("(whatMove == 2 || whatMove == 3)" + whatMove);
+                            Stone stoneUnder = playPanel.getStone(xInArray, yInArray + 1);
+                            if (stoneUnder != null && stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3)) {
+                                whatMove = 4;
+                            } else if (whatMove == 2) {
+                                Stone stoneLeftLeft = playPanel.getStone(xInArray - 2, yInArray);
+                                if (stoneLeftLeft != null && stoneLeftLeft.isMoving && stoneLeftLeft.whatMove == 3) {
+                                    whatMove = 1;
+                                } else if (playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1) {// && playPanel.boy.whatMove == 4){
+                                    //System.out.println("yes 1");
+                                    whatMove = 0;
+                                }
+                                //System.out.println("1Stone " + (xInArray) + ", " + (yInArray + 1));
+                                //System.out.println("1Boy " + playPanel.boy.xInArray + ", " + playPanel.boy.yInArray);
+                            } else if (whatMove == 3 && playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1) {// && playPanel.boy.whatMove == 3){
+                                //System.out.println("yes 2");
                                 whatMove = 0;
                             }
-                            //System.out.println("1Stone " + (xInArray) + ", " + (yInArray + 1));
-                            //System.out.println("1Boy " + playPanel.boy.xInArray + ", " + playPanel.boy.yInArray);
+                            //System.out.println("2Stone " + (xInArray) + ", " + (yInArray + 1));
+                            //System.out.println("2Boy " + playPanel.boy.xInArray + ", " + playPanel.boy.yInArray);
+                        } else if (playPanel.itIsClearForStone(xInArray, yInArray + 1)) {
+                            whatMove = 4;
+                        } else if (whatMove != 1 && whatMove != 2 && whatMove != 3
+                                && playPanel.itIsStone(xInArray, yInArray + 1)) {
+                            if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                    (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
+                                            || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))) {
+                                whatMove = 1;
+                            } else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
+                                    (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
+                                            || (playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))) {
+                                whatMove = 1;
+                            }
                         }
-                        else if (whatMove == 3 && playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1){// && playPanel.boy.whatMove == 3){
-                            //System.out.println("yes 2");
-                            whatMove = 0;
-                        }
-                        //System.out.println("2Stone " + (xInArray) + ", " + (yInArray + 1));
-                        //System.out.println("2Boy " + playPanel.boy.xInArray + ", " + playPanel.boy.yInArray);
+                        //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     }
-                    else if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
-                        whatMove = 4;
+                    //System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
+                    if (whatMove != 0) isMoving = true;
+                    if (whatMove == 1) stagger();
+                    else if (whatMove == 2) fallLeft();
+                    else if (whatMove == 3) fallRight();
+                    else if (whatMove == 4) fallDown();
+                    else if (whatMove == 5) {
+                        //if (playPanel.boy.i != 0) i = playPanel.boy.i;
+                        beShovenLeft();
+                    } else if (whatMove == 6) {
+                        //if (playPanel.boy.i != 0) i = playPanel.boy.i;
+                        beShovenRight();
                     }
-                    else if (whatMove != 1 && whatMove != 2 && whatMove != 3
-                            && playPanel.itIsStone(xInArray, yInArray + 1)){
-                        if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                                (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
-                                        || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))){
-                            whatMove = 1;
-                        }
-                        else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                                (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
-                                        ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
-                            whatMove = 1;
-                        }
-                    }
-                    //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
-                }
-                //System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
-                if (whatMove != 0) isMoving = true;
-                if (whatMove == 1) stagger();
-                else if (whatMove == 2) fallLeft();
-                else if (whatMove == 3) fallRight();
-                else if (whatMove == 4) fallDown();
-                else if (whatMove == 5){
-                    //if (playPanel.boy.i != 0) i = playPanel.boy.i;
-                    beShovenLeft();
-                }
-                else if (whatMove == 6){
-                    //if (playPanel.boy.i != 0) i = playPanel.boy.i;
-                    beShovenRight();
-                }
-                playPanel.repaint();
-                if (i == 7){
-                    //System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
-                    i = 0;
-                    //There was && whatMove != 1
-                    if (whatMove != 0 && playPanel.itIsClearForStone(xInArray, yInArray + 1)){
-                        whatMove = 4;
-                    }
-                    else if (whatMove == 2 || whatMove == 3) whatMove = 1;
-                    else if (whatMove != 1 && playPanel.itIsStone(xInArray, yInArray + 1)){
-                        if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                                (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
-                                        || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))){
-                            whatMove = 1;
-                        }
-                        else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                                (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
-                                        ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
-                            whatMove = 1;
-                        }
-                        else if (whatMove == 5 || whatMove == 6){
+                    playPanel.repaint();
+                    if (i == 7) {
+                        //System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                        i = 0;
+                        //There was && whatMove != 1
+                        if (whatMove != 0 && playPanel.itIsClearForStone(xInArray, yInArray + 1)) {
+                            whatMove = 4;
+                        } else if (whatMove == 2 || whatMove == 3) whatMove = 1;
+                        else if (whatMove != 1 && playPanel.itIsStone(xInArray, yInArray + 1)) {
+                            if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                    (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
+                                            || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))) {
+                                whatMove = 1;
+                            } else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
+                                    (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
+                                            || (playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))) {
+                                whatMove = 1;
+                            } else if (whatMove == 5 || whatMove == 6) {
+                                isMoving = false;
+                                whatMove = 0;
+                                timer.stop();
+                            }
+                        } else if (whatMove == 1) {
+                            Stone stoneUnder = playPanel.getStone(xInArray, yInArray + 1);
+                            if (stoneUnder != null && stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3)) {
+                                whatMove = 4;
+                            } else if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
+                                    (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1))) {
+                                whatMove = 3;
+                            } else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
+                                    (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1))) {
+                                whatMove = 2;
+                            } else whatMove = 0;
+                        } else if (whatMove == 0) {
+                            isMoving = false;
+                            timer.stop();
+                        } else {
                             isMoving = false;
                             whatMove = 0;
                             timer.stop();
                         }
+                        //System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     }
-                    else if (whatMove == 1){
-                        Stone stoneUnder = playPanel.getStone(xInArray, yInArray + 1);
-                        if (stoneUnder != null && stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3)){
-                            whatMove = 4;
-                        }
-                        else if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
-                                (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1))){
-                            whatMove = 3;
-                        }
-                        else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                                    (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1))){
-                            whatMove = 2;
-                        }
-                        else whatMove = 0;
-                    }
-                    else if (whatMove == 0){
-                        isMoving = false;
-                        timer.stop();
-                    }
-                    else{
-                        isMoving = false;
-                        whatMove = 0;
-                        timer.stop();
-                    }
-                    //System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
-            }
-        });
-        timer.start();
+            });
+            timer.start();
+        }
     }
 
     public void checkSpace(){
+        if (enabled){
         if (!isMoving){
             if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                 this.whatMove = 4;
@@ -199,6 +185,7 @@ public abstract class Stone implements Resettable {
                     this.moveStone();
                 }
             }
+        }
         }
     }
 
@@ -281,6 +268,7 @@ public abstract class Stone implements Resettable {
     }
 
     public void fallDown(){
+        System.out.println("falling down "+this.toString()+"  "+enabled);
         if (i == 3){
             //Then change
             //if (yInArray + 1 < playPanel.getCurrentLevel().getMatrix()[0].length){
