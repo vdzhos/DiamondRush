@@ -30,11 +30,12 @@ public class BreakableWall implements Block{
         Cell[][] map = matrix;
         ArrayList<Cell> all = new ArrayList<>();
         all.add(map[x][y]);
-        int newlyAdded = 1;
+        int newlyAdded;
         all.addAll(otherBreakablesCheck(x,y,map,all));
+        newlyAdded = all.size()-1;
         do{
             int counter = 0;
-            for (int i = all.size() - newlyAdded-1; i < all.size() ; i++) {
+            for (int i = all.size() - newlyAdded; i < all.size() ; i++) {
                 BreakableWall bw = (BreakableWall) all.get(i).getBlock();
                 ArrayList<Cell> toBeAdded = otherBreakablesCheck(bw.x,bw.y,map,all);
                 all.addAll(toBeAdded);
