@@ -48,11 +48,10 @@ public abstract class Stone implements Resettable {
                         }
                         if (whatMove == 0) i = 7;
                     }
-                    //else if (stoneUnderIsFallingRightOrLeft()){
-                    //    whatMove = 4;
-                    //}
+                    else if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
+                        whatMove = 4;
+                    }
                     else if (whatMove == 2 || whatMove == 3){
-                        //System.out.println("(whatMove == 2 || whatMove == 3)" + whatMove);
                         if (stoneUnderIsFallingRightOrLeft()){
                             whatMove = 4;
                         }
@@ -61,27 +60,33 @@ public abstract class Stone implements Resettable {
                             if (stoneLeftLeft != null && stoneLeftLeft.isMoving && stoneLeftLeft.whatMove == 3){
                                 whatMove = 1;
                             }
-                            else if (playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1){// && playPanel.boy.whatMove == 4){
+                            else if (playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1){
                                 whatMove = 0;
                             }
-                            //System.out.println("1Stone " + (xInArray) + ", " + (yInArray + 1));
-                            //System.out.println("1Boy " + playPanel.boy.xInArray + ", " + playPanel.boy.yInArray);
+                            //Newly added
+                            else{
+                                Stone stoneLeftUp = playPanel.getStone(xInArray - 1, yInArray - 1);
+                                if (stoneLeftUp != null && stoneLeftUp.isMoving && (stoneLeftUp.whatMove == 2 || stoneLeftUp.whatMove == 4)){
+                                    whatMove = 0;
+                                }
+                            }
                         }
-                        else if (whatMove == 3 && playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1){// && playPanel.boy.whatMove == 3){
-                            whatMove = 0;
+                        else if (whatMove == 3){
+                            if (playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1) {
+                                whatMove = 0;
+                            }
+                            //Newly added
+                            else{
+                                Stone stoneRightUp = playPanel.getStone(xInArray + 1, yInArray - 1);
+                                if (stoneRightUp != null && stoneRightUp.isMoving && (stoneRightUp.whatMove == 3 || stoneRightUp.whatMove == 4)){
+                                    whatMove = 0;
+                                }
+                            }
                         }
-                        //System.out.println("2Stone " + (xInArray) + ", " + (yInArray + 1));
-                        //System.out.println("2Boy " + playPanel.boy.xInArray + ", " + playPanel.boy.yInArray);
-                    }
-                    else if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
-                        whatMove = 4;
                     }
                     else if (whatMove != 1 && whatMove != 2 && whatMove != 3
                             && playPanel.itIsStone(xInArray, yInArray + 1)){
                         setWhatMove1();
-                    }
-                    if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
-                        if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     }
                     //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
@@ -97,7 +102,6 @@ public abstract class Stone implements Resettable {
                 if (i == 7){
                     //System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     i = 0;
-                    //There was && whatMove != 1
                     if (whatMove != 0 && playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                         whatMove = 4;
                     }
@@ -178,28 +182,30 @@ public abstract class Stone implements Resettable {
             //whatMove = 4;
     }
 
-    private boolean setWhatMove1(){
+    private boolean setWhatMove1() {
         if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
                 (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
-                        || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))){
+                        || (playPanel.boy.xInArray == xInArray + 1 && playPanel.boy.yInArray == yInArray + 1))) {
+            whatMove = 1;
+        } else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
+                (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
+                        || (playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))) {
             whatMove = 1;
         }
-        else if (playPanel.itIsClearForStone(xInArray - 1, yInArray) &&
-                (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
-                        ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
-            whatMove = 1;
         return whatMove == 1;
     }
 
     //хитатися
-    public void stagger(){
-        if (i != 0){
-            if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
-                whatMove = 4;
-                i = -1;
+    public void stagger () {
+        if (i != 0) {
+            if (i % 2 == 0) x += CELL_SIDE / 14;
+            else{
+                if (playPanel.itIsClearForStone(xInArray, yInArray + 1)) {
+                    whatMove = 4;
+                    i = -1;
+                }
+                else x -= CELL_SIDE / 14;
             }
-            else if (i % 2 == 0) x += CELL_SIDE / 14;
-            else x -= CELL_SIDE / 14;
         }
         i++;
     }
@@ -287,7 +293,6 @@ public abstract class Stone implements Resettable {
             setStoneToNewPositionInArray(xInArray, yInArray + 1);
             playPanel.disappearFromCell(xInArray, yInArray);
             yInArray ++;
-           //}
         }
         y += CELL_SIDE / 7;
         i++;

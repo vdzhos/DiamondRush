@@ -54,7 +54,7 @@ public class Chest implements Harmless, Resettable {
                         playPanel.moveBoy();
                     }
                     if (thingsAreBeeingTaken == false) thingsAreBeeingTaken = true;
-                    if (index >= 5){
+                    if (index == 5){
                         thingsAreBeeingTaken = false;
                         playPanel.boy.isMoving = false;
                         timer.stop();
@@ -74,14 +74,16 @@ public class Chest implements Harmless, Resettable {
     }
 
     private void takeThings(){
-        if ((index < 5)&&(things[index] != null)) currentThing = things[index];
-        else if ((index < 5)&&(things[index] == null)){
-            index++;
-            if ((index < 5)&&(things[index] != null)) currentThing = things[index];
+        if ((index < 5)&&(things[index] != null)){
+            currentThing = things[index];
+            i++;
+            if (i == 7){
+                things[index].disappear(playPanel);
+                index++;
+            }
         }
-        i++;
-        if (i == 7){
-            if (index < 5 && things[index] != null) things[index].disappear(playPanel);
+        else if ((index < 5)&&(things[index] == null)){
+            i = 7;
             index++;
         }
     }
