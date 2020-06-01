@@ -10,31 +10,60 @@ import java.awt.*;
 
 public class Rock extends Stone implements Trap{
 
-    public Rock() {
+    public Rock(Snake snake) {
         super();
+        this.snake = snake;
         image = new ImageIcon("mapImages/rock.png").getImage();
     }
 
     @Override
     public void beShovenLeft(){
-        if (i == 3){
-            setStoneToNewPositionInArray(xInArray - 1, yInArray);
-            playPanel.disappearFromCell(xInArray, yInArray);
-            xInArray -= 1;
+        if (enabled) {
+            if (i == 3) {
+                if(playPanel.itIsSnake(xInArray-1, yInArray)){
+                    if(snake!=null && snake.isAlive){
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
+                    snake = (Snake)playPanel.currentLevel.getMatrix()[xInArray-1][yInArray].getTrapObject();
+                }else{
+                    if(snake!=null && snake.isAlive){
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
+                    snake=null;
+                }
+                setStoneToNewPositionInArray(xInArray - 1, yInArray);
+                playPanel.disappearFromCell(xInArray, yInArray);
+                xInArray -= 1;
+            }
+            x -= CELL_SIDE / 7;
+            i++;
         }
-        x -= CELL_SIDE / 7;
-        i++;
     }
 
     @Override
     public void beShovenRight(){
-        if (i == 3){
-            setStoneToNewPositionInArray(xInArray + 1, yInArray);
-            playPanel.disappearFromCell(xInArray, yInArray);
-            xInArray ++;
+        if (enabled) {
+            if (i == 3) {
+                if(playPanel.itIsSnake(xInArray+1, yInArray)){
+                    if(snake!=null && this.snake.isAlive){
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
+                    snake = (Snake)playPanel.currentLevel.getMatrix()[xInArray+1][yInArray].getTrapObject();
+                }else{
+                    System.out.println("????????");
+                    if(snake!=null && this.snake.isAlive){
+                        System.out.println("!!!!!!!!!!");
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
+                    snake=null;
+                }
+                setStoneToNewPositionInArray(xInArray + 1, yInArray);
+                playPanel.disappearFromCell(xInArray, yInArray);
+                xInArray++;
+            }
+            x += CELL_SIDE / 7;
+            i++;
         }
-        x += CELL_SIDE / 7;
-        i++;
     }
 
     @Override
@@ -50,7 +79,9 @@ public class Rock extends Stone implements Trap{
 
     @Override
     protected void setStoneToNewPositionInArray(int xInArray, int yInArray){
-        playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setTrapObject(null);
+        if(playPanel.itIsRock(this.xInArray,this.yInArray)){
+            playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setTrapObject(null);
+        }
         playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(this);
     }
 

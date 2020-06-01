@@ -159,8 +159,12 @@ public class FireTrap extends JLabel implements Trap{
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             boy.gotInTrap = false;
+                            if(fireTrap.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())) {
+                                check.start();
+                            }
                         }
                     });
+                    check.stop();
                 }
             }
         });

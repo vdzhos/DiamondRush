@@ -2,6 +2,7 @@ package objects.traps;
 
 import maps.Cell;
 import objects.Direction;
+import objects.Stone;
 import source.Boy;
 import source.PlayPanel;
 import source.Util;
@@ -200,19 +201,23 @@ public class Scorpion extends JLabel implements Trap{
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("-----------");
+                    Rectangle boyRect = new Rectangle(boy.getX(), boy.getY(), 70, 70);
+                    Rectangle scorpionRect = new Rectangle(x + scorpion.getX(), y + scorpion.getY(), 70, 70);
 
-                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
-                Rectangle scorpionRect = new Rectangle(x+scorpion.getX(),y+scorpion.getY(),70,70);
-
-                if(boyRect.intersects(scorpionRect) && !boy.gotInTrap){
-                    panel.takeEnergy(energy);
-                    boy.gotInTrap = true;
-                    Util.wait(5000, new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            boy.gotInTrap = false;
-                        }
-                    });
+                    if (boyRect.intersects(scorpionRect) && !boy.gotInTrap) {
+                        panel.takeEnergy(energy);
+                        boy.gotInTrap = true;
+                        Util.wait(5000, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                boy.gotInTrap = false;
+                                if(scorpion.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())){
+                                    check.start();
+                                }
+                            }
+                        });
+                        check.stop();
                 }
 
 //                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);

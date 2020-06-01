@@ -52,7 +52,7 @@ public class DoorWithKeyhole {
 
         @Override
         public void reset() {
-            opened = false;
+            opened = opened?true:false;
         }
     }
 
@@ -86,7 +86,7 @@ public class DoorWithKeyhole {
 
         @Override
         public void reset() {
-            opened = false;
+            opened = opened?true:false;
         }
     }
 

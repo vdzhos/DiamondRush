@@ -1,6 +1,8 @@
 package objects;
 
 import objects.blocks.doors.Resettable;
+import objects.traps.Rock;
+import objects.traps.Snake;
 import source.PlayPanel;
 
 import javax.swing.*;
@@ -26,6 +28,8 @@ public abstract class Stone implements Resettable {
     public int mapX;
     public int mapY;
     public Timer timer;
+    public boolean enabled = true;
+    public Snake snake;
 
     public Stone(){
         whatMove = 0;
@@ -36,9 +40,6 @@ public abstract class Stone implements Resettable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (i == 0){
-                    if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
-                        if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
-                    }
                     //if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     if ((whatMove == 4 || whatMove == 1) && !playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                         whatMove = 0;
@@ -84,9 +85,7 @@ public abstract class Stone implements Resettable {
                     }
                     //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
-                if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
-                    if (whatMove != 0) System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
-                }
+                //if (whatMove != 0) System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
                 if (whatMove != 0) isMoving = true;
                 if (whatMove == 1) stagger();
                 else if (whatMove == 2) fallLeft();
@@ -96,9 +95,6 @@ public abstract class Stone implements Resettable {
                 else if (whatMove == 6) beShovenRight();
                 playPanel.repaint();
                 if (i == 7){
-                    if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
-                        System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
-                    }
                     //System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     i = 0;
                     //There was && whatMove != 1
@@ -138,10 +134,7 @@ public abstract class Stone implements Resettable {
                         whatMove = 0;
                         timer.stop();
                     }
-                    if ((xInArray == 3 && (yInArray == 12 || yInArray == 13)) || (xInArray == 4 && (yInArray == 13 || yInArray == 14))){
-                        System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
-                    }
-                       // System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
+                    //System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
             }
         });
@@ -162,16 +155,18 @@ public abstract class Stone implements Resettable {
     }
 
     public void checkSpace(){
-        if (!timer.isRunning()){
-            if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
-                this.whatMove = 4;
-                this.isMoving = true;
-                this.moveStone();
-            }
-            else if (whatMove != 1 && playPanel.itIsStone(xInArray, yInArray + 1)) {
-                if (setWhatMove1()){
+        if (enabled){
+            if (!timer.isRunning()){
+                if (playPanel.itIsClearForStone(xInArray, yInArray + 1)){
+                    this.whatMove = 4;
                     this.isMoving = true;
                     this.moveStone();
+                }
+                else if (whatMove != 1 && playPanel.itIsStone(xInArray, yInArray + 1)) {
+                    if (setWhatMove1()){
+                        this.isMoving = true;
+                        this.moveStone();
+                    }
                 }
             }
         }
@@ -193,7 +188,6 @@ public abstract class Stone implements Resettable {
                 (playPanel.itIsClearForStone(xInArray - 1, yInArray + 1)
                         ||(playPanel.boy.xInArray == xInArray - 1 && playPanel.boy.yInArray == yInArray + 1))){
             whatMove = 1;
-        }
         return whatMove == 1;
     }
 
@@ -276,13 +270,23 @@ public abstract class Stone implements Resettable {
     }
 
     public void fallDown(){
+        System.out.println("falling down");
         if (i == 3){
-            //Then change
-            //if (yInArray + 1 < playPanel.getCurrentLevel().getMatrix()[0].length){
-                setStoneToNewPositionInArray(xInArray, yInArray + 1);
-                playPanel.disappearFromCell(xInArray, yInArray);
-                yInArray ++;
-
+            if(playPanel.itIsSnake(xInArray, yInArray + 1)){
+                System.out.println("found snake");
+                Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
+                if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())){
+                    System.out.println("timer started");
+                    newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
+                }
+            }else{
+                if(snake!=null){
+                    snake.getRockCheck().stop();
+                }
+            }
+            setStoneToNewPositionInArray(xInArray, yInArray + 1);
+            playPanel.disappearFromCell(xInArray, yInArray);
+            yInArray ++;
            //}
         }
         y += CELL_SIDE / 7;

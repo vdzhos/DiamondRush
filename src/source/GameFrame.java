@@ -1,5 +1,7 @@
 package source;
 
+import maps.Level;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,6 +13,7 @@ public class GameFrame extends JFrame {
 //    private PlayPanel currentPlayPanel;
     private StatusBarPanel currentStatusBar;
     private int currentLevelInt;
+    private LevelEndingDialog levelEndingDialog;
 
 
 
@@ -65,6 +68,16 @@ public class GameFrame extends JFrame {
         revalidate();
         repaint();
     }
+
+//    public void showLevelEndingDialog(PlayPanel playPanel){
+//        levelEndingDialog = new LevelEndingDialog(this,playPanel);
+//        levelEndingDialog.setVisible(true);
+//    }
+
+//    public void restartLevel(){
+//        mapPanel.restartLevel(currentLevelInt);
+//        showLevel(mapPanel.getLevel(currentLevelInt));
+//    }
 
     public void showNextLevel(){
         if (currentLevelInt < 5){
