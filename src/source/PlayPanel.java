@@ -1113,14 +1113,6 @@ public class PlayPanel extends JPanel implements KeyListener {
         if (itIsRock(boy.xInArray - 1, boy.yInArray - 1)) {
             Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray - 1].getTrapObject();
             if (rock.isMoving && rock.whatMove == 4 && rock.i <= 3){
-                System.out.println("yes1.0");
-                return true;
-            }
-        }
-        if (itIsRock(boy.xInArray - 1, boy.yInArray + 1)) {
-            Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray + 1].getTrapObject();
-            if (rock.isMoving && rock.whatMove == 4 && rock.i < 3){
-                System.out.println("yes1.1");
                 return true;
             }
         }
@@ -1131,14 +1123,6 @@ public class PlayPanel extends JPanel implements KeyListener {
         if (itIsRock(boy.xInArray + 1, boy.yInArray - 1)) {
             Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray - 1].getTrapObject();
             if (rock.isMoving && rock.whatMove == 4 && rock.i <= 3){
-                System.out.println("yes2.0");
-                return true;
-            }
-        }
-        if (itIsRock(boy.xInArray + 1, boy.yInArray + 1)) {
-            Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray + 1].getTrapObject();
-            if (rock.isMoving && rock.whatMove == 4 && rock.i < 3){
-                System.out.println("yes2.1");
                 return true;
             }
         }

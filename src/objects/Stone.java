@@ -100,7 +100,7 @@ public abstract class Stone implements Resettable {
                     }
                     //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
-                if (whatMove != 0) System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
+                //if (whatMove != 0) System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
                 if (whatMove != 0) isMoving = true;
                 if (whatMove == 1) stagger();
                 else if (whatMove == 2) fallLeft();
