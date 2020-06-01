@@ -69,6 +69,11 @@ public abstract class Stone implements Resettable {
                                 if (stoneLeftUp != null && stoneLeftUp.isMoving && (stoneLeftUp.whatMove == 2 || stoneLeftUp.whatMove == 4)){
                                     whatMove = 0;
                                 }
+                                if (whatMove != 0){
+                                    if (!playPanel.itIsClearForStone(xInArray - 1, yInArray)){
+                                        whatMove = 0;
+                                    }
+                                }
                             }
                         }
                         else if (whatMove == 3){
@@ -80,6 +85,11 @@ public abstract class Stone implements Resettable {
                                 Stone stoneRightUp = playPanel.getStone(xInArray + 1, yInArray - 1);
                                 if (stoneRightUp != null && stoneRightUp.isMoving && (stoneRightUp.whatMove == 3 || stoneRightUp.whatMove == 4)){
                                     whatMove = 0;
+                                }
+                                if (whatMove != 0){
+                                    if (!playPanel.itIsClearForStone(xInArray + 1, yInArray)){
+                                        whatMove = 0;
+                                    }
                                 }
                             }
                         }

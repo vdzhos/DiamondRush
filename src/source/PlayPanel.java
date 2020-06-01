@@ -1105,12 +1105,24 @@ public class PlayPanel extends JPanel implements KeyListener {
                 return true;
             }
         }
+        if (itIsRock(boy.xInArray - 1, boy.yInArray + 1)) {
+            Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray + 1].getTrapObject();
+            if (rock.isMoving && rock.whatMove == 4 && rock.i < 3){
+                return true;
+            }
+        }
         return false;
     }
 
     private boolean rockRightIsFallingDown(){
         if (itIsRock(boy.xInArray + 1, boy.yInArray - 1)) {
             Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray - 1].getTrapObject();
+            if (rock.isMoving && rock.whatMove == 4 && rock.i < 3){
+                return true;
+            }
+        }
+        if (itIsRock(boy.xInArray + 1, boy.yInArray + 1)) {
+            Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray + 1].getTrapObject();
             if (rock.isMoving && rock.whatMove == 4 && rock.i < 3){
                 return true;
             }
