@@ -137,6 +137,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
 
         String diamonds = playPanel.numberOfPurpleDiamondsCollected + "/" + playPanel.currentLevel.getMaxNumberOfPurpleDiamonds();
         String redDiamonds = playPanel.numberOfRedDiamondsCollected + "/" + playPanel.currentLevel.getMaxNumberOfRedDiamonds();
+        String revivals = String.valueOf(playPanel.revivals);
 
         g2.setFont(font);
         if(purpleDiamondsCheck){
@@ -153,6 +154,13 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
         }
         g2.drawString(redDiamonds,Values.END_LEVEL_RED_DIAMOND_X+Values.END_LEVEL_RESULT_SHIFT_X-calculateExtraShift(redDiamonds),
                 Values.END_LEVEL_RED_DIAMOND_Y+Values.END_LEVEL_RESULT_SHIFT_Y);
+        if(playPanel.revivals==0){
+            g2.setColor(green);
+        }else{
+            g2.setColor(red);
+        }
+        g2.drawString(revivals,Values.END_LEVEL_REVIVALS_X+Values.END_LEVEL_RESULT_SHIFT_X-calculateExtraShift(revivals),
+                Values.END_LEVEL_REVIVALS_Y+Values.END_LEVEL_RESULT_SHIFT_Y);
     }
 
     @Override

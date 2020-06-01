@@ -90,6 +90,7 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     private boolean artefactIsCollected;
     private LevelEndingDialog levelEndingDialog;
+    private DeathDialog deathDialog;
 
     private boolean boyCanMove = true;
     private boolean energyIsBeeingTaken  = false;
@@ -599,6 +600,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                         currentEnergyLevel = 0;
                         //It is death
                         System.out.println("Death!");
+                        updateEnergyLevelOnStatusBar();
+                        endLevel(false);
                     }
                     updateEnergyLevelOnStatusBar();
                 }
@@ -618,6 +621,8 @@ public class PlayPanel extends JPanel implements KeyListener {
             currentEnergyLevel = 0;
             //It is death
             System.out.println("Death!");
+            updateEnergyLevelOnStatusBar();
+            endLevel(false);
         }
         updateEnergyLevelOnStatusBar();
     }
@@ -731,6 +736,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         }
         else {
             pause();
+            deathDialog = new DeathDialog(gameFrame,this);
         }
     }
 

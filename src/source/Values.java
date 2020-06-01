@@ -239,6 +239,21 @@ public interface Values {
     int END_LEVEL_RESULT_SHIFT_X = 178;
     int END_LEVEL_RESULT_SHIFT_Y = 58;
 
+    //Death menu
+    int DEATH_DIALOG_RESTART_WIDTH = 250;
+    int DEATH_DIALOG_RESTART_HEIGHT = 65;
+    int DEATH_DIALOG_RESTART_X = 122;
+    int DEATH_DIALOG_RESTART_Y = 450;
+
+    int DEATH_DIALOG_GOTOMAP_WIDTH = 280;
+    int DEATH_DIALOG_GOTOMAP_HEIGHT = 65;
+    int DEATH_DIALOG_GOTOMAP_X = 107;
+    int DEATH_DIALOG_GOTOMAP_Y = 525;
+
+    int DEATH_DIALOG_DIAMOND_Y = 180;
+    int DEATH_DIALOG_RED_DIAMOND_Y = 260;
+    int DEATH_DIALOG_REVIVALS_Y = 340;
+
     // puzzle panel
     double COEF = 2.5;
 
