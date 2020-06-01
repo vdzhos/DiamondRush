@@ -77,7 +77,7 @@ public class FireTrap extends JLabel implements Trap{
             g2.drawImage(images[3],210,0,70,70,null);
             for (int i = 3; i > 0; i--) {
                 if(state[i-1]){
-                    g2.drawImage(images[1], 210-(4-i)*70,0, 70,70,null);
+                    g2.drawImage(images[1], 210-i*70,0, 70,70,null);
                 }
             }
         }else{ //beginning left
