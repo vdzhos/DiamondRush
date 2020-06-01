@@ -628,6 +628,9 @@ public class PlayPanel extends JPanel implements KeyListener {
                 if (levelMatrix[i][j].getTrapObject()!=null){
                     levelMatrix[i][j].getTrapObject().pause();
                 }
+                else if (levelMatrix[i][j].getHarmlessObject()!=null){
+                    if (itIsDiamond(i, j)) ((Diamond) levelMatrix[i][j].getHarmlessObject()).pause();
+                }
             }
         }
     }
@@ -901,13 +904,17 @@ public class PlayPanel extends JPanel implements KeyListener {
                     Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
                     if (itIsClearForStone(boy.xInArray - 2, boy.yInArray) && rockCheckForSnakes(boy.xInArray - 2, boy.yInArray,rock)) {
                         possibleRock = rock;
-                        setMovementLeft();
-                        boy.whatMove = 5;
-                        boy.isMoving = true;
                         if (rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
+                            setMovementLeft();
+                            boy.whatMove = 5;
+                            boy.isMoving = true;
                             rock.whatMove = 5;
                             rock.isMoving = true;
                             rock.moveStone();
+                        }
+                        else{
+                            boy.whatMove = 6;
+                            boy.isMoving = true;
                         }
                     }
                     else{
@@ -1014,13 +1021,17 @@ public class PlayPanel extends JPanel implements KeyListener {
                     Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject();
                     if (itIsClearForStone(boy.xInArray + 2, boy.yInArray) && rockCheckForSnakes(boy.xInArray + 2, boy.yInArray,rock)) {
                         possibleRock = rock;
-                        setMovementRight();
-                        boy.whatMove = 7;
-                        boy.isMoving = true;
                         if (rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
+                            setMovementRight();
+                            boy.whatMove = 7;
+                            boy.isMoving = true;
                             rock.whatMove = 6;
                             rock.isMoving = true;
                             rock.moveStone();
+                        }
+                        else{
+                            boy.whatMove = 8;
+                            boy.isMoving = true;
                         }
                     }
                     else {
@@ -1101,13 +1112,15 @@ public class PlayPanel extends JPanel implements KeyListener {
     private boolean rockLeftIsFallingDown(){
         if (itIsRock(boy.xInArray - 1, boy.yInArray - 1)) {
             Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray - 1].getTrapObject();
-            if (rock.isMoving && rock.whatMove == 4 && rock.i < 3){
+            if (rock.isMoving && rock.whatMove == 4 && rock.i <= 3){
+                System.out.println("yes1.0");
                 return true;
             }
         }
         if (itIsRock(boy.xInArray - 1, boy.yInArray + 1)) {
             Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray + 1].getTrapObject();
             if (rock.isMoving && rock.whatMove == 4 && rock.i < 3){
+                System.out.println("yes1.1");
                 return true;
             }
         }
@@ -1117,13 +1130,15 @@ public class PlayPanel extends JPanel implements KeyListener {
     private boolean rockRightIsFallingDown(){
         if (itIsRock(boy.xInArray + 1, boy.yInArray - 1)) {
             Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray - 1].getTrapObject();
-            if (rock.isMoving && rock.whatMove == 4 && rock.i < 3){
+            if (rock.isMoving && rock.whatMove == 4 && rock.i <= 3){
+                System.out.println("yes2.0");
                 return true;
             }
         }
         if (itIsRock(boy.xInArray + 1, boy.yInArray + 1)) {
             Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray + 1].getTrapObject();
             if (rock.isMoving && rock.whatMove == 4 && rock.i < 3){
+                System.out.println("yes2.1");
                 return true;
             }
         }

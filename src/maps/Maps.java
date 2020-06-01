@@ -876,11 +876,11 @@ public class Maps {
 
 
     private void initLevel3(){
-        Snake snake1 = new Snake(140,70,40,true, playPanel);
+        Snake snake1 = new Snake(210,70,40,true, playPanel);
         Snake snake2 = new Snake(350,70,180,true, playPanel);
-        Snake snake3 = new Snake(70,140,20,false, playPanel);
-        Snake snake4 = new Snake(70,140,70,false, playPanel);
-        Snake snake5 = new Snake(70,140,10,false, playPanel);
+        Snake snake3 = new Snake(70,210,20,false, playPanel);
+        Snake snake4 = new Snake(350,70,70,true, playPanel);
+        Snake snake5 = new Snake(70,840,10,false, playPanel);
 
         Scorpion scorpion1 = new Scorpion(350,490,false,null,null);
         Scorpion scorpion2 = new Scorpion(140,140,true,null,null);
@@ -960,8 +960,8 @@ public class Maps {
         level3[5][24] = new Cell(new Floor(),new Tumbleweed(),null);
         level3[5][25] = new Cell(new Floor(),null,null);
         level3[5][26] = new Cell(new Floor(),null,null);
-        level3[6][7] = new Cell(new Floor(),null,null);
-        //level3[6][7] = new Cell(doubleDoor.leftDoor,null,null);
+        //level3[6][7] = new Cell(new Floor(),null,null);
+        level3[6][7] = new Cell(doubleDoor.leftDoor,null,null);
         level3[6][11] = new Cell(new Floor(),null,null);
         level3[6][12] = new Cell(new Floor(),new Chest(null, null, null, null, new Energy(20)),null);
         level3[6][14] = new Cell(new Floor(),null,null);
@@ -1040,8 +1040,8 @@ public class Maps {
         level3[11][14] = new Cell(new Floor(),null,new Rock(null));
         level3[11][15] = new Cell(new Floor(),new Tumbleweed(),null);
         level3[11][19] = new Cell(new Floor(), null, fireTrap2);//head
-        level3[12][7] = new Cell(new Floor(),null,null);
-        //level3[12][7] = new Cell(doubleDoor.rightDoor,null,null);
+        //level3[12][7] = new Cell(new Floor(),null,null);
+        level3[12][7] = new Cell(doubleDoor.rightDoor,null,null);
         level3[12][10] = new Cell(new Floor(),null,new Rock(null));
         level3[12][11] = new Cell(new Floor(),new Diamond(),null);
         level3[12][12] = new Cell(new Floor(),new Tumbleweed(),null);
@@ -1297,7 +1297,7 @@ public class Maps {
         level3[33][27] = new Cell(new Floor(),null,null);
         level3[34][1] = new Cell(new Floor(),null,null);
         level3[34][2] = new Cell(new Floor(),new Chest(null, null, null, null, new Energy(20)),null);
-        level3[34][18] = new Cell(new Floor(),null,null);
+        level3[34][18] = new Cell(new DiamondDoor(20,true),null,null);
         level3[34][22] = new Cell(new Floor(),null,null);
         level3[34][23] = new Cell(new Floor(),null,null);
         level3[34][26] = new Cell(new Floor(),null,null);
