@@ -208,15 +208,17 @@ public class Scorpion extends JLabel implements Trap{
                     if (boyRect.intersects(scorpionRect) && !boy.gotInTrap) {
                         panel.takeEnergy(energy);
                         boy.gotInTrap = true;
-                        Util.wait(5000, new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                boy.gotInTrap = false;
-                                if(scorpion.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())){
-                                    check.start();
+                        if(panel.currentEnergyLevel>0) {
+                            Util.wait(5000, new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    boy.gotInTrap = false;
+                                    if (scorpion.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())) {
+                                        check.start();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                         check.stop();
                 }
 
@@ -245,6 +247,10 @@ public class Scorpion extends JLabel implements Trap{
 
     public Timer getCheckTimer(){
         return check;
+    }
+
+    public void setCheckTimer(Timer check) {
+        this.check = check;
     }
 
 }

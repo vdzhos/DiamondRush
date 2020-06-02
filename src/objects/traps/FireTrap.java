@@ -155,15 +155,17 @@ public class FireTrap extends JLabel implements Trap{
                 if(intersects && !boy.gotInTrap){
                     panel.takeEnergy(energy);
                     boy.gotInTrap = true;
-                    Util.wait(5000, new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            boy.gotInTrap = false;
-                            if(fireTrap.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())) {
-                                check.start();
+                    if(panel.currentEnergyLevel>0) {
+                        Util.wait(500, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                boy.gotInTrap = false;
+                                if (fireTrap.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())) {
+                                    check.start();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                     check.stop();
                 }
             }
@@ -191,4 +193,7 @@ public class FireTrap extends JLabel implements Trap{
         }
     }
 
+    public void setCheckTimer(Timer check) {
+        this.check = check;
+    }
 }

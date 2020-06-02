@@ -15,6 +15,7 @@ import objects.traps.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -187,6 +188,31 @@ public class PlayPanel extends JPanel implements KeyListener {
                     if (levelMatrix[i][j].getTrapObject() instanceof Rock) {
                         ((Rock) levelMatrix[i][j].getTrapObject()).enabled = false;
                         ((Rock) levelMatrix[i][j].getTrapObject()).reset();
+                    }
+                    if(levelMatrix[i][j].getTrapObject() instanceof Snake){
+                        Snake snake = (Snake)levelMatrix[i][j].getTrapObject();
+                        if(snake.getCheckTimer()!=null){
+                            snake.getCheckTimer().stop();
+                            snake.setCheckTimer(null);
+                        }
+                        if(snake.getRockCheck()!=null){
+                            snake.getRockCheck().stop();
+                            snake.setRockCheck(null);
+                        }
+                    }
+                    if(levelMatrix[i][j].getTrapObject() instanceof FireTrap){
+                        FireTrap fireTrap = (FireTrap)levelMatrix[i][j].getTrapObject();
+                        if(fireTrap.getCheckTimer()!=null){
+                            fireTrap.getCheckTimer().stop();
+                            fireTrap.setCheckTimer(null);
+                        }
+                    }
+                    if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
+                        Scorpion scorpion = (Scorpion)levelMatrix[i][j].getTrapObject();
+                        if(scorpion.getCheckTimer()!=null){
+                            scorpion.getCheckTimer().stop();
+                            scorpion.setCheckTimer(null);
+                        }
                     }
                 }
             }
@@ -603,8 +629,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                         currentEnergyLevel = 0;
                         //It is death
                         System.out.println("Death!");
-                        updateEnergyLevelOnStatusBar();
-                        endLevel(false);
+                        Util.wait(1000, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                endLevel(false);
+                            }
+                        });
                     }
                     updateEnergyLevelOnStatusBar();
                 }
@@ -622,10 +652,15 @@ public class PlayPanel extends JPanel implements KeyListener {
         currentEnergyLevel -= energy;
         if (currentEnergyLevel <= 0){
             currentEnergyLevel = 0;
+            boyCanMove = false;
             //It is death
             System.out.println("Death!");
-            updateEnergyLevelOnStatusBar();
-            endLevel(false);
+            Util.wait(1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    endLevel(false);
+                }
+            });
         }
         updateEnergyLevelOnStatusBar();
     }

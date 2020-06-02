@@ -384,7 +384,7 @@ public class Maps {
             checkpoint.setInitialMatrix(level1);
         }
 
-        this.level1 = new Level(level1,4,4,2,16, 200,1);
+        this.level1 = new Level(level1,2,4,2,16, 200,1);
         this.level1.setCheckpoints(checkpoints);
     }
 

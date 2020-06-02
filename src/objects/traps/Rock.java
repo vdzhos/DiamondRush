@@ -81,8 +81,8 @@ public class Rock extends Stone implements Trap{
     protected void setStoneToNewPositionInArray(int xInArray, int yInArray){
         if(playPanel.itIsRock(this.xInArray,this.yInArray)){
             playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setTrapObject(null);
-            playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(this);
         }
+        playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(this);
     }
 
     @Override

@@ -138,15 +138,17 @@ public class Snake extends JLabel implements Trap, Resettable {
                 if(boyRect.intersects(snakeRect) && !boy.gotInTrap){
                     panel.takeEnergy(energy);
                     boy.gotInTrap = true;
-                    Util.wait(5000, new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            boy.gotInTrap = false;
-                            if(snake.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())){
-                                check.start();
+                    if(panel.currentEnergyLevel>0){
+                        Util.wait(500, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                boy.gotInTrap = false;
+                                if(snake.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())){
+                                    check.start();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                     check.stop();
                 }
             }
@@ -186,6 +188,9 @@ public class Snake extends JLabel implements Trap, Resettable {
                     if(check!=null && check.isRunning()){
                         check.stop();
                     }
+                }else if(rock.whatMove==0){
+                    Timer t = (Timer) e.getSource();
+                    t.stop();
                 }
             }
         });
@@ -285,4 +290,11 @@ public class Snake extends JLabel implements Trap, Resettable {
         isAlive = true;
     }
 
+    public void setCheckTimer(Timer check) {
+        this.check = check;
+    }
+
+    public void setRockCheck(Timer rockCheck) {
+        this.rockCheck = rockCheck;
+    }
 }
