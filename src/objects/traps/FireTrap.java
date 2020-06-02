@@ -156,7 +156,7 @@ public class FireTrap extends JLabel implements Trap{
                     panel.takeEnergy(energy);
                     boy.gotInTrap = true;
                     if(panel.currentEnergyLevel>0) {
-                        Util.wait(500, new ActionListener() {
+                        Util.wait(5000, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 boy.gotInTrap = false;

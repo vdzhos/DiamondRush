@@ -139,7 +139,7 @@ public class Snake extends JLabel implements Trap, Resettable {
                     panel.takeEnergy(energy);
                     boy.gotInTrap = true;
                     if(panel.currentEnergyLevel>0){
-                        Util.wait(500, new ActionListener() {
+                        Util.wait(5000, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 boy.gotInTrap = false;
@@ -206,6 +206,10 @@ public class Snake extends JLabel implements Trap, Resettable {
         if(!(snake.getX()==0&&snake.getY()==0)){
             int labelIX = (snake.getX()-playPanel.getMapX())/70;
             int labelIY = (snake.getY()-playPanel.getMapY())/70;
+            if(labelIX<0 || labelIY<0){
+                System.out.println("ArrayIndexOutOfBoundsX");
+                return diapason;
+            }
             for (int i = 0; i < width/70; i++) {
                 Cell cell = playPanel.currentLevel.getMatrix()[labelIX+i][labelIY];
                 if(cell.getTrapObject() instanceof Rock || cell.getHarmlessObject()!=null || cell.getBlock() instanceof Wall){
@@ -225,6 +229,10 @@ public class Snake extends JLabel implements Trap, Resettable {
         if(!(snake.getX()==0&&snake.getY()==0)){
             int labelIX = (snake.getX()-playPanel.getMapX())/70;
             int labelIY = (snake.getY()-playPanel.getMapY())/70;
+            if(labelIX<0 || labelIY<0){
+                System.out.println("ArrayIndexOutOfBoundsY");
+                return diapason;
+            }
             for (int i = 0; i < height/70; i++) {
                 Cell cell = playPanel.currentLevel.getMatrix()[labelIX][labelIY+i];
                 if(cell.getTrapObject() instanceof Rock || cell.getHarmlessObject()!=null || cell.getBlock() instanceof Wall){
