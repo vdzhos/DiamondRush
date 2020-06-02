@@ -593,7 +593,10 @@ public class PlayPanel extends JPanel implements KeyListener {
             public void actionPerformed(ActionEvent e) {
                 if (itIsRock(boy.xInArray, boy.yInArray - 1)){
                     energyIsBeeingTaken = true;
-                    if (!boy.isMoving) boy.currentPicture = boy.imHoldARock;
+                    if (!boy.isMoving){
+                        boy.currentPicture = boy.imHoldARock;
+                        repaint();
+                    }
                     System.out.println("take energy");
                     currentEnergyLevel -= 10;
                     if (currentEnergyLevel <= 0){
@@ -729,10 +732,11 @@ public class PlayPanel extends JPanel implements KeyListener {
                     && numberOfRedDiamondsCollected == currentLevel.getMaxNumberOfRedDiamonds()
                     && revivals == 0)
                 artefactIsCollected = true;
+            ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
+            System.out.println("currentLevelInt: " + currentLevelInt + " artefactIsCollected: " + artefactIsCollected);
             gameFrame.updatePuzzlePanel(currentLevelInt, artefactIsCollected);
             mapPanel.openNextLevel(currentLevelInt);
             levelEndingDialog = new LevelEndingDialog(gameFrame,this);
-            ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
         }
         else {
             pause();
