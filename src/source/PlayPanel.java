@@ -571,7 +571,7 @@ public class PlayPanel extends JPanel implements KeyListener {
 
 
     public void moveBoy(){
-        Timer t = new Timer(100, null);
+        Timer t = new Timer(65, null);
         t.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1419,7 +1419,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                         }
                     }
                 },
-                1000
+                500
         );
     }
 
