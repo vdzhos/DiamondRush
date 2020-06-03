@@ -678,6 +678,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                                 endLevel(false);
                             }
                         });
+                        //t.stop();
                     }
                     updateEnergyLevelOnStatusBar();
                 }
@@ -951,6 +952,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 moveBoy();
             } else if ((code == KeyEvent.VK_LEFT) && (boy.isMoving == false) && isAllowedLeft()) {
+                //Rock possibleRock = null;
                 Block block = levelMatrix[boy.xInArray - 1][boy.yInArray].getBlock();
                 if (block.pass()) {
                     if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray - 1, boy.yInArray) && !itIsRock(boy.xInArray - 1, boy.yInArray)) {
@@ -1038,7 +1040,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                 } else if (itIsRock(boy.xInArray - 1, boy.yInArray)) {
                     Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
                     if (itIsClearForStone(boy.xInArray - 2, boy.yInArray) && rockCheckForSnakes(boy.xInArray - 2, boy.yInArray,rock)) {
-                        if (rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
+                        //possibleRock = rock;
+                        if (rock.whatMove != 1 && rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
                             setMovementLeft();
                             boy.whatMove = 5;
                             boy.isMoving = true;
@@ -1158,7 +1161,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                 } else if (itIsRock(boy.xInArray + 1, boy.yInArray)) {
                     Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject();
                     if (itIsClearForStone(boy.xInArray + 2, boy.yInArray) && rockCheckForSnakes(boy.xInArray + 2, boy.yInArray,rock)) {
-                        if (rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
+                        //possibleRock = rock;
+                        if (rock.whatMove != 1 && rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
                             setMovementRight();
                             boy.whatMove = 7;
                             boy.isMoving = true;
