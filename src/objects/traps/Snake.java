@@ -149,7 +149,9 @@ public class Snake extends JLabel implements Trap, Resettable {
                             public void actionPerformed(ActionEvent e) {
                                 boy.gotInTrap = false;
                                 if(snake.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())){
-                                    check.start();
+                                    if(!check.isRunning()) {
+                                        check.start();
+                                    }
                                 }
                             }
                         });

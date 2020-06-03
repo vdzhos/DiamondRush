@@ -35,7 +35,7 @@ public abstract class Stone implements Resettable {
         whatMove = 0;
         i = 0;
         isMoving = false;
-        timer = new Timer(100, null);
+        timer = new Timer(65, null);
         timer.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
