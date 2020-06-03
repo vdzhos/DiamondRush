@@ -678,6 +678,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                                 endLevel(false);
                             }
                         });
+                        t.stop();
                     }
                     updateEnergyLevelOnStatusBar();
                 }
