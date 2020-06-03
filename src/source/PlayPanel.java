@@ -1288,8 +1288,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         if (boy.xInArray == x && boy.yInArray == y) return false;
         if (itIsStone(x, y)) return false;
         if(itIsTumbleweed(x,y) || itIsChest(x,y)) return false;
-        if (itIsTrap(x, y)) return true;
-        return (!itIsHarmless(x, y)
+        return ((!itIsHarmless(x, y) || itIsTrap(x, y))
                 && (itIsFloor(x, y) || itIsSecretWall(x, y)
                 || itIsPressPanel(x, y) || itIsCheckpoint(x, y)));
     }

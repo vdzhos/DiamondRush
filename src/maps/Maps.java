@@ -1030,7 +1030,7 @@ public class Maps {
         level2[11][10] = new Cell(new Floor(), new Diamond(), null);
         level2[11][12] = new Cell(new Floor(), null, scorpion1);
         level2[11][21] = new Cell(new DiamondDoor(0,false), null, null);
-        level2[12][2] = new Cell(new Wall(Wall.Type.RIGHT_LOWER_CORNER), null, snake4);
+        level2[12][1] = new Cell(new Wall(Wall.Type.RIGHT_LOWER_CORNER), null, snake4);
         level2[12][2] = new Cell(new Floor(), null, snake4);
         level2[12][3] = new Cell(new Floor(), null, snake4);
         level2[12][4] = new Cell(new Floor(), null, snake4);
@@ -1370,7 +1370,7 @@ public class Maps {
             checkpoint.setInitialMatrix(level2);
         }
 
-        this.level2 = new Level(level2,2,1,31,2,500,2);
+        this.level2 = new Level(level2,2,4,2,14,500,2);
         this.level2.setCheckpoints(checkpoints);
     }
 
