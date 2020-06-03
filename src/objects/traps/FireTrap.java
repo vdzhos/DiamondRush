@@ -20,6 +20,7 @@ public class FireTrap extends JLabel implements Trap{
     private JLabel fireTrap;
     private int energy = 25;
     private boolean side; //right - true; left - false
+    private  boolean paused;
 
     private void initImages(){
         Image imageRight = new ImageIcon("fireTrap/fireballRight1.png").getImage();
@@ -117,11 +118,15 @@ public class FireTrap extends JLabel implements Trap{
 
     @Override
     public void pause() {
+        paused = true;
         timer.stop();
+        if (check!=null)
+            check.stop();
     }
 
     @Override
     public void resume() {
+        paused = false;
         timer.start();
     }
 
