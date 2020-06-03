@@ -219,7 +219,9 @@ public class Scorpion extends JLabel implements Trap{
                                 public void actionPerformed(ActionEvent e) {
                                     boy.gotInTrap = false;
                                     if (scorpion.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())) {
-                                        check.start();
+                                        if(!check.isRunning()){
+                                            check.start();
+                                        }
                                     }
                                 }
                             });

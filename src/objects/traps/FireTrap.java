@@ -141,18 +141,31 @@ public class FireTrap extends JLabel implements Trap{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
-                int first = -1;
+                int first;
                 int quantity = 0;
-                for (int i = 0; i < state.length; i++) {
-                    if(state[i]){
-                        if(first==-1){
-                            first = i;
+                if(finalSide == 70){
+                    first = -1;
+                    for (int i = 0; i < state.length; i++) {
+                        if(state[i]){
+                            if(first==-1){
+                                first = i;
+                            }
+                            quantity++;
                         }
-                        quantity++;
+                    }
+                }else{
+                    first = -1;
+                    for (int i = 2; i >=0; i--) {
+                        if(state[i]){
+                            if(first==-1){
+                                first = 2-i;
+                            }
+                            quantity++;
+                        }
                     }
                 }
                 Rectangle fireTrapRect = new Rectangle(finalSide +first*70 + fireTrap.getX(), fireTrap.getY(),quantity*70,70);
-                System.out.println("----------");
+                System.out.println("-------------");
                 boolean intersects = boyRect.intersects(fireTrapRect);
                 if(quantity==0){
                     intersects=false;
@@ -182,17 +195,21 @@ public class FireTrap extends JLabel implements Trap{
         return check;
     }
 
-    public boolean isHead(int x){
+    public boolean isHead(Boy boy, int shift){
         if(side){
-            if(x==fireTrap.getX()+210){
+            if(boy.getX()+shift==fireTrap.getX()+210){
+                System.out.println((boy.getX()+shift)+ " | " + (fireTrap.getX()+210));
                 return true;
             }else{
+                System.out.println((boy.getX()+shift)+ " | " + (fireTrap.getX()+210));
                 return false;
             }
         }else{
-            if(x==fireTrap.getX()){
+            if(boy.getX()+shift==fireTrap.getX()){
+                System.out.println((boy.getX()+shift)+ " | " + (fireTrap.getX()));
                 return true;
             }else{
+                System.out.println((boy.getX()+shift)+ " | " + (fireTrap.getX()));
                 return false;
             }
         }
