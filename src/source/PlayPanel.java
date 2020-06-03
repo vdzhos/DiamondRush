@@ -185,7 +185,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         System.out.println(boy.xInArray+"   "+boy.yInArray);
     }
 
-    private int n = 0;
+//    private int n = 0;
 
     public void restart() {
 //        if (n != 0) {
@@ -678,7 +678,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                                 endLevel(false);
                             }
                         });
-                        t.stop();
                     }
                     updateEnergyLevelOnStatusBar();
                 }
