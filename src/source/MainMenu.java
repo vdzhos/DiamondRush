@@ -17,6 +17,7 @@ public class MainMenu extends JPanel implements MouseListener {
     private AnimatableImage playImage = new AnimatableImage("mainMenu/play.png");
     private AnimatableImage newGameImage = new AnimatableImage("mainMenu/newGame.png");
     private AnimatableImage exitImage = new AnimatableImage("mainMenu/exit.png");
+    private AnimatableImage infoImage = new AnimatableImage("mainMenu/info.png");
 
     public MainMenu(GameFrame gameFrame){
         this.gameFrame = gameFrame;
@@ -32,8 +33,13 @@ public class MainMenu extends JPanel implements MouseListener {
         drawBack(g);
         drawPlay(g);
         drawNewGame(g);
+        drawInfo(g);
         drawExit(g);
 
+    }
+
+    private void drawInfo(Graphics2D g) {
+        g.drawImage(infoImage.image, Values.INFO_X, Values.INFO_Y, Values.INFO_WIDTH, Values.INFO_LENGTH,null);
     }
 
     private void drawExit(Graphics2D g) {
@@ -59,6 +65,8 @@ public class MainMenu extends JPanel implements MouseListener {
         Rectangle2D.Double play = new Rectangle2D.Double(Values.PLAY_X, Values.PLAY_Y, Values.PLAY_WIDTH, Values.PLAY_LENGTH);
         Rectangle2D.Double newGame = new Rectangle2D.Double(Values.NEW_GAME_X, Values.NEW_GAME_Y, Values.NEW_GAME_WIDTH, Values.NEW_GAME_LENGTH);
         Rectangle2D.Double exit = new Rectangle2D.Double(Values.EXIT_X, Values.EXIT_Y, Values.EXIT_WIDTH, Values.EXIT_LENGTH);
+        Rectangle2D.Double info = new Rectangle2D.Double(Values.INFO_X, Values.INFO_Y, Values.INFO_WIDTH, Values.INFO_LENGTH);
+
         if (play.contains(point)){
             playImage.animate(this,"mainMenu",play);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
@@ -68,7 +76,7 @@ public class MainMenu extends JPanel implements MouseListener {
                 }
             });
         }
-        if (newGame.contains(point)){
+        else if (newGame.contains(point)){
             newGameImage.animate(this,"mainMenu",newGame);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -80,7 +88,7 @@ public class MainMenu extends JPanel implements MouseListener {
             });
 
         }
-        if (exit.contains(point)){
+        else if (exit.contains(point)){
             exitImage.animate(this,"mainMenu",exit);
 //            saves progress and exits
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
@@ -89,6 +97,10 @@ public class MainMenu extends JPanel implements MouseListener {
                     gameFrame.stop();
                 }
             });
+        }
+        else if (info.contains(point)){
+            infoImage.animate(this, "mainMenu",info);
+//            show instructions
         }
     }
 

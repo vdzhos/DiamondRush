@@ -183,7 +183,7 @@ public interface Values {
     int PLAY_LENGTH = 90;
 
     int NEW_GAME_X = 225;
-    int NEW_GAME_Y = 540;
+    int NEW_GAME_Y = 440;
 
     int NEW_GAME_WIDTH = 250;
     int NEW_GAME_LENGTH = 90;
@@ -193,6 +193,12 @@ public interface Values {
 
     int EXIT_WIDTH = 250;
     int EXIT_LENGTH = 90;
+
+    int INFO_X = 225;
+    int INFO_Y = 540;
+
+    int INFO_WIDTH = 250;
+    int INFO_LENGTH = 90;
 
 
     //Level ending menu
