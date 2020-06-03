@@ -90,15 +90,6 @@ public class Rock extends Stone implements Trap{
         return null;
     }
 
-    @Override
-    public void pause() {
-        reset();
-    }
-
-    @Override
-    public void resume() {
-
-    }
 
     @Override
     public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix) { }

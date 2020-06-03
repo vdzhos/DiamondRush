@@ -321,10 +321,38 @@ public abstract class Stone implements Resettable {
     @Override
     public void reset() {
         timer.stop();
+//        tempWhatMove = whatMove;
+//        tempI = i;
         whatMove = 0;
         i = 0;
         isMoving = false;
     }
+
+
+    @Override
+    public void pause() {
+        timer.stop();
+        tempWhatMove = whatMove;
+        tempI = i;
+        whatMove = 0;
+        i = 0;
+        isMoving = false;
+    }
+
+    @Override
+    public void resume(){
+        timer.start();
+        whatMove = tempWhatMove;
+        i = tempI;
+        isMoving = true;
+    }
+
+
+
+
+    private int tempI;
+    private int tempWhatMove;
+
 
     protected abstract void setStoneToNewPositionInArray(int xInArray, int yInArray);
 

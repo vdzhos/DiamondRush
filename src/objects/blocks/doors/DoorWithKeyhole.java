@@ -54,6 +54,16 @@ public class DoorWithKeyhole {
         public void reset() {
             opened = opened?true:false;
         }
+
+        @Override
+        public void pause() {
+
+        }
+
+        @Override
+        public void resume() {
+
+        }
     }
 
 
@@ -87,6 +97,16 @@ public class DoorWithKeyhole {
         @Override
         public void reset() {
             opened = opened?true:false;
+        }
+
+        @Override
+        public void pause() {
+
+        }
+
+        @Override
+        public void resume() {
+
         }
     }
 

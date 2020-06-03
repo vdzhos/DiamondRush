@@ -24,6 +24,7 @@ public class Scorpion extends JLabel implements Trap{
     private Direction direction;
     private int energy = 30;
     private Image[] images;
+    private boolean paused;
 
     private void initImages(){
         Image imageRight = new ImageIcon("scorpion/right0.png").getImage();
@@ -188,11 +189,15 @@ public class Scorpion extends JLabel implements Trap{
 
     @Override
     public void pause() {
+        paused=true;
         timer.stop();
+        if (check!=null)
+            check.stop();
     }
 
     @Override
     public void resume() {
+        paused=false;
         timer.start();
     }
 
@@ -214,7 +219,9 @@ public class Scorpion extends JLabel implements Trap{
                                 public void actionPerformed(ActionEvent e) {
                                     boy.gotInTrap = false;
                                     if (scorpion.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())) {
-                                        check.start();
+                                        if(!check.isRunning()){
+                                            check.start();
+                                        }
                                     }
                                 }
                             });

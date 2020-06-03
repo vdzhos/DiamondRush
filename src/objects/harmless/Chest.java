@@ -112,5 +112,15 @@ public class Chest implements Harmless, Resettable {
     }
 
     @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
     public void disappear() { }
 }

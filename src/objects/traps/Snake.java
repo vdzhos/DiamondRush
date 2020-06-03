@@ -29,6 +29,9 @@ public class Snake extends JLabel implements Trap, Resettable {
     private int width;
     private int height;
     private Timer rockCheck;
+    private boolean paused;
+    private boolean horisontal;
+    private int coord;
 
     private void initImages(){
         Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
@@ -40,6 +43,8 @@ public class Snake extends JLabel implements Trap, Resettable {
     }
 
     public Snake(int width, int height, int coord, boolean horizontal, PlayPanel playPanel){
+        this.horisontal = horizontal;
+        this.coord = coord;
         this.width = width;
         this.height = height;
         this.playPanel = playPanel;
@@ -135,7 +140,7 @@ public class Snake extends JLabel implements Trap, Resettable {
                 System.out.println("-----+-----");
                 Rectangle snakeRect = new Rectangle(x+snake.getX(),y+snake.getY(),70,70);
                 Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
-                if(boyRect.intersects(snakeRect) && !boy.gotInTrap){
+                if(boyRect.intersects(snakeRect) && !boy.gotInTrap && isAlive){
                     panel.takeEnergy(energy);
                     boy.gotInTrap = true;
                     if(panel.currentEnergyLevel>0){
@@ -285,17 +290,27 @@ public class Snake extends JLabel implements Trap, Resettable {
 
     @Override
     public void pause() {
+        paused = true;
         timer.stop();
+        if (check != null)
+            check.stop();
+        if (rockCheck!=null)
+            rockCheck.stop();
     }
 
     @Override
     public void resume() {
         timer.start();
+        paused = false;
+
     }
 
     @Override
     public void reset() {
         isAlive = true;
+        if (horisontal)
+            x = coord;
+        else y = coord;
     }
 
     public void setCheckTimer(Timer check) {

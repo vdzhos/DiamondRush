@@ -88,6 +88,16 @@ public class PressMechanism{
         public void reset() {
             opened = false;
         }
+
+        @Override
+        public void pause() {
+
+        }
+
+        @Override
+        public void resume() {
+
+        }
     }
 
 

@@ -115,6 +115,16 @@ public class DoubleDoor{
         }
 
         @Override
+        public void pause() {
+
+        }
+
+        @Override
+        public void resume() {
+
+        }
+
+        @Override
         public boolean pass() {
             return DoubleDoor.this.opened;
         }
@@ -138,6 +148,16 @@ public class DoubleDoor{
         public void reset(){
             DoubleDoor.this.opened = DoubleDoor.this.opened?true:false;
             n = 0;
+        }
+
+        @Override
+        public void pause() {
+
+        }
+
+        @Override
+        public void resume() {
+
         }
 
         public void interact(PlayPanel playPanel, Boy boy){
