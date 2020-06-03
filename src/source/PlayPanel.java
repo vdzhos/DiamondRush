@@ -1040,8 +1040,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 } else if (itIsRock(boy.xInArray - 1, boy.yInArray)) {
                     Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
                     if (itIsClearForStone(boy.xInArray - 2, boy.yInArray) && rockCheckForSnakes(boy.xInArray - 2, boy.yInArray,rock)) {
-                        //question
-                        possibleRock = rock;
+                        //possibleRock = rock;
                         if (rock.whatMove != 1 && rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
                             setMovementLeft();
                             boy.whatMove = 5;
@@ -1162,8 +1161,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 } else if (itIsRock(boy.xInArray + 1, boy.yInArray)) {
                     Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject();
                     if (itIsClearForStone(boy.xInArray + 2, boy.yInArray) && rockCheckForSnakes(boy.xInArray + 2, boy.yInArray,rock)) {
-                        //question
-                        possibleRock = rock;
+                        //possibleRock = rock;
                         if (rock.whatMove != 1 && rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
                             setMovementRight();
                             boy.whatMove = 7;

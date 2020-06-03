@@ -118,7 +118,7 @@ public class Maps {
         level1[5][18] = new Cell(new Floor(), null, null);
         level1[5][19] = new Cell(new Floor(), null, null);
         level1[5][20] = new Cell(pressMechanism.pressPanel, null, null);
-        level1[6][4] = new Cell(new Floor(), new Tumbleweed(), snake2);
+        level1[6][4] = new Cell(new Floor(), null, snake2);
         level1[6][10] = new Cell(new Floor(), new Diamond(), null);
         level1[6][11] = new Cell(new Floor(), new Diamond(), null);
         level1[6][12] = new Cell(new Floor(), new Tumbleweed(), null);
@@ -141,7 +141,7 @@ public class Maps {
         level1[8][12] = new Cell(new Floor(), null, null);
         level1[8][13] = new Cell(new Floor(), null, fireTrap1);
         level1[8][19] = new Cell(new Floor(), null, null);
-        level1[9][4] = new Cell(new Floor(), new Tumbleweed(), snake2);
+        level1[9][4] = new Cell(new Floor(), null, snake2);
         level1[9][12] = new Cell(new Floor(), null, null);
         level1[9][13] = new Cell(new Floor(), null, fireTrap1);
         level1[9][14] = new Cell(new Floor(), null, null);
@@ -230,7 +230,7 @@ public class Maps {
         level1[19][3] = new Cell(new Floor(),null,null);
         level1[19][4] = new Cell(new Floor(),new Diamond(),null);
         level1[19][7] = new Cell(new Floor(),null,fireTrap2);
-        level1[19][8] = new Cell(new Floor(),new Chest(null, null, new SilverKey(), null, new Energy(10)),null);
+        level1[19][8] = new Cell(new Floor(),new Chest(null, null, null, new GoldKey(), new Energy(10)),null);
         level1[19][9] = new Cell(new Floor(),null,fireTrap3);
         level1[19][13] = new Cell(check4,null,null);
         level1[19][18] = new Cell(new Floor(),null,null);
@@ -253,7 +253,7 @@ public class Maps {
         level1[21][11] = new Cell(new Floor(),null,null);
         level1[21][12] = new Cell(new Floor(),null,null);
         level1[21][13] = new Cell(new Floor(),null,null);
-        level1[21][18] = new Cell(new DoorWithKeyhole().silver,null,null);
+        level1[21][18] = new Cell(new DoorWithKeyhole().gold,null,null);
         level1[22][3] = new Cell(new Floor(),null,null);
         level1[22][4] = new Cell(new Floor(),null,null);
         level1[22][9] = new Cell(new Floor(),null,fireTrap3);
