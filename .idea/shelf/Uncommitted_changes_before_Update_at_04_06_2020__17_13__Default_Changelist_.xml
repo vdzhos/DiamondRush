@@ -1,0 +1,84 @@
+<changelist name="Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]" date="1591280478356" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 04.06.2020, 17:13 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/blocks/Wall$1.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/blocks/Wall$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/Wall$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/blocks/Wall$Type.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/blocks/Wall$Type.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/Wall$Type.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/source/AnimatableImage$1.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/source/AnimatableImage$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/AnimatableImage$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/traps/Snake.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/traps/Snake.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/Snake.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/source/AnimatableImage$5.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/source/AnimatableImage$5.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/AnimatableImage$5.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/source/Util.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/source/Util.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/Util.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/blocks/Wall.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/blocks/Wall.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/Wall.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/source/AnimatableImage$6.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/source/AnimatableImage$6.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/AnimatableImage$6.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/source/AnimatableImage$4.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/source/AnimatableImage$4.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/AnimatableImage$4.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/traps/Rock.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/traps/Rock.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/Rock.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/source/AnimatableImage.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/source/AnimatableImage.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/AnimatableImage.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/traps/Snake$4.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/traps/Snake$4.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/Snake$4.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/blocks/SecretWall.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/blocks/SecretWall.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/SecretWall.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/source/AnimatableImage$3.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/source/AnimatableImage$3.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/AnimatableImage$3.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/objects/blocks/SecretWall$1.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/objects/blocks/SecretWall$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/SecretWall$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/DiamondRush/source/AnimatableImage$2.class" />
+    <option name="AFTER_PATH" value="out/production/DiamondRush/source/AnimatableImage$2.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_06_2020,_17_13_[Default_Changelist]/AnimatableImage$2.class" />
+  </binary>
+</changelist>
