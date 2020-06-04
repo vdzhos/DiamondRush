@@ -16,6 +16,12 @@ public class Rock extends Stone implements Trap{
         image = new ImageIcon("mapImages/rock.png").getImage();
     }
 
+    public Rock() {
+        super();
+        this.snake = null;
+        image = new ImageIcon("mapImages/rock.png").getImage();
+    }
+
     @Override
     public void beShovenLeft(){
         if (enabled) {
