@@ -241,6 +241,19 @@ public abstract class Stone implements Resettable {
             x -= 0.5 * CELL_SIDE / 7;
             y += 1.5 * CELL_SIDE / 7;
             if (i == 5){
+                if(playPanel.itIsSnake(xInArray, yInArray + 1)){
+                    System.out.println("found snake");
+                    Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
+                    if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())){
+                        System.out.println("timer started");
+                        newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
+                    }
+                }else{
+                    if(snake!=null){
+                        snake.getRockCheck().stop();
+                    }
+                }
+
                 setStoneToNewPositionInArray(xInArray, yInArray + 1);
                 playPanel.disappearFromCell(xInArray, yInArray);
                 yInArray++;
@@ -273,10 +286,22 @@ public abstract class Stone implements Resettable {
             x += 0.5 * CELL_SIDE / 7;
             y += 1.5 * CELL_SIDE / 7;
             if (i == 5){
+                if(playPanel.itIsSnake(xInArray, yInArray + 1)){
+                    System.out.println("found snake");
+                    Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
+                    if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())){
+                        System.out.println("timer started");
+                        newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
+                    }
+                }else{
+                    if(snake!=null){
+                        snake.getRockCheck().stop();
+                    }
+                }
+
                 setStoneToNewPositionInArray(xInArray, yInArray + 1);
                 playPanel.disappearFromCell(xInArray, yInArray);
                 yInArray++;
-
             }
         }
         else if (i == 6){
