@@ -108,7 +108,7 @@ public class Util {
                         else  if (!wallToLeft(i,j,level) && wallToUp(i,j,level) && !wallToRightUp(i,j,level) && wallToRight(i,j,level) && !wallToDown(i,j,level) && !wallToLeftDown(i,j,level)){
                             level[i][j] = new Cell (new Wall(Wall.Type.LEFT_LOWER_CORNER_BRICK), null,null);
                         }
-                        else if (!wallToLeft(i,j,level) && !wallToLeftUp(i,j,level) && !wallToUp(i,j,level)  && wallToRight(i,j,level) && !wallToDown(i,j,level) && !wallToLeftDown(i,j,level)){
+                        else if (!wallToLeft(i,j,level)  && !wallToUp(i,j,level)  && wallToRight(i,j,level) && !wallToDown(i,j,level) ){
                             level[i][j] = new Cell (new Wall(Wall.Type.LEFT_P), null,null);
                         }
                         else if (!wallToLeft(i,j,level)  && wallToUp(i,j,level) && !wallToRightUp(i,j,level) && wallToRight(i,j,level) && !wallToRightDown(i,j,level) && wallToDown(i,j,level) ){
@@ -177,7 +177,7 @@ public class Util {
                         else if (!wallToLeft(i,j,level) && !wallToLeftUp(i,j,level) && !wallToUp(i,j,level) && !wallToRightUp(i,j,level) && !wallToRight(i,j,level) && !wallToRightDown(i,j,level) && !wallToDown(i,j,level) && !wallToLeftDown(i,j,level)){
                             level[i][j] = new Cell (new Wall(Wall.Type.BLOCKED), null,null);
                         }
-                        else if (!wallToLeft(i,j,level) && !wallToLeftUp(i,j,level) && !wallToUp(i,j,level) && !wallToRightUp(i,j,level) && !wallToRight(i,j,level) && !wallToRightDown(i,j,level) && !wallToDown(i,j,level) && !wallToLeftDown(i,j,level)){
+                        else if (!wallToLeft(i,j,level)  && !wallToUp(i,j,level) &&  !wallToRight(i,j,level) &&  !wallToDown(i,j,level) ){
                             level[i][j] = new Cell (new Wall(Wall.Type.BLOCKED), null,null);
                         }
                         else if (wallToLeft(i,j,level) && !wallToLeftUp(i,j,level) && wallToUp(i,j,level) && !wallToRightUp(i,j,level) && wallToRight(i,j,level) && !wallToRightDown(i,j,level) && wallToDown(i,j,level) && wallToLeftDown(i,j,level)){

@@ -155,6 +155,9 @@ public class SecretWall implements Block{
             case  BLOCKED:
                 image = Wall.blocked;
                 break;
+            case  SECRET:
+                image = Wall.secret;
+                break;
         }
     }
 

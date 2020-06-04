@@ -69,6 +69,7 @@ public class Wall implements Block {
     public static  Image threeRightUpper = new ImageIcon("mapImages/wallThreeBricksRightUpper.png").getImage();
 
     public static  Image blocked = new ImageIcon("mapImages/wallBlocked.png").getImage();
+    public static Image secret = new ImageIcon("mapImages/secretWall.png").getImage();
 
 
 
@@ -90,7 +91,7 @@ public class Wall implements Block {
         FOUR_BRICKS, LEFT_DIAGONAL_BRICKS, RIGHT_DIAGONAL_BRICKS,
         THREE_BRICKS_LEFT_LOWER,THREE_BRICKS_LEFT_UPPER,
         THREE_BRICKS_RIGHT_LOWER,THREE_BRICKS_RIGHT_UPPER,
-        BLOCKED
+        BLOCKED, SECRET
     }
 
     public Wall(Type type){
@@ -235,6 +236,9 @@ public class Wall implements Block {
                 break;
             case  BLOCKED:
                 image = blocked;
+                break;
+            case  SECRET:
+                image = secret;
                 break;
         }
     }

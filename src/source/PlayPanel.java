@@ -424,7 +424,7 @@ public class PlayPanel extends JPanel implements KeyListener {
             drawMessage = false;
             twoLineMessage = false;
         }
-        if (boy.gotInTrap){
+        if (boy.gotInTrap||trapTimer.isRunning()){
             if (!trapTimer.isRunning()){
                 trapTimer.start();
             }
