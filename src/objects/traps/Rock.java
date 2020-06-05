@@ -8,20 +8,32 @@ import source.PlayPanel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Iryna Matviienko
+ */
 public class Rock extends Stone implements Trap{
 
+    /**
+     * @param snake
+     */
     public Rock(Snake snake) {
         super();
         this.snake = snake;
         image = new ImageIcon("mapImages/rock.png").getImage();
     }
+
+    /**
+     * Default constructor
+     */
     public Rock() {
         super();
         this.snake = null;
         image = new ImageIcon("mapImages/rock.png").getImage();
     }
 
-
+    /**
+     * Rock moves left when shoving by the boy
+     */
     @Override
     public void beShovenLeft(){
         if (enabled) {
@@ -46,6 +58,9 @@ public class Rock extends Stone implements Trap{
         }
     }
 
+    /**
+     * Rock moves right when shoving by the boy
+     */
     @Override
     public void beShovenRight(){
         if (enabled) {
@@ -72,17 +87,32 @@ public class Rock extends Stone implements Trap{
         }
     }
 
+    /**
+     * Paint rock
+     * @param g2
+     * @param newMapX
+     * @param newMapY
+     */
     @Override
     public void paintObject(Graphics2D g2, int newMapX, int newMapY) {
         updateXAndY(newMapX, newMapY);
         paintObject(g2);
     }
 
+    /**
+     * Paint rock
+     * @param g2
+     */
     @Override
     public void paintObject(Graphics2D g2) {
         g2.drawImage(image, x, y, WIDTH, HEIGHT,null);
     }
 
+    /**
+     * Set rock to new position in array
+     * @param xInArray
+     * @param yInArray
+     */
     @Override
     protected void setStoneToNewPositionInArray(int xInArray, int yInArray){
         if(playPanel.itIsRock(this.xInArray,this.yInArray)){
@@ -91,14 +121,16 @@ public class Rock extends Stone implements Trap{
         playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setTrapObject(this);
     }
 
+    /**
+     * Rock hasn`t got a label
+     * @return
+     */
     @Override
     public JLabel getLabel() {
         return null;
     }
 
-
     @Override
     public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix) { }
-
 
 }

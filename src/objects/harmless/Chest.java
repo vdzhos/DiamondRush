@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author Iryna Matviienko
+ */
 public class Chest implements Harmless, Resettable {
 
     private Image chestClosed = new ImageIcon("mapImages/chestClosed.png").getImage();
@@ -24,6 +27,14 @@ public class Chest implements Harmless, Resettable {
     public boolean isClosed = true;
     public boolean thingsAreBeeingTaken = false;
 
+    /**
+     * Constructor with 5 thingsInChest
+     * @param purpleDiamond
+     * @param redDiamond
+     * @param silverKey
+     * @param goldKey
+     * @param energy
+     */
     public Chest(PurpleDiamond purpleDiamond, RedDiamond redDiamond,
                  SilverKey silverKey, GoldKey goldKey, Energy energy){
         things[0] = purpleDiamond;
@@ -33,10 +44,17 @@ public class Chest implements Harmless, Resettable {
         things[4] = energy;
     }
 
+    /**
+     * Initialize variables
+     * @param playPanel
+     */
     public void initVars(PlayPanel playPanel){
         this.playPanel = playPanel;
     }
 
+    /**
+     * Animation of chest`s opening
+     */
     public void openChest(){
         Timer timer = new Timer(100, null);
         timer.addActionListener(new AbstractAction() {
@@ -56,6 +74,7 @@ public class Chest implements Harmless, Resettable {
                     if (thingsAreBeeingTaken == false) thingsAreBeeingTaken = true;
                     if (index == 5){
                         thingsAreBeeingTaken = false;
+                        playPanel.boy.currentPicture = playPanel.boy.standClear;
                         playPanel.boy.isMoving = false;
                         timer.stop();
                     }
@@ -65,6 +84,9 @@ public class Chest implements Harmless, Resettable {
         timer.start();
     }
 
+    /**
+     * One iteration of opening
+     */
     private void open(){
         currentPicture = open[i];
         i++;
@@ -73,6 +95,9 @@ public class Chest implements Harmless, Resettable {
         }
     }
 
+    /**
+     * One iteration of taking things
+     */
     private void takeThings(){
         if ((index < 5)&&(things[index] != null)){
             currentThing = things[index];
@@ -88,19 +113,36 @@ public class Chest implements Harmless, Resettable {
         }
     }
 
+    /**
+     * Paint chest
+     * @param g2
+     * @param x
+     * @param y
+     */
     @Override
     public void paintObject(Graphics2D g2, int x, int y) {
         g2.drawImage(currentPicture,x,y,70,70,null);
     }
 
+    /**
+     * Paint chest
+     * @param g2
+     */
     @Override
     public void paintObject(Graphics2D g2) { }
 
+    /**
+     * Boy can go through it
+     * @return
+     */
     @Override
     public boolean pass() {
         return true;
     }
 
+    /**
+     * Reset variables
+     */
     @Override
     public void reset() {
         currentPicture = chestClosed;
@@ -112,14 +154,10 @@ public class Chest implements Harmless, Resettable {
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() { }
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() { }
 
     @Override
     public void disappear() { }

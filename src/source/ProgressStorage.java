@@ -2,21 +2,19 @@ package source;
 
 import java.io.*;
 
+/**
+ * @author Iryna Matviienko
+ */
 public class ProgressStorage {
 
     private static File file = new File("Progress.txt");
 
-    /*public ProgressStorage(){
-        System.out.println("File created");
-        try{
-            writeContentToFile("Progress in 'Diamond Rush'\n1--\n2--\n3--\n4--\n5--\n");
-            updateContent(2, true, true);
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }*/
-
+    /**
+     * Write updated data about one level to file (other levels without changes)
+     * @param level
+     * @param isCompleted
+     * @param artifactIsCollected
+     */
     public static void updateContent(int level, boolean isCompleted, boolean artifactIsCollected){
         String[] content  = getContent();
         String str = "" + level;
@@ -37,6 +35,9 @@ public class ProgressStorage {
         }
     }
 
+    /**
+     * Reset content, start ew game
+     */
     public static void resetContent(){
         String[] content  = getContent();
         String strContent = "" + content[0] + "\n";
@@ -54,12 +55,21 @@ public class ProgressStorage {
         }
     }
 
+    /**
+     * Write new content to file
+     * @param strContent
+     * @throws IOException
+     */
     private static void writeContentToFile(String strContent) throws IOException{
         BufferedWriter wr = new BufferedWriter(new FileWriter(file));
         wr.write(strContent);
         wr.close();
     }
 
+    /**
+     * Get content from file
+     * @return
+     */
     public static String[] getContent(){
         String[] content = new String[6];
         int i = 0;
@@ -68,7 +78,6 @@ public class ProgressStorage {
             while (true){
                 String s = rd.readLine();
                 if ((s == null)||(i == 6)) break;
-                //content += s + "\n";
                 content[i] = s;
                 i++;
             }
@@ -80,11 +89,21 @@ public class ProgressStorage {
         return content;
     }
 
+    /**
+     * Get whether level is completed
+     * @param level
+     * @return
+     */
     public static boolean getLevelIsCompleted(int level){
         String[] content = getContent();
         return content[level].charAt(1) == '+';
     }
 
+    /**
+     * Get whether artifact is collected
+     * @param level
+     * @return
+     */
     public static boolean getArtifactIsCollected(int level){
         String[] content = getContent();
         return content[level].charAt(2) == '+';

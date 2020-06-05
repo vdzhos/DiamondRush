@@ -180,9 +180,6 @@ public class PlayPanel extends JPanel implements KeyListener {
         boy.y = positionOnScreenY* Values.CELL_SIZE;
         boy.xInArray = positionOnMapX;
         boy.yInArray = positionOnMapY;
-        System.out.println(mapX +"   "+mapY);
-        System.out.println(boy.x+"   "+boy.y);
-        System.out.println(boy.xInArray+"   "+boy.yInArray);
     }
 
 //    private int n = 0;
@@ -430,8 +427,6 @@ public class PlayPanel extends JPanel implements KeyListener {
             }
             trapCounter(g2);
         }
-//        JLabel label = levelMatrix[9][16].getTrapObject().getLabel();
-//        System.out.println(boy.x + " " + boy.y + " | " + label.getX() + " " + label.getY());
     }
 
 
@@ -486,13 +481,6 @@ public class PlayPanel extends JPanel implements KeyListener {
             setCoordinates();
             repaint();
             updateStatusBar();
-//            System.out.println("___________________________");
-//            System.out.println(numberOfGoldKeysCollected);
-//            System.out.println(numberOfSilverKeysCollected);
-//            System.out.println(numberOfPurpleDiamondsCollected);
-//            System.out.println(numberOfRedDiamondsCollected);
-//            System.out.println("___________________________");
-
         }
         else if (currentEnergyLevel < checkpointCost){
             drawMessage = true;
@@ -570,6 +558,9 @@ public class PlayPanel extends JPanel implements KeyListener {
     }
 
 
+    /**
+     * Animation of all boy`s moves
+     */
     public void moveBoy(){
         Timer t = new Timer(65, null);
         t.addActionListener(new AbstractAction() {
@@ -630,9 +621,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.isMoving = true;
                     }
                     else boy.isMoving = false;
-                    System.out.println(boy.xInArray + ", " + boy.yInArray);
+                    //System.out.println(boy.xInArray + ", " + boy.yInArray);
                     t.stop();
-//                    if (!energyIsBeeingTaken) takeEnergy();
                     Checkpoint temp = currentCheckpoint;
                     currentCheckpoint = currentLevel.getCheckpoint(boy.xInArray,boy.yInArray);
                     if (currentCheckpoint == null)
@@ -650,9 +640,9 @@ public class PlayPanel extends JPanel implements KeyListener {
     }
 
 
-
-
-
+    /**
+     * Decrease quantity of energy when the rock is on the boy`s head
+     */
     public void takeEnergy(){
         takeEnergyTimer = new Timer(700, null);
         takeEnergyTimer.addActionListener(new AbstractAction() {
@@ -664,12 +654,9 @@ public class PlayPanel extends JPanel implements KeyListener {
                         boy.currentPicture = boy.imHoldARock;
                         repaint();
                     }
-                    System.out.println("take energy");
                     currentEnergyLevel -= 10;
                     if (currentEnergyLevel <= 0){
                         currentEnergyLevel = 0;
-                        //It is death
-                        System.out.println("Death!");
                         takeEnergyTimer.stop();
                         pause();
                         Util.wait(1000, new ActionListener() {
@@ -678,7 +665,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                                 endLevel(false);
                             }
                         });
-                        //t.stop();
                     }
                     updateEnergyLevelOnStatusBar();
                 }
@@ -694,7 +680,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 else{
                     energyIsBeeingTaken = false;
-//                    takeEnergyTimer.stop();
                 }
             }
         });
@@ -702,13 +687,10 @@ public class PlayPanel extends JPanel implements KeyListener {
     }
 
     public void takeEnergy(int energy){
-        System.out.println("take energy");
         currentEnergyLevel -= energy;
         if (currentEnergyLevel <= 0){
             currentEnergyLevel = 0;
             boyCanMove = false;
-            //It is death
-            System.out.println("Death!");
             takeEnergyTimer.stop();
             pause();
             Util.wait(1000, new ActionListener() {
@@ -832,7 +814,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                     && revivals == 0)
                 artefactIsCollected = true;
             ProgressStorage.updateContent(currentLevelInt, true, artefactIsCollected);
-            System.out.println("currentLevelInt: " + currentLevelInt + " artefactIsCollected: " + artefactIsCollected);
             gameFrame.updatePuzzlePanel(currentLevelInt, artefactIsCollected);
             mapPanel.openNextLevel(currentLevelInt);
             levelEndingDialog = new LevelEndingDialog(gameFrame,this);
@@ -843,6 +824,10 @@ public class PlayPanel extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Reaction of boy for typing some keys
+     * @param e
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (updated && !boy.isMoving) {
@@ -952,7 +937,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 moveBoy();
             } else if ((code == KeyEvent.VK_LEFT) && (boy.isMoving == false) && isAllowedLeft()) {
-                //Rock possibleRock = null;
                 Block block = levelMatrix[boy.xInArray - 1][boy.yInArray].getBlock();
                 if (block.pass()) {
                     if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray - 1, boy.yInArray) && !itIsRock(boy.xInArray - 1, boy.yInArray)) {
@@ -967,7 +951,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                     if(itIsFireTrap(boy.xInArray-1, boy.yInArray)) {
                         FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject();
                         if (fireTrap.isHead(boy,-70)) {
-                            System.out.println("isHead");
                             Floor floor = (Floor) block;
                             floor.setPassable(false);
                             if(fireTrap.getCheckTimer()!=null && fireTrap.getCheckTimer().isRunning()){
@@ -1015,7 +998,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                     }
                 }
                 else if ((block.pass() && !(itIsRock(boy.xInArray - 1, boy.yInArray))) || itIsHarmless(boy.xInArray - 1, boy.yInArray)) {
-                    //Newly added
                     if (rockLeftIsFallingDown()){
                             boy.whatMove = 6;
                             boy.isMoving = true;
@@ -1040,7 +1022,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                 } else if (itIsRock(boy.xInArray - 1, boy.yInArray)) {
                     Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject();
                     if (itIsClearForStone(boy.xInArray - 2, boy.yInArray) && rockCheckForSnakes(boy.xInArray - 2, boy.yInArray,rock)) {
-                        //possibleRock = rock;
                         if (rock.whatMove != 1 && rock.whatMove != 2 && rock.whatMove != 3 && rock.whatMove != 4){
                             setMovementLeft();
                             boy.whatMove = 5;
@@ -1086,7 +1067,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                     if(itIsFireTrap(boy.xInArray+1, boy.yInArray)) {
                         FireTrap fireTrap = (FireTrap) levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject();
                         if (fireTrap.isHead(boy,70)) {
-                            System.out.println("isHead");
                             Floor floor = (Floor) block;
                             floor.setPassable(false);
                             if(fireTrap.getCheckTimer()!=null && fireTrap.getCheckTimer().isRunning()){
@@ -1136,7 +1116,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                     }
                 }
                 else if ((block.pass() && !(itIsRock(boy.xInArray + 1, boy.yInArray))) || itIsHarmless(boy.xInArray + 1, boy.yInArray)) {
-                    //Newly added
                     if (rockRightIsFallingDown()){
                             boy.whatMove = 8;
                             boy.isMoving = true;
@@ -1226,6 +1205,10 @@ public class PlayPanel extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Check if rock left is falling down
+     * @return
+     */
     private boolean rockLeftIsFallingDown(){
         if (itIsRock(boy.xInArray - 1, boy.yInArray - 1)) {
             Rock rock = (Rock) levelMatrix[boy.xInArray - 1][boy.yInArray - 1].getTrapObject();
@@ -1236,6 +1219,10 @@ public class PlayPanel extends JPanel implements KeyListener {
         return false;
     }
 
+    /**
+     * Check if rock right is falling down
+     * @return
+     */
     private boolean rockRightIsFallingDown(){
         if (itIsRock(boy.xInArray + 1, boy.yInArray - 1)) {
             Rock rock = (Rock) levelMatrix[boy.xInArray + 1][boy.yInArray - 1].getTrapObject();
@@ -1251,18 +1238,18 @@ public class PlayPanel extends JPanel implements KeyListener {
             Snake snake = (Snake) levelMatrix[xInArray][yInArray].getTrapObject();
             Rectangle snakeRect = new Rectangle(snake.x+snake.getLabel().getX(),snake.y+snake.getLabel().getY(),70,70);
             Rectangle rockRect = new Rectangle(rock.x+(xInArray-rock.xInArray)*70,rock.y,70,70);
-            if(rockRect.intersects(snakeRect)){
-                System.out.println(xInArray-rock.xInArray +" "+ false);
-                return false;
-            }else{
-                System.out.println(xInArray-rock.xInArray+" "+ true);
-                return true;
-            }
+            if(rockRect.intersects(snakeRect)) return false;
+            else return true;
         }
-        System.out.println(xInArray-rock.xInArray+" "+ true);
         return true;
     }
 
+    /**
+     * When Tumbleweed, Diamond, Rock, BreakableWall or Boy disappears from the cell,
+     * all stones around need to check space under them
+     * @param x
+     * @param y
+     */
     public void disappearFromCell(int x, int y){
         if (x != levelMatrix.length-1) {
             if (itIsStone(x, y - 1)) {
@@ -1283,33 +1270,69 @@ public class PlayPanel extends JPanel implements KeyListener {
         }
     }
 
+    /**
+     * Tumbleweeds and Diamonds need to disappear when the boy is on their Cell
+     * @param x
+     * @param y
+     */
     public void checkHarmless(int x, int y){
         if (itIsDiamond(x, y)) ((Diamond)levelMatrix[x][y].getHarmlessObject()).disappear();
         else if (itIsTumbleweed(x, y)) ((Tumbleweed)levelMatrix[x][y].getHarmlessObject()).disappear();
     }
 
+    /**
+     * Check if it is clear for stone in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsClearForStone(int x, int y){
         if (boy.xInArray == x && boy.yInArray == y) return false;
         if (itIsStone(x, y)) return false;
         if(itIsTumbleweed(x,y) || itIsChest(x,y)) return false;
         return ((!itIsHarmless(x, y) || itIsTrap(x, y))
                 && (itIsFloor(x, y) || itIsSecretWall(x, y)
-                || itIsPressPanel(x, y) || itIsCheckpoint(x, y)));
+                || itIsPressPanel(x, y) || itIsCheckpoint(x, y)
+                || itIsOpenedDoor(x, y)));
     }
 
+    /**
+     * Check if it is Harmless in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsHarmless ( int x, int y){
         return (levelMatrix[x][y].getHarmlessObject() != null);
     }
 
+    /**
+     * Check if it is Trap in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsTrap ( int x, int y){
         return (levelMatrix[x][y].getTrapObject() != null);
     }
 
+    /**
+     * Check if it is Diamond or Rock in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsStone(int x, int y){
         if (!itIsTrap(x, y) && !itIsHarmless(x, y)) return false;
         return (itIsRock(x, y) || itIsDiamond(x, y));
     }
 
+    /**
+     * Return Stone from the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public Stone getStone(int x, int y){
         if (itIsStone(x, y)){
             if (itIsRock(x, y)) return (Stone)levelMatrix[x][y].getTrapObject();
@@ -1318,81 +1341,213 @@ public class PlayPanel extends JPanel implements KeyListener {
         else return null;
     }
 
+    /**
+     * Check if it is BlockedDoor in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsBlockedDoor(int x, int y){
         if (levelMatrix[x][y].getBlock() == null) return false;
         return levelMatrix[x][y].getBlock() instanceof BlockedDoor;
     }
 
-    public boolean itIsDoorWithKeyhole(int x, int y){
-        if (levelMatrix[x][y].getBlock() == null) return false;
-        return levelMatrix[x][y].getBlock() instanceof DoorWithKeyhole;
-    }
-
-    public boolean itIsPressPanel(int x, int y){
-        if (levelMatrix[x][y].getBlock() == null) return false;
-        return levelMatrix[x][y].getBlock() instanceof PressMechanism.PressPanel;
-    }
-
-    public boolean itIsBreakableWall(int x, int y){
-        if (levelMatrix[x][y].getBlock() == null) return false;
-        return levelMatrix[x][y].getBlock() instanceof Wall;
-    }
-
-    public boolean itIsCheckpoint(int x, int y){
-        if (levelMatrix[x][y].getBlock() == null) return false;
-        return levelMatrix[x][y].getBlock() instanceof Checkpoint;
-    }
-
-    public boolean itIsFloor(int x, int y){
-        if (levelMatrix[x][y].getBlock() == null) return false;
-        return levelMatrix[x][y].getBlock() instanceof Floor ||levelMatrix[x][y].getBlock() instanceof PressMechanism.PressPanel;
-    }
-
-    public boolean itIsSecretWall(int x, int y){
-        if (levelMatrix[x][y].getBlock() == null) return false;
-        return levelMatrix[x][y].getBlock() instanceof SecretWall;
-    }
-
+    /**
+     * Check if it is DiamondDoor in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsDiamondDoor(int x, int y){
         if (levelMatrix[x][y].getBlock() == null) return false;
         return levelMatrix[x][y].getBlock() instanceof DiamondDoor;
     }
 
+    /**
+     * Check if it is DoorWithKeyhole in the cell
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean itIsDoorWithKeyhole(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof DoorWithKeyhole;
+    }
+
+    /**
+     * Check if it is DoubleDoor in the cell
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean itIsDoubleDoor(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof DoubleDoor.RightDoor
+                || levelMatrix[x][y].getBlock() instanceof DoubleDoor.LeftDoor;
+    }
+
+    /**
+     * Check if it is PressPanel in the cell
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean itIsPressPanel(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof PressMechanism.PressPanel;
+    }
+
+    /**
+     * Check if it is Door in PressMechanism in the cell
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean itIsDoorInPressMechanism(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof PressMechanism.Door;
+    }
+
+    /**
+     * Check if it is opened door in the cell
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean itIsOpenedDoor(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return (itIsDiamondDoor(x, y) || itIsDoorWithKeyhole(x, y)
+                || itIsDoubleDoor(x, y) || itIsDoorInPressMechanism(x, y))
+                && levelMatrix[x][y].getBlock().pass();
+    }
+
+    /**
+     * Check if it is BreakableWall in the cell
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean itIsBreakableWall(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof Wall;
+    }
+
+    /**
+     * Check if it is Checkpoint in the cell
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean itIsCheckpoint(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof Checkpoint;
+    }
+
+    /**
+     * Check if it is Floor in the cell
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean itIsFloor(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof Floor ||levelMatrix[x][y].getBlock() instanceof PressMechanism.PressPanel;
+    }
+
+    /**
+     * Check if it is SecretWall in the cell
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean itIsSecretWall(int x, int y){
+        if (levelMatrix[x][y].getBlock() == null) return false;
+        return levelMatrix[x][y].getBlock() instanceof SecretWall;
+    }
+
+    /**
+     * Check if it is Wall in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsWall(int x, int y){
         if (levelMatrix[x][y].getBlock() == null) return false;
         return levelMatrix[x][y].getBlock() instanceof Wall;
     }
 
+    /**
+     * Check if it is Chest in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsChest(int x, int y){
         if (levelMatrix[x][y].getHarmlessObject() == null) return false;
         return levelMatrix[x][y].getHarmlessObject() instanceof Chest;
     }
 
+    /**
+     * Check if it is Diamond in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsDiamond(int x, int y){
         if (levelMatrix[x][y].getHarmlessObject() == null) return false;
         return levelMatrix[x][y].getHarmlessObject() instanceof Diamond;
     }
 
+    /**
+     * Check if it is Tumbleweed in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsTumbleweed(int x, int y){
         if (levelMatrix[x][y].getHarmlessObject() == null) return false;
         return levelMatrix[x][y].getHarmlessObject() instanceof Tumbleweed;
     }
 
+    /**
+     * Check if it is FireTrap in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsFireTrap(int x, int y){
         if (levelMatrix[x][y].getTrapObject() == null) return false;
         return levelMatrix[x][y].getTrapObject() instanceof FireTrap;
     }
 
+    /**
+     * Check if it is Rock in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsRock(int x, int y){
         if (levelMatrix[x][y].getTrapObject() == null) return false;
         return levelMatrix[x][y].getTrapObject() instanceof Rock;
     }
 
+    /**
+     * Check if it is Scorpion in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsScorpion(int x, int y){
         if (levelMatrix[x][y].getTrapObject() == null) return false;
         return levelMatrix[x][y].getTrapObject() instanceof Scorpion;
     }
 
+    /**
+     * Check if it is Snake in the cell
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean itIsSnake(int x, int y){
         if (levelMatrix[x][y].getTrapObject() == null) return false;
         return levelMatrix[x][y].getTrapObject() instanceof Snake;
@@ -1404,7 +1559,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        System.out.println("finished");
                         if(itIsSnake(x,y)){
                             Snake snake = (Snake)levelMatrix[x][y].getTrapObject();
                             if(snake.getCheckTimer()!= null && snake.getCheckTimer().isRunning()){

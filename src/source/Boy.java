@@ -3,6 +3,9 @@ package source;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Iryna Matviienko
+ */
 public class Boy {
 
     int x;
@@ -68,7 +71,6 @@ public class Boy {
     Image cheer = new ImageIcon("boy/cheer.png").getImage();
     Image[] arrayFindInChest = {lookInChest, lookInChest, cheer, cheer, cheer, cheer, cheer};
     Image[] arrayOpenChest = {walkUp2, walkUp2, lookInChest, lookInChest, lookInChest, lookInChest, walkUp2};
-    //Question about stand clear
 
     public Image imHoldARock = new ImageIcon("boy/holdARock.png").getImage();
 
@@ -108,6 +110,10 @@ public class Boy {
 
     public Image currentPicture = standClear;
 
+    /**
+     * @param x
+     * @param y
+     */
     public Boy(int x, int y){
         this.x = x;
         this.y = y;
@@ -115,6 +121,10 @@ public class Boy {
         this.height = 70;
     }
 
+    /**
+     * One iteration of moving up
+     * @param playPanel
+     */
     public void moveUp(PlayPanel playPanel) {
         if (i == 3){
             yInArray --;
@@ -125,6 +135,11 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of moving up animation
+     * @param playPanel
+     * @param changeCoordinates
+     */
     public void moveUpAnimation(PlayPanel playPanel, boolean changeCoordinates) {
         if (i == 3 && changeCoordinates){
             yInArray --;
@@ -134,6 +149,10 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of moving down
+     * @param playPanel
+     */
     public void moveDown(PlayPanel playPanel) {
         if (i == 3){
             yInArray ++;
@@ -144,6 +163,11 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of moving down animation
+     * @param playPanel
+     * @param changeCoordinates
+     */
     public void moveDownAnimation(PlayPanel playPanel, boolean changeCoordinates) {
         if (i == 3 && changeCoordinates){
             yInArray ++;
@@ -153,6 +177,10 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of moving left
+     * @param playPanel
+     */
     public void moveLeft(PlayPanel playPanel) {
         if (i == 3){
             xInArray --;
@@ -165,6 +193,11 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of moving left animation
+     * @param playPanel
+     * @param changeCoordinates
+     */
     public void moveLeftAnimation(PlayPanel playPanel, boolean changeCoordinates) {
         if (i == 3 && changeCoordinates){
             xInArray --;
@@ -174,6 +207,10 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of moving right
+     * @param playPanel
+     */
     public void moveRight(PlayPanel playPanel) {
         if (i == 3){
             xInArray ++;
@@ -184,6 +221,11 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of moving right animation
+     * @param playPanel
+     * @param changeCoordinates
+     */
     public void moveRightAnimation(PlayPanel playPanel, boolean changeCoordinates) {
         if (i == 3 && changeCoordinates){
             xInArray ++;
@@ -193,6 +235,10 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of shoving left and moving
+     * @param playPanel
+     */
     public void shoveLeftAndMove(PlayPanel playPanel){
         if (i == 3){
             xInArray --;
@@ -202,10 +248,14 @@ public class Boy {
         else if (i == 6) x += cellSide / 7;
         else x -= cellSide / 7;
         currentPicture = arrayShoveLeft[i];
-        //System.out.println("left i = " + i + ": " + xInArray + ", " + yInArray);
         i++;
     }
 
+    /**
+     * One iteration of shoving left and standing
+     * @param playPanel
+     * @param changeCoordinates
+     */
     public void shoveLeftAndStand(PlayPanel playPanel, boolean changeCoordinates){
         if (i == 3 && changeCoordinates){
             xInArray --;
@@ -217,6 +267,10 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of shoving right and moving
+     * @param playPanel
+     */
     public void shoveRightAndMove(PlayPanel playPanel){
         if (i == 3){
             xInArray ++;
@@ -226,10 +280,14 @@ public class Boy {
         else if (i == 6) x -= cellSide / 7;
         else x += cellSide / 7;
         currentPicture = arrayShoveRight[i];
-        //System.out.println("right i = " + i + ": " + xInArray + ", " + yInArray);
         i++;
     }
 
+    /**
+     * One iteration of shoving right and standing
+     * @param playPanel
+     * @param changeCoordinates
+     */
     public void shoveRightAndStand(PlayPanel playPanel, boolean changeCoordinates){
         if (i == 3 && changeCoordinates){
             xInArray ++;
@@ -241,56 +299,89 @@ public class Boy {
         i++;
     }
 
+    /**
+     * One iteration of finding in Chest
+     */
     public void findInChest(){
         currentPicture = arrayFindInChest[i];
         i++;
     }
 
+    /**
+     * One iteration of holding a rock
+     */
     public void holdARock(){
         currentPicture = imHoldARock;
         i++;
     }
 
+    /**
+     * One iteration of attacking up
+     */
     public void attackUp(){
         currentPicture = arrayAttackUp[i];
         i++;
     }
 
+    /**
+     * One iteration of attacking down
+     */
     public void attackDown(){
         currentPicture = arrayAttackDown[i];
         i++;
     }
 
+    /**
+     * One iteration of attacking left
+     */
     public void attackLeft(){
         currentPicture = arrayAttackLeft[i];
         i++;
     }
 
+    /**
+     * One iteration of attacking right
+     */
     public void attackRight(){
         currentPicture = arrayAttackRight[i];
         i++;
     }
 
+    /**
+     * One iteration of opening with gold key left
+     */
     public void openWithGoldKeyLeft(){
         currentPicture = arrayOpenWithGoldKeyLeft[i];
         i++;
     }
 
+    /**
+     * One iteration of opening with gold key right
+     */
     public void openWithGoldKeyRight(){
         currentPicture = arrayOpenWithGoldKeyRight[i];
         i++;
     }
 
+    /**
+     * One iteration of opening with silver key left
+     */
     public void openWithSilverKeyLeft(){
         currentPicture = arrayOpenWithSilverKeyLeft[i];
         i++;
     }
 
+    /**
+     * One iteration of opening with silver key right
+     */
     public void openWithSilverKeyRight(){
         currentPicture = arrayOpenWithSilverKeyRight[i];
         i++;
     }
 
+    /**
+     * One iteration of opening chest
+     */
     public void openChest(){
         currentPicture = arrayOpenChest[i];
         i++;

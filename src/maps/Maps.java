@@ -16,6 +16,11 @@ import source.Util;
 import javax.swing.*;
 import java.awt.image.DataBufferFloat;
 
+/**
+ * @author Volodymyr Dzhosan
+ * @author Iryna Matviienko
+ * @author Illia Sitkov
+ */
 public class Maps {
 
 //    private Cell[][] level1;
@@ -891,7 +896,9 @@ public class Maps {
         this.level2.setCheckpoints(checkpoints);
     }
 
-
+    /**
+     * Initialize level 3
+     */
     private void initLevel3(){
         Snake snake1 = new Snake(210,70,40,true, playPanel);
         Snake snake2 = new Snake(350,70,180,true, playPanel);
@@ -916,7 +923,9 @@ public class Maps {
         PressMechanism pressMechanism2 = new PressMechanism(30,27);
 
         Checkpoint check1 = new Checkpoint(4,16,9,28,3,25,2,6);
-        Checkpoint check2 = new Checkpoint(8,10,14,23,9,15,4,4);
+
+        int[] additionalSegmentCheck2 = {11,17,15,23};
+        Checkpoint check2 = new Checkpoint(8,10,14,16, additionalSegmentCheck2, 9,15,4,4);
 
         int[] additionalSegmentCheck3 = {1,5,3,20};
         Checkpoint check3 = new Checkpoint(4,11,6,15, additionalSegmentCheck3, 6,15,4,4);
@@ -1706,6 +1715,9 @@ public class Maps {
         this.level4.setCheckpoints(checkpoints);
     }
 
+    /**
+     * Initialize level 5
+     */
     private void initLevel5(){
         Scorpion scorpion1 = new Scorpion(700,560,true,null,null);
         Scorpion scorpion2 = new Scorpion(700,420,false,null,null);
