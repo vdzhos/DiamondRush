@@ -1,5 +1,9 @@
 package source;
-
+/**
+ * @author Volodymyr Dzhosan
+ * @author Iryna Matviienko
+ * @author Illia Sitkov
+ */
 public interface Values {
 
     //window size

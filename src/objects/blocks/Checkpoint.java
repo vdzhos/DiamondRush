@@ -19,7 +19,9 @@ import source.Values;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-
+/**
+ * @author Illia Sitkov
+ */
 public class Checkpoint implements Block {
 
     private Image image = new ImageIcon("mapImages/checkpoint1.png").getImage();

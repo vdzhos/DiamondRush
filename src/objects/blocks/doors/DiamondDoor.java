@@ -8,7 +8,9 @@ import source.Values;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * @author Illia Sitkov
+ */
 public class DiamondDoor implements Block {
 
     private Image openedImage = new ImageIcon("doors/openedDoorLower.png").getImage();

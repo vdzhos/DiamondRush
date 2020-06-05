@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
+/**
+ * @author Illia Sitkov
+ */
 public class MainMenu extends JPanel implements MouseListener {
     
     
@@ -114,7 +116,6 @@ public class MainMenu extends JPanel implements MouseListener {
         }
         else if (exit.contains(point)){
             exitImage.animate(this,"mainMenu",exit);
-//            saves progress and exits
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -124,7 +125,6 @@ public class MainMenu extends JPanel implements MouseListener {
         }
         else if (info.contains(point)){
             infoImage.animate(this, "mainMenu",info);
-//            show instructions
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

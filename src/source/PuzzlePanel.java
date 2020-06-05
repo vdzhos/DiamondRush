@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
+/**
+ * @author Illia Sitkov
+ */
 public class PuzzlePanel extends JPanel implements MouseListener {
 
     private Image image = new ImageIcon("puzzles/puzzleBack.jpg").getImage();

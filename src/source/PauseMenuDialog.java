@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
+/**
+ * @author Illia Sitkov
+ */
 public class PauseMenuDialog extends JDialog implements MouseListener {
 
     private GameFrame gameFrame;

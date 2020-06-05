@@ -8,7 +8,9 @@ import source.Values;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * @author Illia Sitkov
+ */
 public class PressMechanism{
 
     private Image pressPanelImage = new ImageIcon("doors/pressPanel.png").getImage();
@@ -23,9 +25,6 @@ public class PressMechanism{
 
     private int positionOfPressPanelInArrayX;
     private int positionOfPressPanelInArrayY;
-
-    private int positionOfBoyInArrayX;
-    private int positionOfBoyInArrayY;
 
 
     private boolean opened;
@@ -51,8 +50,6 @@ public class PressMechanism{
      * @param positionOfBoyInArrayY
      */
     public void interact(Cell[][] matrix, int positionOfBoyInArrayX, int positionOfBoyInArrayY){
-        this.positionOfBoyInArrayX = positionOfBoyInArrayX/Values.CELL_SIZE;
-        this.positionOfBoyInArrayY = positionOfBoyInArrayY/Values.CELL_SIZE;
         if (positionOfBoyInArrayX == positionOfPressPanelInArrayX && positionOfBoyInArrayY == positionOfPressPanelInArrayY){
             opened = true;
         }

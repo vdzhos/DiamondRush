@@ -7,7 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
+/**
+ * @author Illia Sitkov
+ * @author Volodymyr Dzhosan
+ */
 public class InfoDialog extends JDialog implements MouseListener {
 
     private Image background = new ImageIcon("infoDialog/background.png").getImage();

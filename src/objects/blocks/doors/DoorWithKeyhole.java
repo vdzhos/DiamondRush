@@ -6,7 +6,9 @@ import source.Values;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * @author Illia Sitkov
+ */
 public class DoorWithKeyhole {
 
     public GoldDoor gold;

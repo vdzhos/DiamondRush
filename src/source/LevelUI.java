@@ -1,5 +1,7 @@
 package source;
-
+/**
+ * @author Illia Sitkov
+ */
 public class LevelUI {
 
     private StatusBarPanel statusBarPanel;

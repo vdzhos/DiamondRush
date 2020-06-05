@@ -22,7 +22,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
-
+/**
+ * @author Illia Sitkov
+ */
 public class AnimatableImage {
 
     public Image image;

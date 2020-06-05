@@ -4,7 +4,9 @@ import maps.Level;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * @author Illia Sitkov
+ */
 public class GameFrame extends JFrame {
 
     private MainMenu mainMenu;

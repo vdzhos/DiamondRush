@@ -20,6 +20,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+/**
+ * @author Volodymyr Dzhosan
+ * @author Iryna Matviienko
+ * @author Illia Sitkov
+ */
 public class PlayPanel extends JPanel implements KeyListener {
 
     public Boy boy;
