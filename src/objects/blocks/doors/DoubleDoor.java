@@ -28,7 +28,7 @@ public class DoubleDoor{
     private int n = 0;
 
     /**
-     *
+     * constructor with parameters
      * @param snakes array of snakes - snakes that must be killed for the door to open
      */
     public DoubleDoor(Snake[] snakes, boolean boyEntersTheDoorToLeft, int positionOfEntranceDoorInArrayX, int positionOfEntranceDoorInArrayY){
@@ -41,6 +41,10 @@ public class DoubleDoor{
         positionInArrayY = positionOfEntranceDoorInArrayY;
     }
 
+    /**
+     * checks if the snakes are alive
+     * @return
+     */
     private boolean snakesAreAlive(){
         for (Snake snake:snakes){
             if (snake.isAlive){
@@ -50,6 +54,11 @@ public class DoubleDoor{
         return false;
     }
 
+    /**
+     * reacts to the position of the boy
+     * @param playPanel
+     * @param boy
+     */
     public void interact(PlayPanel playPanel, Boy boy){
         int positionOfBoyInArrayX = boy.xInArray;
         int positionOfBoyInArrayY = boy.yInArray;
@@ -70,14 +79,6 @@ public class DoubleDoor{
                 }
                 opened = true;
             }
-//            else if (opened){
-//                for (Snake snake: snakes){
-//                    if (snake.isAlive) {
-//                        opened = false;
-//                        break;
-//                    }
-//                }
-//            }
         }
         else {
             if (positionOfBoyInArrayX == positionInArrayX + 1 && positionOfBoyInArrayY == positionInArrayY && n == 0&&snakesAreAlive()){
@@ -96,19 +97,13 @@ public class DoubleDoor{
                 }
                 opened = true;
             }
-//            else if (opened){
-//                for (Snake snake: snakes){
-//                    if (snake.isAlive) {
-//                        opened = false;
-//                        break;
-//                    }
-//                }
-//            }
         }
     }
 
     public class LeftDoor implements Block, Resettable {
-
+        /**
+         * resets the door
+         */
         public void reset(){
             DoubleDoor.this.opened = DoubleDoor.this.opened?true:false;
             n =0;
@@ -144,7 +139,9 @@ public class DoubleDoor{
     }
 
     public class RightDoor implements Block, Resettable {
-
+        /**
+         * resets the door
+         */
         public void reset(){
             DoubleDoor.this.opened = DoubleDoor.this.opened?true:false;
             n = 0;

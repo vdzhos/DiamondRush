@@ -17,6 +17,10 @@ public class InfoDialog extends JDialog implements MouseListener {
     private Info info;
     private JScrollPane scrollPane;
 
+    /**
+     * constructor with parameters
+     * @param gameFrame
+     */
     public InfoDialog(GameFrame gameFrame){
         super(gameFrame,"",true);
         setUndecorated(true);
@@ -29,12 +33,16 @@ public class InfoDialog extends JDialog implements MouseListener {
     }
 
 
+    /**
+     * method initialises all the fields
+     */
     private void init() {
         info = new Info();
         scrollPane = new JScrollPane(info);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
+    @Override
     public void paint(Graphics gr) {
         Graphics2D g2 = (Graphics2D) gr;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -44,14 +52,25 @@ public class InfoDialog extends JDialog implements MouseListener {
         drawClose(g2);
     }
 
+    /**
+     * draws close button
+     * @param g2
+     */
     private void drawClose(Graphics2D g2) {
         g2.drawImage(closeImage.image,Values.CLOSE_X, Values.CLOSE_Y, Values.CLOSE_WIDTH, Values.CLOSE_HEIGHT,null);
     }
 
+    /**
+     * draws label of the dialog window
+     * @param g2
+     */
     private void drawLabel(Graphics2D g2) {
         g2.drawImage(infoLabel, Values.INFO_LABEL_X, Values.INFO_LABEL_Y, Values.INFO_LABEL_WIDTH, Values.INFO_LABEL_HEIGHT, null);
     }
 
+    /**
+     * method adds inner panels to the dialog window
+     */
     private void addContent() {
         info.setBounds(0,0,100,1200);
         scrollPane.setBounds(59,110,586,605);
@@ -96,11 +115,14 @@ public class InfoDialog extends JDialog implements MouseListener {
 
 
     private class Info extends JLabel{
-
+        /**
+         * constructor with no parameters
+         */
         public Info(){
             setPreferredSize(new Dimension(586,1300));
         }
 
+        @Override
         public void paint(Graphics gr){
             super.paintComponent(gr);
             Graphics2D g2 = (Graphics2D) gr;

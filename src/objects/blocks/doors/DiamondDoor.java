@@ -21,6 +21,11 @@ public class DiamondDoor implements Block {
     private Floor floor;
     private boolean exit;
 
+    /**
+     * constructor with parameters
+     * @param numberOfDiamondsToPass
+     * @param exit
+     */
     public DiamondDoor(int numberOfDiamondsToPass, boolean exit){
         this.exit = exit;
         numberOfDiamonds = numberOfDiamondsToPass;
@@ -29,13 +34,15 @@ public class DiamondDoor implements Block {
         floor = new Floor();
     }
 
+    /**
+     * refreshes number of diamonds
+     * @param currentNumberOfPurpleDiamonds
+     */
     public void setNumberOfDiamonds(int currentNumberOfPurpleDiamonds){
-//        if (!opened) {
            numberOfDiamondsLeft = numberOfDiamonds - currentNumberOfPurpleDiamonds;
            if (numberOfDiamondsLeft <= 0)
                opened = true;
            else opened = false;
-//        }
     }
 
     @Override
@@ -58,6 +65,10 @@ public class DiamondDoor implements Block {
         }
     }
 
+    /**
+     * returns if it is the exit door
+     * @return
+     */
     public boolean isExit() {
         return exit;
     }

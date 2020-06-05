@@ -12,6 +12,10 @@ public class SecretWall implements Block{
         this.image = image;
     }
 
+    /**
+     * constructor with parameters
+     * @param type
+     */
     public SecretWall(Wall.Type type) {
         switch (type){
             case CEILING:

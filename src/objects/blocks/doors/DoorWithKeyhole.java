@@ -15,7 +15,9 @@ public class DoorWithKeyhole {
     private boolean opened = false;
     private Floor floor;
 
-
+    /**
+     * constructor with no parameters
+     */
     public DoorWithKeyhole(){
         floor = new Floor();
         gold = new GoldDoor();
@@ -28,6 +30,9 @@ public class DoorWithKeyhole {
         private Image closedDoorLower = new ImageIcon("doors/closedDoorLower.png").getImage();
         private Image openedDoorLower = new ImageIcon("doors/openedDoorLower.png").getImage();
 
+        /**
+         * opens the door
+         */
         public void openTheDoor(){
             opened = true;
         }
@@ -41,12 +46,10 @@ public class DoorWithKeyhole {
         public void paintObject(Graphics2D g2, int x, int y) {
             if (!opened){
                 g2.drawImage(closedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
-//            g2.drawImage(closedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
             }
             else {
                 floor.paintObject(g2,x,y);
                 g2.drawImage(openedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
-//            g2.drawImage(openedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
             }
         }
 
@@ -72,6 +75,9 @@ public class DoorWithKeyhole {
         private Image closedDoorLower = new ImageIcon("doors/closedDoorLowerSilver.png").getImage();
         private Image openedDoorLower = new ImageIcon("doors/openedDoorLower.png").getImage();
 
+        /**
+         * opens the door
+         */
         public void openTheDoor(){
             opened = true;
         }
@@ -85,12 +91,10 @@ public class DoorWithKeyhole {
         public void paintObject(Graphics2D g2, int x, int y) {
             if (!opened){
                 g2.drawImage(closedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
-//            g2.drawImage(closedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
             }
             else {
                 floor.paintObject(g2,x,y);
                 g2.drawImage(openedDoorLower,x,y, Values.CELL_SIZE,Values.CELL_SIZE,null);
-//            g2.drawImage(openedDoorUpper,x,y-70,Values.CELL_SIZE,Values.CELL_SIZE,null);
             }
         }
 

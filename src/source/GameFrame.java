@@ -10,14 +10,15 @@ public class GameFrame extends JFrame {
     private MainMenu mainMenu;
     private MapPanel mapPanel;
     private PuzzlePanel puzzlePanel;
-//    private PlayPanel currentPlayPanel;
     private StatusBarPanel currentStatusBar;
     private int currentLevelInt;
     private LevelEndingDialog levelEndingDialog;
     private InfoDialog infoDialog;
 
 
-
+    /**
+     * constructor with no parameters
+     */
     public GameFrame(){
         super();
         setSize(Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);
@@ -29,20 +30,28 @@ public class GameFrame extends JFrame {
             updatePuzzlePanel(i, ProgressStorage.getArtifactIsCollected(i));
         }
         setUndecorated(false);
-        //ProgressStorage progressStorage = new ProgressStorage();
-//        setVisible(true);
     }
 
+    /**
+     * method initialises all the fields
+     */
     private void init() {
         mainMenu = new MainMenu(this);
         mapPanel = new MapPanel(this);
         puzzlePanel = new PuzzlePanel(this);
         infoDialog = new InfoDialog(this);
     }
+
+    /**
+     * method makes info dialog visible
+     */
     public void showInfo(){
        infoDialog.setVisible(true);
     }
 
+    /**
+     * method makes main menu visible
+     */
     public void showMainMenu(){
         getContentPane().removeAll();
         getContentPane().add(mainMenu);
@@ -50,10 +59,16 @@ public class GameFrame extends JFrame {
         repaint();
     }
 
+    /**
+     * method refreshes the map panel
+     */
     public void setNewMap(){
         mapPanel = new MapPanel(this);
     }
 
+    /**
+     * method shows map panel
+     */
     public void showMap(){
         getContentPane().removeAll();
         getContentPane().add(mapPanel);
@@ -61,6 +76,10 @@ public class GameFrame extends JFrame {
         repaint();
     }
 
+    /**
+     * method shows level
+     * @param level
+     */
     public void showLevel(LevelUI level){
         currentLevelInt = level.getPlayPanel().getCurrentLevelInt();
         level.restart();
@@ -74,22 +93,18 @@ public class GameFrame extends JFrame {
         repaint();
     }
 
-//    public void showLevelEndingDialog(PlayPanel playPanel){
-//        levelEndingDialog = new LevelEndingDialog(this,playPanel);
-//        levelEndingDialog.setVisible(true);
-//    }
-
-//    public void restartLevel(){
-//        mapPanel.restartLevel(currentLevelInt);
-//        showLevel(mapPanel.getLevel(currentLevelInt));
-//    }
-
+    /**
+     * method shows next level
+     */
     public void showNextLevel(){
         if (currentLevelInt < 5){
             showLevel(mapPanel.getLevel(currentLevelInt+1));
         }
     }
 
+    /**
+     * method shows puzzle map
+     */
     public void showPuzzleMap(){
         getContentPane().removeAll();
         getContentPane().add(puzzlePanel);
@@ -97,6 +112,11 @@ public class GameFrame extends JFrame {
         repaint();
     }
 
+    /**
+     * method updates puzzle map depending on the level completion
+     * @param level
+     * @param artefactIsCollected
+     */
     public void updatePuzzlePanel(int level, boolean artefactIsCollected){
         switch (level){
             case 1:
@@ -128,38 +148,64 @@ public class GameFrame extends JFrame {
             puzzlePanel.showCongrats = true;
     }
 
+    /**
+     * method makes puzzle map show congrats image
+     * @return
+     */
     public boolean showCongrats(){
         return puzzlePanel.showCongrats;
     }
 
+    /**
+     * method updates number of purple diamonds on the status bar
+     * @param currentNumberOfPurpleDiamonds
+     */
     public void updateNumberOfPurpleDiamondsOnStatusBar(int currentNumberOfPurpleDiamonds){
         currentStatusBar.setCurrentNumberOfPurpleDiamonds(currentNumberOfPurpleDiamonds);
     }
 
+    /**
+     * method updates number of red diamonds on the status bar
+     * @param currentNumberOfRedDiamonds
+     */
     public void updateNumberOfRedDiamondsOnStatusBar(int currentNumberOfRedDiamonds){
         currentStatusBar.setCurrentNumberOfRedDiamonds(currentNumberOfRedDiamonds);
     }
 
+    /**
+     * method updates number of gold keys on the status bar
+     * @param currentNumberOfGoldKeys
+     */
     public void updateNumberOfGoldKeysOnStatusBar(int currentNumberOfGoldKeys){
         currentStatusBar.setCurrentNumberOfGoldKeys(currentNumberOfGoldKeys);
     }
 
+    /**
+     * method updates number of silver keys on the status bar
+     * @param currentNumberOfSilverKeys
+     */
     public void updateNumberOfSilverKeysOnStatusBar(int currentNumberOfSilverKeys){
         currentStatusBar.setCurrentNumberOfSilverKeys(currentNumberOfSilverKeys);
     }
 
+    /**
+     * method updates energy level on the status bar
+     * @param currentEnergyLevel
+     */
     public void updateEnergyLevelOnStatusBar(int currentEnergyLevel){
         currentStatusBar.setCurrentEnergyLevel(currentEnergyLevel);
     }
 
-//    public PlayPanel getCurrentPlayPanel() {
-//        return currentPlayPanel;
-//    }
-
+    /**
+     * method starts the game frame
+     */
     public void start(){
         showMainMenu();
     }
 
+    /**
+     * method stops the running of the program
+     */
     public void stop(){
         mainMenu = null;
         mapPanel = null;
@@ -175,16 +221,6 @@ public class GameFrame extends JFrame {
                 GameFrame gameFrame = new GameFrame();
                 gameFrame.setVisible(true);
                 gameFrame.start();
-//                Timer t = new Timer(1000, new AbstractAction() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        if (gameFrame.currentStatusBar != null) {
-//                            gameFrame.currentStatusBar.setCurrentEnergyLevel(gameFrame.currentStatusBar.getCurrentEnergyLevel() - 5);
-//                            gameFrame.currentStatusBar.setCurrentNumberOfPurpleDiamonds(gameFrame.currentStatusBar.getCurrentNumberOfGoldKeys() + 1);
-//                        }
-//                    }
-//                });
-//                t.start();
             }
         });
     }

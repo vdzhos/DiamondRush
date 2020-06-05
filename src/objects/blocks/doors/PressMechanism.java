@@ -31,6 +31,7 @@ public class PressMechanism{
     private boolean opened;
 
     /**
+     * constructor with parameters
      * position of the press panel on the map (in the array)
      * @param positionOfPressPanelInArrayX
      * @param positionOfPressPanelInArrayY
@@ -43,6 +44,12 @@ public class PressMechanism{
         floor = new Floor();
     }
 
+    /**
+     * reacts to the obstacle`s position
+     * @param matrix
+     * @param positionOfBoyInArrayX
+     * @param positionOfBoyInArrayY
+     */
     public void interact(Cell[][] matrix, int positionOfBoyInArrayX, int positionOfBoyInArrayY){
         this.positionOfBoyInArrayX = positionOfBoyInArrayX/Values.CELL_SIZE;
         this.positionOfBoyInArrayY = positionOfBoyInArrayY/Values.CELL_SIZE;
@@ -62,7 +69,12 @@ public class PressMechanism{
 
 
     public class PressPanel implements Block, Resettable {
-
+        /**
+         *  reacts to the obstacle`s position
+         * @param matrix
+         * @param positionOfBoyInArrayX
+         * @param positionOfBoyInArrayY
+         */
         public void interact(Cell[][] matrix, int positionOfBoyInArrayX, int positionOfBoyInArrayY){
             PressMechanism.this.interact(matrix,positionOfBoyInArrayX,positionOfBoyInArrayY);
         }

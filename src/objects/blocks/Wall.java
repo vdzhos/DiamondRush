@@ -77,6 +77,9 @@ public class Wall implements Block {
 
     }
 
+    /**
+     * enum of the different types of walls
+     */
     public enum Type{
         CEILING,FLOOR,LEFT_SIDE,RIGHT_SIDE,LEFT_UPPER_CORNER,LEFT_LOWER_CORNER,
         RIGHT_UPPER_CORNER, RIGHT_LOWER_CORNER, CENTER, LEFT_P,RIGHT_P,UPPER_P,LOWER_P,
@@ -94,6 +97,10 @@ public class Wall implements Block {
         BLOCKED, SECRET
     }
 
+    /**
+     * constructor with parameters
+     * @param type
+     */
     public Wall(Type type){
         switch (type){
             case CEILING:

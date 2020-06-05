@@ -15,8 +15,6 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     private AnimatableImage energyLevelImage = new AnimatableImage("statusBar/energyLevelEmpty.png");
     private AnimatableImage goldKeyImage = new AnimatableImage("statusBar/goldKey.png");
     private AnimatableImage silverKeyImage =new AnimatableImage( "statusBar/silverKey.png");
-//    private AnimatableImage redDiamondImage = new AnimatableImage("statusBar/redDiamond.png");
-//    private AnimatableImage purpleDiamondImage = new AnimatableImage("statusBar/purpleDiamond.png");
     private AnimatableImage redDiamondImage = new AnimatableImage("statusBar/diamondHexRed.png");
     private AnimatableImage purpleDiamondImage = new AnimatableImage("statusBar/diamondHexPurple.png");
     private AnimatableImage checkpointImage = new AnimatableImage("statusBar/checkpoint.png");
@@ -54,13 +52,10 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     private PlayPanel playPanel;
 
 
-//    public StatusBarPanel() {
-//        addMouseListener(this);
-//        font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
-//        fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
-//    }
-
-
+    /**
+     * constructor with parameters
+     * @param gameFrame
+     */
     public StatusBarPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
         setPreferredSize(new Dimension(Values.GAME_STATUS_BAR_WIDTH,Values.GAME_STATUS_BAR_LENGTH));
@@ -70,6 +65,11 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         pauseMenuDialog = new PauseMenuDialog(gameFrame);
     }
 
+    /**
+     * constructor with parameters
+     * @param gameFrame
+     * @param playPanel
+     */
     public StatusBarPanel(GameFrame gameFrame, PlayPanel playPanel) {
         this.gameFrame = gameFrame;
         this.playPanel = playPanel;
@@ -80,35 +80,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         pauseMenuDialog = new PauseMenuDialog(gameFrame, playPanel);
     }
 
-//    public void setPlayPanel() {
-//        playPanel = gameFrame.getCurrentPlayPanel();
-//    }
 
-    //    public StatusBarPanel(GameFrame gameFrame, PlayPanel playPanel) {
-//        this.playPanel = playPanel;
-//        this.gameFrame = gameFrame;
-//        setPreferredSize(new Dimension(Values.GAME_STATUS_BAR_WIDTH,Values.GAME_STATUS_BAR_LENGTH));
-//        addMouseListener(this);
-//        font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
-//        fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
-//        pauseMenuDialog = new PauseMenuDialog(gameFrame);
-//    }
-
-//    public StatusBarPanel(GameFrame gameFrame, int level, int maxEnergyLevel, int maxNumberOfGoldKeys, int maxNumberOfSilverKeys, int maxNumberOfPurpleDiamonds, int maxNumberOfRedDiamonds){
-//        this.gameFrame = gameFrame;
-//        currentLevel = level;
-//        this.maxEnergyLevel = maxEnergyLevel;
-//        this.maxNumberOfGoldKeys = maxNumberOfGoldKeys;
-//        this.maxNumberOfSilverKeys = maxNumberOfSilverKeys;
-//        this.maxNumberOfPurpleDiamonds = maxNumberOfPurpleDiamonds;
-//        this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
-//        addMouseListener(this);
-//        font = Util.getFont("fonts/Funhouse-Ke17.ttf",17f);
-//        fontLevel = Util.getFont("fonts/Funhouse-Ke17.ttf",30f);
-//        pauseMenuDialog = new PauseMenuDialog(gameFrame);
-//    }
-
-
+    @Override
     public void paint(Graphics gr){
         Graphics2D g = (Graphics2D) gr;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
@@ -123,7 +96,10 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     }
 
 
-
+    /**
+     * draws energy level bar
+     * @param g
+     */
     private void drawProgressBar(Graphics g) {
         if (currentEnergyLevel >= unit*4)
             g.setColor(Color.green);
@@ -140,20 +116,29 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         Graphics2D graphics2D = (Graphics2D)g;
         graphics2D.fill(progressBar);
     }
-
+    /**
+     * draws level label
+     * @param g
+     */
     private void drawLevelLabel(Graphics g) {
         g.setFont(fontLevel);
         g.drawString("LEVEL  "+currentLevel, Values.LEVEL_LABEL_X, Values.LEVEL_LABEL_Y);
         g.setFont(font);
     }
-
+    /**
+     * draws diamonds labels
+     * @param g
+     */
     private void drawDiamonds(Graphics g) {
         g.drawImage(redDiamondImage.image, Values.RED_DIAMOND_X, Values.RED_DIAMOND_Y, Values.RED_DIAMOND_WIDTH, Values.RED_DIAMOND_LENGTH,null);
         g.drawImage(purpleDiamondImage.image, Values.PURPLE_DIAMOND_X, Values.PURPLE_DIAMOND_Y, Values.PURPLE_DIAMOND_WIDTH, Values.PURPLE_DIAMOND_LENGTH,null);
         g.drawString(""+currentNumberOfRedDiamonds+"/"+maxNumberOfRedDiamonds, Values.RED_DIAMOND_LABEL_X, Values.RED_DIAMOND_LABEL_Y);
         g.drawString(""+currentNumberOfPurpleDiamonds+"/"+maxNumberOfPurpleDiamonds, Values.PURPLE_DIAMOND_LABEL_X, Values.PURPLE_DIAMOND_LABEL_Y);
     }
-
+    /**
+     * draws keys labels
+     * @param g
+     */
     private void drawKeys(Graphics g) {
         g.drawImage(goldKeyImage.image, Values.GOLD_KEY_X, Values.GOLD_KEY_Y, Values.GOLD_KEY_WIDTH, Values.GOLD_KEY_LENGTH,null);
         g.drawImage(silverKeyImage.image, Values.SILVER_KEY_X, Values.SILVER_KEY_Y, Values.SILVER_KEY_WIDTH, Values.SILVER_KEY_LENGTH,null);
@@ -161,10 +146,18 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         g.drawString(""+currentNumberOfSilverKeys+"/"+maxNumberOfSilverKeys, Values.SILVER_KEY_LABEL_X, Values.SILVER_KEY_LABEL_Y);
     }
 
+    /**
+     * draws checkpoint label
+     * @param g
+     */
     private void drawCheckpoint(Graphics g) {
         g.drawImage(checkpointImage.image, Values.CHECKPOINT_BUTTON_X, Values.CHECKPOINT_BUTTON_Y, Values.CHECKPOINT_BUTTON_WIDTH, Values.CHECKPOINT_BUTTON_LENGTH,null);
     }
 
+    /**
+     * draws energy level bar
+     * @param g
+     */
     private void drawEnergyLevel(Graphics g) {
         g.drawImage(energyLevelImage.image, Values.ENERGY_FIELD_X, Values.ENERGY_FIELD_Y, Values.ENERGY_FIELD_WIDTH, Values.ENERGY_FIELD_LENGTH,null);
         g.setColor(Color.WHITE);
@@ -172,15 +165,20 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         g.drawString(""+currentEnergyLevel+"/"+maxEnergyLevel, Values.ENERGY_LABEL_X, Values.ENERGY_LABEL_Y);
         g.drawImage(energyImage.image, Values.ENERGY_X, Values.ENERGY_Y, Values.ENERGY_WIDTH, Values.ENERGY_LENGTH,null);
     }
-
+    /**
+     * draws pause button
+     * @param g
+     */
     private void drawPauseButton(Graphics g) {
         g.drawImage(pauseImage.image, Values.PAUSE_BUTTON_X, Values.PAUSE_BUTTON_Y, Values.PAUSE_BUTTON_WIDTH, Values.PAUSE_BUTTON_LENGTH,null);
     }
-
+    /**
+     * draws background
+     * @param g
+     */
     private void drawBackground(Graphics g) {
         g.drawImage(image.image, Values.GAME_STATUS_BAR_X, Values.GAME_STATUS_BAR_Y, Values.GAME_STATUS_BAR_WIDTH, Values.GAME_STATUS_BAR_LENGTH,null);
     }
-
 
     public int getCurrentEnergyLevel() {
         return currentEnergyLevel;
@@ -189,7 +187,6 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     public void setCurrentEnergyLevel(int currentEnergyLevel) {
         this.currentEnergyLevel = currentEnergyLevel;
         repaint();
-//        repaint(new Rectangle(Values.ENERGY_FIELD_X, Values.ENERGY_FIELD_Y, Values.ENERGY_FIELD_WIDTH, Values.ENERGY_FIELD_LENGTH));
     }
 
     public int getCurrentNumberOfGoldKeys() {
@@ -199,37 +196,23 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     public void setCurrentNumberOfGoldKeys(int currentNumberOfGoldKeys) {
         this.currentNumberOfGoldKeys = currentNumberOfGoldKeys;
         repaint();
-//        repaint(new Rectangle(Values.GOLD_KEY_LABEL_X, Values.GOLD_KEY_LABEL_Y,200,100));
     }
 
-    public int getCurrentNumberOfSilverKeys() {
-        return currentNumberOfSilverKeys;
-    }
 
     public void setCurrentNumberOfSilverKeys(int currentNumberOfSilverKeys) {
         this.currentNumberOfSilverKeys = currentNumberOfSilverKeys;
         repaint();
-//        repaint(new Rectangle(Values.SILVER_KEY_LABEL_X, Values.SILVER_KEY_LABEL_Y,200,100));
     }
 
-    public int getCurrentNumberOfPurpleDiamonds() {
-        return currentNumberOfPurpleDiamonds;
-    }
 
     public void setCurrentNumberOfPurpleDiamonds(int currentNumberOfPurpleDiamonds) {
         this.currentNumberOfPurpleDiamonds = currentNumberOfPurpleDiamonds;
         repaint();
-//        repaint(new Rectangle(Values.PURPLE_DIAMOND_LABEL_X, Values.PURPLE_DIAMOND_LABEL_Y,200,100));
-    }
-
-    public int getCurrentNumberOfRedDiamonds() {
-        return currentNumberOfRedDiamonds;
     }
 
     public void setCurrentNumberOfRedDiamonds(int currentNumberOfRedDiamonds) {
         this.currentNumberOfRedDiamonds = currentNumberOfRedDiamonds;
         repaint();
-//        repaint(new Rectangle(Values.RED_DIAMOND_LABEL_X, Values.RED_DIAMOND_LABEL_Y,200,100));
     }
 
     public void setCurrentLevel(int currentLevel) {
@@ -255,19 +238,14 @@ public class StatusBarPanel extends JPanel implements MouseListener {
                     pauseMenuDialog.setVisible(true);
                 }
             });
-            System.out.println("Pause button");
         }
         else if (checkpoint.contains(point)){
             checkpointImage.animate(this);
-            System.out.println("Checkpoint button");
             playPanel.applyCheckpoint();
-//            there should be the method that moves boy to the checkpoint
         }
         else if (energyLevel.contains(point)){
             energyLevelImage.animate(this);
             energyImage.animate(this);
-            System.out.println("Energy button");
-//             BackpackPanel backPanel = new BackPanel();
         }
     }
 
@@ -315,43 +293,4 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     public void setMaxNumberOfRedDiamonds(int maxNumberOfRedDiamonds) {
         this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
     }
-
-        public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame f = new JFrame();
-                f.setSize(700,820);
-
-                f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                f.setUndecorated(true);
-
-
-
-                PlayPanel playPanel =new PlayPanel(1,new GameFrame(),new MapPanel(new GameFrame()));
-                StatusBarPanel statusBarPanel = playPanel.getStatusBarPanel();
-                f.setLayout(new BorderLayout());
-                f.getContentPane().add(statusBarPanel, BorderLayout.NORTH);
-                f.getContentPane().add(playPanel, BorderLayout.CENTER);
-                f.setVisible(true);
-                Timer t = new Timer(1000, new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        statusBarPanel.setCurrentEnergyLevel(statusBarPanel.getCurrentEnergyLevel()-5);
-                        statusBarPanel.setCurrentNumberOfPurpleDiamonds(statusBarPanel.getCurrentNumberOfGoldKeys()+1);
-                    }
-                });
-                t.start();
-            }
-        });
-
-
-
-
-
-
-
-
     }
-
-
-}

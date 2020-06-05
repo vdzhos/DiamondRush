@@ -18,11 +18,7 @@ import java.awt.image.DataBufferFloat;
 
 public class Maps {
 
-//    private Cell[][] level1;
-//    private Cell[][] level2;
-//    private Cell[][] level3;
-//    private Cell[][] level4;
-//    private Cell[][] level5;
+
 
     private Level level1;
     private Level level2;
@@ -32,10 +28,18 @@ public class Maps {
 
     private PlayPanel playPanel;
 
+    /**
+     * constructor with parameters
+     * @param playPanel
+     */
     public Maps(PlayPanel playPanel) {
         this.playPanel = playPanel;
     }
 
+    /**
+     * method initialises cpecific level
+     * @param currentLevel
+     */
     public void initLevel(int currentLevel) {
         switch (currentLevel) {
             case 1:
@@ -56,7 +60,11 @@ public class Maps {
         }
     }
 
-
+    /**
+     * method returnes specific level
+     * @param level
+     * @return
+     */
     public Level getLevel(int level) {
         switch (level) {
             case 1:
@@ -73,6 +81,9 @@ public class Maps {
         return null;
     }
 
+    /**
+     * method initialises level 1
+     */
     private void initLevel1() {
 
         Snake snake1 = new Snake(140, 70, 40, true, playPanel);
@@ -388,17 +399,9 @@ public class Maps {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * method initialises level 2
+     */
     private void initLevel2(){
         FireTrap fireTrap1 = new FireTrap(0,false);
         FireTrap fireTrap2 = new FireTrap(3,true);
@@ -1706,6 +1709,9 @@ public class Maps {
         this.level4.setCheckpoints(checkpoints);
     }
 
+    /**
+     * method initialises level 5
+     */
     private void initLevel5(){
         Scorpion scorpion1 = new Scorpion(700,560,true,null,null);
         Scorpion scorpion2 = new Scorpion(700,420,false,null,null);
@@ -2588,25 +2594,6 @@ public class Maps {
     }
 
 
-    //    public Cell[][] getLevel1() {
-//        return level1;
-//    }
-//
-//    public Cell[][] getLevel2() {
-//        return level2;
-//    }
-//
-//    public Cell[][] getLevel3() {
-//        return level3;
-//    }
-//
-//    public Cell[][] getLevel4() {
-//        return level4;
-//    }
-//
-//    public Cell[][] getLevel5() {
-//        return level5;
-//    }
 
 
 }

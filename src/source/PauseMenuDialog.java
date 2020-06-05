@@ -33,18 +33,24 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
     private boolean soundOn = true;
     private boolean musicOn = true;
 
-
+    /**
+     * constructor with parameters
+     * @param gameFrame
+     */
     public PauseMenuDialog(GameFrame gameFrame) {
         super(gameFrame, "", true);
         this.gameFrame = gameFrame;
         setLocation(gameFrame.getX()+ Values.PAUSE_MENU_SHIFT_X, gameFrame.getY()+ Values.PAUSE_MENU_SHIFT_Y);
         setSize(Values.PAUSE_MENU_WIDTH, Values.PAUSE_MENU_LENGTH);
         setUndecorated(true);
-//        getRootPane().setOpaque(true);
-//        setBackground(new Color(0,0,0,0));
         addMouseListener(this);
     }
 
+    /**
+     * constructor with parameters
+     * @param gameFrame
+     * @param playPanel
+     */
     public PauseMenuDialog(GameFrame gameFrame, PlayPanel playPanel) {
         super(gameFrame, "", true);
         this.playPanel = playPanel;
@@ -55,6 +61,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
         addMouseListener(this);
     }
 
+    @Override
     public void paint(Graphics gr){
         Graphics2D g = (Graphics2D) gr;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
@@ -68,34 +75,66 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
         drawMusic(g);
     }
 
+    /**
+     * draws chest image
+     * @param g
+     */
     private void drawChest(Graphics g) {
         g.drawImage(chestImage, Values.CHEST_X, Values.CHEST_Y, Values.CHEST_WIDTH, Values.CHEST_LENGTH,null);
     }
 
+    /**
+     * draws music button
+     * @param g
+     */
     private void drawMusic(Graphics g) {
         g.drawImage(music.image, Values.MUSIC_X, Values.MUSIC_Y, Values.MUSIC_WIDTH, Values.MUSIC_LENGTH,null);
     }
 
+    /**
+     * draws sound button
+     * @param g
+     */
     private void drawSound(Graphics g) {
         g.drawImage(sound.image, Values.SOUND_X, Values.SOUND_Y, Values.SOUND_WIDTH, Values.SOUND_LENGTH,null);
     }
 
+    /**
+     * draws go-to-map button
+     * @param g
+     */
     private void drawGoToMap(Graphics g) {
         g.drawImage(goToMapImage.image, Values.GOTOMAP_X, Values.GOTOMAP_Y, Values.GOTOMAP_WIDTH, Values.GOTOMAP_LENGTH,null);
     }
 
+    /**
+     * draws restart button
+     * @param g
+     */
     private void drawRestart(Graphics g) {
         g.drawImage(restartImage.image, Values.RESTART_X, Values.RESTART_Y, Values.RESTART_WIDTH, Values.RESTART_LENGTH,null);
     }
 
+    /**
+     * draws resume button
+     * @param g
+     */
     private void drawResume(Graphics g) {
         g.drawImage(resumeImage.image, Values.RESUME_X, Values.RESUME_Y, Values.RESUME_WIDTH, Values.RESUME_LENGTH,null);
     }
 
+    /**
+     * draws paused label
+     * @param g
+     */
     private void drawPaused(Graphics g) {
         g.drawImage(pausedImage, Values.PAUSED_X, Values.PAUSED_Y, Values.PAUSED_WIDTH, Values.PAUSED_LENGTH,null);
     }
 
+    /**
+     * draws background
+     * @param g
+     */
     private void drawBackground(Graphics g) {
         g.setColor(new Color(239,209,137));
         g.fillRect(0,0, Values.PAUSE_MENU_WIDTH, Values.PAUSE_MENU_LENGTH);
@@ -209,19 +248,6 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
     }
 
 
-
-
-
-    public static void main(String[] args){
-        JFrame f = new JFrame();
-        f.setSize(700,820);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        PauseMenuDialog p = new PauseMenuDialog(new GameFrame());
-
-        f.setVisible(true);
-        p.setVisible(true);
-
-    }
 }
 
 

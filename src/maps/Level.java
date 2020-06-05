@@ -45,6 +45,16 @@ public class Level {
 
     private int levelNumber;
 
+    /**
+     * constructor with parameters
+     * @param matrix
+     * @param positionOnScreenX
+     * @param positionOnScreenY
+     * @param positionOnMapX
+     * @param positionOnMapY
+     * @param maxEnergyLevel
+     * @param levelNumber
+     */
     public Level(Cell[][] matrix, int positionOnScreenX, int positionOnScreenY, int positionOnMapX, int positionOnMapY, int maxEnergyLevel, int levelNumber){
         this.matrix = matrix;
         this.positionOnScreenX = positionOnScreenX;
@@ -56,6 +66,9 @@ public class Level {
         setAccessories();
     }
 
+    /**
+     * calculates numbers of different items
+     */
     private void setAccessories() {
         for (byte i = 0;i < matrix.length; i++ ){
             for (byte j = 0; j < matrix[0].length; j ++){
@@ -83,7 +96,12 @@ public class Level {
         }
 
 
-
+    /**
+     * returns a checkpoint on the specific position
+     * @param positionOfBoyInArrayX
+     * @param positionOfBoyInArrayY
+     * @return
+     */
     public Checkpoint getCheckpoint(int positionOfBoyInArrayX, int positionOfBoyInArrayY){
         for (Checkpoint checkpoint: checkpoints){
             if (checkpoint.positionInArrayX==positionOfBoyInArrayX && checkpoint.positionInArrayY==positionOfBoyInArrayY){
@@ -128,41 +146,25 @@ public class Level {
         return maxNumberOfRedDiamonds;
     }
 
-    public void setMaxNumberOfRedDiamonds(int maxNumberOfRedDiamonds) {
-        this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
-    }
 
     public int getMaxNumberOfPurpleDiamonds() {
         return maxNumberOfPurpleDiamonds;
-    }
-
-    public void setMaxNumberOfPurpleDiamonds(int maxNumberOfPurpleDiamonds) {
-        this.maxNumberOfPurpleDiamonds = maxNumberOfPurpleDiamonds;
     }
 
     public int getMaxNumberOfGoldKeys() {
         return maxNumberOfGoldKeys;
     }
 
-    public void setMaxNumberOfGoldKeys(int maxNumberOfGoldKeys) {
-        this.maxNumberOfGoldKeys = maxNumberOfGoldKeys;
-    }
 
     public int getMaxNumberOfSilverKeys() {
         return maxNumberOfSilverKeys;
     }
 
-    public void setMaxNumberOfSilverKeys(int maxNumberOfSilverKeys) {
-        this.maxNumberOfSilverKeys = maxNumberOfSilverKeys;
-    }
 
     public int getMaxEnergyLevel() {
         return maxEnergyLevel;
     }
 
-    public void setMaxEnergyLevel(int maxEnergyLevel) {
-        this.maxEnergyLevel = maxEnergyLevel;
-    }
 
     public int getLevelNumber() {
         return levelNumber;

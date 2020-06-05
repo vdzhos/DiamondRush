@@ -19,6 +19,10 @@ public class MainMenu extends JPanel implements MouseListener {
     private AnimatableImage exitImage = new AnimatableImage("mainMenu/exit.png");
     private AnimatableImage infoImage = new AnimatableImage("mainMenu/info.png");
 
+    /**
+     * constructor with parameters
+     * @param gameFrame
+     */
     public MainMenu(GameFrame gameFrame){
         this.gameFrame = gameFrame;
         addMouseListener(this);
@@ -26,7 +30,7 @@ public class MainMenu extends JPanel implements MouseListener {
 
 
 
-
+    @Override
     public void paint(Graphics gr) {
         Graphics2D g = (Graphics2D) gr;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -38,22 +42,42 @@ public class MainMenu extends JPanel implements MouseListener {
 
     }
 
+    /**
+     * draws info button
+     * @param g
+     */
     private void drawInfo(Graphics2D g) {
         g.drawImage(infoImage.image, Values.INFO_X, Values.INFO_Y, Values.INFO_WIDTH, Values.INFO_LENGTH,null);
     }
 
+    /**
+     * draws exit button
+     * @param g
+     */
     private void drawExit(Graphics2D g) {
         g.drawImage(exitImage.image, Values.EXIT_X, Values.EXIT_Y, Values.EXIT_WIDTH, Values.EXIT_LENGTH,null);
     }
 
+    /**
+     * draws new game button
+     * @param g
+     */
     private void drawNewGame(Graphics2D g) {
         g.drawImage(newGameImage.image, Values.NEW_GAME_X, Values.NEW_GAME_Y, Values.NEW_GAME_WIDTH, Values.NEW_GAME_LENGTH,null);
     }
 
+    /**
+     * draws play button
+     * @param g
+     */
     private void drawPlay(Graphics2D g) {
         g.drawImage(playImage.image, Values.PLAY_X, Values.PLAY_Y, Values.PLAY_WIDTH, Values.PLAY_LENGTH,null);
     }
 
+    /**
+     * draws background
+     * @param g
+     */
     private void drawBack(Graphics2D g) {
         g.drawImage(backgroundImage, 0,0, Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH,null);
     }
@@ -129,15 +153,4 @@ public class MainMenu extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
-
-//    public static void main(String[] args) {
-//        JFrame f = new JFrame();
-//        f.setSize(700,820);
-//        f.setLocation(300,0);
-//        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        f.setUndecorated(true);
-//        MainMenu m = new MainMenu(f);
-//        f.add(m);
-//        f.setVisible(true);
-//    }
 }

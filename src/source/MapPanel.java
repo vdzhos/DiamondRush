@@ -60,23 +60,22 @@ public class MapPanel extends JPanel implements MouseListener {
     private int[] x5x = {  578,525};
     private int[] y5x = {  455,348};
 
-
-//    public MapPanel(){
-//        setImages();
-//        addMouseListener(this);
-//
-//    }
-
     private StatusBarPanel statusBarPanel;
 
+    /**
+     * constructor with parameters
+     * @param gameFrame
+     */
     public MapPanel(GameFrame gameFrame){
         setImages();
         addMouseListener(this);
         this.gameFrame = gameFrame;
-//        statusBarPanel = new StatusBarPanel(gameFrame);
         initLevels();
     }
 
+    /**
+     * method initialises all the levels of the game
+     */
     private void initLevels() {
         levels = new LevelUI[5];
         levels[0] = new LevelUI(gameFrame, new PlayPanel(1,gameFrame,this));
@@ -86,16 +85,19 @@ public class MapPanel extends JPanel implements MouseListener {
         levels[4] = new LevelUI(gameFrame, new PlayPanel(5,gameFrame,this));
     }
 
-
+    /**
+     * returns specific level of the game
+     * @param level
+     * @return
+     */
     public LevelUI getLevel(int level){
         return levels[level-1];
     }
 
-    public void restartLevel(int level) {
-        levels[level-1] = new LevelUI(gameFrame,new PlayPanel(level,gameFrame,this));
-    }
-
-
+    /**
+     * method makes next level available
+     * @param currentLevel
+     */
     public void openNextLevel(int currentLevel){
         switch (currentLevel){
             case 1:
@@ -114,7 +116,10 @@ public class MapPanel extends JPanel implements MouseListener {
         setImages();
     }
 
-    public void paint(Graphics g){
+    @Override
+    public void paint(Graphics gr){
+        Graphics2D g = (Graphics2D)gr;
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         drawBackground(g);
         drawLines(g);
         drawLevel1(g);
@@ -127,17 +132,28 @@ public class MapPanel extends JPanel implements MouseListener {
 
     }
 
+    /**
+     * method draws cross
+     * @param g
+     */
     private void drawCross(Graphics g) {
         g.drawImage(goToPuzzle.image,Values.CROSS_X, Values.CROSS_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE,null );
     }
 
+    /**
+     * method draws menu
+     * @param g
+     */
     private void drawMenu(Graphics g) {
         g.drawImage(backToMenuImage.image, Values.MENU_X, Values.MENU_Y, Values.MENU_SIZE, Values.MENU_SIZE,null);
     }
 
-    private void drawLines(Graphics gr) {
-        Graphics2D g = (Graphics2D)gr;
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+
+    /**
+     * method draws lines
+     * @param g
+     */
+    private void drawLines(Graphics2D g) {
         float[] dash = {15f};
         BasicStroke stroke = new BasicStroke(8,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND,10f,dash,10);
         g.setStroke(stroke);
@@ -150,53 +166,95 @@ public class MapPanel extends JPanel implements MouseListener {
             drawLine34(g);
         if (level5Available) {
             drawLine45(g);
-//            drawLine5X(g);
         }
 
     }
 
+    /**
+     * draws line from 5 to cross
+     * @param g
+     */
     private void drawLine5X(Graphics2D g) {
         g.drawPolyline(x5x,y5x,x5x.length);
     }
 
+    /**
+     * draws line from 4 to 5
+     * @param g
+     */
     private void drawLine45(Graphics2D g) {
         g.drawPolyline(x45,y45,x45.length);
     }
 
 
+    /**
+     * draws line from 3 to 4
+     * @param g
+     */
     private void drawLine34(Graphics2D g) {
         g.drawPolyline(x34,y34,x34.length);
     }
 
+    /**
+     * draws line from 2 to 3
+     * @param g
+     */
     private void drawLine23(Graphics2D g) {
         g.drawPolyline(x23,y23,x23.length);
     }
 
 
+    /**
+     * draws line from 1 to 2
+     * @param g
+     */
     private void drawLine12(Graphics2D g) {
         g.drawPolyline(x12,y12,x12.length);
     }
 
+    /**
+     * draws level 5 button
+     * @param g
+     */
     private void drawLevel5(Graphics g) {
         g.drawImage(level5.image, Values.LEVEL_5_X, Values.LEVEL_5_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE,null);
     }
 
+    /**
+     * draws level 4 button
+     * @param g
+     */
     private void drawLevel4(Graphics g) {
         g.drawImage(level4.image, Values.LEVEL_4_X, Values.LEVEL_4_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE,null);
     }
 
+    /**
+     * draws level 3 button
+     * @param g
+     */
     private void drawLevel3(Graphics g) {
         g.drawImage(level3.image, Values.LEVEL_3_X, Values.LEVEL_3_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE,null);
     }
 
+    /**
+     * draws level 2 button
+     * @param g
+     */
     private void drawLevel2(Graphics g) {
         g.drawImage(level2.image, Values.LEVEL_2_X, Values.LEVEL_2_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE,null);
     }
 
+    /**
+     * draws level 1 button
+     * @param g
+     */
     private void drawLevel1(Graphics g) {
         g.drawImage(level1.image, Values.LEVEL_1_X, Values.LEVEL_1_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE,null);
     }
 
+    /**
+     * sets images according to the status of a level
+     */
     public void setImages() {
         if (level1Available)
             level1 = level1Image;
@@ -216,23 +274,16 @@ public class MapPanel extends JPanel implements MouseListener {
     }
 
 
-
+    /**
+     * draws background
+     * @param g
+     */
     private void drawBackground(Graphics g) {
         g.setColor(new Color(245, 166, 53));
         g.fillRect(0,0, Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH);
         g.drawImage(mapImage,0,0, Values.MAIN_WINDOW_WIDTH, Values.MAIN_WINDOW_LENGTH,null);
     }
 
-//    public static void main(String[] args) {
-//        JFrame f = new JFrame();
-//        f.setSize(700,820);
-//        f.setLocation(300,0);
-//        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        f.setUndecorated(true);
-//        MapPanel mapPanel = new MapPanel();
-//        f.add(mapPanel);
-//        f.setVisible(true);
-//    }
 
 
     @Override
