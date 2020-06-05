@@ -174,7 +174,7 @@ public interface Values {
 
     int MENU_SIZE = 90;
 
-    // main menu diamond
+    // main menu dialog
 
     int PLAY_X = 225;
     int PLAY_Y = 340;
@@ -189,7 +189,7 @@ public interface Values {
     int NEW_GAME_LENGTH = 90;
 
     int EXIT_X = 225;
-    int EXIT_Y = 680;//725;
+    int EXIT_Y = 640;//725;
 
     int EXIT_WIDTH = 250;
     int EXIT_LENGTH = 90;
@@ -295,6 +295,19 @@ public interface Values {
     int GO_TOMENU_WIDTH = 100;
     int GO_TOMENU_HEIGHT = 45;
 
+    //info dialog
+
+    int INFO_LABEL_X = 190;
+    int INFO_LABEL_Y = 0;
+
+    int INFO_LABEL_WIDTH = 320;
+    int INFO_LABEL_HEIGHT = 100;
+
+    int CLOSE_X = 280;
+    int CLOSE_Y = 760;
+
+    int CLOSE_WIDTH = 140;
+    int CLOSE_HEIGHT = 63;
 
 
 

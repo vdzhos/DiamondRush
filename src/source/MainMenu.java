@@ -101,6 +101,12 @@ public class MainMenu extends JPanel implements MouseListener {
         else if (info.contains(point)){
             infoImage.animate(this, "mainMenu",info);
 //            show instructions
+            Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    gameFrame.showInfo();
+                }
+            });
         }
     }
 
