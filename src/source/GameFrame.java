@@ -14,6 +14,7 @@ public class GameFrame extends JFrame {
     private StatusBarPanel currentStatusBar;
     private int currentLevelInt;
     private LevelEndingDialog levelEndingDialog;
+    private InfoDialog infoDialog;
 
 
 
@@ -36,6 +37,10 @@ public class GameFrame extends JFrame {
         mainMenu = new MainMenu(this);
         mapPanel = new MapPanel(this);
         puzzlePanel = new PuzzlePanel(this);
+        infoDialog = new InfoDialog(this);
+    }
+    public void showInfo(){
+       infoDialog.setVisible(true);
     }
 
     public void showMainMenu(){
