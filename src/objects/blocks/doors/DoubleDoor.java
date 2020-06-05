@@ -70,8 +70,8 @@ public class DoubleDoor{
                 opened = false;
                 playPanel.drawMessage = true;
                 playPanel.twoLineMessage = true;
-                playPanel.message = "      I have to";
-                playPanel.messageLower = "    Kill them all!";
+                playPanel.message = "       Я маю";
+                playPanel.messageLower = "вбити всіх ворогів!";
                 boy.isMoving = true;
             }
             else if (!opened){
@@ -88,8 +88,8 @@ public class DoubleDoor{
                 opened = false;
                 playPanel.drawMessage = true;
                 playPanel.twoLineMessage = true;
-                playPanel.message = "      I have to";
-                playPanel.messageLower = "    Kill them all!";
+                playPanel.message = "       Я маю";
+                playPanel.messageLower = "вбити всіх ворогів!";
                 boy.isMoving = true;
             }
             else if (!opened){

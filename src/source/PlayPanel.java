@@ -76,8 +76,10 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     public boolean drawMessage;
     public boolean twoLineMessage;
+    public boolean threeLineMessage;
     public String message;
     public String messageLower;
+    public String messageLowest;
     private boolean drawn;
     private int checkpointCost = 10;
 
@@ -107,7 +109,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     private MapPanel mapPanel;
     private GameFrame gameFrame;
     private int currentLevelInt;
-    private Font font = Util.getFont("fonts/Funhouse-Ke17.ttf", 16f);
+    private Font font = Util.getFont("fonts/v_SevenSwordsmen_BB.ttf", 16f);
     private Image image = new ImageIcon("mapImages/thoughtClouds.png").getImage();
 
     /**
@@ -372,7 +374,12 @@ public class PlayPanel extends JPanel implements KeyListener {
             if (twoLineMessage) {
                 g2.drawString(message, boy.x - 50, boy.y - 40);
                 g2.drawString(messageLower, boy.x - 50, boy.y - 25);
-            } else g2.drawString(message, boy.x - 50, boy.y - 30);
+            } else if (threeLineMessage){
+                g2.drawString(message, boy.x - 50, boy.y - 40);
+                g2.drawString(messageLower, boy.x - 50, boy.y - 25);
+                g2.drawString(messageLowest,boy.x - 50, boy.y - 10);
+            }
+            else g2.drawString(message, boy.x - 50, boy.y - 30);
         }
         if (drawMessage && boy.isMoving && drawn) {
             drawn = false;
@@ -611,7 +618,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                     else if (!currentCheckpoint.isUsed) {
                         currentCheckpoint.setUsed(true);
                         drawMessage = true;
-                        message = "New checkpoint!";
+                        message = " Контрольна точка!";
                         repaint();
                     }
                 }
@@ -943,8 +950,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                         drawMessage = true;
                         drawn = false;
                         twoLineMessage = true;
-                        message = "    I need to find";
-                        messageLower = "    a gold key!";
+                        message = "    Я маю знайти";
+                        messageLower = "    золотий ключ!";
                         boy.whatMove = 21;
                         boy.isMoving = true;
                     }
@@ -960,8 +967,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                         drawMessage = true;
                         drawn = false;
                         twoLineMessage = true;
-                        message = "    I need to find";
-                        messageLower = "    a silver key!";
+                        message = "    Я маю знайти";
+                        messageLower = "      срібний ключ!";
                         boy.whatMove = 21;
                         boy.isMoving = true;
                     }
@@ -1012,9 +1019,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                     if (block instanceof DiamondDoor) {
                             drawMessage = true;
                             drawn = false;
-                            twoLineMessage = true;
-                            message = "    I need more ";
-                            messageLower = "purple diamonds!";
+                            threeLineMessage = true;
+                            message = "Мені треба зібрати ";
+                            messageLower = "більше фіолетових";
+                            messageLowest = "     діамантів!";
                     }
                     boy.whatMove = 21;
                     boy.isMoving = true;
@@ -1062,8 +1070,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                         drawn = false;
                         drawMessage = true;
                         twoLineMessage = true;
-                        message = "    I need to find";
-                        messageLower = "    a gold key!";
+                        message = "    Я маю знайти";
+                        messageLower = "    золотий ключ!";
                     }
                 }
                 else if (block instanceof DoorWithKeyhole.SilverDoor && !block.pass()) {
@@ -1080,8 +1088,8 @@ public class PlayPanel extends JPanel implements KeyListener {
                         drawn = false;
                         drawMessage = true;
                         twoLineMessage = true;
-                        message = "    I need to find";
-                        messageLower = "    a silver key!";
+                        message = "    Я маю знайти";
+                        messageLower = "      срібний ключ!";
                     }
                 }
                 else if ((block.pass() && !(itIsRock(boy.xInArray + 1, boy.yInArray))) || itIsHarmless(boy.xInArray + 1, boy.yInArray)) {
@@ -1131,9 +1139,10 @@ public class PlayPanel extends JPanel implements KeyListener {
                     if (block instanceof DiamondDoor) {
                         drawMessage = true;
                         drawn = false;
-                        twoLineMessage = true;
-                        message = "    I need more ";
-                        messageLower = "purple diamonds!";
+                        threeLineMessage = true;
+                        message = "Мені треба зібрати ";
+                        messageLower = "більше фіолетових";
+                        messageLowest = "     діамантів!";
                     }
                     boy.whatMove = 22;
                     boy.isMoving = true;
