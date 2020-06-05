@@ -29,6 +29,7 @@ public class GameFrame extends JFrame {
             updatePuzzlePanel(i, ProgressStorage.getArtifactIsCollected(i));
         }
         setUndecorated(false);
+        setResizable(false);
         //ProgressStorage progressStorage = new ProgressStorage();
 //        setVisible(true);
     }

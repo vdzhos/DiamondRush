@@ -5,35 +5,63 @@ import objects.Stone;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Iryna Matviienko
+ */
 public class Diamond extends Stone implements Harmless{
 
+    /**
+     * Default constructor
+     */
     public Diamond(){
         super();
         image = new ImageIcon("statusBar/diamondHexPurple.png").getImage();
     }
 
+    /**
+     * Set diamond to new position in array
+     * @param xInArray
+     * @param yInArray
+     */
     @Override
     protected void setStoneToNewPositionInArray(int xInArray, int yInArray){
         playPanel.getCurrentLevel().getMatrix()[this.xInArray][this.yInArray].setHarmlessObject(null);
         playPanel.getCurrentLevel().getMatrix()[xInArray][yInArray].setHarmlessObject(this);
     }
 
+    /**
+     * Paint diamond
+     * @param g2
+     * @param newMapX
+     * @param newMapY
+     */
     @Override
     public void paintObject(Graphics2D g2, int newMapX, int newMapY) {
         updateXAndY(newMapX, newMapY);
         paintObject(g2);
     }
 
+    /**
+     * Paint diamond
+     * @param g2
+     */
     @Override
     public void paintObject(Graphics2D g2) {
         g2.drawImage(image, x, y, WIDTH, HEIGHT,null);
     }
 
+    /**
+     * Boy can go through it
+     * @return
+     */
     @Override
     public boolean pass() {
         return true;
     }
 
+    /**
+     * Stop diamond in all senses when collecting it
+     */
     @Override
     public void disappear() {
         if (enabled) {
@@ -54,6 +82,9 @@ public class Diamond extends Stone implements Harmless{
     @Override
     public void beShovenRight() { }
 
+    /**
+     * Like reset in Stone
+     */
     public void pause() {
         reset();
     }

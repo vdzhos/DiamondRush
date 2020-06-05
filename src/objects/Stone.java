@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author Iryna Matviienko
+ */
 public abstract class Stone implements Resettable {
 
     public int x;
@@ -30,7 +33,13 @@ public abstract class Stone implements Resettable {
     public Timer timer;
     public boolean enabled = true;
     public Snake snake;
+    private int tempI;
+    private int tempWhatMove;
 
+    /**
+     * Default constructor
+     * Stone`s animation
+     */
     public Stone(){
         whatMove = 0;
         i = 0;
@@ -40,7 +49,6 @@ public abstract class Stone implements Resettable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (i == 0){
-                    //if (whatMove != 0) System.out.println("0StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     if ((whatMove == 4 || whatMove == 1) && !playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                         whatMove = 0;
                         if (playPanel.itIsStone(xInArray, yInArray + 1)){
@@ -63,14 +71,17 @@ public abstract class Stone implements Resettable {
                             else if (playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1){
                                 whatMove = 0;
                             }
-                            //Newly added
                             else{
                                 Stone stoneLeftUp = playPanel.getStone(xInArray - 1, yInArray - 1);
                                 if (stoneLeftUp != null && stoneLeftUp.isMoving && (stoneLeftUp.whatMove == 2 || stoneLeftUp.whatMove == 4)){
                                     whatMove = 0;
                                 }
                                 if (whatMove != 0){
-                                    if (!playPanel.itIsClearForStone(xInArray - 1, yInArray)){
+                                    Stone stoneUp = playPanel.getStone(xInArray, yInArray - 1);
+                                    if (stoneUp != null && stoneUp.isMoving && stoneUp.whatMove == 2 ){
+                                        whatMove = 0;
+                                    }
+                                    else if (!playPanel.itIsClearForStone(xInArray - 1, yInArray)){
                                         whatMove = 0;
                                     }
                                 }
@@ -80,14 +91,17 @@ public abstract class Stone implements Resettable {
                             if (playPanel.boy.xInArray == xInArray && playPanel.boy.yInArray == yInArray + 1) {
                                 whatMove = 0;
                             }
-                            //Newly added
                             else{
                                 Stone stoneRightUp = playPanel.getStone(xInArray + 1, yInArray - 1);
                                 if (stoneRightUp != null && stoneRightUp.isMoving && (stoneRightUp.whatMove == 3 || stoneRightUp.whatMove == 4)){
                                     whatMove = 0;
                                 }
                                 if (whatMove != 0){
-                                    if (!playPanel.itIsClearForStone(xInArray + 1, yInArray)){
+                                    Stone stoneUp = playPanel.getStone(xInArray, yInArray - 1);
+                                    if (stoneUp != null && stoneUp.isMoving && stoneUp.whatMove == 3 ){
+                                        whatMove = 0;
+                                    }
+                                    else if (!playPanel.itIsClearForStone(xInArray + 1, yInArray)){
                                         whatMove = 0;
                                     }
                                 }
@@ -98,9 +112,7 @@ public abstract class Stone implements Resettable {
                             && playPanel.itIsStone(xInArray, yInArray + 1)){
                         setWhatMove1();
                     }
-                    //if (whatMove != 0) System.out.println("0FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
-                //if (whatMove != 0) System.out.println("Stone i = " + i + " at: " + xInArray + ", " + yInArray + ", whatMove " + whatMove);
                 if (whatMove != 0) isMoving = true;
                 if (whatMove == 1) stagger();
                 else if (whatMove == 2) fallLeft();
@@ -110,7 +122,6 @@ public abstract class Stone implements Resettable {
                 else if (whatMove == 6) beShovenRight();
                 playPanel.repaint();
                 if (i == 7){
-                    //System.out.println("7StartStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                     i = 0;
                     if (whatMove != 0 && playPanel.itIsClearForStone(xInArray, yInArray + 1)){
                         whatMove = 4;
@@ -148,12 +159,19 @@ public abstract class Stone implements Resettable {
                         whatMove = 0;
                         timer.stop();
                     }
-                    //System.out.println("7FinishStone " + xInArray + ", " + yInArray + " whatMove " + whatMove);
                 }
             }
         });
     }
 
+    /**
+     * Initialize variables
+     * @param playPanel
+     * @param xInArray
+     * @param yInArray
+     * @param mapX
+     * @param mapY
+     */
     public void initVars(PlayPanel playPanel, int xInArray, int yInArray, int mapX, int mapY){
         this.playPanel = playPanel;
         this.xInArray = xInArray;
@@ -164,10 +182,16 @@ public abstract class Stone implements Resettable {
         this.y = yInArray * 70 + mapY;
     }
 
+    /**
+     * Start timer
+     */
     public void moveStone(){
         if (!timer.isRunning()) timer.start();
     }
 
+    /**
+     * Check space around
+     */
     public void checkSpace(){
         if (enabled){
             if (!timer.isRunning()){
@@ -186,12 +210,19 @@ public abstract class Stone implements Resettable {
         }
     }
 
+    /**
+     * Check whether stone under is falling right or left
+     * @return
+     */
     private boolean stoneUnderIsFallingRightOrLeft(){
         Stone stoneUnder = playPanel.getStone(xInArray, yInArray + 1);
         return (stoneUnder != null && stoneUnder.isMoving && (stoneUnder.whatMove == 2 || stoneUnder.whatMove == 3));
-            //whatMove = 4;
     }
 
+    /**
+     * Make whatMove 1
+     * @return
+     */
     private boolean setWhatMove1() {
         if (playPanel.itIsClearForStone(xInArray + 1, yInArray) &&
                 (playPanel.itIsClearForStone(xInArray + 1, yInArray + 1)
@@ -205,7 +236,42 @@ public abstract class Stone implements Resettable {
         return whatMove == 1;
     }
 
-    //хитатися
+    /**
+     * Check if it is snake nearby
+     */
+    private void checkSnake(){
+        if(playPanel.itIsSnake(xInArray, yInArray + 1)){
+            System.out.println("found snake");
+            if(snake!=null && this.snake.isAlive){
+                playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+            }
+            Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
+            if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())
+                    || newSnake.rockFalling==null || !newSnake.rockFalling.equals(this)){
+                System.out.println("timer started");
+                newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
+                if(snake!=null && !newSnake.equals(snake)){
+                    if(snake.getRockCheck()!=null && snake.getRockCheck().isRunning()){
+                        snake.getRockCheck().stop();
+                    }
+                    snake = newSnake;
+                }else{
+                    snake = newSnake;
+                }
+            }
+        }else{
+            if(snake!=null){
+                snake.getRockCheck().stop();
+                if(snake.isAlive){
+                    playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                }
+            }
+        }
+    }
+
+    /**
+     * One iteration of staggering
+     */
     public void stagger () {
         if (i != 0) {
             if (i % 2 == 0) x += CELL_SIDE / 14;
@@ -220,8 +286,10 @@ public abstract class Stone implements Resettable {
         i++;
     }
 
+    /**
+     * One iteration of falling left
+     */
     public void fallLeft(){
-        System.out.println("falling left");
         if (i == 0){
             x -= 2 * CELL_SIDE / 7;
         }
@@ -242,34 +310,7 @@ public abstract class Stone implements Resettable {
             x -= 0.5 * CELL_SIDE / 7;
             y += 1.5 * CELL_SIDE / 7;
             if (i == 5){
-                if(playPanel.itIsSnake(xInArray, yInArray + 1)){
-                    System.out.println("found snake");
-                    if(snake!=null && this.snake.isAlive){
-                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
-                    }
-                    Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
-                    if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())
-                            || newSnake.rockFalling==null || !newSnake.rockFalling.equals(this)){
-                        System.out.println("timer started");
-                        newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
-                        if(snake!=null && !newSnake.equals(snake)){
-                            if(snake.getRockCheck()!=null && snake.getRockCheck().isRunning()){
-                                snake.getRockCheck().stop();
-                            }
-                            snake = newSnake;
-                        }else{
-                            snake = newSnake;
-                        }
-                    }
-                }else{
-                    if(snake!=null){
-                        snake.getRockCheck().stop();
-                        if(snake.isAlive){
-                            playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
-                        }
-                    }
-                }
-
+                checkSnake();
                 setStoneToNewPositionInArray(xInArray, yInArray + 1);
                 playPanel.disappearFromCell(xInArray, yInArray);
                 yInArray++;
@@ -281,8 +322,10 @@ public abstract class Stone implements Resettable {
         i++;
     }
 
+    /**
+     * One iteration of falling right
+     */
     public void fallRight(){
-        System.out.println("falling right");
         if (i == 0){
             x += 2 * CELL_SIDE / 7;
         }
@@ -303,34 +346,7 @@ public abstract class Stone implements Resettable {
             x += 0.5 * CELL_SIDE / 7;
             y += 1.5 * CELL_SIDE / 7;
             if (i == 5){
-                if(playPanel.itIsSnake(xInArray, yInArray + 1)){
-                    System.out.println("found snake");
-                    if(snake!=null && this.snake.isAlive){
-                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
-                    }
-                    Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
-                    if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())
-                            || newSnake.rockFalling==null || !newSnake.rockFalling.equals(this)){
-                        System.out.println("timer started");
-                        newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
-                        if(snake!=null && !newSnake.equals(snake)){
-                            if(snake.getRockCheck()!=null && snake.getRockCheck().isRunning()){
-                                snake.getRockCheck().stop();
-                            }
-                            snake = newSnake;
-                        }else{
-                            snake = newSnake;
-                        }
-                    }
-                }else{
-                    if(snake!=null){
-                        snake.getRockCheck().stop();
-                        if(snake.isAlive){
-                            playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
-                        }
-                    }
-                }
-
+                checkSnake();
                 setStoneToNewPositionInArray(xInArray, yInArray + 1);
                 playPanel.disappearFromCell(xInArray, yInArray);
                 yInArray++;
@@ -342,36 +358,12 @@ public abstract class Stone implements Resettable {
         i++;
     }
 
+    /**
+     * One iteration of falling down
+     */
     public void fallDown(){
-        System.out.println("falling down");
         if (i == 3){
-            if(playPanel.itIsSnake(xInArray, yInArray + 1)){
-                System.out.println("found snake");
-                if(snake!=null && this.snake.isAlive){
-                    playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
-                }
-                Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
-                if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())
-                            || newSnake.rockFalling==null || !newSnake.rockFalling.equals(this)){
-                    System.out.println("timer started");
-                    newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
-                    if(snake!=null && !newSnake.equals(snake)){
-                        if(snake.getRockCheck()!=null && snake.getRockCheck().isRunning()){
-                            snake.getRockCheck().stop();
-                        }
-                        snake = newSnake;
-                    }else{
-                        snake = newSnake;
-                    }
-                }
-            }else{
-                if(snake!=null){
-                    snake.getRockCheck().stop();
-                    if(snake.isAlive){
-                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
-                    }
-                }
-            }
+            checkSnake();
             setStoneToNewPositionInArray(xInArray, yInArray + 1);
             playPanel.disappearFromCell(xInArray, yInArray);
             yInArray ++;
@@ -383,6 +375,11 @@ public abstract class Stone implements Resettable {
     public abstract void beShovenLeft();
     public abstract void beShovenRight();
 
+    /**
+     * Update x and y
+     * @param newMapX
+     * @param newMapY
+     */
     protected void updateXAndY(int newMapX, int newMapY){
         x = x - mapX + newMapX;
         y = y - mapY + newMapY;
@@ -390,18 +387,21 @@ public abstract class Stone implements Resettable {
         mapY = newMapY;
     }
 
+    /**
+     * Reset variables
+     */
     @Override
     public void reset() {
         timer.stop();
-//        tempWhatMove = whatMove;
-//        tempI = i;
         whatMove = 0;
         i = 0;
         isMoving = false;
         snake = null;
     }
 
-
+    /**
+     * Variables when game is paused
+     */
     @Override
     public void pause() {
         timer.stop();
@@ -412,6 +412,9 @@ public abstract class Stone implements Resettable {
         isMoving = false;
     }
 
+    /**
+     * Variables when game is resumed
+     */
     @Override
     public void resume(){
         timer.start();
@@ -419,13 +422,6 @@ public abstract class Stone implements Resettable {
         i = tempI;
         isMoving = true;
     }
-
-
-
-
-    private int tempI;
-    private int tempWhatMove;
-
 
     protected abstract void setStoneToNewPositionInArray(int xInArray, int yInArray);
 
