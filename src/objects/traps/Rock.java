@@ -30,6 +30,7 @@ public class Rock extends Stone implements Trap{
                     if(snake!=null && snake.isAlive){
                         playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
                     }
+                    System.out.println("found snake");
                     snake = (Snake)playPanel.currentLevel.getMatrix()[xInArray-1][yInArray].getTrapObject();
                 }else{
                     if(snake!=null && snake.isAlive){
@@ -54,6 +55,7 @@ public class Rock extends Stone implements Trap{
                     if(snake!=null && this.snake.isAlive){
                         playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
                     }
+                    System.out.println("found snake");
                     snake = (Snake)playPanel.currentLevel.getMatrix()[xInArray+1][yInArray].getTrapObject();
                 }else{
                     System.out.println("????????");

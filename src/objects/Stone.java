@@ -221,6 +221,7 @@ public abstract class Stone implements Resettable {
     }
 
     public void fallLeft(){
+        System.out.println("falling left");
         if (i == 0){
             x -= 2 * CELL_SIDE / 7;
         }
@@ -243,14 +244,29 @@ public abstract class Stone implements Resettable {
             if (i == 5){
                 if(playPanel.itIsSnake(xInArray, yInArray + 1)){
                     System.out.println("found snake");
+                    if(snake!=null && this.snake.isAlive){
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
                     Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
-                    if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())){
+                    if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())
+                            || newSnake.rockFalling==null || !newSnake.rockFalling.equals(this)){
                         System.out.println("timer started");
                         newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
+                        if(snake!=null && !newSnake.equals(snake)){
+                            if(snake.getRockCheck()!=null && snake.getRockCheck().isRunning()){
+                                snake.getRockCheck().stop();
+                            }
+                            snake = newSnake;
+                        }else{
+                            snake = newSnake;
+                        }
                     }
                 }else{
                     if(snake!=null){
                         snake.getRockCheck().stop();
+                        if(snake.isAlive){
+                            playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                        }
                     }
                 }
 
@@ -266,6 +282,7 @@ public abstract class Stone implements Resettable {
     }
 
     public void fallRight(){
+        System.out.println("falling right");
         if (i == 0){
             x += 2 * CELL_SIDE / 7;
         }
@@ -288,14 +305,29 @@ public abstract class Stone implements Resettable {
             if (i == 5){
                 if(playPanel.itIsSnake(xInArray, yInArray + 1)){
                     System.out.println("found snake");
+                    if(snake!=null && this.snake.isAlive){
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
                     Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
-                    if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())){
+                    if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())
+                            || newSnake.rockFalling==null || !newSnake.rockFalling.equals(this)){
                         System.out.println("timer started");
                         newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
+                        if(snake!=null && !newSnake.equals(snake)){
+                            if(snake.getRockCheck()!=null && snake.getRockCheck().isRunning()){
+                                snake.getRockCheck().stop();
+                            }
+                            snake = newSnake;
+                        }else{
+                            snake = newSnake;
+                        }
                     }
                 }else{
                     if(snake!=null){
                         snake.getRockCheck().stop();
+                        if(snake.isAlive){
+                            playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                        }
                     }
                 }
 
@@ -315,14 +347,29 @@ public abstract class Stone implements Resettable {
         if (i == 3){
             if(playPanel.itIsSnake(xInArray, yInArray + 1)){
                 System.out.println("found snake");
+                if(snake!=null && this.snake.isAlive){
+                    playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                }
                 Snake newSnake = (Snake)playPanel.currentLevel.getMatrix()[xInArray][yInArray + 1].getTrapObject();
-                if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())){
+                if(newSnake.getRockCheck()==null || (newSnake.getRockCheck()!=null && !newSnake.getRockCheck().isRunning())
+                            || newSnake.rockFalling==null || !newSnake.rockFalling.equals(this)){
                     System.out.println("timer started");
                     newSnake.checkTimerStart(playPanel,this,playPanel.currentLevel.getMatrix());
+                    if(snake!=null && !newSnake.equals(snake)){
+                        if(snake.getRockCheck()!=null && snake.getRockCheck().isRunning()){
+                            snake.getRockCheck().stop();
+                        }
+                        snake = newSnake;
+                    }else{
+                        snake = newSnake;
+                    }
                 }
             }else{
                 if(snake!=null){
                     snake.getRockCheck().stop();
+                    if(snake.isAlive){
+                        playPanel.currentLevel.getMatrix()[xInArray][yInArray].setTrapObject(snake);
+                    }
                 }
             }
             setStoneToNewPositionInArray(xInArray, yInArray + 1);
@@ -351,6 +398,7 @@ public abstract class Stone implements Resettable {
         whatMove = 0;
         i = 0;
         isMoving = false;
+        snake = null;
     }
 
 
