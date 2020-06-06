@@ -492,7 +492,7 @@ public class Maps {
         level2[4][12] = new Cell(new Floor(), null, snake3);
         level2[4][13] = new Cell(new Floor(), null, snake3);
         level2[4][14] = new Cell(check1, null, null);
-        level2[4][16] = new Cell(new DiamondDoor(0,false), null, null);
+        level2[4][16] = new Cell(new DiamondDoor(34,false), null, null);
         level2[4][18] = new Cell(new Floor(), new Diamond(), null);
         level2[4][20] = new Cell(new Floor(), new Tumbleweed(), null);
         level2[5][1] = new Cell(new Floor(), null, new Rock(null));
@@ -554,7 +554,7 @@ public class Maps {
         level2[11][9] = new Cell(new Floor(), null, scorpion1);
         level2[11][10] = new Cell(new Floor(), new Diamond(), null);
         level2[11][12] = new Cell(new Floor(), null, scorpion1);
-        level2[11][21] = new Cell(new DiamondDoor(0,false), null, null);
+        level2[11][21] = new Cell(new DiamondDoor(46,false), null, null);
         level2[12][2] = new Cell(new Wall(Wall.Type.RIGHT_LOWER_CORNER), null, snake4);
         level2[12][2] = new Cell(new Floor(), null, snake4);
         level2[12][3] = new Cell(new Floor(), null, snake4);
@@ -623,7 +623,7 @@ public class Maps {
         level2[20][1] = new Cell(new Floor(), new Tumbleweed(), null);
         level2[20][2] = new Cell(new Floor(), null, new Rock(null));
         level2[20][4] = new Cell(new Floor(), null, null);
-        level2[20][14] = new Cell(new Floor(), null, null);//doubleDoor.leftDoor
+        level2[20][14] = new Cell(doubleDoor.leftDoor, null, null);//doubleDoor.leftDoor
         level2[20][17] = new Cell(new Floor(), new Diamond(), null);
         level2[20][18] = new Cell(new Floor(), new Tumbleweed(), null);
         level2[20][19] = new Cell(new Floor(), null, snake8);
@@ -687,7 +687,7 @@ public class Maps {
         level2[26][9] = new Cell(new Floor(), new Diamond(), null);
         level2[26][10] = new Cell(new Floor(), null, new Rock(null));
         level2[26][11] = new Cell(new Floor(), new Tumbleweed(), null);
-        level2[26][14] = new Cell(new Floor(), null, null);//doubleDoor.rightDoor
+        level2[26][14] = new Cell(doubleDoor.rightDoor, null, null);//doubleDoor.rightDoor
         level2[26][17] = new Cell(new Floor(), new Diamond(), null);
         level2[26][18] = new Cell(new Floor(), new Tumbleweed(), null);
         level2[26][19] = new Cell(new Floor(), null, snake8);

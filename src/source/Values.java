@@ -180,26 +180,51 @@ public interface Values {
 
     // main menu dialog
 
+//    int PLAY_X = 290;
+//    int PLAY_Y = 315;
+//
+//    int PLAY_WIDTH = 120;
+//    int PLAY_LENGTH = 120;
+//
+//    int NEW_GAME_X = 305;
+//    int NEW_GAME_Y = 445;
+//
+//    int NEW_GAME_WIDTH = 90;
+//    int NEW_GAME_LENGTH = 90;
+//
+//    int EXIT_X = 305;
+//    int EXIT_Y = 645;//725;
+//
+//    int EXIT_WIDTH = 90;
+//    int EXIT_LENGTH = 90;
+//
+//    int INFO_X = 305;
+//    int INFO_Y = 545;
+//
+//    int INFO_WIDTH = 90;
+//    int INFO_LENGTH = 90;
+
+
     int PLAY_X = 290;
-    int PLAY_Y = 315;
+    int PLAY_Y = 325;
 
     int PLAY_WIDTH = 120;
     int PLAY_LENGTH = 120;
 
-    int NEW_GAME_X = 305;
-    int NEW_GAME_Y = 445;
+    int NEW_GAME_X = 420;
+    int NEW_GAME_Y = 340;
 
     int NEW_GAME_WIDTH = 90;
     int NEW_GAME_LENGTH = 90;
 
     int EXIT_X = 305;
-    int EXIT_Y = 645;//725;
+    int EXIT_Y = 455;//725;
 
     int EXIT_WIDTH = 90;
     int EXIT_LENGTH = 90;
 
-    int INFO_X = 305;
-    int INFO_Y = 545;
+    int INFO_X = 190;
+    int INFO_Y = 340;
 
     int INFO_WIDTH = 90;
     int INFO_LENGTH = 90;
@@ -294,7 +319,7 @@ public interface Values {
     int CONGRATS_HEIGHT = 279;
 
     int GO_TOMENU_X = 300;
-    int GO_TOMENU_Y = 680;//740;
+    int GO_TOMENU_Y = 740;//680;
 
     int GO_TOMENU_WIDTH = 100;
     int GO_TOMENU_HEIGHT = 45;

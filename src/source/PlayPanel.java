@@ -81,7 +81,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     public String messageLower;
     public String messageLowest;
     private boolean drawn;
-    private int checkpointCost = 10;
+    private int checkpointCost = 50;
 
     private int trapDelay = 5000;
     private int step = 200;
@@ -193,6 +193,48 @@ public class PlayPanel extends JPanel implements KeyListener {
      * method restarts current level
      */
     public void restart() {
+
+        for (int i = 0; i < levelMatrix.length; i++) {
+                for (int j = 0; j < levelMatrix[0].length; j++) {
+                    if (levelMatrix[i][j].getHarmlessObject() instanceof Diamond) {
+                        ((Diamond) levelMatrix[i][j].getHarmlessObject()).enabled = false;
+                        ((Diamond) levelMatrix[i][j].getHarmlessObject()).reset();
+                    }
+                    if (levelMatrix[i][j].getTrapObject() instanceof Rock) {
+                        ((Rock) levelMatrix[i][j].getTrapObject()).enabled = false;
+                        ((Rock) levelMatrix[i][j].getTrapObject()).reset();
+                    }
+                    if(levelMatrix[i][j].getTrapObject() instanceof Snake){
+                        Snake snake = (Snake)levelMatrix[i][j].getTrapObject();
+                        if(snake.getCheckTimer()!=null){
+                            snake.getCheckTimer().stop();
+                            snake.setCheckTimer(null);
+                        }
+                        if(snake.getRockCheck()!=null){
+                            snake.getRockCheck().stop();
+                            snake.setRockCheck(null);
+                        }
+                    }
+                    if(levelMatrix[i][j].getTrapObject() instanceof FireTrap){
+                        FireTrap fireTrap = (FireTrap)levelMatrix[i][j].getTrapObject();
+                        if(fireTrap.getCheckTimer()!=null){
+                            fireTrap.getCheckTimer().stop();
+                            fireTrap.setCheckTimer(null);
+                        }
+                    }
+                    if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
+                        Scorpion scorpion = (Scorpion)levelMatrix[i][j].getTrapObject();
+                        if(scorpion.getCheckTimer()!=null){
+                            scorpion.getCheckTimer().stop();
+                            scorpion.setCheckTimer(null);
+                        }
+                    }
+                }
+            }
+
+
+
+
         currentLevel = null;
         currentCheckpoint = null;
         stonesAreInited = false;

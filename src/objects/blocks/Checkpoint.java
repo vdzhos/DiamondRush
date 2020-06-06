@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class Checkpoint implements Block {
 
-    private Image image = new ImageIcon("mapImages/checkpoint1.png").getImage();
+    private Image image = new ImageIcon("mapImages/checkpoint2.png").getImage();
     private Image imageUsed = new ImageIcon("mapImages/checkpoint.png").getImage();
 
     public Cell[][] initialMatrix;
