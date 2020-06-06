@@ -46,12 +46,15 @@ public class PuzzlePanel extends JPanel implements MouseListener {
 
     @Override
     public void paint(Graphics gr) {
+        if (drawFirst&&
+                drawSecond&&
+                drawThird&&
+                drawFourth&&
+                drawFifth)
+            showCongrats = true;
         Graphics2D g = (Graphics2D) gr;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         drawBack(g);
-        if (showCongrats && !hasShownCongrats)
-            drawMenu(g);
-        else drawGoToMap(g);
         if (drawFirst)
             drawFirst(g);
         if (drawSecond)
@@ -62,9 +65,11 @@ public class PuzzlePanel extends JPanel implements MouseListener {
             drawFourth(g);
         if (drawFifth)
             drawFifth(g);
-        if (showCongrats)
+        if (showCongrats && !hasShownCongrats)
             drawCongrats(g);
-
+        if (showCongrats && !hasShownCongrats)
+            drawMenu(g);
+        else drawGoToMap(g);
     }
 
     /**
@@ -174,7 +179,7 @@ public class PuzzlePanel extends JPanel implements MouseListener {
         Point2D point = new Point2D.Double(e.getX(), e.getY());
         Rectangle2D.Double backToMap = new Rectangle2D.Double(Values.BACK_TOMAP_X, Values.BACK_TOMAP_Y, Values.BACK_TOMAP_WIDTH, Values.BACK_TOMAP_LENGTH);
         Rectangle2D.Double menu = new Rectangle2D.Double(Values.GO_TOMENU_X, Values.GO_TOMENU_Y, Values.GO_TOMENU_WIDTH, Values.GO_TOMENU_HEIGHT);
-        if (backToMap.contains(point) && !showCongrats) {
+        if (backToMap.contains(point) && !(showCongrats && !hasShownCongrats)) {
             goToMap.animate(PuzzlePanel.this, "puzzles");
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
