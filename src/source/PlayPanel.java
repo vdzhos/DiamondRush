@@ -1349,7 +1349,8 @@ public class PlayPanel extends JPanel implements KeyListener {
      */
     public boolean itIsDoorWithKeyhole(int x, int y){
         if (levelMatrix[x][y].getBlock() == null) return false;
-        return levelMatrix[x][y].getBlock() instanceof DoorWithKeyhole;
+        return levelMatrix[x][y].getBlock() instanceof DoorWithKeyhole.GoldDoor
+                || levelMatrix[x][y].getBlock() instanceof DoorWithKeyhole.SilverDoor;
     }
 
     /**

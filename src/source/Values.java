@@ -204,7 +204,6 @@ public interface Values {
     int INFO_WIDTH = 250;
     int INFO_LENGTH = 90;
 
-
     //Level ending menu
     int END_LEVEL_BG_WIDTH = 500;
     int END_LEVEL_BG_HEIGHT = 700;

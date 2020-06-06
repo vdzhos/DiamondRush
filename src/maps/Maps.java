@@ -1455,7 +1455,7 @@ public class Maps {
         Checkpoint check3 = new Checkpoint(2,20,13,26, additionalSegmentCheck3, 4,20,4,4);
         Checkpoint check4 = new Checkpoint(14,15,25,26,14,24,4,4);
         int[] additionalSegmentCheck5 = {23,9,23,13};
-        Checkpoint check5 = new Checkpoint(21,1,33,5, additionalSegmentCheck5, 20,3,4,4);
+        Checkpoint check5 = new Checkpoint(21,1,33,5, additionalSegmentCheck5, 20,3,4,3);
         int[] additionalSegmentCheck6 = {27,21,29,25};
         Checkpoint check6 = new Checkpoint(24,9,38,20, additionalSegmentCheck6, 24,14,4,4);
         Checkpoint check7 = new Checkpoint(32,22,37,26,28,26,4,6);
