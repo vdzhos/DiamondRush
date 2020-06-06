@@ -180,28 +180,28 @@ public interface Values {
 
     // main menu dialog
 
-    int PLAY_X = 225;
-    int PLAY_Y = 340;
+    int PLAY_X = 290;
+    int PLAY_Y = 315;
 
-    int PLAY_WIDTH = 250;
-    int PLAY_LENGTH = 90;
+    int PLAY_WIDTH = 120;
+    int PLAY_LENGTH = 120;
 
-    int NEW_GAME_X = 225;
-    int NEW_GAME_Y = 440;
+    int NEW_GAME_X = 305;
+    int NEW_GAME_Y = 445;
 
-    int NEW_GAME_WIDTH = 250;
+    int NEW_GAME_WIDTH = 90;
     int NEW_GAME_LENGTH = 90;
 
-    int EXIT_X = 225;
-    int EXIT_Y = 640;//725;
+    int EXIT_X = 305;
+    int EXIT_Y = 645;//725;
 
-    int EXIT_WIDTH = 250;
+    int EXIT_WIDTH = 90;
     int EXIT_LENGTH = 90;
 
-    int INFO_X = 225;
-    int INFO_Y = 540;
+    int INFO_X = 305;
+    int INFO_Y = 545;
 
-    int INFO_WIDTH = 250;
+    int INFO_WIDTH = 90;
     int INFO_LENGTH = 90;
 
 
