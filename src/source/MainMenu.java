@@ -16,10 +16,10 @@ public class MainMenu extends JPanel implements MouseListener {
     private Image backgroundImage = new ImageIcon("mainMenu/mainBack.jpg").getImage();
     private GameFrame gameFrame;
     
-    private AnimatableImage playImage = new AnimatableImage("mainMenu/play.png");
-    private AnimatableImage newGameImage = new AnimatableImage("mainMenu/newGame.png");
-    private AnimatableImage exitImage = new AnimatableImage("mainMenu/exit.png");
-    private AnimatableImage infoImage = new AnimatableImage("mainMenu/info.png");
+    private AnimatableImage playImage = new AnimatableImage("mainMenu/playB.png");
+    private AnimatableImage newGameImage = new AnimatableImage("mainMenu/restart.png");
+    private AnimatableImage exitImage = new AnimatableImage("mainMenu/exitB.png");
+    private AnimatableImage infoImage = new AnimatableImage("mainMenu/infoB.png");
 
     /**
      * constructor with parameters
