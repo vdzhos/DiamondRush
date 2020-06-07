@@ -10,10 +10,12 @@ import objects.harmless.Tumbleweed;
 import objects.traps.Rock;
 import objects.traps.Scorpion;
 import objects.traps.Snake;
+import source.AdditionalImage;
 import source.PlayPanel;
 import source.Util;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.image.DataBufferFloat;
 
 /**
@@ -90,6 +92,14 @@ public class Maps {
      * method initialises level 1
      */
     private void initLevel1() {
+        AdditionalImage[] additionalImages = {new AdditionalImage("additionalImages/picture.png",70,770,280,280),
+                new AdditionalImage("additionalImages/cat.png", 0,1219,122,277),
+                new AdditionalImage("additionalImages/catLeft.png", 575,560,122,260),
+                new AdditionalImage("additionalImages/wall2.png", 1125,575,170,170),
+                new AdditionalImage("additionalImages/wall3.png", 485,0,210,184),
+                new AdditionalImage("additionalImages/wall4.png", 1200,-6,551,204),
+                new AdditionalImage("additionalImages/wall6.png", 1690,570,400,187),
+                new AdditionalImage("additionalImages/wall4B.png", 1055,1065,560,184)};
 
         Snake snake1 = new Snake(140, 70, 40, true, playPanel);
         Snake snake2 = new Snake(350, 70, 100, true, playPanel);
@@ -401,6 +411,7 @@ public class Maps {
 
         this.level1 = new Level(level1,2,4,2,16, 200,1);
         this.level1.setCheckpoints(checkpoints);
+        this.level1.setAdditionalImages(additionalImages);
     }
 
 

@@ -7,8 +7,8 @@ package source;
 public interface Values {
 
     //window size
-    int MAIN_WINDOW_WIDTH = 715;
-    int MAIN_WINDOW_LENGTH = 855;
+    int MAIN_WINDOW_WIDTH = 700;
+    int MAIN_WINDOW_LENGTH = 820;
 
     //game panel (the one where all the actions are performed)
     int GAME_PANEL_WIDTH = 700;

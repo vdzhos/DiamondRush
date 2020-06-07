@@ -33,6 +33,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     private boolean stonesAreInited = false;
     private Timer trapTimer;
     public Timer takeEnergyTimer;
+    private AdditionalImage[] additionalImages;
 
     private int mapX;
     private int mapY;
@@ -160,7 +161,8 @@ public class PlayPanel extends JPanel implements KeyListener {
      */
     private void initLevel() {
         currentLevel = maps.getLevel(currentLevelInt);
-        levelMatrix = this.currentLevel.getMatrix();
+        levelMatrix = currentLevel.getMatrix();
+        additionalImages = currentLevel.getAdditionalImages();
     }
 
     /**
@@ -434,6 +436,9 @@ public class PlayPanel extends JPanel implements KeyListener {
             }
             trapCounter(g2);
         }
+        for (AdditionalImage additionalImage:additionalImages){
+            additionalImage.paintObject(g2,mapX, mapY);
+        }
     }
 
 
@@ -498,8 +503,8 @@ public class PlayPanel extends JPanel implements KeyListener {
         else if (currentEnergyLevel < checkpointCost){
             drawMessage = true;
             twoLineMessage = true;
-            message = "       Low energy";
-            messageLower = "                level!";
+            message = "   Низький рівень";
+            messageLower = "       енергії!";
             drawn = false;
             repaint();
         }
@@ -596,6 +601,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         t.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println(boy.xInArray+"    "+boy.yInArray);
                 if (boy.whatMove == 1 && boyMovesUp) boy.moveUp(PlayPanel.this);
                 else if (boy.whatMove == 1 && mapMovesUp) {
                     boy.moveUpAnimation(PlayPanel.this,true);
