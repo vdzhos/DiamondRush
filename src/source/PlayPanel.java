@@ -396,13 +396,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                         if (itIsTumbleweed(i, j) && stonesAreInited) {
                             ((Tumbleweed) levelMatrix[i][j].getHarmlessObject()).initVars(this, i, j);
                         }
-                        if (levelMatrix[i][j].getHarmlessObject() instanceof Chest) {
-                            if (((Chest) levelMatrix[i][j].getHarmlessObject()).thingsAreBeeingTaken) {
-                                if (((Chest) levelMatrix[i][j].getHarmlessObject()).currentThing != null) {
-                                    ((Chest) levelMatrix[i][j].getHarmlessObject()).currentThing.paintObject(g2, mapX + i * 70, mapY + (j - 1) * 70);
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -411,6 +404,20 @@ public class PlayPanel extends JPanel implements KeyListener {
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
         for (SecretWall secretWall : secretWalls) {
             secretWall.paintObject(g2, secretWall.getX(), secretWall.getY());
+        }
+        for (AdditionalImage additionalImage:additionalImages){
+            additionalImage.paintObject(g2,mapX, mapY);
+        }
+        for (int i = 0; i < levelMatrix.length; i++) {
+            for (int j = 0; j < levelMatrix[i].length; j++) {
+                if (levelMatrix[i][j].getHarmlessObject() instanceof Chest) {
+                    if (((Chest) levelMatrix[i][j].getHarmlessObject()).thingsAreBeeingTaken) {
+                        if (((Chest) levelMatrix[i][j].getHarmlessObject()).currentThing != null) {
+                            ((Chest) levelMatrix[i][j].getHarmlessObject()).currentThing.paintObject(g2, mapX + i * 70, mapY + (j - 1) * 70);
+                        }
+                    }
+                }
+            }
         }
         if (!updated) {
             mapMovesDown = false;
@@ -442,9 +449,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                 trapTimer.start();
             }
             trapCounter(g2);
-        }
-        for (AdditionalImage additionalImage:additionalImages){
-            additionalImage.paintObject(g2,mapX, mapY);
         }
         trapSounds();
     }

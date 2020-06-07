@@ -16,6 +16,8 @@ import java.io.IOException;
  */
 public class Util {
 
+    private static Clip click = getSound("sounds/click.wav",-30f);
+
     /**
      * method returns the font from the file
      * @param fileName
@@ -34,6 +36,11 @@ public class Util {
             e.printStackTrace();
         }
         return font;
+    }
+
+    public static void click(){
+        click.start();
+        click.setFramePosition(0);
     }
 
     /**

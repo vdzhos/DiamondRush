@@ -153,6 +153,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
         Rectangle2D.Double sound = new Rectangle2D.Double(Values.SOUND_X, Values.SOUND_Y, Values.SOUND_WIDTH, Values.SOUND_LENGTH);
         Rectangle2D.Double music = new Rectangle2D.Double(Values.MUSIC_X, Values.MUSIC_Y, Values.MUSIC_WIDTH, Values.MUSIC_LENGTH);
         if (resume.contains(point)){
+            Util.click();
             resumeImage.animate(this,"pauseMenu",resume);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -164,6 +165,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 //            pause window should be closed here
         }
         else if (restart.contains(point)){
+            Util.click();
             restartImage.animate(this,"pauseMenu",restart);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -175,6 +177,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
             });
         }
         else if (goToMap.contains(point)){
+            Util.click();
             goToMapImage.animate(this,"pauseMenu",goToMap);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -190,6 +193,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
             });
         }
         else if (sound.contains(point)){
+            Util.click();
             this.sound.animate(this,"pauseMenu",sound);
             if (soundOn){
                 soundOn = false;
@@ -203,6 +207,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
             }
         }
         else if (music.contains(point)){
+            Util.click();
             this.music.animate(this,"pauseMenu",music);
             if (musicOn){
                 musicOn = false;
