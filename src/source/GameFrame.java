@@ -65,7 +65,9 @@ public class GameFrame extends JFrame {
      * method refreshes the map panel
      */
     public void setNewMap(){
-        mapPanel = new MapPanel(this);
+//        mapPanel = new MapPanel(this);
+        mapPanel.reset();
+        puzzlePanel.reset();
     }
 
     /**

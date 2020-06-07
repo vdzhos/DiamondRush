@@ -148,6 +148,19 @@ public class PuzzlePanel extends JPanel implements MouseListener {
     }
 
     /**
+     * method resets values of the object
+     */
+    public void reset(){
+        drawFirst = false;
+        drawSecond = false;
+        drawThird = false;
+        drawFourth = false;
+        drawFifth = false;
+        showCongrats = false;
+        hasShownCongrats = false;
+    }
+
+    /**
      * draws 2 piece of puzzle
      *
      * @param g

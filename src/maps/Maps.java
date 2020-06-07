@@ -92,10 +92,9 @@ public class Maps {
      * method initialises level 1
      */
     private void initLevel1() {
-        AdditionalImage[] additionalImages = {new AdditionalImage("additionalImages/picture.png",70,770,280,280),
-                new AdditionalImage("additionalImages/cat.png", 0,1219,122,277),
-                new AdditionalImage("additionalImages/catLeft.png", 575,560,122,260),
-                new AdditionalImage("additionalImages/wall2.png", 1125,575,170,170),
+        AdditionalImage[] additionalImages = {new AdditionalImage("additionalImages/picture.png",0,700,6*70-17,6*70-17),
+                new AdditionalImage("additionalImages/column3.png", 575,565,70,260),
+                new AdditionalImage("additionalImages/wall2.png", 1055+10,575,240,170),
                 new AdditionalImage("additionalImages/wall3.png", 485,0,210,184),
                 new AdditionalImage("additionalImages/wall4BC.png", 1210,-11,551,204),
                 new AdditionalImage("additionalImages/wall6.png", 1690,570,400,187),
@@ -943,8 +942,6 @@ public class Maps {
 
 
 
-
-
         Snake snake1 = new Snake(210,70,40,true, playPanel);
         Snake snake2 = new Snake(350,70,180,true, playPanel);
         Snake snake3 = new Snake(70,210,20,false, playPanel);
@@ -1448,6 +1445,31 @@ public class Maps {
     }
 
     private void initLevel4(){
+
+        AdditionalImage[] additionalImages = {new AdditionalImage("additionalImages/wall7.png", 5*70,0,3*70-17,3*70-17),
+                new AdditionalImage("additionalImages/column2.png", 7*70+17,5*70+17,70-34,3*70-34+2),
+                new AdditionalImage("additionalImages/column2.png", 8*70+17,9*70+17,70-34,4*70-34+2),
+                new AdditionalImage("additionalImages/wall4.png", 2*70,5*70+17,4*70-17,2*70-34),
+                new AdditionalImage("additionalImages/wall5.png", 0,19*70+17,4*70-17,3*70),
+                new AdditionalImage("additionalImages/wall6.png", 5*70+17,20*70+17,5*70-34,2*70),
+                new AdditionalImage("additionalImages/picture.png", 11*70+17,18*70+17,4*70-34,4*70-34),
+                new AdditionalImage("additionalImages/column2.png", 8*70-17,25*70+17,70,2*70-34+2),
+                new AdditionalImage("additionalImages/column2.png", 14*70+17,25*70+17,70,3*70-34+2),
+                new AdditionalImage("additionalImages/wall10.png", 17*70+17,25*70+17,8*70-34,5*70),
+                new AdditionalImage("additionalImages/wall4BC.png", 18*70+17,0*70,5*70-34,3*70-17),
+                new AdditionalImage("additionalImages/column2.png", 22*70,0*70,53,3*70-17+2),
+                new AdditionalImage("additionalImages/column2.png", 24*70+17,0*70,53,3*70-17+2),
+                new AdditionalImage("additionalImages/column2.png", 25*70,0*70,53,3*70-17+2),
+                new AdditionalImage("additionalImages/column2.png", 29*70+17,0*70,53,3*70-17+2),
+                new AdditionalImage("additionalImages/wall1.png", 30*70,0*70,53,3*70-17+2),
+                new AdditionalImage("additionalImages/column2.png", 32*70+17,0*70,53,3*70-17+2),
+                new AdditionalImage("additionalImages/wall2.png", 33*70+17,0*70,490,490-17+2),
+                new AdditionalImage("additionalImages/column2.png", 25*70-17,9*70+17,70,3*70-34+2),
+                new AdditionalImage("additionalImages/column2.png", 27*70+17,9*70+17,70,3*70-34+2),
+                new AdditionalImage("additionalImages/wall8.png", 30*70+17,22*70-17,3*70-34,3*70),
+                new AdditionalImage("additionalImages/wall9.png", 34*70+17,19*70+17,5*70,3*70-34)};
+
+
         Snake snake1 = new Snake(70,420,170,false, playPanel);
         Snake snake2 = new Snake(70,560,450,false, playPanel);
         Snake snake3 = new Snake(70,210,70,false, playPanel);
@@ -2043,6 +2065,7 @@ public class Maps {
 
         this.level4 = new Level(level4,2,4,2,4, 400,4);
         this.level4.setCheckpoints(checkpoints);
+        this.level4.setAdditionalImages(additionalImages);
     }
 
     /**

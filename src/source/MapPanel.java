@@ -136,6 +136,22 @@ public class MapPanel extends JPanel implements MouseListener {
     }
 
     /**
+     * resets values of the object
+     */
+    public void reset(){
+        level1Available = true;
+        level2Available = false;
+        level3Available = false;
+        level4Available = false;
+        level5Available = false;
+        setImages();
+    }
+
+
+
+
+
+    /**
      * method draws cross
      * @param g
      */
