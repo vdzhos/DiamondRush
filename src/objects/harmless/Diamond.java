@@ -1,14 +1,20 @@
 package objects.harmless;
 
 import objects.Stone;
+import source.Util;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Iryna Matviienko
  */
 public class Diamond extends Stone implements Harmless{
+
+    public Clip diamondCollected = Util.getSound("sounds/diamond_collect.wav",-15f);
 
     /**
      * Default constructor
@@ -65,6 +71,7 @@ public class Diamond extends Stone implements Harmless{
     @Override
     public void disappear() {
         if (enabled) {
+            startDiamondCollectedSound();
             whatMove = 0;
             isMoving = false;
             i = 0;
@@ -87,5 +94,18 @@ public class Diamond extends Stone implements Harmless{
      */
     public void pause() {
         reset();
+    }
+
+    private void startDiamondCollectedSound(){
+        if(playPanel.getGameFrame().soundOn){
+            diamondCollected.start();
+            Util.wait((int) diamondCollected.getMicrosecondLength() / 1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    diamondCollected.stop();
+                    diamondCollected.setFramePosition(0);
+                }
+            });
+        }
     }
 }

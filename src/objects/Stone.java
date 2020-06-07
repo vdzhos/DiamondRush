@@ -39,7 +39,6 @@ public abstract class Stone implements Resettable {
     public Snake snake;
     private int tempI;
     private int tempWhatMove;
-    public Clip rockMove = Util.getSound("sounds/rock_movement.wav",-15f);
     public Clip rockFall = Util.getSound("sounds/rock_falls.wav",-15f);
     private Timer fallSoundTimer;
 
@@ -441,19 +440,6 @@ public abstract class Stone implements Resettable {
     }
 
     protected abstract void setStoneToNewPositionInArray(int xInArray, int yInArray);
-
-    protected void startRockMoveSound(){
-        if(playPanel.getGameFrame().soundOn){
-            rockMove.start();
-            Util.wait((int)rockMove.getMicrosecondLength() / 1000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    rockMove.stop();
-                    rockMove.setFramePosition(0);
-                }
-            });
-        }
-    }
 
     private void initFallSoundTimer(){
         fallSoundTimer = new Timer(10, new ActionListener() {

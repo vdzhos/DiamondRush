@@ -1010,7 +1010,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 if (block instanceof DoorWithKeyhole.GoldDoor && !block.pass()) {
                     if (numberOfGoldKeysCollected != 0) {
-                        ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
+                        ((DoorWithKeyhole.GoldDoor) block).openTheDoor(panel);
                         numberOfGoldKeysCollected--;
                         updateNumberOfGoldKeysOnStatusBar();
                         boy.whatMove = 15;
@@ -1026,7 +1026,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                     }
                 } else if (block instanceof DoorWithKeyhole.SilverDoor && !block.pass()) {
                     if (numberOfSilverKeysCollected != 0) {
-                        ((DoorWithKeyhole.SilverDoor) block).openTheDoor();
+                        ((DoorWithKeyhole.SilverDoor) block).openTheDoor(panel);
                         numberOfSilverKeysCollected--;
                         updateNumberOfSilverKeysOnStatusBar();
                         boy.whatMove = 17;
@@ -1127,7 +1127,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 if (block instanceof DoorWithKeyhole.GoldDoor && !block.pass()) {
                     if (numberOfGoldKeysCollected != 0){
-                        ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
+                        ((DoorWithKeyhole.GoldDoor) block).openTheDoor(panel);
                         numberOfGoldKeysCollected--;
                         updateNumberOfGoldKeysOnStatusBar();
                         boy.whatMove = 16;
@@ -1145,7 +1145,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 else if (block instanceof DoorWithKeyhole.SilverDoor && !block.pass()) {
                     if (numberOfSilverKeysCollected != 0) {
-                        ((DoorWithKeyhole.SilverDoor) block).openTheDoor();
+                        ((DoorWithKeyhole.SilverDoor) block).openTheDoor(panel);
                         numberOfSilverKeysCollected--;
                         updateNumberOfSilverKeysOnStatusBar();
                         boy.whatMove = 18;

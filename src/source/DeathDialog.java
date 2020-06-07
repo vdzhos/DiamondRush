@@ -130,7 +130,7 @@ public class DeathDialog extends JDialog implements MouseListener {
                 Values.DEATH_DIALOG_GOTOMAP_WIDTH,Values.DEATH_DIALOG_GOTOMAP_HEIGHT);
 
         if (restartB.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             this.restartB.animate(this,"DeathDialog",restartB);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -140,7 +140,7 @@ public class DeathDialog extends JDialog implements MouseListener {
                 }
             });
         }else if (goToMapB.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             this.goToMapB.animate(this,"DeathDialog",goToMapB);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override

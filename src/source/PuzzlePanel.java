@@ -180,7 +180,7 @@ public class PuzzlePanel extends JPanel implements MouseListener {
         Rectangle2D.Double backToMap = new Rectangle2D.Double(Values.BACK_TOMAP_X, Values.BACK_TOMAP_Y, Values.BACK_TOMAP_WIDTH, Values.BACK_TOMAP_LENGTH);
         Rectangle2D.Double menu = new Rectangle2D.Double(Values.GO_TOMENU_X, Values.GO_TOMENU_Y, Values.GO_TOMENU_WIDTH, Values.GO_TOMENU_HEIGHT);
         if (backToMap.contains(point) && !(showCongrats && !hasShownCongrats)) {
-            Util.click();
+            Util.click(gameFrame.soundOn);
             goToMap.animate(PuzzlePanel.this, "puzzles");
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -189,7 +189,7 @@ public class PuzzlePanel extends JPanel implements MouseListener {
                 }
             });
         } else if (menu.contains(point) && showCongrats && !hasShownCongrats) {
-            Util.click();
+            Util.click(gameFrame.soundOn);
             PuzzlePanel.this.menu.animate(PuzzlePanel.this, "puzzles");
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override

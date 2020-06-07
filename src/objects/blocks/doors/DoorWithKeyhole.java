@@ -2,10 +2,16 @@ package objects.blocks.doors;
 
 import objects.blocks.Block;
 import objects.blocks.Floor;
+import source.PlayPanel;
+import source.Util;
 import source.Values;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * @author Illia Sitkov
  */
@@ -16,6 +22,8 @@ public class DoorWithKeyhole {
 
     private boolean opened = false;
     private Floor floor;
+
+    public Clip doorUnlock = Util.getSound("sounds/door_unlock.wav",-10f);
 
     /**
      * constructor with no parameters
@@ -35,7 +43,8 @@ public class DoorWithKeyhole {
         /**
          * opens the door
          */
-        public void openTheDoor(){
+        public void openTheDoor(PlayPanel playPanel){
+            startDoorUnlockSound(playPanel);
             opened = true;
         }
 
@@ -80,7 +89,8 @@ public class DoorWithKeyhole {
         /**
          * opens the door
          */
-        public void openTheDoor(){
+        public void openTheDoor(PlayPanel playPanel){
+            startDoorUnlockSound(playPanel);
             opened = true;
         }
 
@@ -116,7 +126,18 @@ public class DoorWithKeyhole {
         }
     }
 
-
+    private void startDoorUnlockSound(PlayPanel playPanel){
+        if(playPanel.getGameFrame().soundOn){
+            doorUnlock.start();
+            Util.wait((int) doorUnlock.getMicrosecondLength() / 1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    doorUnlock.stop();
+                    doorUnlock.setFramePosition(0);
+                }
+            });
+        }
+    }
 
 
 }

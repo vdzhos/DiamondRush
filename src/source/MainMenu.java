@@ -139,7 +139,7 @@ public class MainMenu extends JPanel implements MouseListener {
         Rectangle2D.Double music = new Rectangle2D.Double(Values.MUSIC_MENU_X, Values.MUSIC_MENU_Y, Values.BUTTON_SIZE, Values.BUTTON_SIZE);
         Rectangle2D.Double sound = new Rectangle2D.Double(Values.SOUND_MENU_X, Values.SOUND_MENU_Y, Values.BUTTON_SIZE, Values.BUTTON_SIZE);
         if (play.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             playImage.animate(this,"mainMenu",play);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -149,7 +149,7 @@ public class MainMenu extends JPanel implements MouseListener {
             });
         }
         else if (newGame.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             newGameImage.animate(this,"mainMenu",newGame);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -162,7 +162,7 @@ public class MainMenu extends JPanel implements MouseListener {
 
         }
         else if (exit.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             exitImage.animate(this,"mainMenu",exit);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -172,7 +172,7 @@ public class MainMenu extends JPanel implements MouseListener {
             });
         }
         else if (info.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             infoImage.animate(this, "mainMenu",info);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -182,7 +182,7 @@ public class MainMenu extends JPanel implements MouseListener {
             });
         }
         else if (sound.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             this.sound.animate(this,"pauseMenu",sound);
             if (soundOn){
                 soundOn = false;
@@ -198,7 +198,7 @@ public class MainMenu extends JPanel implements MouseListener {
             }
         }
         else if (music.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             this.music.animate(this,"pauseMenu",music);
             if (musicOn){
                 musicOn = false;
