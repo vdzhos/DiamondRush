@@ -1,5 +1,6 @@
 package source;
 
+ import javax.sound.sampled.Clip;
  import javax.swing.*;
  import java.awt.*;
  import java.awt.event.ActionEvent;
@@ -145,6 +146,9 @@ public class DeathDialog extends JDialog implements MouseListener {
                     DeathDialog.this.dispose();
                     gameFrame.showMap();
                     playPanel.restart();
+                    gameFrame.levelsBgClip.stop();
+                    gameFrame.levelsBgClip.setFramePosition(0);
+                    gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
                 }
             });
         }

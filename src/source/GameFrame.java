@@ -1,7 +1,6 @@
 package source;
 
-import maps.Level;
-
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 /**
@@ -16,7 +15,8 @@ public class GameFrame extends JFrame {
     private int currentLevelInt;
     private LevelEndingDialog levelEndingDialog;
     private InfoDialog infoDialog;
-
+    public Clip menuBgClip = Util.getSound("sounds/hathor_menu.wav",-30f);
+    public Clip levelsBgClip = Util.getSound("sounds/tomb_raiders_levels.wav",-30f);
 
     /**
      * constructor with no parameters
@@ -204,6 +204,7 @@ public class GameFrame extends JFrame {
      */
     public void start(){
         showMainMenu();
+        menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     /**
@@ -217,6 +218,8 @@ public class GameFrame extends JFrame {
         dispose();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

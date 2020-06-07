@@ -5,10 +5,13 @@ import source.Boy;
 import source.PlayPanel;
 import source.Util;
 
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class FireTrap extends JLabel implements Trap{
 
@@ -21,6 +24,38 @@ public class FireTrap extends JLabel implements Trap{
     private int energy = 25;
     private boolean side; //right - true; left - false
     private  boolean paused;
+    public static boolean fireTrapSound = false;
+    public static ArrayList<FireTrap> fireTrapsObserved;
+    private static Clip fireTrapClip = Util.getSound("sounds/fire_burning.wav",-35f);
+    public static Timer fireTrapClipTimer;
+
+    private void initTimer(){
+        fireTrapClipTimer = new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent eTimer) {
+                Timer t = (Timer)eTimer.getSource();
+                if(!fireTrapSound){
+                    fireTrapClip.stop();
+                    fireTrapClip.setFramePosition(0);
+                    t.stop();
+                }else{
+                    boolean atLeastOneWorking = false;
+                    for (FireTrap fireTrap:fireTrapsObserved) {
+                        if(!FireTrap.notWorking(fireTrap)){
+                            atLeastOneWorking = true;
+                            break;
+                        }
+                    }
+                    if(!atLeastOneWorking){
+                        fireTrapClip.stop();
+                        fireTrapClip.setFramePosition(0);
+                    }else if(!fireTrapClip.isActive()){
+                        fireTrapClip.start();
+                    }
+                }
+            }
+        });
+    }
 
     private void initImages(){
         Image imageRight = new ImageIcon("fireTrap/fireballRight1.png").getImage();
@@ -32,6 +67,7 @@ public class FireTrap extends JLabel implements Trap{
     }
 
     public FireTrap(int initState, boolean side){
+        initTimer();
         initImages();
         fireTrap = this;
         setPreferredSize(new Dimension(280,70));
@@ -172,6 +208,7 @@ public class FireTrap extends JLabel implements Trap{
                 }
                 if(intersects && !boy.gotInTrap){
                     panel.takeEnergy(energy);
+                    boy.startHurtSound();
                     boy.gotInTrap = true;
                     if(panel.currentEnergyLevel>0) {
                         Util.wait(5000, new ActionListener() {
@@ -220,4 +257,14 @@ public class FireTrap extends JLabel implements Trap{
     public void setCheckTimer(Timer check) {
         this.check = check;
     }
+
+    private static boolean notWorking(FireTrap fireTrap){
+        for (int i = 0; i < 3; i++) {
+            if(fireTrap.state[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

@@ -7,10 +7,13 @@ import source.Boy;
 import source.PlayPanel;
 import source.Util;
 
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Scorpion extends JLabel implements Trap{
 
@@ -25,6 +28,27 @@ public class Scorpion extends JLabel implements Trap{
     private int energy = 30;
     private Image[] images;
     private boolean paused;
+    public static boolean scorpionSound = false;
+    private static Clip scorpionClip = Util.getSound("sounds/scorpion_crawl.wav",-35f);
+    public static Timer scorpionClipTimer;
+
+    private void initTimer(){
+        scorpionClipTimer = new Timer(250, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent eTimer) {
+                Timer t = (Timer)eTimer.getSource();
+                if(!scorpionSound){
+                    scorpionClip.stop();
+                    scorpionClip.setFramePosition(0);
+                    t.stop();
+                }else{
+                    if(!scorpionClip.isActive()){
+                        scorpionClip.start();
+                    }
+                }
+            }
+        });
+    }
 
     private void initImages(){
         Image imageRight = new ImageIcon("scorpion/right0.png").getImage();
@@ -36,6 +60,7 @@ public class Scorpion extends JLabel implements Trap{
     }
 
     public Scorpion(int width, int height, boolean clockwise, Point point, Direction dir){
+        initTimer();
         initImages();
         scorpion = this;
         setPreferredSize(new Dimension(width,height));
@@ -212,6 +237,7 @@ public class Scorpion extends JLabel implements Trap{
 
                     if (boyRect.intersects(scorpionRect) && !boy.gotInTrap) {
                         panel.takeEnergy(energy);
+                        boy.startHurtSound();
                         boy.gotInTrap = true;
                         if(panel.currentEnergyLevel>0) {
                             Util.wait(5000, new ActionListener() {
@@ -228,25 +254,6 @@ public class Scorpion extends JLabel implements Trap{
                         }
                         check.stop();
                 }
-
-//                Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
-//                Rectangle scorpionRect = new Rectangle(x+scorpion.getX(),y+scorpion.getY(),70,70);
-//                System.out.println("----------");
-//                if(boyRect.intersects(scorpionRect)){
-//                    panel.remove(scorpion);
-//                    Timer t = (Timer) e.getSource();
-//                    t.stop();
-//                    for (int i = 0; i < levelMatrix.length; i++) {
-//                        for (int j = 0; j < levelMatrix[i].length; j++) {
-//                            if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
-//                                if(levelMatrix[i][j].getTrapObject().equals(scorpion)){
-//                                    levelMatrix[i][j].setTrapObject(null);
-//                                }
-//                            }
-//                        }
-//                    }
-//                    panel.repaint();
-//                }
             }
         });
         check.start();

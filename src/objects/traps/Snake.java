@@ -9,6 +9,7 @@ import source.Boy;
 import source.PlayPanel;
 import source.Util;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,37 @@ public class Snake extends JLabel implements Trap, Resettable {
     private boolean horisontal;
     private int coord;
     public Rock rockFalling;
+    public static boolean snakeSound = false;
+    private static Clip snakeClip = Util.getSound("sounds/snake_hiss.wav",-35f);
+    public static Timer snakeClipTimer;
+
+    private void initTimer(){
+        snakeClipTimer = new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent eTimer) {
+                System.out.println("new snake timer iteration");
+                Timer t = (Timer)eTimer.getSource();
+                if(t.getDelay()==1){
+                    t.setDelay(5000);
+                }
+                if(snakeSound){
+                    snakeClip.start();
+                    Util.wait(3500, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            snakeClip.stop();
+                            snakeClip.setFramePosition(0);
+                        }
+                    });
+                }else{
+                    System.out.println("snake timer stopped!");
+                    snakeClip.stop();
+                    snakeClip.setFramePosition(0);
+                    t.stop();
+                }
+            }
+        });
+    }
 
     private void initImages(){
         Image imageRight = new ImageIcon("snake/snakeRight.png").getImage();
@@ -51,6 +83,7 @@ public class Snake extends JLabel implements Trap, Resettable {
         this.height = height;
         this.playPanel = playPanel;
         initImages();
+        initTimer();
         snake = this;
         setPreferredSize(new Dimension(width,height));
         if(horizontal) {
@@ -144,6 +177,7 @@ public class Snake extends JLabel implements Trap, Resettable {
                 Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
                 if(boyRect.intersects(snakeRect) && !boy.gotInTrap && isAlive){
                     panel.takeEnergy(energy);
+                    boy.startHurtSound();
                     boy.gotInTrap = true;
                     if(panel.currentEnergyLevel>0){
                         Util.wait(5000, new ActionListener() {
