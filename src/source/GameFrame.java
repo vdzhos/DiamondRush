@@ -215,8 +215,9 @@ public class GameFrame extends JFrame {
         mapPanel = null;
         currentStatusBar = null;
         puzzlePanel = null;
-        dispose();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        dispose();
+//        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        System.exit(0);
     }
 
 

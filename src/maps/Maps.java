@@ -99,7 +99,7 @@ public class Maps {
                 new AdditionalImage("additionalImages/wall3.png", 485,0,210,184),
                 new AdditionalImage("additionalImages/wall4.png", 1200,-6,551,204),
                 new AdditionalImage("additionalImages/wall6.png", 1690,570,400,187),
-                new AdditionalImage("additionalImages/wall4B.png", 1055,1065,560,184)};
+                new AdditionalImage("additionalImages/wall4B.png", 1020,1065,560,184)};
 
         Snake snake1 = new Snake(140, 70, 40, true, playPanel);
         Snake snake2 = new Snake(350, 70, 100, true, playPanel);
