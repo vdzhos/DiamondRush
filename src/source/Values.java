@@ -204,6 +204,14 @@ public interface Values {
 //    int INFO_WIDTH = 90;
 //    int INFO_LENGTH = 90;
 
+    int SOUND_MENU_X = 230;
+    int SOUND_MENU_Y = 455;
+
+    int MUSIC_MENU_X = 420;
+    int MUSIC_MENU_Y = 455;
+
+    int BUTTON_SIZE = 50;
+
 
     int PLAY_X = 290;
     int PLAY_Y = 325;

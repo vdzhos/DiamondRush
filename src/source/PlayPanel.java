@@ -36,6 +36,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     private boolean stonesAreInited = false;
     private Timer trapTimer;
     public Timer takeEnergyTimer;
+    private AdditionalImage[] additionalImages;
 
     private int mapX;
     private int mapY;
@@ -163,7 +164,8 @@ public class PlayPanel extends JPanel implements KeyListener {
      */
     private void initLevel() {
         currentLevel = maps.getLevel(currentLevelInt);
-        levelMatrix = this.currentLevel.getMatrix();
+        levelMatrix = currentLevel.getMatrix();
+        additionalImages = currentLevel.getAdditionalImages();
     }
 
     /**
@@ -394,13 +396,6 @@ public class PlayPanel extends JPanel implements KeyListener {
                         if (itIsTumbleweed(i, j) && stonesAreInited) {
                             ((Tumbleweed) levelMatrix[i][j].getHarmlessObject()).initVars(this, i, j);
                         }
-                        if (levelMatrix[i][j].getHarmlessObject() instanceof Chest) {
-                            if (((Chest) levelMatrix[i][j].getHarmlessObject()).thingsAreBeeingTaken) {
-                                if (((Chest) levelMatrix[i][j].getHarmlessObject()).currentThing != null) {
-                                    ((Chest) levelMatrix[i][j].getHarmlessObject()).currentThing.paintObject(g2, mapX + i * 70, mapY + (j - 1) * 70);
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -409,6 +404,20 @@ public class PlayPanel extends JPanel implements KeyListener {
         g2.drawImage(boy.currentPicture, boy.x, boy.y, boy.width, boy.height, null);
         for (SecretWall secretWall : secretWalls) {
             secretWall.paintObject(g2, secretWall.getX(), secretWall.getY());
+        }
+        for (AdditionalImage additionalImage:additionalImages){
+            additionalImage.paintObject(g2,mapX, mapY);
+        }
+        for (int i = 0; i < levelMatrix.length; i++) {
+            for (int j = 0; j < levelMatrix[i].length; j++) {
+                if (levelMatrix[i][j].getHarmlessObject() instanceof Chest) {
+                    if (((Chest) levelMatrix[i][j].getHarmlessObject()).thingsAreBeeingTaken) {
+                        if (((Chest) levelMatrix[i][j].getHarmlessObject()).currentThing != null) {
+                            ((Chest) levelMatrix[i][j].getHarmlessObject()).currentThing.paintObject(g2, mapX + i * 70, mapY + (j - 1) * 70);
+                        }
+                    }
+                }
+            }
         }
         if (!updated) {
             mapMovesDown = false;
@@ -506,8 +515,8 @@ public class PlayPanel extends JPanel implements KeyListener {
         else if (currentEnergyLevel < checkpointCost){
             drawMessage = true;
             twoLineMessage = true;
-            message = "       Low energy";
-            messageLower = "                level!";
+            message = "   Низький рівень";
+            messageLower = "       енергії!";
             drawn = false;
             repaint();
         }
@@ -604,6 +613,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         t.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println(boy.xInArray+"    "+boy.yInArray);
                 if (boy.whatMove == 1 && boyMovesUp) boy.moveUp(PlayPanel.this);
                 else if (boy.whatMove == 1 && mapMovesUp) {
                     boy.moveUpAnimation(PlayPanel.this,true);

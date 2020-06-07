@@ -21,6 +21,24 @@ public class MainMenu extends JPanel implements MouseListener {
     private AnimatableImage exitImage = new AnimatableImage("mainMenu/exitB.png");
     private AnimatableImage infoImage = new AnimatableImage("mainMenu/infoB.png");
 
+
+
+
+    private AnimatableImage soundOnImage = new AnimatableImage("pauseMenu/soundOn.png");
+    private AnimatableImage soundOffImage = new AnimatableImage("pauseMenu/soundOff.png");
+    private AnimatableImage sound = soundOnImage;
+
+    private AnimatableImage musicOnImage = new AnimatableImage("pauseMenu/musicOn.png");
+    private AnimatableImage musicOffImage = new AnimatableImage("pauseMenu/musicOff.png");
+    private AnimatableImage music = musicOnImage;
+
+    private boolean soundOn = true;
+    private boolean musicOn = true;
+
+
+
+
+
     /**
      * constructor with parameters
      * @param gameFrame
@@ -41,8 +59,33 @@ public class MainMenu extends JPanel implements MouseListener {
         drawNewGame(g);
         drawInfo(g);
         drawExit(g);
+        drawSound(g);
+        drawMusic(g);
 
     }
+
+    /**
+     * draws music button
+     * @param g
+     */
+    private void drawMusic(Graphics g) {
+        g.drawImage(music.image, Values.MUSIC_MENU_X, Values.MUSIC_MENU_Y, Values.BUTTON_SIZE, Values.BUTTON_SIZE,null);
+    }
+
+    /**
+     * draws sound button
+     * @param g
+     */
+    private void drawSound(Graphics g) {
+        g.drawImage(sound.image, Values.SOUND_MENU_X, Values.SOUND_MENU_Y, Values.BUTTON_SIZE, Values.BUTTON_SIZE,null);
+    }
+
+
+
+
+
+
+
 
     /**
      * draws info button
@@ -92,8 +135,10 @@ public class MainMenu extends JPanel implements MouseListener {
         Rectangle2D.Double newGame = new Rectangle2D.Double(Values.NEW_GAME_X, Values.NEW_GAME_Y, Values.NEW_GAME_WIDTH, Values.NEW_GAME_LENGTH);
         Rectangle2D.Double exit = new Rectangle2D.Double(Values.EXIT_X, Values.EXIT_Y, Values.EXIT_WIDTH, Values.EXIT_LENGTH);
         Rectangle2D.Double info = new Rectangle2D.Double(Values.INFO_X, Values.INFO_Y, Values.INFO_WIDTH, Values.INFO_LENGTH);
-
+        Rectangle2D.Double music = new Rectangle2D.Double(Values.MUSIC_MENU_X, Values.MUSIC_MENU_Y, Values.BUTTON_SIZE, Values.BUTTON_SIZE);
+        Rectangle2D.Double sound = new Rectangle2D.Double(Values.SOUND_MENU_X, Values.SOUND_MENU_Y, Values.BUTTON_SIZE, Values.BUTTON_SIZE);
         if (play.contains(point)){
+            Util.click();
             playImage.animate(this,"mainMenu",play);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -103,6 +148,7 @@ public class MainMenu extends JPanel implements MouseListener {
             });
         }
         else if (newGame.contains(point)){
+            Util.click();
             newGameImage.animate(this,"mainMenu",newGame);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -115,6 +161,7 @@ public class MainMenu extends JPanel implements MouseListener {
 
         }
         else if (exit.contains(point)){
+            Util.click();
             exitImage.animate(this,"mainMenu",exit);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -124,6 +171,7 @@ public class MainMenu extends JPanel implements MouseListener {
             });
         }
         else if (info.contains(point)){
+            Util.click();
             infoImage.animate(this, "mainMenu",info);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -131,6 +179,34 @@ public class MainMenu extends JPanel implements MouseListener {
                     gameFrame.showInfo();
                 }
             });
+        }
+        else if (sound.contains(point)){
+            Util.click();
+            this.sound.animate(this,"pauseMenu",sound);
+            if (soundOn){
+                soundOn = false;
+                this.sound = soundOffImage;
+                repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
+            }
+            else {
+                soundOn = true;
+                this.sound = soundOnImage;
+                repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
+            }
+        }
+        else if (music.contains(point)){
+            Util.click();
+            this.music.animate(this,"pauseMenu",music);
+            if (musicOn){
+                musicOn = false;
+                this.music = musicOffImage;
+                repaint((int)music.x,(int)music.y,(int)music.width,(int)music.height);
+            }
+            else {
+                musicOn = true;
+                this.music = musicOnImage;
+                repaint((int)music.x,(int)music.y,(int)music.width,(int)music.height);
+            }
         }
     }
 

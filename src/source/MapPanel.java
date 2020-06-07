@@ -300,6 +300,7 @@ public class MapPanel extends JPanel implements MouseListener {
         Rectangle2D.Double cross = new Rectangle2D.Double(Values.CROSS_X, Values.CROSS_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE);
         Rectangle2D.Double menu = new Rectangle2D.Double(Values.MENU_X, Values.MENU_Y, Values.MENU_SIZE, Values.MENU_SIZE);
         if (menu.contains(point)){
+            Util.click();
             backToMenuImage.animate(this,"mapPictures",menu);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -309,6 +310,7 @@ public class MapPanel extends JPanel implements MouseListener {
             });
         }
         else if (level1.contains(point)){
+            Util.click();
             level1Image.animate(this,"mapPictures",level1);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -322,6 +324,7 @@ public class MapPanel extends JPanel implements MouseListener {
         }
         else if (level2.contains(point)){
             if (level2Available) {
+                Util.click();
                 level2Image.animate(this, "mapPictures", level2);
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
@@ -336,6 +339,7 @@ public class MapPanel extends JPanel implements MouseListener {
         }
         else if (level3.contains(point)){
             if (level3Available) {
+                Util.click();
                 level3Image.animate(this, "mapPictures", level3);
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
@@ -350,6 +354,7 @@ public class MapPanel extends JPanel implements MouseListener {
         }
         else if (level4.contains(point)){
             if (level4Available) {
+                Util.click();
                 level4Image.animate(this, "mapPictures", level4);
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
@@ -364,6 +369,7 @@ public class MapPanel extends JPanel implements MouseListener {
         }
         else if (level5.contains(point)){
             if (level5Available) {
+                Util.click();
                 level5Image.animate(this, "mapPictures", level5);
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
@@ -377,6 +383,7 @@ public class MapPanel extends JPanel implements MouseListener {
             }
         }
         else if (cross.contains(point)){
+            Util.click();
             goToPuzzle.animate(this, "mapPictures", cross);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override

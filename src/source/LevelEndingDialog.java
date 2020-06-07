@@ -175,6 +175,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 Values.END_LEVEL_GOTOMAP_WIDTH, Values.END_LEVEL_GOTOMAP_HEIGHT);
 
         if (continueB.contains(point)){
+            Util.click();
             this.continueB.animate(this,"levelEndingDialog",continueB);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -198,6 +199,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 }
             });
         }else if (restartB.contains(point)){
+            Util.click();
             this.restartB.animate(this,"levelEndingDialog",restartB);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -207,6 +209,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 }
             });
         }else if (goToMapB.contains(point)){
+            Util.click();
             this.goToMapB.animate(this,"levelEndingDialog",goToMapB);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override

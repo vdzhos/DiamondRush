@@ -8,10 +8,12 @@ import objects.thingsInChest.GoldKey;
 import objects.thingsInChest.PurpleDiamond;
 import objects.thingsInChest.RedDiamond;
 import objects.thingsInChest.SilverKey;
+import source.AdditionalImage;
 
 public class Level {
 
     private Cell[][] matrix;
+    private AdditionalImage[] additionalImages;
 
     /**
      * position of boy on the screen (10x10 cells) (NOT coordinates in pixels)
@@ -146,6 +148,13 @@ public class Level {
         return maxNumberOfRedDiamonds;
     }
 
+    public void setAdditionalImages(AdditionalImage[] additionalImages) {
+        this.additionalImages = additionalImages;
+    }
+
+    public AdditionalImage[] getAdditionalImages() {
+        return additionalImages;
+    }
 
     public int getMaxNumberOfPurpleDiamonds() {
         return maxNumberOfPurpleDiamonds;

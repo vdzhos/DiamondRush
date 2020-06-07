@@ -86,6 +86,7 @@ public class InfoDialog extends JDialog implements MouseListener {
         Point2D point = new Point2D.Double(e.getX(),e.getY());
         Rectangle2D.Double close = new Rectangle2D.Double(Values.CLOSE_X, Values.CLOSE_Y, Values.CLOSE_WIDTH, Values.CLOSE_HEIGHT);
         if (close.contains(point)){
+            Util.click();
             closeImage.animate(this, "infoDialog",close);
             Util.wait(300, new AbstractAction() {
                 @Override
@@ -122,7 +123,7 @@ public class InfoDialog extends JDialog implements MouseListener {
          * constructor with no parameters
          */
         public Info(){
-            setPreferredSize(new Dimension(586,3217));
+            setPreferredSize(new Dimension(586,5500));
         }
 
         @Override
@@ -131,7 +132,7 @@ public class InfoDialog extends JDialog implements MouseListener {
             Graphics2D g2 = (Graphics2D) gr;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 
-            g2.drawImage(new ImageIcon("infoDialog/fourPaarts.png").getImage(), 0,0,586,3217,null);
+            g2.drawImage(new ImageIcon("infoDialog/instruction.png").getImage(), 0,0,586,5500,null);
         }
     }
 
