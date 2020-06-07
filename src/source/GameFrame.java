@@ -13,9 +13,12 @@ public class GameFrame extends JFrame {
     private PuzzlePanel puzzlePanel;
     private StatusBarPanel currentStatusBar;
     private int currentLevelInt;
+    private LevelEndingDialog levelEndingDialog;
     private InfoDialog infoDialog;
     public Clip menuBgClip = Util.getSound("sounds/hathor_menu.wav",-30f);
     public Clip levelsBgClip = Util.getSound("sounds/tomb_raiders_levels.wav",-30f);
+
+    public boolean musicOn = true;
 
     /**
      * constructor with no parameters
@@ -214,11 +217,24 @@ public class GameFrame extends JFrame {
         mapPanel = null;
         currentStatusBar = null;
         puzzlePanel = null;
-//        dispose();
-//        setDefaultCloseOperation(EXIT_ON_CLOSE);
         System.exit(0);
     }
 
+    public void startBgMenuClip(){
+        if(musicOn){
+            levelsBgClip.stop();
+            levelsBgClip.setFramePosition(0);
+            menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
+    public void startBgLevelsClip(){
+        if(musicOn){
+            menuBgClip.stop();
+            menuBgClip.setFramePosition(0);
+            levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
 
 
     public static void main(String[] args) {

@@ -184,11 +184,9 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
                 public void actionPerformed(ActionEvent e) {
                     PauseMenuDialog.this.setVisible(false);
                     revalidate();
-//                    playPanel.restart();
+                    playPanel.turnOffTrapObjectsSounds();
                     gameFrame.showMap();
-                    gameFrame.levelsBgClip.stop();
-                    gameFrame.levelsBgClip.setFramePosition(0);
-                    gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                    gameFrame.startBgMenuClip();
                 }
             });
         }
@@ -197,11 +195,14 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
             this.sound.animate(this,"pauseMenu",sound);
             if (soundOn){
                 soundOn = false;
+                playPanel.soundOn = false;
+                playPanel.turnOffTrapObjectsSounds();
                 this.sound = soundOffImage;
                 repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
             }
             else {
                 soundOn = true;
+                playPanel.soundOn = true;
                 this.sound = soundOnImage;
                 repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
             }
@@ -211,11 +212,16 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
             this.music.animate(this,"pauseMenu",music);
             if (musicOn){
                 musicOn = false;
+                gameFrame.musicOn = false;
+                gameFrame.levelsBgClip.stop();
+                gameFrame.levelsBgClip.setFramePosition(0);
                 this.music = musicOffImage;
                 repaint((int)music.x,(int)music.y,(int)music.width,(int)music.height);
             }
             else {
                 musicOn = true;
+                gameFrame.musicOn = true;
+                gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
                 this.music = musicOnImage;
                 repaint((int)music.x,(int)music.y,(int)music.width,(int)music.height);
             }

@@ -237,7 +237,7 @@ public class Scorpion extends JLabel implements Trap{
 
                     if (boyRect.intersects(scorpionRect) && !boy.gotInTrap) {
                         panel.takeEnergy(energy);
-                        boy.startHurtSound();
+                        boy.startHurtSound(panel);
                         boy.gotInTrap = true;
                         if(panel.currentEnergyLevel>0) {
                             Util.wait(5000, new ActionListener() {

@@ -443,23 +443,28 @@ public abstract class Stone implements Resettable {
     protected abstract void setStoneToNewPositionInArray(int xInArray, int yInArray);
 
     protected void startRockMoveSound(){
-        rockMove.start();
-        Util.wait((int)rockMove.getMicrosecondLength() / 1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                rockMove.stop();
-                rockMove.setFramePosition(0);
-            }
-        });
+        if(playPanel.soundOn){
+            rockMove.start();
+            Util.wait((int)rockMove.getMicrosecondLength() / 1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    rockMove.stop();
+                    rockMove.setFramePosition(0);
+                }
+            });
+        }
     }
 
     private void initFallSoundTimer(){
         fallSoundTimer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(whatMove==0){
+                if(!playPanel.soundOn){
+                    fallSoundTimer.stop();
+                }
+                if (whatMove == 0) {
                     rockFall.start();
-                    Util.wait((int)rockFall.getMicrosecondLength() / 1000, new ActionListener() {
+                    Util.wait((int) rockFall.getMicrosecondLength() / 1000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             rockFall.stop();

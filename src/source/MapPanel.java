@@ -316,9 +316,7 @@ public class MapPanel extends JPanel implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     gameFrame.showLevel(levels[0]);
-                    gameFrame.menuBgClip.stop();
-                    gameFrame.menuBgClip.setFramePosition(0);
-                    gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                    gameFrame.startBgLevelsClip();
                 }
             });
         }
@@ -330,9 +328,7 @@ public class MapPanel extends JPanel implements MouseListener {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         gameFrame.showLevel(levels[1]);
-                        gameFrame.menuBgClip.stop();
-                        gameFrame.menuBgClip.setFramePosition(0);
-                        gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                        gameFrame.startBgLevelsClip();
                     }
                 });
             }
@@ -345,9 +341,7 @@ public class MapPanel extends JPanel implements MouseListener {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         gameFrame.showLevel(levels[2]);
-                        gameFrame.menuBgClip.stop();
-                        gameFrame.menuBgClip.setFramePosition(0);
-                        gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                        gameFrame.startBgLevelsClip();
                     }
                 });
             }
@@ -360,9 +354,7 @@ public class MapPanel extends JPanel implements MouseListener {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         gameFrame.showLevel(levels[3]);
-                        gameFrame.menuBgClip.stop();
-                        gameFrame.menuBgClip.setFramePosition(0);
-                        gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                        gameFrame.startBgLevelsClip();
                     }
                 });
             }
@@ -375,9 +367,7 @@ public class MapPanel extends JPanel implements MouseListener {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         gameFrame.showLevel(levels[4]);
-                        gameFrame.menuBgClip.stop();
-                        gameFrame.menuBgClip.setFramePosition(0);
-                        gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                        gameFrame.startBgLevelsClip();
                     }
                 });
             }

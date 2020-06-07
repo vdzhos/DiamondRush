@@ -391,10 +391,17 @@ public class Boy {
         i++;
     }
 
-    public void startHurtSound(){
-        hurtSound.stop();
-        hurtSound.setFramePosition(0);
-        hurtSound.start();
+    public void startHurtSound(PlayPanel playPanel){
+        if(playPanel.soundOn){
+            hurtSound.start();
+            Util.wait((int)hurtSound.getMicrosecondLength() / 1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    hurtSound.stop();
+                    hurtSound.setFramePosition(0);
+                }
+            });
+        }
     }
 
     public int getX(){

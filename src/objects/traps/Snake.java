@@ -177,7 +177,7 @@ public class Snake extends JLabel implements Trap, Resettable {
                 Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
                 if(boyRect.intersects(snakeRect) && !boy.gotInTrap && isAlive){
                     panel.takeEnergy(energy);
-                    boy.startHurtSound();
+                    boy.startHurtSound(panel);
                     boy.gotInTrap = true;
                     if(panel.currentEnergyLevel>0){
                         Util.wait(5000, new ActionListener() {
