@@ -13,7 +13,6 @@ public class GameFrame extends JFrame {
     private PuzzlePanel puzzlePanel;
     private StatusBarPanel currentStatusBar;
     private int currentLevelInt;
-    private LevelEndingDialog levelEndingDialog;
     private InfoDialog infoDialog;
     public Clip menuBgClip = Util.getSound("sounds/hathor_menu.wav",-30f);
     public Clip levelsBgClip = Util.getSound("sounds/tomb_raiders_levels.wav",-30f);
