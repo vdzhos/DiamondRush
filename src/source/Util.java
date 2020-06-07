@@ -4,6 +4,7 @@ import maps.Cell;
 import objects.blocks.SecretWall;
 import objects.blocks.Wall;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -373,6 +374,21 @@ public class Util {
         return (level[i+1][j+1] == null || (level[i+1][j+1] != null && (level[i+1][j+1].getBlock() instanceof Wall || level[i+1][j+1].getBlock() instanceof SecretWall)));
     }
 
+    public static Clip getSound(String path, Float volume){
+        try {
+            File soundFile = new File(path);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl volumeController = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            volumeController.setValue(volume);
+            clip.setFramePosition(0);
+            return clip;
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException exc) {
+            exc.printStackTrace();
+            return null;
+        }
+    }
 
 
 

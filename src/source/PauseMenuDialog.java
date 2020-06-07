@@ -1,5 +1,6 @@
 package source;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -182,6 +183,9 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
                     revalidate();
 //                    playPanel.restart();
                     gameFrame.showMap();
+                    gameFrame.levelsBgClip.stop();
+                    gameFrame.levelsBgClip.setFramePosition(0);
+                    gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
                 }
             });
         }

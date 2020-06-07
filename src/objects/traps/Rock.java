@@ -37,6 +37,9 @@ public class Rock extends Stone implements Trap{
     @Override
     public void beShovenLeft(){
         if (enabled) {
+            if(i==0){
+                startRockMoveSound();
+            }
             if (i == 3) {
                 if(playPanel.itIsSnake(xInArray-1, yInArray)){
                     if(snake!=null && snake.isAlive){
@@ -65,6 +68,9 @@ public class Rock extends Stone implements Trap{
     @Override
     public void beShovenRight(){
         if (enabled) {
+            if(i==0){
+                startRockMoveSound();
+            }
             if (i == 3) {
                 if(playPanel.itIsSnake(xInArray+1, yInArray)){
                     if(snake!=null && this.snake.isAlive){

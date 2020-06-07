@@ -12,12 +12,15 @@ import objects.harmless.Diamond;
 import objects.harmless.Tumbleweed;
 import objects.traps.*;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -237,6 +240,10 @@ public class PlayPanel extends JPanel implements KeyListener {
 
 
 
+        Snake.snakeSound = false;
+        FireTrap.fireTrapSound = false;
+        Scorpion.scorpionSound = false;
+
         currentLevel = null;
         currentCheckpoint = null;
         stonesAreInited = false;
@@ -439,6 +446,7 @@ public class PlayPanel extends JPanel implements KeyListener {
         for (AdditionalImage additionalImage:additionalImages){
             additionalImage.paintObject(g2,mapX, mapY);
         }
+        trapSounds();
     }
 
 
@@ -691,6 +699,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                         repaint();
                     }
                     currentEnergyLevel -= 10;
+                    boy.startHurtSound();
                     if (currentEnergyLevel <= 0){
                         currentEnergyLevel = 0;
                         takeEnergyTimer.stop();
@@ -1606,6 +1615,63 @@ public class PlayPanel extends JPanel implements KeyListener {
                 },
                 500
         );
+    }
+
+    private void trapSounds(){
+        int snakeCounter = 0;
+        ArrayList<FireTrap> fireTraps = new ArrayList<>();
+        int scorpionCounter = 0;
+
+        int x = boy.xInArray-4;
+        int y = boy.yInArray-4;
+        int xe = boy.xInArray+4;
+        int ye = boy.yInArray+4;
+
+        if(x<0){
+            x = 0;
+        }
+        if(xe>=levelMatrix.length){
+            xe = levelMatrix.length-1;
+        }
+        if(y<0){
+            y = 0;
+        }
+        if(ye>=levelMatrix[0].length) {
+            ye = levelMatrix[0].length - 1;
+        }
+
+        for (int i = x; i <= xe ; i++) {
+            for (int j = y; j<=ye ; j++) {
+                if(levelMatrix[i][j].getTrapObject() instanceof Snake){
+                    snakeCounter++;
+                    if(!Snake.snakeSound){
+                        Snake.snakeSound = true;
+                        Snake.snakeClipTimer.start();
+                    }
+                }else if(levelMatrix[i][j].getTrapObject() instanceof FireTrap){
+                    fireTraps.add((FireTrap) levelMatrix[i][j].getTrapObject());
+                }else if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
+                    scorpionCounter++;
+                    if(!Scorpion.scorpionSound){
+                        Scorpion.scorpionSound = true;
+                        Scorpion.scorpionClipTimer.start();
+                    }
+                }
+            }
+        }
+        if(snakeCounter==0){
+            Snake.snakeSound=false;
+        }
+        if(fireTraps.size()==0){
+            FireTrap.fireTrapSound = false;
+        }else{
+            FireTrap.fireTrapSound = true;
+            FireTrap.fireTrapsObserved = fireTraps;
+            FireTrap.fireTrapClipTimer.start();
+        }
+        if(scorpionCounter==0){
+            Scorpion.scorpionSound=false;
+        }
     }
 
 

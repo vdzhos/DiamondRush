@@ -1,7 +1,10 @@
 package source;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Iryna Matviienko
@@ -25,6 +28,7 @@ public class Boy {
     public boolean isMoving = false;
     public boolean gotInTrap = false;
     public int i = 0;
+    public Clip hurtSound = Util.getSound("sounds/hurt.wav",-10f);
 
     Image standLeft = new ImageIcon("boy/standLeft.png").getImage();
     Image standRight = new ImageIcon("boy/standRight.png").getImage();
@@ -385,6 +389,12 @@ public class Boy {
     public void openChest(){
         currentPicture = arrayOpenChest[i];
         i++;
+    }
+
+    public void startHurtSound(){
+        hurtSound.stop();
+        hurtSound.setFramePosition(0);
+        hurtSound.start();
     }
 
     public int getX(){

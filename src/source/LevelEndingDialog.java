@@ -1,5 +1,6 @@
 package source;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -181,11 +182,17 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                     LevelEndingDialog.this.dispose();
                     if (gameFrame.showCongrats()){
                         gameFrame.showPuzzleMap();
+                        gameFrame.levelsBgClip.stop();
+                        gameFrame.levelsBgClip.setFramePosition(0);
+                        gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
                     }else{
                         if(playPanel.currentLevel.getLevelNumber()!=5){
                             gameFrame.showNextLevel();
                         }else{
                             gameFrame.showMap();
+                            gameFrame.levelsBgClip.stop();
+                            gameFrame.levelsBgClip.setFramePosition(0);
+                            gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
                         }
                     }
                 }
@@ -210,6 +217,9 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                     }else{
                         gameFrame.showMap();
                     }
+                    gameFrame.levelsBgClip.stop();
+                    gameFrame.levelsBgClip.setFramePosition(0);
+                    gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
                 }
             });
         }

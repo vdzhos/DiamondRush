@@ -1,13 +1,17 @@
 package objects;
 
 import objects.blocks.doors.Resettable;
+import objects.harmless.Diamond;
 import objects.traps.Rock;
 import objects.traps.Snake;
 import source.PlayPanel;
+import source.Util;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Iryna Matviienko
@@ -35,12 +39,16 @@ public abstract class Stone implements Resettable {
     public Snake snake;
     private int tempI;
     private int tempWhatMove;
+    public Clip rockMove = Util.getSound("sounds/rock_movement.wav",-15f);
+    public Clip rockFall = Util.getSound("sounds/rock_falls.wav",-15f);
+    private Timer fallSoundTimer;
 
     /**
      * Default constructor
      * Stone`s animation
      */
     public Stone(){
+        initFallSoundTimer();
         whatMove = 0;
         i = 0;
         isMoving = false;
@@ -290,6 +298,9 @@ public abstract class Stone implements Resettable {
      * One iteration of falling left
      */
     public void fallLeft(){
+        if(!fallSoundTimer.isRunning() && this instanceof Rock){
+            fallSoundTimer.start();
+        }
         if (i == 0){
             x -= 2 * CELL_SIDE / 7;
         }
@@ -326,6 +337,9 @@ public abstract class Stone implements Resettable {
      * One iteration of falling right
      */
     public void fallRight(){
+        if(!fallSoundTimer.isRunning() && this instanceof Rock){
+            fallSoundTimer.start();
+        }
         if (i == 0){
             x += 2 * CELL_SIDE / 7;
         }
@@ -363,6 +377,9 @@ public abstract class Stone implements Resettable {
      */
     public void fallDown(){
         if (i == 3){
+            if(!fallSoundTimer.isRunning() && this instanceof Rock){
+                fallSoundTimer.start();
+            }
             checkSnake();
             setStoneToNewPositionInArray(xInArray, yInArray + 1);
             playPanel.disappearFromCell(xInArray, yInArray);
@@ -424,5 +441,35 @@ public abstract class Stone implements Resettable {
     }
 
     protected abstract void setStoneToNewPositionInArray(int xInArray, int yInArray);
+
+    protected void startRockMoveSound(){
+        rockMove.start();
+        Util.wait((int)rockMove.getMicrosecondLength() / 1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rockMove.stop();
+                rockMove.setFramePosition(0);
+            }
+        });
+    }
+
+    private void initFallSoundTimer(){
+        fallSoundTimer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(whatMove==0){
+                    rockFall.start();
+                    Util.wait((int)rockFall.getMicrosecondLength() / 1000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            rockFall.stop();
+                            rockFall.setFramePosition(0);
+                        }
+                    });
+                    fallSoundTimer.stop();
+                }
+            }
+        });
+    }
 
 }
