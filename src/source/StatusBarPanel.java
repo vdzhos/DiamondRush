@@ -237,7 +237,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     playPanel.pause();
-                    playPanel.turnOffTrapObjectsSounds();
+                    pauseMenuDialog.setSoundOn(gameFrame.soundOn);
+                    pauseMenuDialog.setMusicOn(gameFrame.musicOn);
                     pauseMenuDialog.setLocation(gameFrame.getX()+ Values.PAUSE_MENU_SHIFT_X, gameFrame.getY()+ Values.PAUSE_MENU_SHIFT_Y);
                     pauseMenuDialog.setVisible(true);
                 }

@@ -70,6 +70,8 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     public int revivals;
 
+    public boolean paused = false;
+
 
     public Level currentLevel;
     public Cell[][] levelMatrix;
@@ -116,7 +118,7 @@ public class PlayPanel extends JPanel implements KeyListener {
     private Font font = Util.getFont("fonts/v_SevenSwordsmen_BB.ttf", 16f);
     private Image image = new ImageIcon("mapImages/thoughtClouds.png").getImage();
 
-    public boolean soundOn = true;
+
 
     /**
      * constructor with parameters
@@ -759,9 +761,11 @@ public class PlayPanel extends JPanel implements KeyListener {
      * method pauses game
      */
     public void pause(){
+        paused = true;
         boyCanMove = false;
         trapTimer.stop();
         takeEnergyTimer.stop();
+        turnOffTrapObjectsSounds();
         for (byte i = 0; i < levelMatrix.length; i ++){
             for (byte j = 0; j < levelMatrix[0].length; j ++){
                 if (levelMatrix[i][j].getTrapObject()!=null){
@@ -778,6 +782,7 @@ public class PlayPanel extends JPanel implements KeyListener {
      * method resumes game
      */
     public void resume(){
+        paused = false;
         boyCanMove = true;
         takeEnergyTimer.start();
         for (byte i = 0; i < levelMatrix.length; i ++){
@@ -1624,8 +1629,12 @@ public class PlayPanel extends JPanel implements KeyListener {
         );
     }
 
+    public GameFrame getGameFrame() {
+        return gameFrame;
+    }
+
     private void trapSounds(){
-        if(soundOn) {
+        if(gameFrame.soundOn && !paused) {
             int snakeCounter = 0;
             ArrayList<FireTrap> fireTraps = new ArrayList<>();
             int scorpionCounter = 0;

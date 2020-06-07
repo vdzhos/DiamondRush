@@ -1,5 +1,6 @@
 package source;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -185,11 +186,13 @@ public class MainMenu extends JPanel implements MouseListener {
             this.sound.animate(this,"pauseMenu",sound);
             if (soundOn){
                 soundOn = false;
+                gameFrame.soundOn = false;
                 this.sound = soundOffImage;
                 repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
             }
             else {
                 soundOn = true;
+                gameFrame.soundOn = true;
                 this.sound = soundOnImage;
                 repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
             }
@@ -199,11 +202,16 @@ public class MainMenu extends JPanel implements MouseListener {
             this.music.animate(this,"pauseMenu",music);
             if (musicOn){
                 musicOn = false;
+                gameFrame.musicOn = false;
+                gameFrame.menuBgClip.stop();
+                gameFrame.menuBgClip.setFramePosition(0);
                 this.music = musicOffImage;
                 repaint((int)music.x,(int)music.y,(int)music.width,(int)music.height);
             }
             else {
                 musicOn = true;
+                gameFrame.musicOn = true;
+                gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
                 this.music = musicOnImage;
                 repaint((int)music.x,(int)music.y,(int)music.width,(int)music.height);
             }
@@ -229,4 +237,23 @@ public class MainMenu extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    public void setSoundOn(boolean soundOn) {
+        this.soundOn = soundOn;
+        if(soundOn){
+            sound = soundOnImage;
+        }else{
+            sound = soundOffImage;
+        }
+    }
+
+    public void setMusicOn(boolean musicOn) {
+        this.musicOn = musicOn;
+        if(musicOn){
+            music = musicOnImage;
+        }else{
+            music = musicOffImage;
+        }
+    }
+
 }

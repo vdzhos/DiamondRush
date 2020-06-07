@@ -195,14 +195,14 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
             this.sound.animate(this,"pauseMenu",sound);
             if (soundOn){
                 soundOn = false;
-                playPanel.soundOn = false;
+                gameFrame.soundOn = false;
                 playPanel.turnOffTrapObjectsSounds();
                 this.sound = soundOffImage;
                 repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
             }
             else {
                 soundOn = true;
-                playPanel.soundOn = true;
+                gameFrame.soundOn = true;
                 this.sound = soundOnImage;
                 repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
             }
@@ -254,6 +254,11 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 
     public void setSoundOn(boolean soundOn) {
         this.soundOn = soundOn;
+        if(soundOn){
+            sound = soundOnImage;
+        }else{
+            sound = soundOffImage;
+        }
     }
 
     public boolean isMusicOn() {
@@ -262,6 +267,11 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 
     public void setMusicOn(boolean musicOn) {
         this.musicOn = musicOn;
+        if(musicOn){
+            music = musicOnImage;
+        }else{
+            music = musicOffImage;
+        }
     }
 
 

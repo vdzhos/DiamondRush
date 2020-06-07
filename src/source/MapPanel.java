@@ -305,6 +305,8 @@ public class MapPanel extends JPanel implements MouseListener {
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    gameFrame.getMainMenu().setSoundOn(gameFrame.soundOn);
+                    gameFrame.getMainMenu().setMusicOn(gameFrame.musicOn);
                     gameFrame.showMainMenu();
                 }
             });

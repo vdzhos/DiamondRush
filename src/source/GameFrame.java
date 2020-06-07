@@ -19,6 +19,7 @@ public class GameFrame extends JFrame {
     public Clip levelsBgClip = Util.getSound("sounds/tomb_raiders_levels.wav",-30f);
 
     public boolean musicOn = true;
+    public boolean soundOn = true;
 
     /**
      * constructor with no parameters
@@ -236,6 +237,9 @@ public class GameFrame extends JFrame {
         }
     }
 
+    public MainMenu getMainMenu() {
+        return mainMenu;
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

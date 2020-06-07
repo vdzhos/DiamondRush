@@ -392,7 +392,7 @@ public class Boy {
     }
 
     public void startHurtSound(PlayPanel playPanel){
-        if(playPanel.soundOn){
+        if(playPanel.getGameFrame().soundOn){
             hurtSound.start();
             Util.wait((int)hurtSound.getMicrosecondLength() / 1000, new ActionListener() {
                 @Override
