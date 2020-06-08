@@ -473,7 +473,7 @@ public class PlayPanel extends JPanel implements KeyListener {
             }
         }
     }
-
+    
     /**
      * draws circle that shows how much time left for the boy to be vulnerable again
      * @param g
