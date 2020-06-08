@@ -943,15 +943,15 @@ public class Maps {
                 new AdditionalImage("additionalImages/wall7.png", 32*70,14*70,3*70,3*70),
                 new AdditionalImage("additionalImages/wall11.png", 0*70,21*70+17,5*70-17,4*70-17*2),
                 new AdditionalImage("additionalImages/wall6.png", 20*70+17,23*70+17,6*70-17*2,3*70-17*2),
-                new AdditionalImage("additionalImages/column3.png", 17*70+17,21*70+17,1*70-17*2,5*70-17*2),
-                new AdditionalImage("additionalImages/column1.png", 28*70+17,19*70,1*70-17,3*70-17*2),
-                new AdditionalImage("additionalImages/column1.png", 29*70+17,20*70,1*70-17,3*70-17),
-                new AdditionalImage("additionalImages/column1.png", 30*70+17,21*70,1*70-17,3*70-17),
-                new AdditionalImage("additionalImages/column1.png", 31*70+17,22*70,1*70-17,3*70-17),
-                new AdditionalImage("additionalImages/column1.png", 14*70+17,13*70+17,1*70-17,3*70-17*2),
-                new AdditionalImage("additionalImages/column2.png", 8*70+17,22*70,1*70-17,4*70-17),
-                new AdditionalImage("additionalImages/column2.png", 9*70+17,23*70,1*70-17,4*70-17),
-                new AdditionalImage("additionalImages/column2.png", 30*70+17,10*70+17,1*70-17*2,3*70-17*2)};
+                new AdditionalImage("additionalImages/column4.png", 17*70+17,21*70+17,1*70-17*2,5*70-17*2),
+                new AdditionalImage("additionalImages/column4.png", 28*70+17,19*70,1*70-17,3*70-17*2),
+                new AdditionalImage("additionalImages/column4.png", 29*70+17,20*70,1*70-17,3*70-17),
+                new AdditionalImage("additionalImages/column4.png", 30*70+17,21*70,1*70-17,3*70-17),
+                new AdditionalImage("additionalImages/column4.png", 31*70+17,22*70,1*70-17,3*70-17),
+                new AdditionalImage("additionalImages/column4.png", 14*70+17,13*70+17,1*70-17,3*70-17*2),
+                new AdditionalImage("additionalImages/column4.png", 8*70+17,22*70,1*70-17,4*70-17),
+                new AdditionalImage("additionalImages/column4.png", 9*70+17,23*70,1*70-17,4*70-17),
+                new AdditionalImage("additionalImages/column4.png", 30*70+17,10*70+17,1*70-17*2,3*70-17*2)};
 
 
         Snake snake1 = new Snake(210,70,40,true, playPanel);
