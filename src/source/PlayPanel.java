@@ -349,10 +349,6 @@ public class PlayPanel extends JPanel implements KeyListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        numberOfGoldKeysCollected=1;
-        numberOfSilverKeysCollected=1;
-        currentEnergyLevel=200;
-        numberOfPurpleDiamondsCollected=100;
         if (!statusBarIsInitiated) {
             updateStatusBar();
             statusBarIsInitiated = true;

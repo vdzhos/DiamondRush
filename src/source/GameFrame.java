@@ -52,7 +52,8 @@ public class GameFrame extends JFrame {
      * method makes info dialog visible
      */
     public void showInfo(){
-       infoDialog.setVisible(true);
+        infoDialog.setLocation(this.getLocation());
+        infoDialog.setVisible(true);
     }
 
     /**
