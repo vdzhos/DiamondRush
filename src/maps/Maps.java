@@ -525,7 +525,7 @@ public class Maps {
         level2[4][12] = new Cell(new Floor(), null, snake3);
         level2[4][13] = new Cell(new Floor(), null, snake3);
         level2[4][14] = new Cell(check1, null, null);
-        level2[4][16] = new Cell(new DiamondDoor(0,false), null, null);
+        level2[4][16] = new Cell(new DiamondDoor(30,false), null, null);
         level2[4][18] = new Cell(new Floor(), new Diamond(), null);
         level2[4][20] = new Cell(new Floor(), new Tumbleweed(), null);
         level2[5][1] = new Cell(new Floor(), null, new Rock(null));
@@ -587,7 +587,7 @@ public class Maps {
         level2[11][9] = new Cell(new Floor(), null, scorpion1);
         level2[11][10] = new Cell(new Floor(), new Diamond(), null);
         level2[11][12] = new Cell(new Floor(), null, scorpion1);
-        level2[11][21] = new Cell(new DiamondDoor(0,false), null, null);
+        level2[11][21] = new Cell(new DiamondDoor(46,false), null, null);
         level2[12][2] = new Cell(new Wall(Wall.Type.RIGHT_LOWER_CORNER), null, snake4);
         level2[12][2] = new Cell(new Floor(), null, snake4);
         level2[12][3] = new Cell(new Floor(), null, snake4);
@@ -829,7 +829,7 @@ public class Maps {
         level2[37][17] = new Cell(new Floor(), new Chest(new PurpleDiamond(5), new RedDiamond(1),null,null,null), null);
         level2[37][19] = new Cell(new Floor(), null, null);
         level2[37][20] = new Cell(new Floor(), new Diamond(), null);
-        level2[38][12] = new Cell(new DiamondDoor(10,true), null, null);
+        level2[38][12] = new Cell(new DiamondDoor(70,true), null, null);
         level2[39][12] = new Cell(new Floor(), null, null);
 
         level2[6][5] = new Cell(new SecretWall(Wall.Type.FLOOR), null, null);

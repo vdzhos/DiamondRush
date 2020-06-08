@@ -125,7 +125,7 @@ public class InfoDialog extends JDialog implements MouseListener {
          * constructor with no parameters
          */
         public Info(){
-            setPreferredSize(new Dimension(586,5500));
+            setPreferredSize(new Dimension(586,6248));
         }
 
         @Override
@@ -134,7 +134,7 @@ public class InfoDialog extends JDialog implements MouseListener {
             Graphics2D g2 = (Graphics2D) gr;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 
-            g2.drawImage(new ImageIcon("infoDialog/instruction.png").getImage(), 0,0,586,5500,null);
+            g2.drawImage(new ImageIcon("infoDialog/instruction1.png").getImage(), 0,0,586,6248,null);
         }
     }
 
