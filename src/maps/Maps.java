@@ -588,7 +588,7 @@ public class Maps {
         level2[11][10] = new Cell(new Floor(), new Diamond(), null);
         level2[11][12] = new Cell(new Floor(), null, scorpion1);
         level2[11][21] = new Cell(new DiamondDoor(46,false), null, null);
-        level2[12][2] = new Cell(new Wall(Wall.Type.RIGHT_LOWER_CORNER), null, snake4);
+        level2[12][1] = new Cell(new Wall(Wall.Type.RIGHT_LOWER_CORNER), null, snake4);
         level2[12][2] = new Cell(new Floor(), null, snake4);
         level2[12][3] = new Cell(new Floor(), null, snake4);
         level2[12][4] = new Cell(new Floor(), null, snake4);
@@ -997,7 +997,7 @@ public class Maps {
         int[] additionalSegmentCheck8 = {17,17,22,24};
         Checkpoint check8 = new Checkpoint(13,25,24,28,additionalSegmentCheck8,17,17,4,4);
 
-        Checkpoint check9 = new Checkpoint(24,21,34,27,24,26,4,4);
+        Checkpoint check9 = new Checkpoint(24,21,34,27,24,26,4,6);
 
         //Floor + (Harmless/Trap)
         Cell[][] level3 = new Cell[36][30];
@@ -1192,7 +1192,7 @@ public class Maps {
         level3[18][7] = new Cell(new Floor(),null,scorpion1);
         level3[18][8] = new Cell(new Floor(),null,scorpion1);
         level3[18][14] = new Cell(new Floor(),null,null);
-        level3[18][16] = new Cell(new Wall(),null,snake5);
+        level3[18][16] = new Cell(new Wall(Wall.Type.LEFT_LOWER_CORNER),null,snake5);
         level3[18][17] = new Cell(new Floor(),null,snake5);
         level3[18][18] = new Cell(new Floor(),null,snake5);
         level3[18][19] = new Cell(new Floor(),null,snake5);

@@ -243,18 +243,31 @@ public class FireTrap extends JLabel implements Trap{
     public boolean isHead(Boy boy, int shift){
         if(side){
             if(boy.getX()+shift==fireTrap.getX()+210){
-                System.out.println((boy.getX()+shift)+ " | " + (fireTrap.getX()+210));
                 return true;
             }else{
-                System.out.println((boy.getX()+shift)+ " | " + (fireTrap.getX()+210));
                 return false;
             }
         }else{
             if(boy.getX()+shift==fireTrap.getX()){
-                System.out.println((boy.getX()+shift)+ " | " + (fireTrap.getX()));
                 return true;
             }else{
-                System.out.println((boy.getX()+shift)+ " | " + (fireTrap.getX()));
+                return false;
+            }
+        }
+    }
+
+    public boolean isHead(int x){
+        int realX = x*70 + panel.getMapX();
+        if(side){
+            if(realX==fireTrap.getX()+210){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            if(realX==fireTrap.getX()){
+                return true;
+            }else{
                 return false;
             }
         }

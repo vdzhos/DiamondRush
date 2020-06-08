@@ -259,6 +259,9 @@ public class Snake extends JLabel implements Trap, Resettable {
                 return diapason;
             }
             for (int i = 0; i < width/70; i++) {
+                if(labelIX+i>=playPanel.currentLevel.getMatrix().length){
+                    return diapason;
+                }
                 Cell cell = playPanel.currentLevel.getMatrix()[labelIX+i][labelIY];
                 if(cell.getTrapObject() instanceof Rock || cell.getHarmlessObject()!=null || cell.getBlock() instanceof Wall
                         || cell.getBlock() instanceof BreakableWall){
@@ -283,6 +286,9 @@ public class Snake extends JLabel implements Trap, Resettable {
                 return diapason;
             }
             for (int i = 0; i < height/70; i++) {
+                if(labelIY+i>=playPanel.currentLevel.getMatrix()[0].length){
+                    return diapason;
+                }
                 Cell cell = playPanel.currentLevel.getMatrix()[labelIX][labelIY+i];
                 if(cell.getTrapObject() instanceof Rock || cell.getHarmlessObject()!=null || cell.getBlock() instanceof Wall
                         || cell.getBlock() instanceof BreakableWall){
