@@ -13,11 +13,15 @@ import objects.traps.Rock;
 import objects.traps.Scorpion;
 import objects.traps.Snake;
 import objects.traps.Trap;
+import source.PlayPanel;
 import source.Util;
 import source.Values;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 /**
  * @author Illia Sitkov
@@ -26,6 +30,7 @@ public class Checkpoint implements Block {
 
     private Image image = new ImageIcon("mapImages/checkpoint2.png").getImage();
     private Image imageUsed = new ImageIcon("mapImages/checkpoint.png").getImage();
+    public Clip reviveSound = Util.getSound("sounds/revive.wav",-10f);
 
     public Cell[][] initialMatrix;
 
@@ -297,5 +302,18 @@ public class Checkpoint implements Block {
 
     public void setUsed(boolean used) {
         isUsed = used;
+    }
+
+    public void startReviveSound(PlayPanel playPanel){
+        if(playPanel.getGameFrame().soundOn){
+            reviveSound.start();
+            Util.wait((int) reviveSound.getMicrosecondLength() / 1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    reviveSound.stop();
+                    reviveSound.setFramePosition(0);
+                }
+            });
+        }
     }
 }
