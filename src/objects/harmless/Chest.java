@@ -3,10 +3,13 @@ package objects.harmless;
 import objects.blocks.doors.Resettable;
 import objects.thingsInChest.*;
 import source.PlayPanel;
+import source.Util;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Iryna Matviienko
@@ -26,6 +29,7 @@ public class Chest implements Harmless, Resettable {
     private int index = 0;
     public boolean isClosed = true;
     public boolean thingsAreBeeingTaken = false;
+    public Clip chestOpeningSound = Util.getSound("sounds/treasure_chest.wav",-15f);
 
     /**
      * Constructor with 5 thingsInChest
@@ -56,6 +60,7 @@ public class Chest implements Harmless, Resettable {
      * Animation of chest`s opening
      */
     public void openChest(){
+        startDiamondCollectedSound();
         Timer timer = new Timer(100, null);
         timer.addActionListener(new AbstractAction() {
             @Override
@@ -161,4 +166,18 @@ public class Chest implements Harmless, Resettable {
 
     @Override
     public void disappear() { }
+
+    private void startDiamondCollectedSound(){
+        if(playPanel.getGameFrame().soundOn){
+            chestOpeningSound.start();
+            Util.wait((int) chestOpeningSound.getMicrosecondLength() / 1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    chestOpeningSound.stop();
+                    chestOpeningSound.setFramePosition(0);
+                }
+            });
+        }
+    }
+
 }

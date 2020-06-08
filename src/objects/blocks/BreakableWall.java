@@ -2,7 +2,9 @@ package objects.blocks;
 
 import maps.Cell;
 import source.PlayPanel;
+import source.Util;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,8 @@ public class BreakableWall implements Block{
     private int y;
 
     private Image image = new ImageIcon("mapImages/breakableWall.png").getImage();
+    public Clip hammerHit = Util.getSound("sounds/hammer_hit.wav",-20f);
+    public Clip wallCrumble = Util.getSound("sounds/wall_crumbling.wav",-20f);
 
     public BreakableWall(int x, int y) {
         this.x = x;
@@ -27,6 +31,8 @@ public class BreakableWall implements Block{
     }
 
     public void breakWall(Cell[][] matrix, PlayPanel panel){
+        startDiamondCollectedSound(panel, hammerHit);
+        startDiamondCollectedSound(panel, wallCrumble);
         Cell[][] map = matrix;
         ArrayList<Cell> all = new ArrayList<>();
         all.add(map[x][y]);
@@ -55,6 +61,8 @@ public class BreakableWall implements Block{
                     all.remove(0);
                 }else{
                     Timer t = (Timer)e.getSource();
+//                    wallCrumble.stop();
+//                    wallCrumble.setFramePosition(0);
                     t.stop();
                 }
             }
@@ -81,5 +89,18 @@ public class BreakableWall implements Block{
             }
         }
         return result;
+    }
+
+    private void startDiamondCollectedSound(PlayPanel playPanel, Clip clip){
+        if(playPanel.getGameFrame().soundOn){
+            clip.start();
+            Util.wait((int) clip.getMicrosecondLength() / 1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    clip.stop();
+                    clip.setFramePosition(0);
+                }
+            });
+        }
     }
 }

@@ -490,6 +490,7 @@ public class PlayPanel extends JPanel implements KeyListener {
      */
     public void applyCheckpoint(){
         if (currentCheckpoint != null && currentEnergyLevel >= checkpointCost) {
+            currentCheckpoint.startReviveSound(panel);
             revivals ++;
             boy.isMoving = true;
             boy.currentPicture = boy.standClear;
