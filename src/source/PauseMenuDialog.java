@@ -153,7 +153,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
         Rectangle2D.Double sound = new Rectangle2D.Double(Values.SOUND_X, Values.SOUND_Y, Values.SOUND_WIDTH, Values.SOUND_LENGTH);
         Rectangle2D.Double music = new Rectangle2D.Double(Values.MUSIC_X, Values.MUSIC_Y, Values.MUSIC_WIDTH, Values.MUSIC_LENGTH);
         if (resume.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             resumeImage.animate(this,"pauseMenu",resume);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -165,7 +165,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 //            pause window should be closed here
         }
         else if (restart.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             restartImage.animate(this,"pauseMenu",restart);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -177,45 +177,51 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
             });
         }
         else if (goToMap.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             goToMapImage.animate(this,"pauseMenu",goToMap);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     PauseMenuDialog.this.setVisible(false);
                     revalidate();
-//                    playPanel.restart();
+                    playPanel.turnOffTrapObjectsSounds();
                     gameFrame.showMap();
-                    gameFrame.levelsBgClip.stop();
-                    gameFrame.levelsBgClip.setFramePosition(0);
-                    gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                    gameFrame.startBgMenuClip();
                 }
             });
         }
         else if (sound.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             this.sound.animate(this,"pauseMenu",sound);
             if (soundOn){
                 soundOn = false;
+                gameFrame.soundOn = false;
+                playPanel.turnOffTrapObjectsSounds();
                 this.sound = soundOffImage;
                 repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
             }
             else {
                 soundOn = true;
+                gameFrame.soundOn = true;
                 this.sound = soundOnImage;
                 repaint((int)sound.x,(int)sound.y,(int)sound.width,(int)sound.height);
             }
         }
         else if (music.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             this.music.animate(this,"pauseMenu",music);
             if (musicOn){
                 musicOn = false;
+                gameFrame.musicOn = false;
+                gameFrame.levelsBgClip.stop();
+                gameFrame.levelsBgClip.setFramePosition(0);
                 this.music = musicOffImage;
                 repaint((int)music.x,(int)music.y,(int)music.width,(int)music.height);
             }
             else {
                 musicOn = true;
+                gameFrame.musicOn = true;
+                gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
                 this.music = musicOnImage;
                 repaint((int)music.x,(int)music.y,(int)music.width,(int)music.height);
             }
@@ -248,6 +254,11 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 
     public void setSoundOn(boolean soundOn) {
         this.soundOn = soundOn;
+        if(soundOn){
+            sound = soundOnImage;
+        }else{
+            sound = soundOffImage;
+        }
     }
 
     public boolean isMusicOn() {
@@ -256,6 +267,11 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
 
     public void setMusicOn(boolean musicOn) {
         this.musicOn = musicOn;
+        if(musicOn){
+            music = musicOnImage;
+        }else{
+            music = musicOffImage;
+        }
     }
 
 

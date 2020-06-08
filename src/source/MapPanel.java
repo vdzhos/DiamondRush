@@ -316,90 +316,82 @@ public class MapPanel extends JPanel implements MouseListener {
         Rectangle2D.Double cross = new Rectangle2D.Double(Values.CROSS_X, Values.CROSS_Y, Values.LEVEL_POINT_SIZE, Values.LEVEL_POINT_SIZE);
         Rectangle2D.Double menu = new Rectangle2D.Double(Values.MENU_X, Values.MENU_Y, Values.MENU_SIZE, Values.MENU_SIZE);
         if (menu.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             backToMenuImage.animate(this,"mapPictures",menu);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    gameFrame.getMainMenu().setSoundOn(gameFrame.soundOn);
+                    gameFrame.getMainMenu().setMusicOn(gameFrame.musicOn);
                     gameFrame.showMainMenu();
                 }
             });
         }
         else if (level1.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             level1Image.animate(this,"mapPictures",level1);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     gameFrame.showLevel(levels[0]);
-                    gameFrame.menuBgClip.stop();
-                    gameFrame.menuBgClip.setFramePosition(0);
-                    gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                    gameFrame.startBgLevelsClip();
                 }
             });
         }
         else if (level2.contains(point)){
             if (level2Available) {
-                Util.click();
+                Util.click(gameFrame.soundOn);
                 level2Image.animate(this, "mapPictures", level2);
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         gameFrame.showLevel(levels[1]);
-                        gameFrame.menuBgClip.stop();
-                        gameFrame.menuBgClip.setFramePosition(0);
-                        gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                        gameFrame.startBgLevelsClip();
                     }
                 });
             }
         }
         else if (level3.contains(point)){
             if (level3Available) {
-                Util.click();
+                Util.click(gameFrame.soundOn);
                 level3Image.animate(this, "mapPictures", level3);
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         gameFrame.showLevel(levels[2]);
-                        gameFrame.menuBgClip.stop();
-                        gameFrame.menuBgClip.setFramePosition(0);
-                        gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                        gameFrame.startBgLevelsClip();
                     }
                 });
             }
         }
         else if (level4.contains(point)){
             if (level4Available) {
-                Util.click();
+                Util.click(gameFrame.soundOn);
                 level4Image.animate(this, "mapPictures", level4);
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         gameFrame.showLevel(levels[3]);
-                        gameFrame.menuBgClip.stop();
-                        gameFrame.menuBgClip.setFramePosition(0);
-                        gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                        gameFrame.startBgLevelsClip();
                     }
                 });
             }
         }
         else if (level5.contains(point)){
             if (level5Available) {
-                Util.click();
+                Util.click(gameFrame.soundOn);
                 level5Image.animate(this, "mapPictures", level5);
                 Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         gameFrame.showLevel(levels[4]);
-                        gameFrame.menuBgClip.stop();
-                        gameFrame.menuBgClip.setFramePosition(0);
-                        gameFrame.levelsBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                        gameFrame.startBgLevelsClip();
                     }
                 });
             }
         }
         else if (cross.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             goToPuzzle.animate(this, "mapPictures", cross);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override

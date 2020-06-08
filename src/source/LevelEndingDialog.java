@@ -78,7 +78,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
         boolean redDiamondsCheck = playPanel.numberOfRedDiamondsCollected==playPanel.currentLevel.getMaxNumberOfRedDiamonds();
         switch(playPanel.currentLevel.getLevelNumber()){
             case 1:
-                if(purpleDiamondsCheck && redDiamondsCheck){
+                if(purpleDiamondsCheck && redDiamondsCheck && playPanel.revivals==0){
                     artifact = pieceVisible1;
                 }else{
                     artifact = pieceInvisible1;
@@ -86,7 +86,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 bg = backgroundImage1;
                 break;
             case 2:
-                if(purpleDiamondsCheck && redDiamondsCheck){
+                if(purpleDiamondsCheck && redDiamondsCheck && playPanel.revivals==0){
                     artifact = pieceVisible2;
                 }else{
                     artifact = pieceInvisible2;
@@ -94,7 +94,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 bg = backgroundImage2;
                 break;
             case 3:
-                if(purpleDiamondsCheck && redDiamondsCheck){
+                if(purpleDiamondsCheck && redDiamondsCheck && playPanel.revivals==0){
                     artifact = pieceVisible3;
                 }else{
                     artifact = pieceInvisible3;
@@ -102,7 +102,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 bg = backgroundImage3;
                 break;
             case 4:
-                if(purpleDiamondsCheck && redDiamondsCheck){
+                if(purpleDiamondsCheck && redDiamondsCheck && playPanel.revivals==0){
                     artifact = pieceVisible4;
                 }else{
                     artifact = pieceInvisible4;
@@ -110,7 +110,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 bg = backgroundImage4;
                 break;
             case 5:
-                if(purpleDiamondsCheck && redDiamondsCheck){
+                if(purpleDiamondsCheck && redDiamondsCheck && playPanel.revivals==0){
                     artifact = pieceVisible5;
                 }else{
                     artifact = pieceInvisible5;
@@ -175,31 +175,28 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 Values.END_LEVEL_GOTOMAP_WIDTH, Values.END_LEVEL_GOTOMAP_HEIGHT);
 
         if (continueB.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             this.continueB.animate(this,"levelEndingDialog",continueB);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     LevelEndingDialog.this.dispose();
+                    playPanel.turnOffTrapObjectsSounds();
                     if (gameFrame.showCongrats()){
                         gameFrame.showPuzzleMap();
-                        gameFrame.levelsBgClip.stop();
-                        gameFrame.levelsBgClip.setFramePosition(0);
-                        gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                        gameFrame.startBgMenuClip();
                     }else{
                         if(playPanel.currentLevel.getLevelNumber()!=5){
                             gameFrame.showNextLevel();
                         }else{
                             gameFrame.showMap();
-                            gameFrame.levelsBgClip.stop();
-                            gameFrame.levelsBgClip.setFramePosition(0);
-                            gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                            gameFrame.startBgMenuClip();
                         }
                     }
                 }
             });
         }else if (restartB.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             this.restartB.animate(this,"levelEndingDialog",restartB);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
@@ -209,20 +206,19 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 }
             });
         }else if (goToMapB.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             this.goToMapB.animate(this,"levelEndingDialog",goToMapB);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     LevelEndingDialog.this.dispose();
+                    playPanel.turnOffTrapObjectsSounds();
                     if (gameFrame.showCongrats()){
                         gameFrame.showPuzzleMap();
                     }else{
                         gameFrame.showMap();
                     }
-                    gameFrame.levelsBgClip.stop();
-                    gameFrame.levelsBgClip.setFramePosition(0);
-                    gameFrame.menuBgClip.loop(Clip.LOOP_CONTINUOUSLY);
+                    gameFrame.startBgMenuClip();
                 }
             });
         }

@@ -19,6 +19,7 @@ public class InfoDialog extends JDialog implements MouseListener {
 
     private Info info;
     private JScrollPane scrollPane;
+    private GameFrame gameFrame;
 
     /**
      * constructor with parameters
@@ -26,6 +27,7 @@ public class InfoDialog extends JDialog implements MouseListener {
      */
     public InfoDialog(GameFrame gameFrame){
         super(gameFrame,"",true);
+        this.gameFrame = gameFrame;
         setUndecorated(true);
         setSize(700, 850);
         setLocation(gameFrame.getLocation());
@@ -86,7 +88,7 @@ public class InfoDialog extends JDialog implements MouseListener {
         Point2D point = new Point2D.Double(e.getX(),e.getY());
         Rectangle2D.Double close = new Rectangle2D.Double(Values.CLOSE_X, Values.CLOSE_Y, Values.CLOSE_WIDTH, Values.CLOSE_HEIGHT);
         if (close.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             closeImage.animate(this, "infoDialog",close);
             Util.wait(300, new AbstractAction() {
                 @Override

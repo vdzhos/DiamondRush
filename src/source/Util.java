@@ -38,9 +38,11 @@ public class Util {
         return font;
     }
 
-    public static void click(){
-        click.start();
-        click.setFramePosition(0);
+    public static void click(boolean soundOn){
+        if(soundOn){
+            click.start();
+            click.setFramePosition(0);
+        }
     }
 
     /**

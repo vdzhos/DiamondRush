@@ -70,6 +70,8 @@ public class PlayPanel extends JPanel implements KeyListener {
 
     public int revivals;
 
+    public boolean paused = false;
+
 
     public Level currentLevel;
     public Cell[][] levelMatrix;
@@ -115,6 +117,8 @@ public class PlayPanel extends JPanel implements KeyListener {
     private int currentLevelInt;
     private Font font = Util.getFont("fonts/v_SevenSwordsmen_BB.ttf", 16f);
     private Image image = new ImageIcon("mapImages/thoughtClouds.png").getImage();
+
+
 
     /**
      * constructor with parameters
@@ -237,12 +241,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
             }
 
-
-
-
-        Snake.snakeSound = false;
-        FireTrap.fireTrapSound = false;
-        Scorpion.scorpionSound = false;
+        turnOffTrapObjectsSounds();
 
         currentLevel = null;
         currentCheckpoint = null;
@@ -290,6 +289,12 @@ public class PlayPanel extends JPanel implements KeyListener {
         repaint();
         if (!takeEnergyTimer.isRunning())
             takeEnergyTimer.start();
+    }
+
+    public void turnOffTrapObjectsSounds(){
+        Snake.snakeSound = false;
+        FireTrap.fireTrapSound = false;
+        Scorpion.scorpionSound = false;
     }
 
     /**
@@ -703,7 +708,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                         repaint();
                     }
                     currentEnergyLevel -= 10;
-                    boy.startHurtSound();
+                    boy.startHurtSound(panel);
                     if (currentEnergyLevel <= 0){
                         currentEnergyLevel = 0;
                         takeEnergyTimer.stop();
@@ -756,9 +761,11 @@ public class PlayPanel extends JPanel implements KeyListener {
      * method pauses game
      */
     public void pause(){
+        paused = true;
         boyCanMove = false;
         trapTimer.stop();
         takeEnergyTimer.stop();
+        turnOffTrapObjectsSounds();
         for (byte i = 0; i < levelMatrix.length; i ++){
             for (byte j = 0; j < levelMatrix[0].length; j ++){
                 if (levelMatrix[i][j].getTrapObject()!=null){
@@ -775,6 +782,7 @@ public class PlayPanel extends JPanel implements KeyListener {
      * method resumes game
      */
     public void resume(){
+        paused = false;
         boyCanMove = true;
         takeEnergyTimer.start();
         for (byte i = 0; i < levelMatrix.length; i ++){
@@ -1002,7 +1010,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 if (block instanceof DoorWithKeyhole.GoldDoor && !block.pass()) {
                     if (numberOfGoldKeysCollected != 0) {
-                        ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
+                        ((DoorWithKeyhole.GoldDoor) block).openTheDoor(panel);
                         numberOfGoldKeysCollected--;
                         updateNumberOfGoldKeysOnStatusBar();
                         boy.whatMove = 15;
@@ -1018,7 +1026,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                     }
                 } else if (block instanceof DoorWithKeyhole.SilverDoor && !block.pass()) {
                     if (numberOfSilverKeysCollected != 0) {
-                        ((DoorWithKeyhole.SilverDoor) block).openTheDoor();
+                        ((DoorWithKeyhole.SilverDoor) block).openTheDoor(panel);
                         numberOfSilverKeysCollected--;
                         updateNumberOfSilverKeysOnStatusBar();
                         boy.whatMove = 17;
@@ -1119,7 +1127,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 if (block instanceof DoorWithKeyhole.GoldDoor && !block.pass()) {
                     if (numberOfGoldKeysCollected != 0){
-                        ((DoorWithKeyhole.GoldDoor) block).openTheDoor();
+                        ((DoorWithKeyhole.GoldDoor) block).openTheDoor(panel);
                         numberOfGoldKeysCollected--;
                         updateNumberOfGoldKeysOnStatusBar();
                         boy.whatMove = 16;
@@ -1137,7 +1145,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
                 else if (block instanceof DoorWithKeyhole.SilverDoor && !block.pass()) {
                     if (numberOfSilverKeysCollected != 0) {
-                        ((DoorWithKeyhole.SilverDoor) block).openTheDoor();
+                        ((DoorWithKeyhole.SilverDoor) block).openTheDoor(panel);
                         numberOfSilverKeysCollected--;
                         updateNumberOfSilverKeysOnStatusBar();
                         boy.whatMove = 18;
@@ -1621,60 +1629,66 @@ public class PlayPanel extends JPanel implements KeyListener {
         );
     }
 
+    public GameFrame getGameFrame() {
+        return gameFrame;
+    }
+
     private void trapSounds(){
-        int snakeCounter = 0;
-        ArrayList<FireTrap> fireTraps = new ArrayList<>();
-        int scorpionCounter = 0;
+        if(gameFrame.soundOn && !paused) {
+            int snakeCounter = 0;
+            ArrayList<FireTrap> fireTraps = new ArrayList<>();
+            int scorpionCounter = 0;
 
-        int x = boy.xInArray-4;
-        int y = boy.yInArray-4;
-        int xe = boy.xInArray+4;
-        int ye = boy.yInArray+4;
+            int x = boy.xInArray - 4;
+            int y = boy.yInArray - 4;
+            int xe = boy.xInArray + 4;
+            int ye = boy.yInArray + 4;
 
-        if(x<0){
-            x = 0;
-        }
-        if(xe>=levelMatrix.length){
-            xe = levelMatrix.length-1;
-        }
-        if(y<0){
-            y = 0;
-        }
-        if(ye>=levelMatrix[0].length) {
-            ye = levelMatrix[0].length - 1;
-        }
+            if (x < 0) {
+                x = 0;
+            }
+            if (xe >= levelMatrix.length) {
+                xe = levelMatrix.length - 1;
+            }
+            if (y < 0) {
+                y = 0;
+            }
+            if (ye >= levelMatrix[0].length) {
+                ye = levelMatrix[0].length - 1;
+            }
 
-        for (int i = x; i <= xe ; i++) {
-            for (int j = y; j<=ye ; j++) {
-                if(levelMatrix[i][j].getTrapObject() instanceof Snake){
-                    snakeCounter++;
-                    if(!Snake.snakeSound){
-                        Snake.snakeSound = true;
-                        Snake.snakeClipTimer.start();
-                    }
-                }else if(levelMatrix[i][j].getTrapObject() instanceof FireTrap){
-                    fireTraps.add((FireTrap) levelMatrix[i][j].getTrapObject());
-                }else if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
-                    scorpionCounter++;
-                    if(!Scorpion.scorpionSound){
-                        Scorpion.scorpionSound = true;
-                        Scorpion.scorpionClipTimer.start();
+            for (int i = x; i <= xe; i++) {
+                for (int j = y; j <= ye; j++) {
+                    if (levelMatrix[i][j].getTrapObject() instanceof Snake) {
+                        snakeCounter++;
+                        if (!Snake.snakeSound) {
+                            Snake.snakeSound = true;
+                            Snake.snakeClipTimer.start();
+                        }
+                    } else if (levelMatrix[i][j].getTrapObject() instanceof FireTrap) {
+                        fireTraps.add((FireTrap) levelMatrix[i][j].getTrapObject());
+                    } else if (levelMatrix[i][j].getTrapObject() instanceof Scorpion) {
+                        scorpionCounter++;
+                        if (!Scorpion.scorpionSound) {
+                            Scorpion.scorpionSound = true;
+                            Scorpion.scorpionClipTimer.start();
+                        }
                     }
                 }
             }
-        }
-        if(snakeCounter==0){
-            Snake.snakeSound=false;
-        }
-        if(fireTraps.size()==0){
-            FireTrap.fireTrapSound = false;
-        }else{
-            FireTrap.fireTrapSound = true;
-            FireTrap.fireTrapsObserved = fireTraps;
-            FireTrap.fireTrapClipTimer.start();
-        }
-        if(scorpionCounter==0){
-            Scorpion.scorpionSound=false;
+            if (snakeCounter == 0) {
+                Snake.snakeSound = false;
+            }
+            if (fireTraps.size() == 0) {
+                FireTrap.fireTrapSound = false;
+            } else {
+                FireTrap.fireTrapSound = true;
+                FireTrap.fireTrapsObserved = fireTraps;
+                FireTrap.fireTrapClipTimer.start();
+            }
+            if (scorpionCounter == 0) {
+                Scorpion.scorpionSound = false;
+            }
         }
     }
 

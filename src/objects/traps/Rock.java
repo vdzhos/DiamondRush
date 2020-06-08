@@ -4,14 +4,20 @@ import maps.Cell;
 import objects.Stone;
 import source.Boy;
 import source.PlayPanel;
+import source.Util;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Iryna Matviienko
  */
 public class Rock extends Stone implements Trap{
+
+    public Clip rockMove = Util.getSound("sounds/rock_movement.wav",-15f);
 
     /**
      * @param snake
@@ -140,5 +146,18 @@ public class Rock extends Stone implements Trap{
 
     @Override
     public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix) { }
+
+    private void startRockMoveSound(){
+        if(playPanel.getGameFrame().soundOn){
+            rockMove.start();
+            Util.wait((int)rockMove.getMicrosecondLength() / 1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    rockMove.stop();
+                    rockMove.setFramePosition(0);
+                }
+            });
+        }
+    }
 
 }

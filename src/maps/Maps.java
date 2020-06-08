@@ -937,9 +937,21 @@ public class Maps {
      * Initialize level 3
      */
     private void initLevel3(){
-
-        AdditionalImage[] additionalImages = {new AdditionalImage("additionalImages/wall5B.png", -10,765,200,200)};
-
+        AdditionalImage[] additionalImages = {new AdditionalImage("additionalImages/wall5.png",13*70,70,280,280),
+                new AdditionalImage("additionalImages/wall10.png", 2*70,2*70,5*70-17,3*70-17),
+                new AdditionalImage("additionalImages/wall12.png", 18*70,10*70,3*70-17,2*70),
+                new AdditionalImage("additionalImages/wall7.png", 32*70,14*70,3*70,3*70),
+                new AdditionalImage("additionalImages/wall11.png", 0*70,21*70+17,5*70-17,4*70-17*2),
+                new AdditionalImage("additionalImages/wall6.png", 20*70+17,23*70+17,6*70-17*2,3*70-17*2),
+                new AdditionalImage("additionalImages/column3.png", 17*70+17,21*70+17,1*70-17*2,5*70-17*2),
+                new AdditionalImage("additionalImages/column1.png", 28*70+17,19*70,1*70-17,3*70-17*2),
+                new AdditionalImage("additionalImages/column1.png", 29*70+17,20*70,1*70-17,3*70-17),
+                new AdditionalImage("additionalImages/column1.png", 30*70+17,21*70,1*70-17,3*70-17),
+                new AdditionalImage("additionalImages/column1.png", 31*70+17,22*70,1*70-17,3*70-17),
+                new AdditionalImage("additionalImages/column1.png", 14*70+17,13*70+17,1*70-17,3*70-17*2),
+                new AdditionalImage("additionalImages/column2.png", 8*70+17,22*70,1*70-17,4*70-17),
+                new AdditionalImage("additionalImages/column2.png", 9*70+17,23*70,1*70-17,4*70-17),
+                new AdditionalImage("additionalImages/column2.png", 30*70+17,10*70+17,1*70-17*2,3*70-17*2)};
 
 
         Snake snake1 = new Snake(210,70,40,true, playPanel);
@@ -1434,7 +1446,7 @@ public class Maps {
             }
         }
 
-        Checkpoint[] checkpoints = {check1,check2,check3,check4,check5};
+        Checkpoint[] checkpoints = {check1,check2,check3,check4,check5,check6,check7,check8,check9};
         for (Checkpoint checkpoint: checkpoints){
             checkpoint.setInitialMatrix(level3);
         }
@@ -2072,6 +2084,26 @@ public class Maps {
      * Initialize level 5
      */
     private void initLevel5(){
+        AdditionalImage[] additionalImages = {new AdditionalImage("additionalImages/wall1.png",12*70+17,9*70+17,4*70-17*2,3*70-17),
+                new AdditionalImage("additionalImages/wall10.png", 1*70,21*70+17,7*70-17,4*70-17*2),
+                new AdditionalImage("additionalImages/wall8.png", 11*70+17,35*70+17,5*70-17*2,4*70-17),
+                new AdditionalImage("additionalImages/picture.png", 21*70+17,11*70+17,4*70-17*2,4*70-17*2),
+                new AdditionalImage("additionalImages/wings.png", 35*70+17,4*70,4*70-17,4*70-17),
+                new AdditionalImage("additionalImages/wall9.png", 22*70,19*70+17,8*70-17,5*70-17*2),
+                new AdditionalImage("additionalImages/wall2.png", 34*70,23*70+17,4*70-17,4*70-17*2),
+                new AdditionalImage("additionalImages/column1.png", 9*70+17,7*70+17,1*70-17*2,3*70-17*2),
+                new AdditionalImage("additionalImages/column2.png", 7*70,14*70+17,1*70-17*2,3*70-17),
+                new AdditionalImage("additionalImages/column3.png", 10*70+17,11*70+17,1*70-17*2,5*70-17*2),
+                new AdditionalImage("additionalImages/column4.png", 2*70+17,26*70+17,1*70-17*2,3*70-17*2),
+                new AdditionalImage("additionalImages/column4.png", 4*70+17,26*70+17,1*70-17*2,3*70-17*2),
+                new AdditionalImage("additionalImages/column4.png", 6*70+17,26*70+17,1*70-17*2,3*70-17*2),
+                new AdditionalImage("additionalImages/column4.png", 7*70+17,26*70+17,1*70-17*2,3*70-17*2),
+                new AdditionalImage("additionalImages/column4.png", 9*70+17,26*70+17,1*70-17*2,3*70-17*2),
+                new AdditionalImage("additionalImages/column4.png", 25*70+17,2*70+17,1*70-17*2,4*70-17*2),
+                new AdditionalImage("additionalImages/column2.png", 29*70+17,15*70+17,1*70-17*2,3*70-17),
+                new AdditionalImage("additionalImages/column1.png", 31*70,21*70+17,1*70-17,3*70-17*2)};
+
+
         Scorpion scorpion1 = new Scorpion(700,560,true,null,null);
         Scorpion scorpion2 = new Scorpion(700,420,false,null,null);
 
@@ -2930,6 +2962,7 @@ public class Maps {
 
         this.level5 = new Level(level5,3,1,11,1, 200, 5);
         this.level5.setCheckpoints(checkpoints);
+        this.level5.setAdditionalImages(additionalImages);
     }
 
     public Level getLevel1() {

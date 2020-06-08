@@ -231,24 +231,26 @@ public class StatusBarPanel extends JPanel implements MouseListener {
         Rectangle2D.Double checkpoint = new Rectangle2D.Double(Values.CHECKPOINT_BUTTON_X, Values.CHECKPOINT_BUTTON_Y, Values.CHECKPOINT_BUTTON_WIDTH, Values.CHECKPOINT_BUTTON_LENGTH);
         Rectangle2D.Double energyLevel = new Rectangle2D.Double(Values.ENERGY_FIELD_X, Values.ENERGY_FIELD_Y, Values.ENERGY_FIELD_WIDTH, Values.ENERGY_FIELD_LENGTH);
         if (pause.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             pauseImage.animate(StatusBarPanel.this);
             Util.wait(Values.TIME_TO_WAIT, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     playPanel.pause();
+                    pauseMenuDialog.setSoundOn(gameFrame.soundOn);
+                    pauseMenuDialog.setMusicOn(gameFrame.musicOn);
                     pauseMenuDialog.setLocation(gameFrame.getX()+ Values.PAUSE_MENU_SHIFT_X, gameFrame.getY()+ Values.PAUSE_MENU_SHIFT_Y);
                     pauseMenuDialog.setVisible(true);
                 }
             });
         }
         else if (checkpoint.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
             checkpointImage.animate(this);
             playPanel.applyCheckpoint();
         }
         else if (energyLevel.contains(point)){
-            Util.click();
+            Util.click(gameFrame.soundOn);
 
             energyLevelImage.animate(this);
             energyImage.animate(this);

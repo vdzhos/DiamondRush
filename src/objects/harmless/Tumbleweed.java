@@ -2,9 +2,13 @@ package objects.harmless;
 
 import objects.Stone;
 import source.PlayPanel;
+import source.Util;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Iryna Matviienko
@@ -16,6 +20,7 @@ public class Tumbleweed implements Harmless {
     private int yInArray;
 
     private Image image = new ImageIcon("mapImages/tumbleweed1.png").getImage();
+    public Clip tumbleweedBreak = Util.getSound("sounds/tumbleweed_break.wav",-10f);
 
     /**
      * Initialize variables
@@ -34,6 +39,7 @@ public class Tumbleweed implements Harmless {
      */
     @Override
     public void disappear() {
+        startTumbleweedBreakSound();
         playPanel.levelMatrix[xInArray][yInArray].setHarmlessObject(null);
         playPanel.disappearFromCell(xInArray, yInArray);
     }
@@ -63,5 +69,19 @@ public class Tumbleweed implements Harmless {
     @Override
     public boolean pass() {
         return true;
+    }
+
+    private void startTumbleweedBreakSound(){
+        if(playPanel.getGameFrame().soundOn){
+            tumbleweedBreak.setFramePosition((int)tumbleweedBreak.getMicrosecondLength() / 4000);
+            tumbleweedBreak.start();
+            Util.wait((int) tumbleweedBreak.getMicrosecondLength() / 1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    tumbleweedBreak.stop();
+                    tumbleweedBreak.setFramePosition(0);
+                }
+            });
+        }
     }
 }
