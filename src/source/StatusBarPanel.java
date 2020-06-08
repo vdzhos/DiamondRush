@@ -1,8 +1,12 @@
 package source;
 
+import objects.traps.Rock;
+import objects.traps.Trap;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
@@ -237,6 +241,7 @@ public class StatusBarPanel extends JPanel implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     playPanel.pause();
+                    playPanel.stopTrapTimer();
                     pauseMenuDialog.setSoundOn(gameFrame.soundOn);
                     pauseMenuDialog.setMusicOn(gameFrame.musicOn);
                     pauseMenuDialog.setLocation(gameFrame.getX()+ Values.PAUSE_MENU_SHIFT_X, gameFrame.getY()+ Values.PAUSE_MENU_SHIFT_Y);
@@ -301,4 +306,8 @@ public class StatusBarPanel extends JPanel implements MouseListener {
     public void setMaxNumberOfRedDiamonds(int maxNumberOfRedDiamonds) {
         this.maxNumberOfRedDiamonds = maxNumberOfRedDiamonds;
     }
+
+    public PauseMenuDialog getPauseMenuDialog() {
+        return pauseMenuDialog;
     }
+}

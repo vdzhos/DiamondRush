@@ -28,6 +28,7 @@ public class FireTrap extends JLabel implements Trap{
     public static ArrayList<FireTrap> fireTrapsObserved;
     private static Clip fireTrapClip = Util.getSound("sounds/fire_burning.wav",-35f);
     public static Timer fireTrapClipTimer;
+    private PlayPanel panel;
 
     private void initTimer(){
         fireTrapClipTimer = new Timer(100, new ActionListener() {
@@ -66,7 +67,8 @@ public class FireTrap extends JLabel implements Trap{
         this.images = images;
     }
 
-    public FireTrap(int initState, boolean side){
+    public FireTrap(int initState, boolean side, PlayPanel panel){
+        this.panel = panel;
         initTimer();
         initImages();
         fireTrap = this;
@@ -127,15 +129,15 @@ public class FireTrap extends JLabel implements Trap{
         }
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500,500);
-        frame.setVisible(true);
-        FireTrap fireTrap = new FireTrap(2,true);
-        frame.add(fireTrap);
-        fireTrap.timer.start();
-    }
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(500,500);
+//        frame.setVisible(true);
+//        FireTrap fireTrap = new FireTrap(2,true);
+//        frame.add(fireTrap);
+//        fireTrap.timer.start();
+//    }
 
     @Override
     public void paintObject(Graphics2D g2, int mapX, int mapY) {
@@ -167,7 +169,7 @@ public class FireTrap extends JLabel implements Trap{
     }
 
     @Override
-    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
+    public void checkTimerInit(PlayPanel panel, Cell[][] levelMatrix){
         int side = 0;
         if(!this.side){
             side = 70;
@@ -176,6 +178,7 @@ public class FireTrap extends JLabel implements Trap{
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Boy boy = panel.boy;
                 Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
                 int first;
                 int quantity = 0;
@@ -216,7 +219,7 @@ public class FireTrap extends JLabel implements Trap{
                             public void actionPerformed(ActionEvent e) {
                                 boy.gotInTrap = false;
                                 if (fireTrap.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())) {
-                                    if(!check.isRunning()){
+                                    if(check!=null && !check.isRunning()){
                                         check.start();
                                     }
                                 }
@@ -231,6 +234,9 @@ public class FireTrap extends JLabel implements Trap{
     }
 
     public Timer getCheckTimer(){
+        if(check == null){
+            checkTimerInit(panel, panel.currentLevel.getMatrix());
+        }
         return check;
     }
 
@@ -266,5 +272,6 @@ public class FireTrap extends JLabel implements Trap{
         }
         return true;
     }
+
 
 }

@@ -183,12 +183,14 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                     LevelEndingDialog.this.dispose();
                     playPanel.turnOffTrapObjectsSounds();
                     if (gameFrame.showCongrats()){
+                        playPanel.active = false;
                         gameFrame.showPuzzleMap();
                         gameFrame.startBgMenuClip();
                     }else{
                         if(playPanel.currentLevel.getLevelNumber()!=5){
                             gameFrame.showNextLevel();
                         }else{
+                            playPanel.active = false;
                             gameFrame.showMap();
                             gameFrame.startBgMenuClip();
                         }
@@ -212,6 +214,7 @@ public class LevelEndingDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     LevelEndingDialog.this.dispose();
+                    playPanel.active = false;
                     playPanel.turnOffTrapObjectsSounds();
                     if (gameFrame.showCongrats()){
                         gameFrame.showPuzzleMap();

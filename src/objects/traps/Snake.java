@@ -168,11 +168,12 @@ public class Snake extends JLabel implements Trap, Resettable {
     }
 
     @Override
-    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
+    public void checkTimerInit(PlayPanel panel, Cell[][] levelMatrix){
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("-----+-----");
+                Boy boy = panel.boy;
                 Rectangle snakeRect = new Rectangle(x+snake.getX(),y+snake.getY(),70,70);
                 Rectangle boyRect = new Rectangle(boy.getX(),boy.getY(),70,70);
                 if(boyRect.intersects(snakeRect) && !boy.gotInTrap && isAlive){
@@ -185,7 +186,7 @@ public class Snake extends JLabel implements Trap, Resettable {
                             public void actionPerformed(ActionEvent e) {
                                 boy.gotInTrap = false;
                                 if(snake.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())){
-                                    if(!check.isRunning()) {
+                                    if(check!=null && !check.isRunning()) {
                                         check.start();
                                     }
                                 }
@@ -297,6 +298,9 @@ public class Snake extends JLabel implements Trap, Resettable {
     }
 
     public Timer getCheckTimer(){
+        if(check==null){
+            checkTimerInit(playPanel,playPanel.currentLevel.getMatrix());
+        }
         return check;
     }
 
@@ -364,4 +368,5 @@ public class Snake extends JLabel implements Trap, Resettable {
     public void setRockCheck(Timer rockCheck) {
         this.rockCheck = rockCheck;
     }
+
 }

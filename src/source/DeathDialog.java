@@ -146,6 +146,7 @@ public class DeathDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     DeathDialog.this.dispose();
+                    playPanel.active = false;
                     playPanel.turnOffTrapObjectsSounds();
                     gameFrame.showMap();
                     gameFrame.startBgMenuClip();

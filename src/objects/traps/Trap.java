@@ -14,6 +14,8 @@ public interface Trap {
     JLabel getLabel();
     void pause();
     void resume();
-    void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix);
+    void checkTimerInit(PlayPanel panel, Cell[][] levelMatrix);
+    Timer getCheckTimer();
+    void setCheckTimer(Timer check);
 
 }

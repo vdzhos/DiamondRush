@@ -145,7 +145,14 @@ public class Rock extends Stone implements Trap{
     }
 
     @Override
-    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix) { }
+    public void checkTimerInit(PlayPanel panel, Cell[][] levelMatrix) {
+
+    }
+
+    @Override
+    public Timer getCheckTimer() {
+        return null;
+    }
 
     private void startRockMoveSound(){
         if(playPanel.getGameFrame().soundOn){
@@ -160,4 +167,8 @@ public class Rock extends Stone implements Trap{
         }
     }
 
+    @Override
+    public void setCheckTimer(Timer check) {
+
+    }
 }

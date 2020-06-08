@@ -253,7 +253,9 @@ public class GameFrame extends JFrame {
         });
     }
 
-
+    public PauseMenuDialog getPauseMenuDialog(){
+        return currentStatusBar.getPauseMenuDialog();
+    }
 
 
 

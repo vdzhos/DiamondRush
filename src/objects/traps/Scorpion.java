@@ -2,18 +2,15 @@ package objects.traps;
 
 import maps.Cell;
 import objects.Direction;
-import objects.Stone;
 import source.Boy;
 import source.PlayPanel;
 import source.Util;
 
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class Scorpion extends JLabel implements Trap{
 
@@ -31,6 +28,7 @@ public class Scorpion extends JLabel implements Trap{
     public static boolean scorpionSound = false;
     private static Clip scorpionClip = Util.getSound("sounds/scorpion_crawl.wav",-35f);
     public static Timer scorpionClipTimer;
+    private PlayPanel panel;
 
     private void initTimer(){
         scorpionClipTimer = new Timer(250, new ActionListener() {
@@ -59,7 +57,8 @@ public class Scorpion extends JLabel implements Trap{
         this.images = images;
     }
 
-    public Scorpion(int width, int height, boolean clockwise, Point point, Direction dir){
+    public Scorpion(int width, int height, boolean clockwise, Point point, Direction dir, PlayPanel panel){
+        this.panel = panel;
         initTimer();
         initImages();
         scorpion = this;
@@ -185,17 +184,17 @@ public class Scorpion extends JLabel implements Trap{
         }
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500,500);
-        frame.setVisible(true);
-        Scorpion scorpion = new Scorpion(350,350,true, new Point(280,200), Direction.DOWN);
-        JLabel label = scorpion.getLabel();
-        label.setBounds(0,0,350,350);
-        frame.add(label);
-        scorpion.timer.start();
-    }
+//    public static void main(String[] args) {
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(500,500);
+//        frame.setVisible(true);
+//        Scorpion scorpion = new Scorpion(350,350,true, new Point(280,200), Direction.DOWN);
+//        JLabel label = scorpion.getLabel();
+//        label.setBounds(0,0,350,350);
+//        frame.add(label);
+//        scorpion.timer.start();
+//    }
 
     @Override
     public void paintObject(Graphics2D g2, int mapX, int mapY) {
@@ -227,11 +226,12 @@ public class Scorpion extends JLabel implements Trap{
     }
 
     @Override
-    public void checkTimerStart(PlayPanel panel, Boy boy, Cell[][] levelMatrix){
+    public void checkTimerInit(PlayPanel panel, Cell[][] levelMatrix){
         check = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("-----------");
+                Boy boy = panel.boy;
                     Rectangle boyRect = new Rectangle(boy.getX(), boy.getY(), 70, 70);
                     Rectangle scorpionRect = new Rectangle(x + scorpion.getX(), y + scorpion.getY(), 70, 70);
 
@@ -245,7 +245,7 @@ public class Scorpion extends JLabel implements Trap{
                                 public void actionPerformed(ActionEvent e) {
                                     boy.gotInTrap = false;
                                     if (scorpion.equals(levelMatrix[boy.xInArray][boy.yInArray].getTrapObject())) {
-                                        if(!check.isRunning()){
+                                        if(check!=null && !check.isRunning()){
                                             check.start();
                                         }
                                     }
@@ -260,11 +260,15 @@ public class Scorpion extends JLabel implements Trap{
     }
 
     public Timer getCheckTimer(){
+        if(check == null){
+            checkTimerInit(panel, panel.currentLevel.getMatrix());
+        }
         return check;
     }
 
     public void setCheckTimer(Timer check) {
         this.check = check;
     }
+
 
 }

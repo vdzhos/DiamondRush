@@ -30,6 +30,7 @@ import java.util.ArrayList;
  */
 public class PlayPanel extends JPanel implements KeyListener {
 
+    public boolean active = false;
     public Boy boy;
     private PlayPanel panel;
     private Maps maps;
@@ -202,44 +203,8 @@ public class PlayPanel extends JPanel implements KeyListener {
      * method restarts current level
      */
     public void restart() {
-
-        for (int i = 0; i < levelMatrix.length; i++) {
-                for (int j = 0; j < levelMatrix[0].length; j++) {
-                    if (levelMatrix[i][j].getHarmlessObject() instanceof Diamond) {
-                        ((Diamond) levelMatrix[i][j].getHarmlessObject()).enabled = false;
-                        ((Diamond) levelMatrix[i][j].getHarmlessObject()).reset();
-                    }
-                    if (levelMatrix[i][j].getTrapObject() instanceof Rock) {
-                        ((Rock) levelMatrix[i][j].getTrapObject()).enabled = false;
-                        ((Rock) levelMatrix[i][j].getTrapObject()).reset();
-                    }
-                    if(levelMatrix[i][j].getTrapObject() instanceof Snake){
-                        Snake snake = (Snake)levelMatrix[i][j].getTrapObject();
-                        if(snake.getCheckTimer()!=null){
-                            snake.getCheckTimer().stop();
-                            snake.setCheckTimer(null);
-                        }
-                        if(snake.getRockCheck()!=null){
-                            snake.getRockCheck().stop();
-                            snake.setRockCheck(null);
-                        }
-                    }
-                    if(levelMatrix[i][j].getTrapObject() instanceof FireTrap){
-                        FireTrap fireTrap = (FireTrap)levelMatrix[i][j].getTrapObject();
-                        if(fireTrap.getCheckTimer()!=null){
-                            fireTrap.getCheckTimer().stop();
-                            fireTrap.setCheckTimer(null);
-                        }
-                    }
-                    if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
-                        Scorpion scorpion = (Scorpion)levelMatrix[i][j].getTrapObject();
-                        if(scorpion.getCheckTimer()!=null){
-                            scorpion.getCheckTimer().stop();
-                            scorpion.setCheckTimer(null);
-                        }
-                    }
-                }
-            }
+        active = true;
+        resetObjects();
 
         turnOffTrapObjectsSounds();
 
@@ -289,6 +254,45 @@ public class PlayPanel extends JPanel implements KeyListener {
         repaint();
         if (!takeEnergyTimer.isRunning())
             takeEnergyTimer.start();
+
+        paused = false;
+    }
+
+    public void resetObjects(){
+        for (int i = 0; i < levelMatrix.length; i++) {
+            for (int j = 0; j < levelMatrix[0].length; j++) {
+                if (levelMatrix[i][j].getHarmlessObject() instanceof Diamond) {
+                    ((Diamond) levelMatrix[i][j].getHarmlessObject()).enabled = false;
+                    ((Diamond) levelMatrix[i][j].getHarmlessObject()).reset();
+                }
+                if (levelMatrix[i][j].getTrapObject() instanceof Rock) {
+                    ((Rock) levelMatrix[i][j].getTrapObject()).enabled = false;
+                    ((Rock) levelMatrix[i][j].getTrapObject()).reset();
+                }else if(levelMatrix[i][j].getTrapObject() instanceof Snake){
+                    Snake snake = (Snake)levelMatrix[i][j].getTrapObject();
+                    if(snake.getCheckTimer()!=null){
+                        snake.getCheckTimer().stop();
+                        snake.setCheckTimer(null);
+                    }
+                    if(snake.getRockCheck()!=null){
+                        snake.getRockCheck().stop();
+                        snake.setRockCheck(null);
+                    }
+                } else if(levelMatrix[i][j].getTrapObject() instanceof FireTrap){
+                    FireTrap fireTrap = (FireTrap)levelMatrix[i][j].getTrapObject();
+                    if(fireTrap.getCheckTimer()!=null){
+                        fireTrap.getCheckTimer().stop();
+                        fireTrap.setCheckTimer(null);
+                    }
+                }else if(levelMatrix[i][j].getTrapObject() instanceof Scorpion){
+                    Scorpion scorpion = (Scorpion)levelMatrix[i][j].getTrapObject();
+                    if(scorpion.getCheckTimer()!=null){
+                        scorpion.getCheckTimer().stop();
+                        scorpion.setCheckTimer(null);
+                    }
+                }
+            }
+        }
     }
 
     public void turnOffTrapObjectsSounds(){
@@ -883,16 +887,30 @@ public class PlayPanel extends JPanel implements KeyListener {
                 }
             } else if (code == KeyEvent.VK_2) {
                 applyCheckpoint();
+            } else if(code == KeyEvent.VK_ESCAPE){
+                if(!gameFrame.getPauseMenuDialog().isVisible() && active){
+                    Util.wait(Values.TIME_TO_WAIT/6, new AbstractAction() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            pause();
+                            stopTrapTimer();
+                            gameFrame.getPauseMenuDialog().setSoundOn(gameFrame.soundOn);
+                            gameFrame.getPauseMenuDialog().setMusicOn(gameFrame.musicOn);
+                            gameFrame.getPauseMenuDialog().setLocation(gameFrame.getX()+ Values.PAUSE_MENU_SHIFT_X, gameFrame.getY()+ Values.PAUSE_MENU_SHIFT_Y);
+                            gameFrame.getPauseMenuDialog().setVisible(true);
+                        }
+                    });
+                }
             } else if ((code == KeyEvent.VK_UP) && (boy.isMoving == false) && isAllowedUp()) {
                 Block block = levelMatrix[boy.xInArray][boy.yInArray - 1].getBlock();
                 if (block.pass()) {
                     if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray - 1) && !itIsRock(boy.xInArray, boy.yInArray - 1)) {
-                        levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject().getCheckTimer().start();;
                     } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray, boy.yInArray - 1)) {
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray - 1) &&
                             (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject()))) {
-                        levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        levelMatrix[boy.xInArray][boy.yInArray - 1].getTrapObject().getCheckTimer().start();;
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     }
                     if(itIsFireTrap(boy.xInArray, boy.yInArray - 1)) {
@@ -905,7 +923,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             }
                         } else {
                             if(fireTrap.getCheckTimer()!=null && !fireTrap.getCheckTimer().isRunning()) {
-                                fireTrap.checkTimerStart(this, boy, levelMatrix);
+                                fireTrap.getCheckTimer().start();;
                             }
                         }
                     }
@@ -938,12 +956,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                 Block block = levelMatrix[boy.xInArray][boy.yInArray + 1].getBlock();
                 if (block.pass()) {
                     if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray + 1) && !itIsRock(boy.xInArray, boy.yInArray + 1)) {
-                        levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject().getCheckTimer().start();;
                     } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray, boy.yInArray + 1)) {
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray, boy.yInArray + 1) &&
                             (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject()))) {
-                        levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        levelMatrix[boy.xInArray][boy.yInArray + 1].getTrapObject().getCheckTimer().start();;
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     }
                     if(itIsFireTrap(boy.xInArray, boy.yInArray + 1)) {
@@ -956,7 +974,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             }
                         } else {
                             if(fireTrap.getCheckTimer()!=null && !fireTrap.getCheckTimer().isRunning()) {
-                                fireTrap.checkTimerStart(this, boy, levelMatrix);
+                                fireTrap.getCheckTimer().start();;
                             }
                         }
                     }
@@ -986,12 +1004,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                 Block block = levelMatrix[boy.xInArray - 1][boy.yInArray].getBlock();
                 if (block.pass()) {
                     if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray - 1, boy.yInArray) && !itIsRock(boy.xInArray - 1, boy.yInArray)) {
-                            levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                            levelMatrix[boy.xInArray-1][boy.yInArray].getTrapObject().getCheckTimer().start();;
                     } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray - 1, boy.yInArray)) {
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray - 1, boy.yInArray) &&
                             (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject()))) {
-                        levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        levelMatrix[boy.xInArray - 1][boy.yInArray].getTrapObject().getCheckTimer().start();;
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     }
                     if(itIsFireTrap(boy.xInArray-1, boy.yInArray)) {
@@ -1004,7 +1022,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             }
                         } else {
                             if(fireTrap.getCheckTimer()!=null && !fireTrap.getCheckTimer().isRunning()) {
-                                fireTrap.checkTimerStart(this, boy, levelMatrix);
+                                fireTrap.getCheckTimer().start();;
                             }
                         }
                     }
@@ -1103,12 +1121,12 @@ public class PlayPanel extends JPanel implements KeyListener {
                 Block block = levelMatrix[boy.xInArray + 1][boy.yInArray].getBlock();
                 if (block.pass()) {
                     if (!itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray + 1, boy.yInArray) && !itIsRock(boy.xInArray + 1, boy.yInArray)) {
-                            levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                            levelMatrix[boy.xInArray+1][boy.yInArray].getTrapObject().getCheckTimer().start();;
                     } else if (itIsTrap(boy.xInArray, boy.yInArray) && !itIsTrap(boy.xInArray + 1, boy.yInArray)) {
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     } else if (itIsTrap(boy.xInArray, boy.yInArray) && itIsTrap(boy.xInArray + 1, boy.yInArray) &&
                             (!levelMatrix[boy.xInArray][boy.yInArray].getTrapObject().equals(levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject()))) {
-                        levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject().checkTimerStart(this, boy, levelMatrix);
+                        levelMatrix[boy.xInArray + 1][boy.yInArray].getTrapObject().getCheckTimer().start();;
                         finishTrapCheckTimer(boy.xInArray, boy.yInArray);
                     }
                     if(itIsFireTrap(boy.xInArray+1, boy.yInArray)) {
@@ -1121,7 +1139,7 @@ public class PlayPanel extends JPanel implements KeyListener {
                             }
                         } else {
                             if(fireTrap.getCheckTimer()!=null && !fireTrap.getCheckTimer().isRunning()) {
-                                fireTrap.checkTimerStart(this, boy, levelMatrix);
+                                fireTrap.getCheckTimer().start();;
                             }
                         }
                     }
@@ -1690,6 +1708,21 @@ public class PlayPanel extends JPanel implements KeyListener {
             if (scorpionCounter == 0) {
                 Scorpion.scorpionSound = false;
             }
+        }
+    }
+
+    public void stopTrapTimer(){
+        Trap trap = levelMatrix[boy.xInArray][boy.yInArray].getTrapObject();
+        if(trap!=null && !(trap instanceof Rock)){
+            trap.getCheckTimer().stop();
+            trap.setCheckTimer(null);
+        }
+    }
+
+    public void startTrapTimer(){
+        Trap trap = levelMatrix[boy.xInArray][boy.yInArray].getTrapObject();
+        if(trap!=null && !(trap instanceof Rock)){
+            trap.getCheckTimer().start();
         }
     }
 

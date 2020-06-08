@@ -1,9 +1,13 @@
 package source;
 
+import objects.traps.Rock;
+import objects.traps.Trap;
+
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
@@ -159,6 +163,7 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     PauseMenuDialog.this.setVisible(false);
+                    playPanel.startTrapTimer();
                     playPanel.resume();
                 }
             });
@@ -171,7 +176,6 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     PauseMenuDialog.this.setVisible(false);
-//                    gameFrame.restartLevel();
                     playPanel.restart();
                 }
             });
@@ -183,8 +187,10 @@ public class PauseMenuDialog extends JDialog implements MouseListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     PauseMenuDialog.this.setVisible(false);
+                    playPanel.active = false;
                     revalidate();
                     playPanel.turnOffTrapObjectsSounds();
+                    playPanel.resetObjects();
                     gameFrame.showMap();
                     gameFrame.startBgMenuClip();
                 }

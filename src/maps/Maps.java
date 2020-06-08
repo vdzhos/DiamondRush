@@ -109,11 +109,11 @@ public class Maps {
         Snake snake4 = new Snake(70, 350, 210, false, playPanel);
         Snake snake5 = new Snake(70, 140, 10, false, playPanel);
 
-        Scorpion scorpion = new Scorpion(210, 210, false, null, null);
+        Scorpion scorpion = new Scorpion(210, 210, false, null, null, playPanel);
 
-        FireTrap fireTrap1 = new FireTrap(0, false);
-        FireTrap fireTrap2 = new FireTrap(3, false);
-        FireTrap fireTrap3 = new FireTrap(2, false);
+        FireTrap fireTrap1 = new FireTrap(0, false, playPanel);
+        FireTrap fireTrap2 = new FireTrap(3, false, playPanel);
+        FireTrap fireTrap3 = new FireTrap(2, false, playPanel);
 
         Snake[] snakes = {snake3, snake4};
         DoubleDoor doubleDoor = new DoubleDoor(snakes, true, 20, 13);
@@ -441,10 +441,10 @@ public class Maps {
                 new AdditionalImage("additionalImages/wall2.png", 17*70+17,17*70+17,210-34,5*70)};
 
 
-        FireTrap fireTrap1 = new FireTrap(0,false);
-        FireTrap fireTrap2 = new FireTrap(3,true);
-        FireTrap fireTrap3 = new FireTrap(2,true);
-        FireTrap fireTrap4 = new FireTrap(2,true);
+        FireTrap fireTrap1 = new FireTrap(0,false, playPanel);
+        FireTrap fireTrap2 = new FireTrap(3,true, playPanel);
+        FireTrap fireTrap3 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap4 = new FireTrap(2,true, playPanel);
 
         Snake snake1 = new Snake(70,490,490,false,playPanel);
         Snake snake2 = new Snake(70,490,170,false,playPanel);
@@ -457,8 +457,8 @@ public class Maps {
         Snake snake9 = new Snake(490,70,490,true,playPanel);
         Snake snake10 = new Snake(70,140,0,false,playPanel);
 
-        Scorpion scorpion1 = new Scorpion(210,280,false,null,null);
-        Scorpion scorpion2 = new Scorpion(210,280,true,null,null);
+        Scorpion scorpion1 = new Scorpion(210,280,false,null,null, playPanel);
+        Scorpion scorpion2 = new Scorpion(210,280,true,null,null, playPanel);
 
         Snake[] snakes = {snake8,snake9};
 
@@ -960,16 +960,16 @@ public class Maps {
         Snake snake4 = new Snake(350,70,70,true, playPanel);
         Snake snake5 = new Snake(70,910,10,false, playPanel);//840
 
-        Scorpion scorpion1 = new Scorpion(350,490,false,null,null);
-        Scorpion scorpion2 = new Scorpion(140,140,true,null,null);
+        Scorpion scorpion1 = new Scorpion(350,490,false,null,null, playPanel);
+        Scorpion scorpion2 = new Scorpion(140,140,true,null,null, playPanel);
 
-        FireTrap fireTrap1 = new FireTrap(0,false);
-        FireTrap fireTrap2 = new FireTrap(2,false);
-        FireTrap fireTrap3 = new FireTrap(2,true);
-        FireTrap fireTrap4 = new FireTrap(1,false);
-        FireTrap fireTrap5 = new FireTrap(3,true);
-        FireTrap fireTrap6 = new FireTrap(3,true);
-        FireTrap fireTrap7 = new FireTrap(3,true);
+        FireTrap fireTrap1 = new FireTrap(0,false, playPanel);
+        FireTrap fireTrap2 = new FireTrap(2,false, playPanel);
+        FireTrap fireTrap3 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap4 = new FireTrap(1,false, playPanel);
+        FireTrap fireTrap5 = new FireTrap(3,true, playPanel);
+        FireTrap fireTrap6 = new FireTrap(3,true, playPanel);
+        FireTrap fireTrap7 = new FireTrap(3,true, playPanel);
 
         Snake[] snakes = {snake2};
         DoubleDoor doubleDoor = new DoubleDoor(snakes,false,6,7);
@@ -1504,19 +1504,19 @@ public class Maps {
         Snake snake20 = new Snake(70,280,75,false, playPanel);
 
 
-        Scorpion scorpion1 = new Scorpion(280,280,true,null,null);
-        Scorpion scorpion2 = new Scorpion(210,280,true,null,null);
-        Scorpion scorpion3 = new Scorpion(210,280,false,null,null);
-        Scorpion scorpion4 = new Scorpion(560,210,true,null,null);
+        Scorpion scorpion1 = new Scorpion(280,280,true,null,null, playPanel);
+        Scorpion scorpion2 = new Scorpion(210,280,true,null,null, playPanel);
+        Scorpion scorpion3 = new Scorpion(210,280,false,null,null, playPanel);
+        Scorpion scorpion4 = new Scorpion(560,210,true,null,null, playPanel);
 
-        FireTrap fireTrap1 = new FireTrap(0,true);
-        FireTrap fireTrap2 = new FireTrap(1,false);
-        FireTrap fireTrap3 = new FireTrap(2,true);
-        FireTrap fireTrap4 = new FireTrap(1,true);
-        FireTrap fireTrap5 = new FireTrap(1,false);
-        FireTrap fireTrap6 = new FireTrap(2,true);
-        FireTrap fireTrap7 = new FireTrap(0,false);
-        FireTrap fireTrap8 = new FireTrap(2,true);
+        FireTrap fireTrap1 = new FireTrap(0,true, playPanel);
+        FireTrap fireTrap2 = new FireTrap(1,false, playPanel);
+        FireTrap fireTrap3 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap4 = new FireTrap(1,true, playPanel);
+        FireTrap fireTrap5 = new FireTrap(1,false, playPanel);
+        FireTrap fireTrap6 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap7 = new FireTrap(0,false, playPanel);
+        FireTrap fireTrap8 = new FireTrap(2,true, playPanel);
 
         PressMechanism pressMechanism1 = new PressMechanism(10,11);
         PressMechanism pressMechanism2 = new PressMechanism(25,26);
@@ -2104,25 +2104,25 @@ public class Maps {
                 new AdditionalImage("additionalImages/column1.png", 31*70,21*70+17,1*70-17,3*70-17*2)};
 
 
-        Scorpion scorpion1 = new Scorpion(700,560,true,null,null);
-        Scorpion scorpion2 = new Scorpion(700,420,false,null,null);
+        Scorpion scorpion1 = new Scorpion(700,560,true,null,null, playPanel);
+        Scorpion scorpion2 = new Scorpion(700,420,false,null,null, playPanel);
 
         PressMechanism pressMechanism1 = new PressMechanism(7,10);
         PressMechanism pressMechanism2 = new PressMechanism(8,38);
         PressMechanism pressMechanism3 = new PressMechanism(33,10);
 
-        FireTrap fireTrap1 = new FireTrap(0,false);
-        FireTrap fireTrap2 = new FireTrap(2,true);
-        FireTrap fireTrap3 = new FireTrap(2,true);
-        FireTrap fireTrap4 = new FireTrap(2,true);
-        FireTrap fireTrap5 = new FireTrap(2,false);
-        FireTrap fireTrap6 = new FireTrap(2,false);
-        FireTrap fireTrap7 = new FireTrap(2,false);
-        FireTrap fireTrap8 = new FireTrap(2,false);
-        FireTrap fireTrap9 = new FireTrap(2,true);
-        FireTrap fireTrap10 = new FireTrap(2,true);
-        FireTrap fireTrap11 = new FireTrap(2,true);
-        FireTrap fireTrap12 = new FireTrap(2,true);
+        FireTrap fireTrap1 = new FireTrap(0,false, playPanel);
+        FireTrap fireTrap2 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap3 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap4 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap5 = new FireTrap(2,false, playPanel);
+        FireTrap fireTrap6 = new FireTrap(2,false, playPanel);
+        FireTrap fireTrap7 = new FireTrap(2,false, playPanel);
+        FireTrap fireTrap8 = new FireTrap(2,false, playPanel);
+        FireTrap fireTrap9 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap10 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap11 = new FireTrap(2,true, playPanel);
+        FireTrap fireTrap12 = new FireTrap(2,true, playPanel);
 
         Snake snake1 = new Snake(210,70,0,true,playPanel);
         Snake snake2 = new Snake(210,70,140,true,playPanel);
